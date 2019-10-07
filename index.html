@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tree</title>
+  <!-- lib -->
+  <script src="lib/vue.js"></script>
+  <script src="lib/d3.v5.min.js"></script>
+  <!-- 组件 -->
+  <script src="components/tree/index.js"></script>
+  <script src="components/node/index.js"></script>
+  <script src="components/treemap/index.js"></script>
+  <script src="components/nodeDetail/index.js"></script>
+  <!-- js -->
+  <script src="js/tree.js"></script>
+  <script src="js/node.js"></script>
+  <script src="js/id.js"></script>
+  <!-- css -->
+  <link rel="stylesheet" href="components/tree/index.css" type="text/css">
+  <link rel="stylesheet" href="components/node/index.css" type="text/css">
+  <link rel="stylesheet" href="components/treemap/index.css" type="text/css">
+  <link rel="stylesheet" href="components/nodeDetail/index.css" type="text/css">
+</head>
+
+<body>
+  <div id="app">
+    <div id="header"></div>
+    <div id="content" style="display: flex;">
+      <div id="left" style="width: 400px">
+        <tree :nodes="nodes" @update="update" >
+        </tree>
+      </div>
+      <div id="main" style="width: 1000px">
+        <treemap :root="root" width="800" height="400" @emitSelect="select">
+        </treemap>
+      </div>
+      <div id="right">
+        <node-detail :node="selectedNode">
+        </node-detail>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+// 读取数据
+d3.json('../data/tree.json')
+  .then((data) => {
+    const nodeSize = 50;
+    const tree = new Tree(data, nodeSize);
+    const nodes = tree.nodes();
+    const root = tree.root;
+    root.selected = true;
+
+    // 绑定数据
+    const app = new Vue({
+      el: '#app',
+      data: {
+        nodes: nodes,
+        root: root,
+        selectedNode: root
+      },
+      methods: {
+        update: function() {
+          this.nodes = tree.nodes();
+          this.root = tree.root;
+          for (let n of this.nodes) {
+            if (n.selected === true) {
+              this.selectedNode = n;
+            }
+          }
+        },
+        select: function(id){
+          const nodes = tree.nodes();
+          for(let n of nodes){
+            if(n.id === id){
+              n.selected = !n.selected;
+            }else{
+              n.selected = false;
+            }
+          }
+          this.update();
+        }
+      }
+    })
+  })
+</script>
+
+</html>

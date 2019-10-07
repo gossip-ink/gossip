@@ -1,0 +1,40 @@
+{
+  "name": "A",
+  "data":
+  {
+    "layout": "row"
+  },
+  "children": [
+  {
+    "name": "B",
+    "data":
+    {
+      "layout": "col"
+    },
+    "children": [
+    {
+      "name": "C",
+      "data":
+      {
+        "layout": "row"
+      },
+      "children": []
+    },
+    {
+      "name": "D",
+      "data":
+      {
+        "layout": "row"
+      },
+      "children": []
+    }]
+  },
+  {
+    "name": "E",
+    "data":
+    {
+      "layout": "row"
+    },
+    "children": []
+  }]
+}

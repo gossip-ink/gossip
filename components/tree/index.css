@@ -1,0 +1,24 @@
+.circle {
+  border-radius: 50%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.rect {
+  border-radius: 5px;
+  margin: 0px;
+  padding: 0px;
+}
+
+
+.selected {
+  background: blue;
+}
+
+.draged {
+  background: grey;
+}
+
+.normal {
+  background: dodgerblue;
+}
