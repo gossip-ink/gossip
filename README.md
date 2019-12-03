@@ -1,4 +1,4 @@
-# uPoint
+# uIdea
 
 ## 概述
 
