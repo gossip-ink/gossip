@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "umi-plugin-react": "^1.14.8"
+  }
+}
