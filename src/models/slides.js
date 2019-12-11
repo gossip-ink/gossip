@@ -109,7 +109,7 @@ export default {
       return state;
     },
     appendNode(state, action) {
-      const { id, father, head } = action.payload;
+      const { id, father } = action.payload;
 
       // 从旧的 father 删除
       let dragNode = null;
@@ -128,11 +128,7 @@ export default {
         dfs(state.structure, node => {
           if (node.id === father) {
             node.children = node.children || [];
-           console.log(head)
-
-            head
-              ? node.children.splice(0, 0, dragNode)
-              : node.children.push(dragNode);
+            node.children.push(dragNode);
           }
         });
 
@@ -140,7 +136,7 @@ export default {
       return state;
     },
     insertNode(state, action) {
-      const { id, brother } = action.payload;
+      const { id, brother, before } = action.payload;
 
       // 从旧的 father 删除
       let dragNode = null;
@@ -160,7 +156,8 @@ export default {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === brother) {
-                node.children.splice(index + 1, 0, dragNode);
+                const idx = before ? index : index + 1;
+                node.children.splice(idx, 0, dragNode);
               }
             });
         });

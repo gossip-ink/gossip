@@ -8,13 +8,13 @@ export default connect(null, {
     payload: { id, value }
   }),
   deleteNode: id => ({ type: "slides/deleteNode", payload: { id } }),
-  insertNode: (id, brother) => ({
+  insertNode: (id, brother, before = false) => ({
     type: "slides/insertNode",
-    payload: { id, brother }
+    payload: { id, brother, before }
   }),
-  appendNode: (id, father, head = false) => ({
+  appendNode: (id, father) => ({
     type: "slides/appendNode",
-    payload: { id, father, head}
+    payload: { id, father }
   }),
   setSelected: id => ({ type: "slides/setSelected", payload: { id } })
 })(function({
@@ -29,8 +29,9 @@ export default connect(null, {
   insertNode,
   appendNode
 }) {
-  const [overed, setOverd] = useState(false);
-  const [inserted, setInserted] = useState(false);
+  const [middle, setMiddle] = useState(false);
+  const [bottom, setBottom] = useState(false);
+  const [top, setTop] = useState(false);
   const [dragged, setDragged] = useState(false);
 
   function handleChange(e) {
@@ -58,15 +59,26 @@ export default connect(null, {
     }
   }
 
-  function handleDrop(e) {
-    setOverd(false);
+  function handleDrop(e, type) {
+    // 清除状态
     setDragged(false);
-    const dragNode = e.dataTransfer.getData("dragNode");
-    parseInt(dragNode) !== node.id && appendNode(parseInt(dragNode), node.id);
-  }
+    setMiddle(false);
+    setTop(false);
+    setBottom(false);
 
-  function handleDragOver(e) {
-    e.preventDefault();
+    // 获得拖拽的节点
+    const dragNode = parseInt(e.dataTransfer.getData("dragNode"));
+    if (dragNode === node.id) {
+      return;
+    }
+
+    if (type === "top") {
+      insertNode(dragNode, node.id, true);
+    } else if (type === "middle") {
+      appendNode(dragNode, node.id);
+    } else if (type === "bottom") {
+      insertNode(dragNode, node.id);
+    }
   }
 
   function handleDragStart(e) {
@@ -74,88 +86,61 @@ export default connect(null, {
     e.dataTransfer.setData("dragNode", node.id);
   }
 
-  function handleDragEnter(e) {
-    !dragged && setOverd(true);
-  }
-
-  function handleDragLeave(e) {
-    setOverd(false);
-  }
-
-  function handleLineDragEnter(e) {
-    setInserted(true);
-  }
-
-  function handleLineDragLeave(e) {
-    setInserted(false);
-  }
-
-  function handleLineDragOver(e) {
-    e.preventDefault();
-  }
-
-  function handleLineDrop(e) {
-    setDragged(false);
-    setInserted(false);
-    const dragNode = e.dataTransfer.getData("dragNode");
-
-    if (parseInt(dragNode) === node.id) {
-      return;
-    }
-    if (node.children && node.children.length > 0) {
-      // 如果有孩子，就插入孩子的第一个
-      appendNode(parseInt(dragNode), node.id, true);
-    } else {
-
-      // 如果没有孩子，就作为下一个兄弟节点
-      insertNode(parseInt(dragNode), node.id);
-    }
-  }
-
   return (
-    <div>
+    <div style={{ marginLeft }}>
       <div
-        style={{ display: "flex", marginLeft }}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
+        style={{ background: top && "red", height: 10 }}
+        onDragEnter={() => !dragged && setTop(true)}
+        onDragLeave={() => setTop(false)}
+        onDragOver={e => e.preventDefault()}
+        onDrop={e => handleDrop(e, "top")}
+      ></div>
+      <div
+        onDrop={e => handleDrop(e, "middle")}
+        onDragOver={e => e.preventDefault()}
+        onDragEnter={() => !dragged && setMiddle(true)}
+        onDragLeave={() => setMiddle(false)}
         onDragStart={handleDragStart}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
         draggable
       >
         <div
           style={{
-            border: selected && !edited ? "1px solid black" : "",
-            background: overed && "red"
+            background: middle && "red"
           }}
         >
-          {!edited ? (
-            <p style={{ width: 100 }} onClick={handleSelect}>
-              {node.name}
-            </p>
-          ) : (
-            <input
-              style={{ width: 100 }}
-              value={node.name}
-              onChange={handleChange}
+          <div
+            style={{display: "flex"}}
+          >
+            <div
+              style={{ border: selected && !edited ? "1px solid black" : "" }}
+            >
+              {!edited ? (
+                <p style={{ width: 100 }} onClick={handleSelect}>
+                  {node.name}
+                </p>
+              ) : (
+                <input
+                  style={{ width: 100 }}
+                  value={node.name}
+                  onChange={handleChange}
+                />
+              )}
+            </div>
+            <Button
+              icon={edited ? "save" : "edit"}
+              type="primary"
+              onClick={handleClick}
             />
-          )}
-        </div>
-        <div>
-          <Button
-            icon={edited ? "save" : "edit"}
-            type="primary"
-            onClick={handleClick}
-          />
-          <Button icon="delete" type="danger" onClick={handleDelete} />
+            <Button icon="delete" type="danger" onClick={handleDelete} />
+          </div>
         </div>
       </div>
       <div
-        style={{ background: inserted && "red", height: 10 }}
-        onDragEnter={handleLineDragEnter}
-        onDragLeave={handleLineDragLeave}
-        onDragOver={handleLineDragOver}
-        onDrop={handleLineDrop}
+        style={{ background: bottom && "red", height: 10 }}
+        onDragEnter={() => !dragged && setBottom(true)}
+        onDragLeave={() => setBottom(false)}
+        onDragOver={e => e.preventDefault()}
+        onDrop={e => handleDrop(e, "bottom")}
       ></div>
     </div>
   );
