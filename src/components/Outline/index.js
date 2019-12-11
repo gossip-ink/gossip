@@ -7,14 +7,17 @@ import { useState } from "react";
 export default connect(
   state => ({
     structure: state.slides.structure,
-    components: state.slides.components
+    components: state.slides.components,
+    selectedId: state.slides.selectedId
   }),
   {
-    addNode: (father, value) => ({ type: "slides/addNode", payload: { father, value } })
+    addNode: (father, value) => ({
+      type: "slides/addNode",
+      payload: { father, value }
+    })
   }
-)(function({ height, structure, components, addNode }) {
+)(function({ height, structure, components, addNode, selectedId }) {
   const [edited, setEdited] = useState(null);
-  const [selected, setSelected] = useState(1);
 
   function getNameById(id) {
     let name = null;
@@ -38,11 +41,12 @@ export default connect(
         name: getNameById(node.id)
       };
       nodes.push(treeNode);
-      if (node.children) {
+
+      node.children &&
         node.children.forEach(element => {
           dfs(element);
         });
-      }
+
       index--;
     }
     dfs(structure);
@@ -56,7 +60,7 @@ export default connect(
       alert("不能为空");
       return;
     }
-    addNode(selected, name);
+    addNode(selectedId, value);
   }
 
   const nodes = getNodes();
@@ -80,8 +84,7 @@ export default connect(
             node={item}
             key={index}
             marginLeft={item.marginLeft}
-            selected={selected === item.id}
-            setSelected={setSelected}
+            selected={selectedId === item.id}
             edited={edited === item.id}
             setEdited={setEdited}
           />
