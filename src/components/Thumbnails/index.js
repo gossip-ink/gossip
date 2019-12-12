@@ -30,8 +30,10 @@ export default connect(
 
   // 布局
   const windowSize = useWindowSize();
-  const width = windowSize.width / 12;
-  const translateX = (windowSize.width - width) / 2;
+  const boxWidth = windowSize.width / 12,
+    boxHeight = 80;
+  const translateX = (windowSize.width - boxWidth) / 2,
+    translateY = (windowSize.height - boxHeight) / 2;
 
   // 按照顺序获得 slides
   const idList = [];
@@ -42,28 +44,35 @@ export default connect(
     <div style={{ height }} className={styles.container}>
       <h1>Thumbnails</h1>
       <div>
-        {slideList.map((item, index) => {
-          const translateY =
-            (windowSize.height - 160 * index) / 2 +
-            index * windowSize.height -
-            50;
-          return (
+        {slideList.map(item => (
+          <div
+            key={item.id}
+            style={{
+              height: boxHeight,
+              width: boxWidth
+            }}
+          >
             <div
-              key={item.id}
+              style={{
+                position: "absolute",
+                zIndex: 2,
+                opacity: 0,
+                height: boxHeight,
+                width: boxWidth
+              }}
               onClick={() => handleSelect(item.id)}
-            >
-              <Slide
-                height={windowSize.height}
-                width={windowSize.width}
-                translateX={translateX}
-                translateY={translateY}
-                scale={0.07}
-                content={item}
-                selected={selectedId === item.id}
-              />
-            </div>
-          );
-        })}
+            ></div>
+            <Slide
+              height={windowSize.height}
+              width={windowSize.width}
+              translateX={translateX}
+              translateY={translateY}
+              scale={0.07}
+              content={item}
+              selected={selectedId === item.id}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );

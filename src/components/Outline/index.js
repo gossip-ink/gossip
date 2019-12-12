@@ -1,8 +1,8 @@
 import styles from "./index.css";
 import { connect } from "dva";
 import { Button } from "antd";
-import TreeNode from "../../components/Tree/index";
 import { useState } from "react";
+import TreeNode from "../../components/TreeNode/index";
 
 export default connect(
   state => ({
@@ -11,12 +11,37 @@ export default connect(
     selectedId: state.slides.selectedId
   }),
   {
-    addNode: (father, value) => ({
-      type: "slides/addNode",
-      payload: { father, value }
-    })
+    createNode: (nodeId, value, type) => ({
+      type: "slides/createNode",
+      payload: { nodeId, value, type}
+    }),
+    updateNodeValue: (id, value) => ({
+      type: "slides/updateNodeValue",
+      payload: { id, value }
+    }),
+    deleteNode: id => ({ type: "slides/deleteNode", payload: { id } }),
+    insertNode: (id, brother, before = false) => ({
+      type: "slides/insertNode",
+      payload: { id, brother, before }
+    }),
+    appendNode: (id, father) => ({
+      type: "slides/appendNode",
+      payload: { id, father }
+    }),
+    setSelected: id => ({ type: "slides/setSelected", payload: { id } })
   }
-)(function({ height, structure, components, addNode, selectedId }) {
+)(function({
+  height,
+  structure,
+  components,
+  selectedId,
+  setSelected,
+  createNode,
+  updateNodeValue,
+  deleteNode,
+  appendNode,
+  insertNode
+}) {
   const [edited, setEdited] = useState(null);
 
   function getNameById(id) {
@@ -53,14 +78,51 @@ export default connect(
     return nodes;
   }
 
-  function handleAdd(e) {
+  function handleCreateNode(type) {
     const input = document.getElementById("node-input");
     const value = input.value;
     if (value === "") {
       alert("不能为空");
       return;
     }
-    addNode(selectedId, value);
+    if (type === "brother") {
+      createNode(selectedId, value, type);
+    } else {
+      createNode(selectedId, value, type);
+    }
+  }
+
+  function handleTitleChange(e, id) {
+    const value = e.target.value;
+    updateNodeValue(id, value);
+  }
+
+  function handleDeleteNode(id) {
+    deleteNode(id);
+  }
+
+  function handleSelectNode(id) {
+    setSelected(id);
+    setEdited(null);
+  }
+
+  function handleClickEdit(id) {
+    if (edited === id) {
+      setEdited(null);
+    } else {
+      setEdited(id);
+      setSelected(id);
+    }
+  }
+
+  function handleNodeDrop(sourceNodeId, targetNodeId, type) {
+    if (type === "top") {
+      insertNode(sourceNodeId, targetNodeId, true);
+    } else if (type === "middle") {
+      appendNode(sourceNodeId, targetNodeId);
+    } else if (type === "bottom") {
+      insertNode(sourceNodeId, targetNodeId);
+    }
   }
 
   const nodes = getNodes();
@@ -73,21 +135,63 @@ export default connect(
         <input id="node-input"></input>
         <Button
           type="primary"
-          icon="plus-circle"
+          icon="down"
           shape="circle"
-          onClick={handleAdd}
+          onClick={() => handleCreateNode("brother")}
+        />
+        <Button
+          type="primary"
+          icon="right"
+          shape="circle"
+          onClick={() => handleCreateNode("children")}
         />
       </div>
       <div>
         {nodes.map((item, index) => (
           <TreeNode
-            node={item}
             key={index}
             marginLeft={item.marginLeft}
-            selected={selectedId === item.id}
-            edited={edited === item.id}
-            setEdited={setEdited}
-          />
+            node={item}
+            onNodeDrop={handleNodeDrop}
+            highlightColor="red"
+            lineHeight={7}
+          >
+            <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  border:
+                    selectedId === item.id && edited !== item.id
+                      ? "1px solid black"
+                      : ""
+                }}
+              >
+                {edited !== item.id ? (
+                  <p
+                    style={{ width: 100 }}
+                    onClick={() => handleSelectNode(item.id)}
+                  >
+                    {item.name}
+                  </p>
+                ) : (
+                  <input
+                    style={{ width: 100 }}
+                    value={item.name}
+                    onChange={e => handleTitleChange(e, item.id)}
+                  />
+                )}
+              </div>
+              <Button
+                icon={edited === item.id ? "save" : "edit"}
+                type="primary"
+                onClick={() => handleClickEdit(item.id)}
+              />
+              <Button
+                icon="delete"
+                type="danger"
+                onClick={() => handleDeleteNode(item.id)}
+              />
+            </div>
+          </TreeNode>
         ))}
       </div>
     </div>

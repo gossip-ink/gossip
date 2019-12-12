@@ -5,7 +5,8 @@ export default function({ height }) {
     <div style={{ height }} className={styles.container}>
       <Button icon="font-size" type="primary" />
       <Button type="primary" icon="picture" />
-      <Button type="primary" icon="code"/>
+      <Button type="primary" icon="codepen" />
+      <Button type="primary" icon="container" />
     </div>
   );
 }

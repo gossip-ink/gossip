@@ -1,4 +1,5 @@
 import styles from "./index.css";
+import Panel from "../Panel/index";
 export default function({
   height,
   width,
@@ -15,9 +16,10 @@ export default function({
     transform: `translate(${-translateX}px,${-translateY}px)scale(${scale})`,
     border: selected && "10px solid black"
   };
+  const { id } = content;
   return (
     <div className={`${styles.container} step`} style={style} {...params}>
-      <p className={styles.big}>{content.name}</p>
+      <Panel {...content} height={height} width={width} rootId={id} />
     </div>
   );
 }

@@ -6,10 +6,15 @@ import { useEffect } from "react";
 import router from "umi/router";
 import impress from "../../lib/impress";
 
-export default connect(state => ({
-  structure: state.slides.structure,
-  components: state.slides.components
-}))(function({ structure, components }) {
+export default connect(
+  state => ({
+    structure: state.slides.structure,
+    components: state.slides.components
+  }),
+  {
+    setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
+  }
+)(function({ structure, components, setSelectedComp }) {
   function dfs(node, callback) {
     callback(node);
     node.children &&
@@ -112,6 +117,8 @@ export default connect(state => ({
       document.removeEventListener("click", clickSlideEvent);
     };
   });
+
+  setSelectedComp(-1);
 
   return (
     <div id="impress">

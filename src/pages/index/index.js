@@ -10,19 +10,21 @@ import ToolBar from "../../components/ToolBar/index";
 import MainContent from "../../components/MainContent/index";
 import Structure from "../../components/Structure/index";
 import AttrPanel from "../../components/AttrPanel/index";
+import Variables from "../../components/Variables/index";
+// import
 
 export default function() {
   const windowSize = useWindowSize();
   const headerHeight = 64,
     contentHeight = windowSize.height - headerHeight,
     toolBarHeight = 48,
-    ratio = 0.6,
+    ratio = 0.5,
     slideHeight = windowSize.height - toolBarHeight,
     structureHeight = contentHeight * ratio,
     attrPanelHeight = contentHeight - structureHeight;
 
-  function handleClickPlay(e){
-    router.push('/present');
+  function handleClickPlay(e) {
+    router.push("/present");
   }
 
   return (
@@ -32,7 +34,12 @@ export default function() {
           <Col span={6}>uIdea</Col>
           <Col span={12}>title</Col>
           <Col span={6}>
-            <Button type="primary" shape="circle" icon="play-circle" onClick={handleClickPlay}/>
+            <Button
+              type="primary"
+              shape="circle"
+              icon="play-circle"
+              onClick={handleClickPlay}
+            />
             <Button type="primary" shape="circle" icon="file-add" />
             <Button type="primary" shape="circle" icon="upload" />
             <Button type="primary" shape="circle" icon="download" />
@@ -49,11 +56,18 @@ export default function() {
           </Col>
           <Col span={12}>
             <ToolBar height={toolBarHeight} />
-            <MainContent height={slideHeight}/>
+            <MainContent height={slideHeight} />
           </Col>
           <Col span={6}>
-            <Structure height={structureHeight}/>
-            <AttrPanel height={attrPanelHeight}/>
+            <Structure height={structureHeight} />
+            <Row>
+              <Col span={12}>
+                <AttrPanel height={attrPanelHeight} />
+              </Col>
+              <Col span={12}>
+                <Variables height={attrPanelHeight} />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Content>
