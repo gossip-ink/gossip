@@ -1,7 +1,6 @@
 import styles from "./index.css";
 import { connect } from "dva";
 import { Button } from "antd";
-import { useState } from "react";
 import TreeNode from "../../components/TreeNode/index";
 
 export default connect(
@@ -42,18 +41,6 @@ export default connect(
   appendNode,
   insertNode
 }) {
-  const [edited, setEdited] = useState(null);
-
-  function getNameById(id) {
-    let name = null;
-    components.forEach(item => {
-      if (item.id === id) {
-        name = item.name;
-      }
-    });
-    return name;
-  }
-
   function getNodes() {
     // 布局，并且获得 name
     const nodes = [];
@@ -63,7 +50,6 @@ export default connect(
       const treeNode = {
         ...node,
         marginLeft: ++index * indent,
-        name: getNameById(node.id)
       };
       nodes.push(treeNode);
 
@@ -103,16 +89,6 @@ export default connect(
 
   function handleSelectNode(id) {
     setSelected(id);
-    setEdited(null);
-  }
-
-  function handleClickEdit(id) {
-    if (edited === id) {
-      setEdited(null);
-    } else {
-      setEdited(id);
-      setSelected(id);
-    }
   }
 
   function handleNodeDrop(sourceNodeId, targetNodeId, type) {
@@ -138,6 +114,7 @@ export default connect(
           icon="down"
           shape="circle"
           onClick={() => handleCreateNode("brother")}
+          disabled={selectedId === 1}
         />
         <Button
           type="primary"
@@ -158,14 +135,8 @@ export default connect(
           >
             <div style={{ display: "flex" }}>
               <div
-                style={{
-                  border:
-                    selectedId === item.id && edited !== item.id
-                      ? "1px solid black"
-                      : ""
-                }}
               >
-                {edited !== item.id ? (
+                {selectedId !== item.id  ? (
                   <p
                     style={{ width: 100 }}
                     onClick={() => handleSelectNode(item.id)}
@@ -180,11 +151,6 @@ export default connect(
                   />
                 )}
               </div>
-              <Button
-                icon={edited === item.id ? "save" : "edit"}
-                type="primary"
-                onClick={() => handleClickEdit(item.id)}
-              />
               <Button
                 icon="delete"
                 type="danger"

@@ -1,4 +1,5 @@
 import slide from "../data/slide";
+import imageURL from "../static/example.jpg";
 function getIndexById(id, state) {
   // 找到 index
   let index;
@@ -22,8 +23,11 @@ export default {
   reducers: {
     updateNodeValue(state, action) {
       const { id, value } = action.payload;
-      const index = getIndexById(id, state);
-      state.components[index].name = value;
+      dfs(state.structure, node => {
+        if (node.id === id) {
+          node.name = value;
+        }
+      });
       return state;
     },
     deleteNode(state, action) {
@@ -46,17 +50,52 @@ export default {
     },
     createNode(state, action) {
       const { nodeId, value, type } = action.payload;
+      if (type !== "children" && nodeId === 1) {
+        alert("不能给根结点插入兄弟");
+        return;
+      }
 
-      // 添加到数组中
+      // 添加到组件
       const id = new Date().getTime();
-      state.components.push({ id, name: value });
+      const cmp = {
+        id,
+        type: "panel",
+        value: "colum",
+        attrs: {
+          span: [1, 2],
+          flex: "column"
+        },
+        children: [
+          {
+            type: "text",
+            value: value,
+            id: "text" + id,
+            attrs: {
+              color: "#161DC6",
+              fontSize: 50
+            }
+          },
+          {
+            type: "panel",
+            value: "row",
+            id: "panel" + id,
+            attrs: {
+              span: []
+            },
+            children: []
+          }
+        ]
+      };
+
+      state.components.push(cmp);
 
       // 添加到树中
+      const slide = { id, name: value };
       if (type === "children") {
         dfs(state.structure, node => {
           if (node.id === nodeId) {
             node.children = node.children || [];
-            node.children.push({ id });
+            node.children.push(slide);
           }
         });
       } else {
@@ -64,7 +103,7 @@ export default {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === nodeId) {
-                node.children.splice(index + 1, 0, { id });
+                node.children.splice(index + 1, 0, slide);
               }
             });
         });
@@ -149,7 +188,11 @@ export default {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
+              // 删除节点
               node.children.splice(index, 1);
+
+              // 修改 span
+              node.attrs.span.splice(index, 1);
             }
           });
       });
@@ -167,6 +210,9 @@ export default {
             if (item.id === id) {
               dragNode = item;
               node.children.splice(index, 1);
+
+              // 修改 span
+              node.attrs.span.splice(index, 1);
             }
           });
       });
@@ -177,10 +223,73 @@ export default {
           if (node.id === father) {
             node.children = node.children || [];
             node.children.push(dragNode);
+
+            // 修改 span
+            node.attrs.span.push(1);
           }
         });
 
       dragNode && (state.selectedComponentId = dragNode.id);
+      return state;
+    },
+    createCmp(state, action) {
+      const { type, method } = action.payload;
+      const slide = state.components.find(item => item.id === state.selectedId);
+
+      // 确定插入的类型
+      const id = new Date().getTime();
+      const mp = {
+        text: {
+          type: "text",
+          id,
+          value: "hello world",
+          attrs: {}
+        },
+        image: {
+          type: "image",
+          id,
+          value: imageURL,
+          attrs: {}
+        },
+        canvas: {
+          type: "canvas",
+          id,
+          value:
+            'function(ctx, width, height){ctx.fillStyle = "black"; ctx.fillRect(0, 0, 100, 100)}',
+          attrs: {}
+        },
+        panel: {
+          type: "panel",
+          id,
+          value: "row",
+          attrs: { span: [], flex: "row" },
+          children: []
+        }
+      };
+      const cmp = mp[type];
+
+      // 确定插入的位置
+      if (method === "children") {
+        dfs(slide, node => {
+          if (node.id !== state.selectedComponentId) return;
+          if (node.type !== "panel") {
+            alert("只能插入布局节点");
+            return;
+          }
+          node.children.push(cmp);
+          node.attrs.span.push(1);
+        });
+      } else {
+        dfs(slide, node => {
+          node.children &&
+            node.children.forEach((item, index) => {
+              if (item.id === state.selectedComponentId) {
+                node.children.splice(index + 1, 0, cmp);
+                node.attrs.span.splice(index + 1, 0, 1);
+              }
+            });
+        });
+      }
       return state;
     },
     insertCmp(state, action) {
@@ -195,6 +304,9 @@ export default {
             if (item.id === id) {
               dragNode = item;
               node.children.splice(index, 1);
+
+              // 修改 span
+              node.attrs.span.splice(index, 1);
             }
           });
       });
@@ -208,6 +320,9 @@ export default {
               if (item.id === brother && !isAdd) {
                 const idx = before ? index : index + 1;
                 node.children.splice(idx, 0, dragNode);
+
+                // 修改 span
+                node.attrs.span.splice(idx, 0, 1);
                 isAdd = true;
               }
             });
@@ -256,13 +371,26 @@ export default {
       return state;
     },
     addVar(state, action) {
+      const { type } = action.payload;
       const id = new Date().getTime();
-      state.attributeVars.unshift({
-        id,
-        type: "number",
-        name: "未命名",
-        value: 0
-      });
+
+      let newAttr;
+      if (type === "number") {
+        newAttr = {
+          id,
+          type: "number",
+          name: "未命名",
+          value: 0
+        };
+      } else if (type === "color") {
+        newAttr = {
+          id,
+          type: "color",
+          name: "未命名",
+          value: "#ffffff"
+        };
+      }
+      state.attributeVars.unshift(newAttr);
       state.selectedArributeId = id;
       return state;
     },
@@ -296,6 +424,16 @@ export default {
         const v = state.attributeVars.find(item => item.id === vid);
         attrs[key] = v.value;
       });
+    },
+    setValueOfCmp(state, action) {
+      const { value, cmpId, rootId } = action.payload;
+      const slide = state.components.find(item => item.id === rootId);
+      dfs(slide, node => {
+        if (node.id === cmpId) {
+          node.value = value;
+        }
+      });
+      return state;
     }
   }
 };

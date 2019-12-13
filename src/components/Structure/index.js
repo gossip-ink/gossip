@@ -90,12 +90,16 @@ export default connect(
       }
       appendCmp(sourceNodeId, targetNodeId, selectedId);
     } else if (type === "bottom") {
+      if (targetNodeId === selectedId) {
+        alert("跟节点没有兄弟");
+        return;
+      }
       insertCmp(sourceNodeId, targetNodeId, selectedId);
     }
   }
 
   return (
-    <div style={{ height }} className={styles.container}>
+    <div style={{ height, overflow: "auto" }} className={styles.container} >
       <h1>Structure</h1>
       <div>
         {nodes.map((item, index) => (

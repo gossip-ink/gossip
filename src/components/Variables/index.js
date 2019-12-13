@@ -1,5 +1,5 @@
 import { connect } from "dva";
-import { Select, Button, Icon, Input } from "antd";
+import { Select, Button, Icon, Input, Popover } from "antd";
 const { Option } = Select;
 
 export default connect(
@@ -9,7 +9,7 @@ export default connect(
   }),
   {
     deleteVar: id => ({ type: "slides/deleteVar", payload: { id } }),
-    addVar: () => ({ type: "slides/addVar" }),
+    addVar: type => ({ type: "slides/addVar", payload: { type } }),
     selectVar: id => ({ type: "slides/selectVar", payload: { id } }),
     changeVar: (value, type) => ({
       type: "slides/changeVar",
@@ -35,8 +35,8 @@ export default connect(
     deleteVar(id);
   }
 
-  function handleAddVar() {
-    addVar();
+  function handleAddVar(type) {
+    addVar(type);
   }
 
   function handleSelect(id) {
@@ -47,7 +47,7 @@ export default connect(
     changeVar(value, type);
   }
 
-  function handleDragStart(e, item){
+  function handleDragStart(e, item) {
     e.dataTransfer.setData("type", item.type);
     e.dataTransfer.setData("id", item.id);
   }
@@ -57,7 +57,24 @@ export default connect(
       <div style={{ display: "flex" }}>
         <h1>Variables</h1>
         <div style={{ marginLeft: 75 }}>
-          <Button icon="plus" type="primary" onClick={handleAddVar} />
+          <Popover
+            content={[
+              { name: "颜色", value: "color" },
+              { name: "数值", value: "number" }
+            ].map((item, index) => (
+              <div
+                key={index}
+                onClick={() => handleAddVar(item.value)}
+                style={{ cursor: "pointer"}}
+              >
+                {item.name}
+              </div>
+            ))}
+            title="选择一种类型"
+            placement="bottomRight"
+          >
+            <Button icon="plus" type="primary" />
+          </Popover>
         </div>
       </div>
       {variable ? (
@@ -79,9 +96,7 @@ export default connect(
               onChange={e => handleChangeVar(e.target.value, "value")}
             />
           </div>
-          <div>
-            类型：{variable.type}
-          </div>
+          <div>类型：{variable.type}</div>
         </div>
       ) : (
         <div>未选择</div>
@@ -101,7 +116,7 @@ export default connect(
               type="primary"
               icon="drag"
               draggable
-              onDragStart={(e) => handleDragStart(e, item)}
+              onDragStart={e => handleDragStart(e, item)}
             />
 
             <div

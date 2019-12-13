@@ -19,8 +19,9 @@ export default connect(
     }),
     deleteVarForCmp: (key, cmpId, rootId) => ({
       type: "slides/deleteVarForCmp",
-      payload: { key, cmpId, rootId}
-    })
+      payload: { key, cmpId, rootId }
+    }),
+    selectVar: id => ({ type: "slides/selectVar", payload: { id } })
   }
 )(function({
   height,
@@ -29,7 +30,8 @@ export default connect(
   selectedComponentId,
   changeAttr,
   variables,
-  deleteVarForCmp
+  deleteVarForCmp,
+  selectVar
 }) {
   function dfs(node, cb) {
     cb(node);
@@ -81,12 +83,13 @@ export default connect(
           selectedCmp.attrs &&
           Object.keys(selectedCmp.attrs).map((item, index) => {
             let isVar = false;
+            let varId = null;
             // 对数值进行一下转化，和全局变量联系起来
             let attrValue = selectedCmp.attrs[item];
             if (typeof attrValue === "string" && attrValue[0] === "$") {
               isVar = true;
-              const id = parseInt(attrValue.slice(1));
-              const v = variables.find(item => item.id === id);
+              varId = parseInt(attrValue.slice(1));
+              const v = variables.find(item => item.id === varId);
               attrValue = v.value;
             }
 
@@ -97,12 +100,13 @@ export default connect(
                   onVarDrop={(type, id) => handleVarDrop(type, id, item)}
                   isVar={isVar}
                   onVarDelete={() => handleDeleteVarForCmp(item)}
+                  onVarSelect={() => selectVar(varId)}
                 >
                   字体大小
                   <Select
                     value={attrValue}
                     onChange={value => handleAttrChange(value, item)}
-                    style={{ width: 100 }}
+                    style={{ width: 70 }}
                     disabled={isVar}
                   >
                     {[10, 20, 30, 40, 50, 60, 70, 80, 200].map((size, idx) => (
@@ -120,6 +124,7 @@ export default connect(
                   onVarDrop={(type, id) => handleVarDrop(type, id, item)}
                   isVar={isVar}
                   onVarDelete={() => handleDeleteVarForCmp(item)}
+                  onVarSelect={() => selectVar(varId)}
                 >
                   颜色
                   <input
@@ -135,24 +140,28 @@ export default connect(
                 <div key={index} style={{ display: "flex" }}>
                   <div>比例</div>
                   <div>
-                    {selectedCmp.attrs[item].map((span, i) => (
-                      <input
-                        type="number"
-                        value={span}
-                        key={i}
-                        style={{ width: 35, marginLeft: 10 }}
-                        onChange={e => {
-                          const value = e.target.value;
-                          const number = parseInt(value);
-                          if (isNaN(number) || number < 1) {
-                            return;
-                          }
-                          const arr = [...selectedCmp.attrs[item]];
-                          arr.splice(i, 1, number);
-                          handleAttrChange(arr, item);
-                        }}
-                      />
-                    ))}
+                    {selectedCmp.attrs[item].length === 0 ? (
+                      <p>100%</p>
+                    ) : (
+                      selectedCmp.attrs[item].map((span, i) => (
+                        <input
+                          type="number"
+                          value={span}
+                          key={i}
+                          style={{ width: 35, marginLeft: 10 }}
+                          onChange={e => {
+                            const value = e.target.value;
+                            const number = parseInt(value);
+                            if (isNaN(number) || number < 1) {
+                              return;
+                            }
+                            const arr = [...selectedCmp.attrs[item]];
+                            arr.splice(i, 1, number);
+                            handleAttrChange(arr, item);
+                          }}
+                        />
+                      ))
+                    )}
                   </div>
                 </div>
               );

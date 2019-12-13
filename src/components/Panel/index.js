@@ -10,7 +10,14 @@ const Panel = connect(
     variables: state.slides.attributeVars
   }),
   {
-    setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
+    setSelectedComp: id => ({
+      type: "slides/setSelectedComp",
+      payload: { id }
+    }),
+    setValueOfCmp: (value, cmpId, rootId) => ({
+      type: "slides/setValueOfCmp",
+      payload: { value, cmpId, rootId }
+    })
   }
 )(function({
   type,
@@ -18,12 +25,14 @@ const Panel = connect(
   attrs,
   height,
   width,
+  value,
   rootId,
   selectedRootId,
   selectedComponentId,
   id,
   setSelectedComp,
-  variables
+  variables,
+  setValueOfCmp
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -36,14 +45,48 @@ const Panel = connect(
     }
   });
 
+  function handleValueChange(value) {
+    setValueOfCmp(value, selectedComponentId, selectedRootId);
+  }
+
   let content;
   const padding = 10;
+  const outerWidth = width - padding * 2,
+    outerHeight = height - padding * 2;
+
   if (type === "text") {
-    content = <EditableText attrs={newAttrs} />;
+    content = (
+      <EditableText
+        attrs={newAttrs}
+        width={outerWidth}
+        height={outerHeight}
+        value={value}
+        edit={id === selectedComponentId}
+        onValueChange={handleValueChange}
+      />
+    );
   } else if (type === "image") {
-    content = <EditableImg />;
+    content = (
+      <EditableImg
+        attrs={newAttrs}
+        width={outerWidth}
+        height={outerHeight}
+        value={value}
+        edit={id === selectedComponentId}
+        onValueChange={handleValueChange}
+      />
+    );
   } else if (type === "canvas") {
-    content = <EditableCanvas />;
+    content = (
+      <EditableCanvas
+        attrs={newAttrs}
+        width={outerWidth}
+        height={outerHeight}
+        value={value}
+        edit={id === selectedComponentId}
+        onValueChange={handleValueChange}
+      />
+    );
   } else if (type === "panel") {
     content = (
       <>
@@ -55,8 +98,7 @@ const Panel = connect(
               };
             const total = span.reduce((total, cur) => total + cur, 0);
             let pWidth, pHeight;
-            let outerWidth = width - padding * 2,
-              outerHeight = height - padding * 2;
+
             if (attrs.flex === "row") {
               pWidth = (span[index] * outerWidth) / total;
               pHeight = outerHeight;

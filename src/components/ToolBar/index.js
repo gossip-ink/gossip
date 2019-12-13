@@ -1,12 +1,31 @@
 import styles from "./index.css";
 import { Button } from "antd";
-export default function({ height }) {
+import AddButton from "../AddButton/index";
+import { connect } from "dva";
+export default connect(null, {
+  handleAddCmp: (type, method) => ({
+    type: "slides/createCmp",
+    payload: { type, method }
+  })
+})(function({ height, handleAddCmp }) {
   return (
     <div style={{ height }} className={styles.container}>
-      <Button icon="font-size" type="primary" />
-      <Button type="primary" icon="picture" />
-      <Button type="primary" icon="codepen" />
-      <Button type="primary" icon="container" />
+      <AddButton
+        icon="font-size"
+        onSelectValue={method => handleAddCmp("text", method)}
+      />
+      <AddButton
+        icon="picture"
+        onSelectValue={method => handleAddCmp("image", method)}
+      />
+      <AddButton
+        icon="codepen"
+        onSelectValue={method => handleAddCmp("canvas", method)}
+      />
+      <AddButton
+        icon="container"
+        onSelectValue={method => handleAddCmp("panel", method)}
+      />
     </div>
   );
-}
+});

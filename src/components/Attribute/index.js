@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { Icon, Button } from "antd";
-export default function({ children, onVarDrop, isVar, onVarDelete }) {
+export default function({
+  children,
+  onVarDrop,
+  isVar,
+  onVarDelete,
+  onVarSelect
+}) {
   const [hoverd, setHoverd] = useState(false);
-  const [star, setStar] = useState(true);
 
   function handleDrop(e) {
     setHoverd(false);
@@ -11,8 +16,12 @@ export default function({ children, onVarDrop, isVar, onVarDelete }) {
     onVarDrop && onVarDrop(type, id);
   }
 
-  function handleDeleteVar(){
+  function handleDeleteVar() {
     onVarDelete && onVarDelete();
+  }
+
+  function handleSelectVar() {
+    onVarSelect && onVarSelect();
   }
 
   return (
@@ -31,16 +40,13 @@ export default function({ children, onVarDrop, isVar, onVarDelete }) {
         style={{
           marginLeft: 10
         }}
-        onMouseEnter={() => setStar(false)}
-        onMouseOut={() => setStar(true)}
-        onMouseOver={() => setStar(false)}
       >
-        {isVar &&
-          (star ? (
-            <Icon type="star" />
-          ) : (
-            <Button icon="delete" type="danger" onClick={handleDeleteVar}/>
-          ))}
+        {isVar && (
+          <>
+            <Button icon="eye" type="primary" onClick={handleSelectVar} />
+            <Button icon="delete" type="danger" onClick={handleDeleteVar} />
+          </>
+        )}
       </div>
     </div>
   );
