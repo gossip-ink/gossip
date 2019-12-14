@@ -8,18 +8,24 @@ export default function({
   translateY = 0,
   content,
   selected,
-  params
+  editable = false
 }) {
   const style = {
     height,
     width,
-    transform: `translate(${-translateX}px,${-translateY}px)scale(${scale})`,
+    transform: `translate(${-translateX}px,${-translateY}px) scale(${scale})`,
     border: selected && "10px solid black"
   };
   const { id } = content;
   return (
-    <div className={`${styles.container} step`} style={style} {...params}>
-      <Panel {...content} height={height} width={width} rootId={id} />
+    <div className={styles.container} style={style} >
+      <Panel
+        {...content}
+        height={height}
+        width={width}
+        rootId={id}
+        editable={editable}
+      />
     </div>
   );
 }

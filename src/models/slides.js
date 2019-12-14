@@ -1,15 +1,6 @@
-import slide from "../data/slide";
 import imageURL from "../static/example.jpg";
-function getIndexById(id, state) {
-  // 找到 index
-  let index;
-  state.components.forEach((item, idx) => {
-    if (item.id === id) {
-      index = idx;
-    }
-  });
-  return index;
-}
+import { saveAs } from "file-saver";
+import data from "../data/data.json";
 
 function dfs(node, callback) {
   callback(node);
@@ -18,9 +9,65 @@ function dfs(node, callback) {
 
 export default {
   namespace: "slides",
-  state: slide,
+  state: data,
   effects: {},
   reducers: {
+    createNewFile(state, action) {
+      return {
+        filename: "new",
+        selectedId: 1,
+        selectedComponentId: 1,
+        structure: {
+          id: 1,
+          name: "hello world"
+        },
+        components: [
+          {
+            id: 1,
+            type: "panel",
+            value: "column",
+            attrs: {
+              span: [1, 2],
+              flex: "column"
+            },
+            children: [
+              {
+                id: 2,
+                type: "text",
+                value: "hello world",
+                attrs: {
+                  color: "#000000",
+                  fontSize: 100
+                }
+              },
+              {
+                type: "panel",
+                value: "row",
+                id: "c-2",
+                attrs: { span: [], flex: "row" },
+                children: []
+              }
+            ]
+          }
+        ],
+        selectedArributeId: 1,
+        attributeVars: [
+          {
+            id: 1,
+            type: "color",
+            value: "#111111",
+            name: "标题颜色"
+          }
+        ]
+      };
+    },
+    download(state, action) {
+      const file = new File([JSON.stringify(state)], `${state.filename}.json`, {
+        type: "text/plain;charset=utf-8"
+      });
+      saveAs(file);
+      return state;
+    },
     updateNodeValue(state, action) {
       const { id, value } = action.payload;
       dfs(state.structure, node => {
@@ -32,7 +79,9 @@ export default {
     },
     deleteNode(state, action) {
       const { id } = action.payload;
-      const index = getIndexById(id, state);
+        // 找到 index
+      const cmp = state.components.find(item => item.id === id);
+      const index = state.components.indexOf(cmp);
 
       // 从数组中删除
       state.components.splice(index, 1);
@@ -71,8 +120,8 @@ export default {
             value: value,
             id: "text" + id,
             attrs: {
-              color: "#161DC6",
-              fontSize: 50
+              color: "#000000",
+              fontSize: 100
             }
           },
           {
@@ -232,6 +281,10 @@ export default {
       dragNode && (state.selectedComponentId = dragNode.id);
       return state;
     },
+    upload(state, action) {
+      const { data } = action.payload;
+      return data;
+    },
     createCmp(state, action) {
       const { type, method } = action.payload;
       const slide = state.components.find(item => item.id === state.selectedId);
@@ -243,7 +296,10 @@ export default {
           type: "text",
           id,
           value: "hello world",
-          attrs: {}
+          attrs: {
+            fontSize: 50,
+            color: "#000000"
+          }
         },
         image: {
           type: "image",
@@ -255,7 +311,7 @@ export default {
           type: "canvas",
           id,
           value:
-            'function(ctx, width, height){ctx.fillStyle = "black"; ctx.fillRect(0, 0, 100, 100)}',
+            'function(ctx, width, height){\n\tctx.fillStyle = "black";\n\tctx.fillRect(0, 0, 100, 100);\n}',
           attrs: {}
         },
         panel: {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function({ attrs, value, width, height, edit, onValueChange }) {
+export default function({ attrs, value, width, height, edit, onValueChange}) {
   const canvasId = new Date().getTime() + Math.floor(Math.random() * 1000);
   const [error, setError] = useState(false);
   function handleChange(e) {
@@ -35,6 +35,7 @@ export default function({ attrs, value, width, height, edit, onValueChange }) {
       setError(true);
     }
   });
+
   return (
     <div>
       {edit ? (

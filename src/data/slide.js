@@ -1,6 +1,6 @@
 import imageURL from "../static/example.jpg";
 export default {
-  filname: "hello world",
+  filename: "hello world",
   selectedId: 1,
   selectedComponentId: "c-1",
   structure: {
@@ -71,7 +71,7 @@ export default {
               type: "canvas",
               id: "c-4",
               value:
-                'function(ctx, width, height){ctx.fillStyle = "black"; ctx.fillRect(0, 0, 100, 100)}'
+                'function(ctx, width, height){\n\tctx.fillStyle = "black";\n\tctx.fillRect(0, 0, 100, 100);\n}'
             }
           ]
         }

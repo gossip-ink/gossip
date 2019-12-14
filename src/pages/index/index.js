@@ -1,12 +1,12 @@
 import styles from "./index.css";
-import router from "umi/router";
-import { Layout, Button, Row, Col } from "antd";
+import { Layout, Row, Col } from "antd";
 import useWindowSize from "../../hooks/useWindowSize";
 const { Header, Content } = Layout;
 
 import Outline from "../../components/Outline";
 import Thumbnails from "../../components/Thumbnails/index";
 import ToolBar from "../../components/ToolBar/index";
+import CmpBar from "../../components/CmpBar/index";
 import MainContent from "../../components/MainContent/index";
 import Structure from "../../components/Structure/index";
 import AttrPanel from "../../components/AttrPanel/index";
@@ -23,10 +23,6 @@ export default function() {
     structureHeight = contentHeight * ratio,
     attrPanelHeight = contentHeight - structureHeight;
 
-  function handleClickPlay(e) {
-    router.push("/present");
-  }
-
   return (
     <Layout>
       <Header style={{ height: headerHeight }} className={styles.header}>
@@ -34,15 +30,7 @@ export default function() {
           <Col span={6}>uIdea</Col>
           <Col span={12}>title</Col>
           <Col span={6}>
-            <Button
-              type="primary"
-              shape="circle"
-              icon="play-circle"
-              onClick={handleClickPlay}
-            />
-            <Button type="primary" shape="circle" icon="file-add" />
-            <Button type="primary" shape="circle" icon="upload" />
-            <Button type="primary" shape="circle" icon="download" />
+            <ToolBar />
           </Col>
         </Row>
       </Header>
@@ -55,7 +43,7 @@ export default function() {
             <Thumbnails height={contentHeight} />
           </Col>
           <Col span={12}>
-            <ToolBar height={toolBarHeight} />
+            <CmpBar height={toolBarHeight} />
             <MainContent height={slideHeight} />
           </Col>
           <Col span={6}>

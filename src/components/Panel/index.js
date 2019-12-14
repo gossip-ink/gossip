@@ -32,7 +32,8 @@ const Panel = connect(
   id,
   setSelectedComp,
   variables,
-  setValueOfCmp
+  setValueOfCmp,
+  editable
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -74,6 +75,7 @@ const Panel = connect(
         value={value}
         edit={id === selectedComponentId}
         onValueChange={handleValueChange}
+        editable={editable}
       />
     );
   } else if (type === "canvas") {
@@ -85,6 +87,7 @@ const Panel = connect(
         value={value}
         edit={id === selectedComponentId}
         onValueChange={handleValueChange}
+        editable={editable}
       />
     );
   } else if (type === "panel") {
@@ -113,6 +116,7 @@ const Panel = connect(
                 height={pHeight}
                 width={pWidth}
                 rootId={rootId}
+                editable={editable}
               />
             );
           })}
@@ -121,8 +125,8 @@ const Panel = connect(
   }
 
   function handleSelect(e) {
-    e.stopPropagation();
-    setSelectedComp(id);
+    editable && e.stopPropagation();
+    editable && setSelectedComp(id);
   }
 
   const selected = selectedRootId === rootId && id === selectedComponentId;

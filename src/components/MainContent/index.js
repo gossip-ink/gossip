@@ -32,6 +32,7 @@ export default connect(
         translateY={translateY}
         scale={0.45}
         content={content}
+        editable={true}
       />
     </div>
   );

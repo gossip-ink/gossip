@@ -1,4 +1,5 @@
 
-.normal {
-  background: #EA79F2;
+body{
+  height: 100%;
+  overflow: hidden;
 }

@@ -1,31 +1,56 @@
-import styles from "./index.css";
-import { Button } from "antd";
-import AddButton from "../AddButton/index";
+import { Button, Upload } from "antd";
+import router from "umi/router";
 import { connect } from "dva";
 export default connect(null, {
-  handleAddCmp: (type, method) => ({
-    type: "slides/createCmp",
-    payload: { type, method }
-  })
-})(function({ height, handleAddCmp }) {
+  createNewFile: () => ({ type: "slides/createNewFile" }),
+  download: () => ({ type: "slides/download" }),
+  upload: data => ({ type: "slides/upload", payload: { data } })
+})(function({ createNewFile, download, upload }) {
+  function handleClickPlay(e) {
+    router.push("/present");
+  }
+
+  function handleAddFile() {
+    createNewFile();
+  }
+
+  function handleDownload() {
+    download();
+  }
+
+  function handleUploadFile(e) {
+    const { file } = e;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const data = e.target.result;
+      const slides = JSON.parse(data);
+      upload(slides);
+    };
+    reader.readAsText(file.originFileObj, "UTF-8");
+  }
   return (
-    <div style={{ height }} className={styles.container}>
-      <AddButton
-        icon="font-size"
-        onSelectValue={method => handleAddCmp("text", method)}
+    <div>
+      <Button
+        type="primary"
+        shape="circle"
+        icon="play-circle"
+        onClick={handleClickPlay}
       />
-      <AddButton
-        icon="picture"
-        onSelectValue={method => handleAddCmp("image", method)}
+      <Button
+        type="primary"
+        shape="circle"
+        icon="file-add"
+        onClick={handleAddFile}
       />
-      <AddButton
-        icon="codepen"
-        onSelectValue={method => handleAddCmp("canvas", method)}
+      <Button
+        type="primary"
+        shape="circle"
+        icon="download"
+        onClick={handleDownload}
       />
-      <AddButton
-        icon="container"
-        onSelectValue={method => handleAddCmp("panel", method)}
-      />
+      <Upload onChange={handleUploadFile}>
+        <Button icon="upload" type="primary" shape="circle" />
+      </Upload>
     </div>
   );
 });
