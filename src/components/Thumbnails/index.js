@@ -2,16 +2,56 @@ import styles from "./index.css";
 import Slide from "../Slide/index";
 import { connect } from "dva";
 import useWindowSize from "../../hooks/useWindowSize";
+import { useEffect } from "react";
+// useEffect(() => {
+//   function keydown(e) {
+//     const handlers = {
+//       13: () => {}, //enter
+//       9: () => {}, //tab
+//       8: () => {}, // back space
+//       38: () => {}, // up
+//       40: () => {}, //down
+//       37: () => {}, //left
+//       39: () => {} //right
+//     };
+
+//     const handler = handlers[e.keyCode];
+//     handler && handler();
+//   }
+
+//   if (selectedPanel === "outline") {
+//     window.addEventListener("keydown", keydown);
+//   }
+
+//   return () => {
+//     window.removeEventListener("keydown", keydown);
+//   };
+// });
 export default connect(
   state => ({
     components: state.slides.components,
     structure: state.slides.structure,
-    selectedId: state.slides.selectedId
+    selectedId: state.slides.selectedId,
+    selectedPanel: state.slides.selectedPanel
   }),
   {
-    setSelected: id => ({ type: "slides/setSelected", payload: { id } })
+    setSelected: id => ({ type: "slides/setSelected", payload: { id } }),
+    setSelectedPanel: type => ({
+      type: "slides/setSelectedPanel",
+      payload: { type }
+    }),
+    deleteNode: id => ({ type: "slides/deleteNode", payload: { id } })
   }
-)(function({ height, components, structure, selectedId, setSelected }) {
+)(function({
+  height,
+  components,
+  structure,
+  selectedId,
+  setSelected,
+  selectedPanel,
+  setSelectedPanel,
+  deleteNode
+}) {
   function dfs(node, callback) {
     callback(node);
     node.children &&
@@ -31,20 +71,67 @@ export default connect(
   // 布局
   const windowSize = useWindowSize();
   const boxWidth = windowSize.width / 12,
-    boxHeight = 80;
-  const translateX = (windowSize.width - boxWidth) / 2,
-    translateY = (windowSize.height - boxHeight) / 2;
+    boxHeight = 80,
+    scale = 0.07;
+  const translateX = boxWidth - windowSize.width * scale,
+    translateY = boxHeight - windowSize.height * scale;
 
   // 按照顺序获得 slides
   const idList = [];
   dfs(structure, node => idList.push(node.id));
-  const slideList = idList.map(item => getSlideById(item));
+  const nodes = idList.map(item => getSlideById(item));
+
+  useEffect(() => {
+    function keydown(e) {
+      const handlers = {
+        8: () => {
+          if (selectedId === 1) {
+            alert("第一张不能删除~");
+            return;
+          }
+          deleteNode(selectedId);
+        }, // back space
+        38: () => {
+          const node = nodes.find(item => item.id === selectedId);
+          const index = nodes.indexOf(node);
+          if (index === 0) return;
+          setSelected(nodes[index - 1].id);
+        }, // up
+        40: () => {
+          const node = nodes.find(item => item.id === selectedId);
+          const index = nodes.indexOf(node);
+          if (index === nodes.length - 1) return;
+          setSelected(nodes[index + 1].id);
+        } //down
+      };
+
+      const handler = handlers[e.keyCode];
+      handler && handler();
+    }
+
+    if (selectedPanel === 1) {
+      window.addEventListener("keydown", keydown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", keydown);
+    };
+  });
 
   return (
-    <div style={{ height }} className={styles.container}>
+    <div
+      style={{
+        height,
+        border: selectedPanel === 1 && "1px solid black"
+      }}
+      className={styles.container}
+      onClick={() => {
+        setSelectedPanel(1);
+      }}
+    >
       <h1>Thumbnails</h1>
       <div>
-        {slideList.map(item => (
+        {nodes.map(item => (
           <div
             key={item.id}
             style={{
@@ -67,7 +154,7 @@ export default connect(
               width={windowSize.width}
               translateX={translateX}
               translateY={translateY}
-              scale={0.07}
+              scale={scale}
               content={item}
               selected={selectedId === item.id}
             />

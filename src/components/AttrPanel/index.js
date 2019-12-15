@@ -62,6 +62,7 @@ export default connect(
       alert("类型不匹配");
       return;
     }
+    
     changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
   }
 
@@ -73,7 +74,6 @@ export default connect(
         selectedCmp = node;
       }
     });
-  console.log(selectedCmp);
 
   return (
     <div style={{ height }} className={styles.container}>
@@ -86,6 +86,7 @@ export default connect(
             let varId = null;
             // 对数值进行一下转化，和全局变量联系起来
             let attrValue = selectedCmp.attrs[item];
+            
             if (typeof attrValue === "string" && attrValue[0] === "$") {
               isVar = true;
               varId = parseInt(attrValue.slice(1));

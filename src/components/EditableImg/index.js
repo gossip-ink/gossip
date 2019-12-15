@@ -1,4 +1,4 @@
-import { Upload, Icon, Button } from "antd";
+import { Upload, Button } from "antd";
 
 export default function({ attrs, value, width, height, edit, onValueChange }) {
   function handleImageChange(data) {
@@ -15,21 +15,28 @@ export default function({ attrs, value, width, height, edit, onValueChange }) {
       style={{
         ...attrs,
         width,
-        height
+        height,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
       }}
     >
       <img src={value} style={{ maxHeight: height, maxWidth: width }} />
       {edit && (
-        <div>
+        <div
+          style={{
+            position: "absolute",
+            transformOrigin: "left top",
+            transform: "scale(2)"
+          }}
+        >
           <Upload
             accept="image/*"
             onChange={handleImageChange}
             showUploadList={false}
             customRequest={() => {}}
           >
-            <Button>
-              <Icon type="upload" /> 上传图片
-            </Button>
+            <Button type="primary" icon="upload"></Button>
           </Upload>
         </div>
       )}

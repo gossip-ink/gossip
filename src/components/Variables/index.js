@@ -48,6 +48,7 @@ export default connect(
   }
 
   function handleDragStart(e, item) {
+    console.log(item, "drag")
     e.dataTransfer.setData("type", item.type);
     e.dataTransfer.setData("id", item.id);
   }

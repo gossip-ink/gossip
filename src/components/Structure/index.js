@@ -52,7 +52,6 @@ export default connect(
     index--;
   }
   dfs(slide);
-  console.log(nodes);
 
   const iconByType = {
     image: <Icon type="picture" />,

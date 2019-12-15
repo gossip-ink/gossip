@@ -13,8 +13,9 @@ export default function({
   const style = {
     height,
     width,
-    transform: `translate(${-translateX}px,${-translateY}px) scale(${scale})`,
-    border: selected && "10px solid black"
+    transform: `scale(${scale}) translate(${translateX}px,${translateY}px)`,
+    transformOrigin: "left top",
+    border: selected && "10px solid black",
   };
   const { id } = content;
   return (

@@ -9,13 +9,16 @@ export default connect(
     selectedId: state.slides.selectedId
   }),
   {
-    setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
+    setSelectedComp: id => ({
+      type: "slides/setSelectedComp",
+      payload: { id }
+    })
   }
 )(function({ height, selectedId, components, setSelectedComp }) {
   const windowSize = useWindowSize();
   const width = windowSize.width / 2;
-  const translateX = (windowSize.width - width) / 2,
-    translateY = (windowSize.height - height) / 2;
+  const translateX = width - windowSize.width * 0.45,
+    translateY = height - windowSize.height * 0.45;
   const content = components.find(v => v.id === selectedId);
 
   function handleSelect(e) {

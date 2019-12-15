@@ -12,6 +12,11 @@ export default {
   state: data,
   effects: {},
   reducers: {
+    setSelectedPanel(state, action) {
+      const { type } = action.payload;
+      state.selectedPanel = type;
+      return state;
+    },
     createNewFile(state, action) {
       return {
         filename: "new",
@@ -75,11 +80,17 @@ export default {
           node.name = value;
         }
       });
+
+      // 看一看对应的 cmp 中有没有 isTitle 的 text 组件
+      const slide = state.components.find(item => item.id === id);
+      dfs(slide, node => {
+        node.type === "text" && node.attrs.isTitle && (node.value = value);
+      });
       return state;
     },
     deleteNode(state, action) {
       const { id } = action.payload;
-        // 找到 index
+      // 找到 index
       const cmp = state.components.find(item => item.id === id);
       const index = state.components.indexOf(cmp);
 
@@ -95,6 +106,8 @@ export default {
             }
           });
       });
+
+      state.selectedId = 1;
       return state;
     },
     createNode(state, action) {
@@ -226,8 +239,9 @@ export default {
       return state;
     },
     setSelectedComp(state, action) {
-      const { id } = action.payload;
+      const { id, type = 2 } = action.payload;
       state.selectedComponentId = id;
+      state.selectedPanel = type;
       return state;
     },
     deleteCmp(state, action) {
@@ -388,15 +402,22 @@ export default {
       return state;
     },
     changeAttr(state, action) {
-      const { value, key, cmpId, rootId } = action.payload;
+      const {
+        value,
+        key,
+        cmpId = state.selectedComponentId,
+        rootId = state.selectedId
+      } = action.payload;
 
       const slide = state.components.find(item => item.id === rootId);
       let cmp;
       dfs(slide, node => {
         node.id === cmpId && (cmp = node);
       });
-      cmp && (cmp.attrs[key] = value);
-      cmp && cmp.type === "panel" && (cmp.value = value);
+
+      cmp && cmp.attrs && (cmp.attrs[key] = value);
+      cmp && cmp.type === "panel" && key === "flex" && (cmp.value = value);
+
       return state;
     },
     deleteVar(state, action) {
@@ -487,6 +508,13 @@ export default {
       dfs(slide, node => {
         if (node.id === cmpId) {
           node.value = value;
+
+          // 如果是文字，且还有 isTitle，修改对应的 structure 的 name
+          node.type === "text" &&
+            node.attrs.isTitle === true &&
+            dfs(state.structure, item => {
+              item.id === rootId && (item.name = value);
+            });
         }
       });
       return state;
