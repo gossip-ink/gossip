@@ -124,7 +124,7 @@ export default connect(
           if (edit) {
             down();
             return;
-          } 
+          }
           if (selectedId === 1) {
             alert("根元素没有兄弟");
           } else {
@@ -172,12 +172,12 @@ export default connect(
       !edit && handler && handler();
       edit && e.keyCode === 13 && handler();
     }
-    if (selectedPanel === 0 ) {
-      window.addEventListener("keydown", keydown);
+    if (selectedPanel === 0) {
+      // window.addEventListener("keydown", keydown);
     }
 
     return () => {
-      window.removeEventListener("keydown", keydown);
+      // window.removeEventListener("keydown", keydown);
     };
   });
 
@@ -186,13 +186,12 @@ export default connect(
   return (
     <div
       style={{
-        height,
-        border: selectedPanel === 0 && "1px solid black"
+        height
+        // border: selectedPanel === 0 && "1px solid black"
       }}
       className={styles.container}
       onClick={() => setSelectedPanel(0)}
     >
-      <h1>Outline</h1>
       <div>
         <input id="node-input"></input>
         <Button

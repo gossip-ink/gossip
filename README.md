@@ -21,7 +21,7 @@
   "filename": "hello world",
   "selectedId": 1,
   "selectedPanelId": 1,
-  "selectedComponentId": "c-4",
+  "selectedComponentId": 1,
   "structure":{
 
   },
@@ -64,7 +64,7 @@
   "value":"colum",
   "attrs":{
     "span":[1, 2],
-    "flexDirection": "colum"
+    "flex": "colum"
   },
   "children":[
     {
@@ -91,7 +91,7 @@
 支持的属性有：
 
 - backgroundColor
-- flexDirection
+- flex
 - padding
   
 #### text
@@ -139,12 +139,22 @@ function(ctx, width, height){
 
 ```json
 [
-  { "id": 10, "type": "color", "value":"#bbbbbb", "name": "标题颜色" },
+  { "id": 1, "type": "color", "value":"#bbbbbb", "name": "标题颜色" },
   {}
 ]
 ```
 
-目前一种支持三种：
+目前一种支持两种：
 
 - color
 - number
+
+## TODO
+
+- 界面的大概布局的改变
+- 支持的属性
+- 默认的数据结构
+- 界面样式的优化
+- Slide 的布局
+- 快捷键
+

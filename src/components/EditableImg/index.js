@@ -10,10 +10,26 @@ export default function({ attrs, value, width, height, edit, onValueChange }) {
       onValueChange(imageURL);
     };
   }
+
+  const boxHeight = height - attrs.padding * 2,
+    boxWidth = width - attrs.padding * 2;
+
+  const imageStyle = function() {
+    if (attrs.displayMode === "normal") {
+      return {
+        maxHeight: boxHeight,
+        maxWidth: boxWidth
+      };
+    } else {
+      return {
+        height: boxHeight,
+        width: boxWidth
+      };
+    }
+  };
   return (
     <div
       style={{
-        ...attrs,
         width,
         height,
         display: "flex",
@@ -21,7 +37,7 @@ export default function({ attrs, value, width, height, edit, onValueChange }) {
         alignItems: "center"
       }}
     >
-      <img src={value} style={{ maxHeight: height, maxWidth: width }} />
+      <img src={value} style={imageStyle()} />
       {edit && (
         <div
           style={{

@@ -1,8 +1,8 @@
 import styles from "./index.css";
 import Panel from "../Panel/index";
 export default function({
-  height,
-  width,
+  height = screen.height,
+  width = screen.width,
   scale = 1,
   translateX = 0,
   translateY = 0,

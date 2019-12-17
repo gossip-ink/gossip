@@ -1,24 +1,30 @@
 import { Popover, Button } from "antd";
-export default function({ icon, onSelectValue }) {
+export default function({ icon, onSelectValue, title }) {
   function handleClick(value) {
     onSelectValue && onSelectValue(value);
   }
   return (
-    <Popover
-      content={[
-        { name: "兄弟", value: "brother" },
-        { name: "孩子", value: "children" }
-      ].map((item, index) => (
-        <div
-          key={index}
-          onClick={() => handleClick(item.value)}
-          style={{ cursor: "pointer" }}
-        >
-          {item.name}
-        </div>
-      ))}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+        width: (screen.width * 0.8) / 6
+      }}
     >
       <Button icon={icon} type="primary" />
-    </Popover>
+      <div>{title}</div>
+      <div>
+        <Button
+          icon="down"
+          type="primary"
+          onClick={() => handleClick("brother")}
+        />
+        <Button
+          icon="right"
+          type="primary"
+          onClick={() => handleClick("children")}
+        />
+      </div>
+    </div>
   );
 }

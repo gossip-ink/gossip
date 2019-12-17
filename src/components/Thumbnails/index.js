@@ -70,9 +70,9 @@ export default connect(
 
   // 布局
   const windowSize = useWindowSize();
-  const boxWidth = windowSize.width / 12,
-    boxHeight = 80,
-    scale = 0.07;
+  const boxWidth = windowSize.width / 6,
+    boxHeight = 120,
+    scale = 0.1;
   const translateX = boxWidth - windowSize.width * scale,
     translateY = boxHeight - windowSize.height * scale;
 
@@ -110,11 +110,11 @@ export default connect(
     }
 
     if (selectedPanel === 1) {
-      window.addEventListener("keydown", keydown);
+      // window.addEventListener("keydown", keydown);
     }
 
     return () => {
-      window.removeEventListener("keydown", keydown);
+      // window.removeEventListener("keydown", keydown);
     };
   });
 
@@ -122,14 +122,13 @@ export default connect(
     <div
       style={{
         height,
-        border: selectedPanel === 1 && "1px solid black"
+        // border: selectedPanel === 1 && "1px solid black"
       }}
       className={styles.container}
       onClick={() => {
         setSelectedPanel(1);
       }}
     >
-      <h1>Thumbnails</h1>
       <div>
         {nodes.map(item => (
           <div

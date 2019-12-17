@@ -1,12 +1,12 @@
 import styles from "./index.css";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, Tabs, Icon } from "antd";
 import useWindowSize from "../../hooks/useWindowSize";
 const { Header, Content } = Layout;
+const { TabPane } = Tabs;
 
 import Outline from "../../components/Outline";
 import Thumbnails from "../../components/Thumbnails/index";
 import ToolBar from "../../components/ToolBar/index";
-import CmpBar from "../../components/CmpBar/index";
 import MainContent from "../../components/MainContent/index";
 import Structure from "../../components/Structure/index";
 import AttrPanel from "../../components/AttrPanel/index";
@@ -17,18 +17,18 @@ export default function() {
   const windowSize = useWindowSize();
   const headerHeight = 64,
     contentHeight = windowSize.height - headerHeight,
-    toolBarHeight = 48,
-    ratio = 0.5,
-    slideHeight = windowSize.height - toolBarHeight,
-    structureHeight = contentHeight * ratio,
-    attrPanelHeight = contentHeight - structureHeight;
+    ratio = [0.35, 0.25, 0.4],
+    slideHeight = windowSize.height,
+    structureHeight = contentHeight * ratio[0],
+    attrPanelHeight = contentHeight * ratio[1],
+    varHeight = contentHeight * ratio[2];
 
   return (
     <Layout>
       <Header style={{ height: headerHeight }} className={styles.header}>
         <Row>
           <Col span={6}>uIdea</Col>
-          <Col span={12}>title</Col>
+          <Col span={12}></Col>
           <Col span={6}>
             <ToolBar />
           </Col>
@@ -37,25 +37,39 @@ export default function() {
       <Content style={{ height: contentHeight }}>
         <Row>
           <Col span={4}>
-            <Outline height={contentHeight} />
+            <Tabs defaultActiveKey="1">
+              <TabPane
+                tab={
+                  <span>
+                    <Icon type="bars" />
+                    Outline
+                  </span>
+                }
+                key="1"
+              >
+                <Outline height={contentHeight} />
+              </TabPane>
+              <TabPane
+                tab={
+                  <span>
+                    <Icon type="layout" />
+                    Thumbnails
+                  </span>
+                }
+                key="2"
+              >
+                <Thumbnails height={contentHeight} />
+              </TabPane>
+            </Tabs>
           </Col>
-          <Col span={2}>
-            <Thumbnails height={contentHeight} />
-          </Col>
-          <Col span={12}>
-            <CmpBar height={toolBarHeight} />
+          <Col span={16}>
+            {/* <CmpBar height={toolBarHeight} /> */}
             <MainContent height={slideHeight} />
           </Col>
-          <Col span={6}>
+          <Col span={4}>
             <Structure height={structureHeight} />
-            <Row>
-              <Col span={12}>
-                <AttrPanel height={attrPanelHeight} />
-              </Col>
-              <Col span={12}>
-                <Variables height={attrPanelHeight} />
-              </Col>
-            </Row>
+            <AttrPanel height={attrPanelHeight} />
+            <Variables height={varHeight} />
           </Col>
         </Row>
       </Content>

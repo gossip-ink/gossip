@@ -1,10 +1,10 @@
 import Slide from "../../components/Slide/index";
-import useWindowSize from "../../hooks/useWindowSize";
-import { connect } from "dva";
-import { useEffect } from "react";
 import router from "umi/router";
 import Impress from "../../components/Impress/index";
 import Step from "../../components/Step/index";
+import treemap from "../../utils/treemap"
+import { connect } from "dva";
+import { useEffect } from "react";
 
 export default connect(
   state => ({
@@ -23,6 +23,20 @@ export default connect(
       });
   }
 
+  function copyTree(tree) {
+    const data = { ...tree, children: [] };
+    function eachBefore(node, data) {
+      node.children &&
+        node.children.forEach(item => {
+          const child = { ...item, children: [] };
+          data.children.push(child);
+          eachBefore(item, child);
+        });
+    }
+    eachBefore(tree, data);
+    return data;
+  }
+
   useEffect(() => {
     const back = function(e) {
       if (e.keyCode === 27) {
@@ -36,29 +50,45 @@ export default connect(
     };
   });
 
-  const windowSize = useWindowSize();
-
   // 按照顺序获得 slides
-  const idList = [];
-  dfs(structure, node => idList.push(node.id));
-  const slideList = idList.map(item => components.find(cmp => cmp.id === item));
+  const slides = [];
+  dfs(structure, node => {
+    const cmp = components.find(item => item.id === node.id);
+    slides.push(cmp);
+  });
+
+  // 拷贝 tree， 并且添加 attr
+  const tree = copyTree(structure);
+  dfs(tree, node => {
+    Object.assign(node, {
+      width: screen.width * 0.8,
+      height: screen.height * 0.8
+    });
+  });
+
+  // 进行布局
+  const map = treemap(tree);
+  // const treemap = [];
+  // const data = getLayout(screen.width, screen.height, tree);
+  // dfs(data, node => treemap.push(node));
 
   setSelectedComp(-1);
-  const zs = [0, -1000, -2000, -1000, 0];
 
   return (
     <Impress overviewOpen={true}>
-      {slideList.map((item, index) => (
+      {slides.map((item, index) => (
         <Step
-          x={100}
-          y={index * screen.height}
-          z={zs[index]}
-          rotate={index * 90}
+          // x={map[index].x}
+          // y={map[index].y}
+          // scale={map[index].scale}
+          y={index * 2000}
           key={index}
         >
           <Slide
-            height={screen.height * 0.8}
-            width={screen.width * 0.8}
+            // height={map[index].data.height}
+            // width={map[index].data.width}
+            
+            // width={100}
             content={item}
             key={item.id}
           />

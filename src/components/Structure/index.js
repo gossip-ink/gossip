@@ -1,6 +1,7 @@
 import styles from "./index.css";
 import { connect } from "dva";
 import TreeNode from "../../components/TreeNode/index";
+import CmpBar from "../../components/CmpBar/index";
 import { Icon, Button } from "antd";
 export default connect(
   state => ({
@@ -98,8 +99,15 @@ export default connect(
   }
 
   return (
-    <div style={{ height, overflow: "auto" }} className={styles.container} >
-      <h1>Structure</h1>
+    <div style={{ height, overflow: "auto" }} className={styles.container}>
+      <div
+        style={{
+          display: "flex"
+        }}
+      >
+        <h1>Structure</h1>
+        <CmpBar />
+      </div>
       <div>
         {nodes.map((item, index) => (
           <TreeNode

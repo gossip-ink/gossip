@@ -17,25 +17,48 @@ export default connect(null, {
   useEffect(() => {
     // 防止文字过大
     if (!edit) return;
+
+    // 获得容器
     const container = document.getElementById(id);
-    let max = 100;
+    let flag = 100;
     let fontSize = attrs.fontSize;
 
-    while (container.offsetHeight > height && max > 0) {
-      max -= 1;
+    // 不断调整大小
+    while (container.offsetHeight > height && flag > 0) {
+      flag -= 1;
       fontSize -= 10;
       container.style.fontSize = `${fontSize}px`;
     }
-    max !== 100 && changeAttr(fontSize, "fontSize");
+    flag !== 100 && changeAttr(fontSize, "fontSize");
   });
+
+  const fontStyles = {
+    fontSize: attrs.fontSize,
+    color: attrs.color,
+    textAlign: attrs.textAlign,
+    paddingLeft: attrs.padding,
+    paddingRight: attrs.padding
+  };
+
+  console.log(attrs);
   return (
     <div
       style={{
         width,
         height,
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+        alignItems:
+          attrs.verticalAlign === "center"
+            ? "center"
+            : attrs.verticalAlign === "bottom"
+            ? "flex-end"
+            : "flex-start",
+        justifyContent:
+          attrs.textAlign === "center"
+            ? "center"
+            : attrs.textAlign === "right"
+            ? "flex-end"
+            : "flex-start"
       }}
     >
       {edit ? (
@@ -45,21 +68,15 @@ export default connect(null, {
           onChange={handleChange}
           rows={value.split("\n").length}
           style={{
-            ...attrs,
             backgroundColor: "transparent",
             border: 0,
             resize: "none",
             outline: "none",
-            textAlign: "center"
+            ...fontStyles
           }}
         />
       ) : (
-        <div
-          style={{
-            textAlign: "center",
-            ...attrs
-          }}
-        >
+        <div style={fontStyles}>
           {value.split("\n").map((line, index) => (
             <p key={index} style={{ margin: "0em" }}>
               {line}

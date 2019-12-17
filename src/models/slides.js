@@ -1,11 +1,16 @@
 import imageURL from "../static/example.jpg";
 import { saveAs } from "file-saver";
 import data from "../data/data.json";
+import dfs from "../utils/dfs";
+import {
+  createCanvas,
+  createImage,
+  createPanel,
+  createSlide,
+  createText,
+  createFile
+} from "../utils/create";
 
-function dfs(node, callback) {
-  callback(node);
-  node.children && node.children.forEach(item => dfs(item, callback));
-}
 
 export default {
   namespace: "slides",
@@ -18,53 +23,7 @@ export default {
       return state;
     },
     createNewFile(state, action) {
-      return {
-        filename: "new",
-        selectedId: 1,
-        selectedComponentId: 1,
-        structure: {
-          id: 1,
-          name: "hello world"
-        },
-        components: [
-          {
-            id: 1,
-            type: "panel",
-            value: "column",
-            attrs: {
-              span: [1, 2],
-              flex: "column"
-            },
-            children: [
-              {
-                id: 2,
-                type: "text",
-                value: "hello world",
-                attrs: {
-                  color: "#000000",
-                  fontSize: 100
-                }
-              },
-              {
-                type: "panel",
-                value: "row",
-                id: "c-2",
-                attrs: { span: [], flex: "row" },
-                children: []
-              }
-            ]
-          }
-        ],
-        selectedArributeId: 1,
-        attributeVars: [
-          {
-            id: 1,
-            type: "color",
-            value: "#111111",
-            name: "标题颜色"
-          }
-        ]
-      };
+      return createFile();
     },
     download(state, action) {
       const file = new File([JSON.stringify(state)], `${state.filename}.json`, {
@@ -119,35 +78,7 @@ export default {
 
       // 添加到组件
       const id = new Date().getTime();
-      const cmp = {
-        id,
-        type: "panel",
-        value: "colum",
-        attrs: {
-          span: [1, 2],
-          flex: "column"
-        },
-        children: [
-          {
-            type: "text",
-            value: value,
-            id: "text" + id,
-            attrs: {
-              color: "#000000",
-              fontSize: 100
-            }
-          },
-          {
-            type: "panel",
-            value: "row",
-            id: "panel" + id,
-            attrs: {
-              span: []
-            },
-            children: []
-          }
-        ]
-      };
+      const cmp = createSlide(id, value);
 
       state.components.push(cmp);
 
@@ -306,35 +237,19 @@ export default {
       // 确定插入的类型
       const id = new Date().getTime();
       const mp = {
-        text: {
-          type: "text",
+        text: createText(id, "text", { isTitle: false }),
+        image: createImage(id, imageURL),
+        canvas: createCanvas(
           id,
-          value: "hello world",
-          attrs: {
-            fontSize: 50,
-            color: "#000000"
-          }
-        },
-        image: {
-          type: "image",
-          id,
-          value: imageURL,
-          attrs: {}
-        },
-        canvas: {
-          type: "canvas",
-          id,
-          value:
-            'function(ctx, width, height){\n\tctx.fillStyle = "black";\n\tctx.fillRect(0, 0, 100, 100);\n}',
-          attrs: {}
-        },
-        panel: {
-          type: "panel",
-          id,
-          value: "row",
-          attrs: { span: [], flex: "row" },
-          children: []
-        }
+          `function(ctx, width, height){
+          const size = 100,
+            x = (width - size) / 2,
+            y = (height - size) / 2;
+          ctx.fillStyle = "black";
+          ctx.fillRect(x, y, size, size);
+        }`
+        ),
+        panel: createPanel(id, "column", {}, [])
       };
       const cmp = mp[type];
 

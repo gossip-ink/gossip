@@ -62,7 +62,7 @@ export default connect(
       alert("类型不匹配");
       return;
     }
-    
+
     changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
   }
 
@@ -86,7 +86,7 @@ export default connect(
             let varId = null;
             // 对数值进行一下转化，和全局变量联系起来
             let attrValue = selectedCmp.attrs[item];
-            
+
             if (typeof attrValue === "string" && attrValue[0] === "$") {
               isVar = true;
               varId = parseInt(attrValue.slice(1));
@@ -169,6 +169,7 @@ export default connect(
             } else if (item === "flex") {
               return (
                 <div key={index}>
+                  布局
                   <Radio.Group
                     onChange={e => handleAttrChange(e.target.value, item)}
                     value={selectedCmp.attrs[item]}
@@ -182,9 +183,93 @@ export default connect(
                   </Radio.Group>
                 </div>
               );
+            } else if (item === "textAlign") {
+              return (
+                <div key={index}>
+                  左右
+                  <Radio.Group
+                    onChange={e => handleAttrChange(e.target.value, item)}
+                    value={selectedCmp.attrs[item]}
+                  >
+                    <Radio value="left" key={1}>
+                      left
+                    </Radio>
+                    <Radio value="center" key={2}>
+                      center
+                    </Radio>
+                    <Radio value="right" key={3}>
+                      right
+                    </Radio>
+                  </Radio.Group>
+                </div>
+              );
+            } else if (item === "verticalAlign") {
+              return (
+                <div key={index}>
+                  上下
+                  <Radio.Group
+                    onChange={e => handleAttrChange(e.target.value, item)}
+                    value={selectedCmp.attrs[item]}
+                  >
+                    <Radio value="top" key={1}>
+                      top
+                    </Radio>
+                    <Radio value="center" key={2}>
+                      center
+                    </Radio>
+                    <Radio value="bottom" key={3}>
+                      bottom
+                    </Radio>
+                  </Radio.Group>
+                </div>
+              );
+            } else if (item === "padding") {
+              return (
+                <Attribute
+                  key={index}
+                  onVarDrop={(type, id) => handleVarDrop(type, id, item)}
+                  isVar={isVar}
+                  onVarDelete={() => handleDeleteVarForCmp(item)}
+                  onVarSelect={() => selectVar(varId)}
+                >
+                  内边距
+                  <Select
+                    value={attrValue}
+                    onChange={value => handleAttrChange(value, item)}
+                    style={{ width: 70 }}
+                    disabled={isVar}
+                  >
+                    {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(
+                      (size, idx) => (
+                        <Option value={size} key={idx}>
+                          {size}
+                        </Option>
+                      )
+                    )}
+                  </Select>
+                </Attribute>
+              );
+            } else if (item === "displayMode") {
+              return (
+                <div key={index}>
+                  模式
+                  <Radio.Group
+                    onChange={e => handleAttrChange(e.target.value, item)}
+                    value={selectedCmp.attrs[item]}
+                  >
+                    <Radio value="normal" key={1}>
+                      normal
+                    </Radio>
+                    <Radio value="scaleToFill" key={2}>
+                      scaleToFill
+                    </Radio>
+                  </Radio.Group>
+                </div>
+              );
             }
           })}
       </div>
+      <div>{!selectedCmp && <p>没有选中的组件~</p>}</div>
     </div>
   );
 });

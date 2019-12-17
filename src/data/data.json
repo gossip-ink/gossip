@@ -1,127 +1,259 @@
 {
-  "filename": "hello world",
+  "filename": "new",
   "selectedId": 1,
-  "selectedComponentId": "c-4",
-  "selectedPanel": 0,
+  "selectedComponentId": "panel1576548838578",
   "structure": {
     "id": 1,
     "name": "uIdea",
     "children": [
+      { "id": 1576548749824, "name": "颜值" },
       {
-        "id": 1576236817875,
-        "name": "快速构建",
+        "id": 1576548782645,
+        "name": "才华",
         "children": [
-          { "id": 1576236850821, "name": "思维导图" },
-          { "id": 1576236905671, "name": "flex 布局" }
+          { "id": 1576548806777, "name": "图片" },
+          { "id": 1576548838578, "name": "画布" }
         ]
       },
-      { "id": 1576236834895, "name": "更有交互性" }
+      { "id": 1576548768940, "name": "人品" }
     ]
   },
-  "selectedArributeId": 10,
-  "attributeVars": [
-    { "id": 10, "type": "color", "value": "#bbbbbb", "name": "标题颜色" }
-  ],
   "components": [
     {
-      "id": 1,
       "type": "panel",
+      "id": 1,
       "value": "column",
-      "attrs": { "span": [1, 2], "flex": "column" },
+      "attrs": {
+        "span": [1],
+        "flex": "column",
+        "backgroundColor": "#fffff",
+        "padding": 10
+      },
       "children": [
         {
-          "type": "text",
+          "id": 2,
           "value": "uIdea",
-          "id": "c-1",
-          "attrs": { "color": "#161DC6", "fontSize": 200, "isTitle": true }
+          "type": "text",
+          "attrs": {
+            "fontSize": 200,
+            "color": "#000000",
+            "textAlign": "center",
+            "padding": 10,
+            "verticalAlign": "center",
+            "isTitle": true
+          }
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1576548749824,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "backgroundColor": "#fffff",
+        "padding": 10
+      },
+      "children": [
+        {
+          "id": "text1576548749824",
+          "value": "颜值",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "#000000",
+            "textAlign": "left",
+            "padding": 10,
+            "verticalAlign": "center",
+            "isTitle": true
+          }
         },
         {
           "type": "panel",
-          "value": "row",
-          "id": "c-2",
-          "attrs": { "span": [1, 1], "flex": "row" },
+          "id": "panel1576548749824",
+          "value": "column",
+          "attrs": {
+            "span": [],
+            "flex": "column",
+            "backgroundColor": "#fffff",
+            "padding": 10
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1576548768940,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "backgroundColor": "#fffff",
+        "padding": 10
+      },
+      "children": [
+        {
+          "id": "text1576548768940",
+          "value": "人品",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "#000000",
+            "textAlign": "left",
+            "padding": 10,
+            "verticalAlign": "center",
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1576548768940",
+          "value": "column",
+          "attrs": {
+            "span": [],
+            "flex": "column",
+            "backgroundColor": "#fffff",
+            "padding": 10
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1576548782645,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "backgroundColor": "#fffff",
+        "padding": 10
+      },
+      "children": [
+        {
+          "id": "text1576548782645",
+          "value": "才华",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "#000000",
+            "textAlign": "left",
+            "padding": 10,
+            "verticalAlign": "center",
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1576548782645",
+          "value": "column",
+          "attrs": {
+            "span": [],
+            "flex": "column",
+            "backgroundColor": "#fffff",
+            "padding": 10
+          },
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1576548806777,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "backgroundColor": "#fffff",
+        "padding": 10
+      },
+      "children": [
+        {
+          "id": "text1576548806777",
+          "value": "图片",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "#000000",
+            "textAlign": "left",
+            "padding": 10,
+            "verticalAlign": "center",
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1576548806777",
+          "value": "column",
+          "attrs": {
+            "span": [1],
+            "flex": "column",
+            "backgroundColor": "#fffff",
+            "padding": 10
+          },
           "children": [
             {
               "type": "image",
-              "id": "c-3",
-              "value": "/static/example.3517664f.jpg"
-            },
-            {
-              "type": "canvas",
-              "id": "c-4",
-              "value": "function(ctx, width, height){\n\tconst size = 100,\n\t\tx = (width - size) / 2,\n\t\ty = (height - size) / 2;\n\tctx.fillStyle = \"black\";\n\tctx.fillRect(x, y, size, size);\n}"
+              "id": 1576548812670,
+              "value": "/static/example.3517664f.jpg",
+              "attrs": { "displayMode": "scaleToFill", "padding": 10 }
             }
           ]
         }
       ]
     },
     {
-      "id": 4,
       "type": "panel",
+      "id": 1576548838578,
       "value": "column",
-      "attrs": { "flex": "column" }
-    },
-    {
-      "id": 5,
-      "type": "panel",
-      "value": "column",
-      "attrs": { "flex": "column" }
-    },
-    {
-      "id": 1576236817875,
-      "type": "panel",
-      "value": "colum",
-      "attrs": { "span": [1], "flex": "column" },
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "backgroundColor": "#fffff",
+        "padding": 10
+      },
       "children": [
         {
+          "id": "text1576548838578",
+          "value": "画布",
           "type": "text",
-          "value": "快速构建",
-          "id": "text1576236817875",
-          "attrs": { "color": "#000000", "fontSize": 100, "isTitle": true }
-        }
-      ]
-    },
-    {
-      "id": 1576236834895,
-      "type": "panel",
-      "value": "colum",
-      "attrs": { "span": [1], "flex": "column" },
-      "children": [
+          "attrs": {
+            "fontSize": "$2",
+            "color": "#000000",
+            "textAlign": "left",
+            "padding": 10,
+            "verticalAlign": "center",
+            "isTitle": true
+          }
+        },
         {
-          "type": "text",
-          "value": "更有交互性",
-          "id": "text1576236834895",
-          "attrs": { "color": "#000000", "fontSize": 100, "isTitle": true }
-        }
-      ]
-    },
-    {
-      "id": 1576236850821,
-      "type": "panel",
-      "value": "colum",
-      "attrs": { "span": [1], "flex": "column" },
-      "children": [
-        {
-          "type": "text",
-          "value": "思维导图",
-          "id": "text1576236850821",
-          "attrs": { "color": "#000000", "fontSize": 100, "isTitle": true }
-        }
-      ]
-    },
-    {
-      "id": 1576236905671,
-      "type": "panel",
-      "value": "colum",
-      "attrs": { "span": [1], "flex": "column" },
-      "children": [
-        {
-          "type": "text",
-          "value": "flex 布局",
-          "id": "text1576236905671",
-          "attrs": { "color": "#000000", "fontSize": 100, "isTitle": true }
+          "type": "panel",
+          "id": "panel1576548838578",
+          "value": "column",
+          "attrs": {
+            "span": [1],
+            "flex": "column",
+            "backgroundColor": "#fffff",
+            "padding": 10
+          },
+          "children": [
+            {
+              "type": "canvas",
+              "id": 1576548844422,
+              "value": "function(ctx, width, height){\n          const size = 100,\n            x = (width - size) / 2,\n            y = (height - size) / 2;\n          ctx.fillStyle = \"black\";\n          ctx.fillRect(x, y, size, size);\n        }",
+              "attrs": { "padding": 10 }
+            }
+          ]
         }
       ]
     }
-  ]
+  ],
+  "selectedArributeId": 1,
+  "attributeVars": [
+    { "id": 1, "type": "color", "value": "#111111", "name": "标题颜色" },
+    { "id": 2, "type": "number", "value": 150, "name": "一级标题字体" }
+  ],
+  "selectedPanel": 0
 }

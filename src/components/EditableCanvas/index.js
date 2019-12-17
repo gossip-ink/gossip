@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function({ attrs, value, width, height, edit, onValueChange}) {
+export default function({ attrs, value, width, height, edit, onValueChange }) {
   const canvasId = new Date().getTime() + Math.floor(Math.random() * 1000);
   const [error, setError] = useState(false);
   function handleChange(e) {
@@ -8,6 +8,9 @@ export default function({ attrs, value, width, height, edit, onValueChange}) {
     onValueChange && onValueChange(value);
     setError(false);
   }
+
+  const boxWidth = width - attrs.padding * 2,
+    boxHeight = height - attrs.padding * 2;
   useEffect(() => {
     if (error || edit) {
       // 如果有问题或者在编辑模式就不执行
@@ -16,19 +19,19 @@ export default function({ attrs, value, width, height, edit, onValueChange}) {
     try {
       const canvas = document.getElementById(canvasId);
       // 设置 canvas
-      canvas.width = width * 2;
-      canvas.height = height * 2;
+      canvas.width = boxWidth * 2;
+      canvas.height = boxHeight * 2;
 
       // 这里必须要加 px
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
+      canvas.style.width = boxWidth + "px";
+      canvas.style.height = boxHeight + "px";
 
       // 获得上下文对象
       const ctx = canvas.getContext("2d");
       ctx.scale(2, 2);
 
       // 执行代码
-      const code = `(${value})(ctx, ${width}, ${height})`;
+      const code = `(${value})(ctx, ${boxWidth}, ${boxHeight})`;
       eval(code);
     } catch (e) {
       console.error(e);
@@ -54,7 +57,9 @@ export default function({ attrs, value, width, height, edit, onValueChange}) {
       ) : error ? (
         <p>出错啦~</p>
       ) : (
-        <canvas id={canvasId} style={attrs} />
+        <canvas id={canvasId} style={{
+          margin: attrs.padding
+        }} />
       )}
     </div>
   );

@@ -55,41 +55,22 @@ const Panel = connect(
   const outerWidth = width - padding * 2,
     outerHeight = height - padding * 2;
 
+  const props = {
+    attrs: newAttrs,
+    width: outerWidth,
+    height: outerHeight,
+    value: value,
+    edit: id === selectedComponentId,
+    onValueChange: handleValueChange,
+    editable
+  };
+
   if (type === "text") {
-    content = (
-      <EditableText
-        attrs={newAttrs}
-        width={outerWidth}
-        height={outerHeight}
-        value={value}
-        edit={id === selectedComponentId}
-        onValueChange={handleValueChange}
-      />
-    );
+    content = <EditableText {...props} />;
   } else if (type === "image") {
-    content = (
-      <EditableImg
-        attrs={newAttrs}
-        width={outerWidth}
-        height={outerHeight}
-        value={value}
-        edit={id === selectedComponentId}
-        onValueChange={handleValueChange}
-        editable={editable}
-      />
-    );
+    content = <EditableImg {...props} />;
   } else if (type === "canvas") {
-    content = (
-      <EditableCanvas
-        attrs={newAttrs}
-        width={outerWidth}
-        height={outerHeight}
-        value={value}
-        edit={id === selectedComponentId}
-        onValueChange={handleValueChange}
-        editable={editable}
-      />
-    );
+    content = <EditableCanvas {...props} />;
   } else if (type === "panel") {
     content = (
       <>
