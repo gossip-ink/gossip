@@ -31,7 +31,7 @@ export default function({ attrs, value, width, height, edit, onValueChange }) {
       ctx.scale(2, 2);
 
       // 执行代码
-      const code = `(${value})(ctx, ${boxWidth}, ${boxHeight})`;
+      const code = `(${value})(canvas, ctx, ${boxWidth}, ${boxHeight})`;
       eval(code);
     } catch (e) {
       console.error(e);

@@ -2,9 +2,12 @@ import Slide from "../../components/Slide/index";
 import router from "umi/router";
 import Impress from "../../components/Impress/index";
 import Step from "../../components/Step/index";
-import treemap from "../../utils/treemap"
+import treemap from "../../utils/treemap";
 import { connect } from "dva";
 import { useEffect } from "react";
+import { copyTree } from "../../utils/tree";
+import getLayout from "../../utils/overview";
+import styles from "./index.css";
 
 export default connect(
   state => ({
@@ -21,20 +24,6 @@ export default connect(
       node.children.forEach(element => {
         dfs(element, callback);
       });
-  }
-
-  function copyTree(tree) {
-    const data = { ...tree, children: [] };
-    function eachBefore(node, data) {
-      node.children &&
-        node.children.forEach(item => {
-          const child = { ...item, children: [] };
-          data.children.push(child);
-          eachBefore(item, child);
-        });
-    }
-    eachBefore(tree, data);
-    return data;
   }
 
   useEffect(() => {
@@ -61,16 +50,14 @@ export default connect(
   const tree = copyTree(structure);
   dfs(tree, node => {
     Object.assign(node, {
-      width: screen.width * 0.8,
-      height: screen.height * 0.8
+      data: { width: screen.width * 0.8, height: screen.height * 0.8 }
     });
   });
 
   // 进行布局
-  const map = treemap(tree);
-  // const treemap = [];
-  // const data = getLayout(screen.width, screen.height, tree);
-  // dfs(data, node => treemap.push(node));
+  const treemap = [];
+  const data = getLayout(tree);
+  dfs(data, node => treemap.push(node));
 
   setSelectedComp(-1);
 
@@ -78,17 +65,13 @@ export default connect(
     <Impress overviewOpen={true}>
       {slides.map((item, index) => (
         <Step
-          // x={map[index].x}
-          // y={map[index].y}
-          // scale={map[index].scale}
-          y={index * 2000}
+          x={treemap[index].x}
+          y={treemap[index].y}
           key={index}
         >
           <Slide
-            // height={map[index].data.height}
-            // width={map[index].data.width}
-            
-            // width={100}
+            scale={0.8}
+            hasBackground={false}
             content={item}
             key={item.id}
           />

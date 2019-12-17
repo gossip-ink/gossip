@@ -48,13 +48,13 @@ export default connect(
   }
 
   function handleDragStart(e, item) {
-    console.log(item, "drag")
+    console.log(item, "drag");
     e.dataTransfer.setData("type", item.type);
     e.dataTransfer.setData("id", item.id);
   }
 
   return (
-    <div style={{ height }}>
+    <div style={{ height, overflow:"auto" }}>
       <div style={{ display: "flex" }}>
         <h1>Variables</h1>
         <div style={{ marginLeft: 75 }}>
@@ -66,7 +66,7 @@ export default connect(
               <div
                 key={index}
                 onClick={() => handleAddVar(item.value)}
-                style={{ cursor: "pointer"}}
+                style={{ cursor: "pointer" }}
               >
                 {item.name}
               </div>
@@ -103,7 +103,7 @@ export default connect(
         <div>未选择</div>
       )}
       <br></br>
-      <div>
+      <div style={{ overflow: "auto" }}>
         {variables.map(item => (
           <div
             key={item.id}

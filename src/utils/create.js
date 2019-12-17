@@ -6,9 +6,11 @@ function createText(id, value, attrs) {
     attrs: {
       fontSize: 50,
       color: "#000000",
+      fontWeight: "normal",
+      fontFamily: "",
       textAlign: "left",
       verticalAlign: "top",
-      padding: 10,
+      padding: 50,
       isTitle: false,
       ...attrs
     }
@@ -22,7 +24,7 @@ function createImage(id, value, attrs) {
     value: value,
     attrs: {
       displayMode: "normal",
-      padding: 10,
+      padding: 50,
       ...attrs
     }
   };
@@ -37,7 +39,7 @@ function createPanel(id, value, attrs, children = []) {
       span: [],
       flex: value,
       backgroundColor: "#fffff",
-      padding: 10,
+      padding: 50,
       ...attrs
     },
     children
@@ -50,7 +52,7 @@ function createCanvas(id, value, attrs) {
     id,
     value,
     attrs: {
-      padding: 10,
+      padding: 50,
       ...attrs
     }
   };
@@ -58,7 +60,11 @@ function createCanvas(id, value, attrs) {
 
 function createSlide(id, value) {
   return createPanel(id, "column", { span: [1, 2] }, [
-    createText("text" + id, value, { isTitle: true, fontSize: '$2' }),
+    createText("text" + id, value, {
+      isTitle: true,
+      fontSize: "$2",
+      fontWeight: "bold"
+    }),
     createPanel("panel" + id, "column", {}, [])
   ]);
 }

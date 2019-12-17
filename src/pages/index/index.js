@@ -47,7 +47,7 @@ export default function() {
                 }
                 key="1"
               >
-                <Outline height={contentHeight} />
+                <Outline height={contentHeight - 54} />
               </TabPane>
               <TabPane
                 tab={
@@ -58,12 +58,11 @@ export default function() {
                 }
                 key="2"
               >
-                <Thumbnails height={contentHeight} />
+                <Thumbnails height={contentHeight - 54} />
               </TabPane>
             </Tabs>
           </Col>
           <Col span={16}>
-            {/* <CmpBar height={toolBarHeight} /> */}
             <MainContent height={slideHeight} />
           </Col>
           <Col span={4}>

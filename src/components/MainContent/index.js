@@ -16,10 +16,10 @@ export default connect(
   }
 )(function({ height, selectedId, components, setSelectedComp }) {
   const windowSize = useWindowSize();
-  const width = windowSize.width * 2 / 3;
+  const width = (windowSize.width * 2) / 3;
   const scale = 0.6;
-  const translateX = width - windowSize.width * scale,
-    translateY = (height - windowSize.height * scale) / 2;
+  const translateX = (width - windowSize.width) / 2,
+    translateY = (height - windowSize.height) / 2;
   const content = components.find(v => v.id === selectedId);
 
   function handleSelect(e) {

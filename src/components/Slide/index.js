@@ -8,18 +8,22 @@ export default function({
   translateY = 0,
   content,
   selected,
+  hasBackground = true,
   editable = false
 }) {
   const style = {
     height,
     width,
-    transform: `scale(${scale}) translate(${translateX}px,${translateY}px)`,
-    transformOrigin: "left top",
-    border: selected && "10px solid black",
+    transform: `translate(${translateX}px,${translateY}px) scale(${scale})`,
+    // transformOrigin: "left top",
+    border: selected && "10px solid black"
   };
   const { id } = content;
   return (
-    <div className={styles.container} style={style} >
+    <div
+      className={`${styles.container} ${hasBackground && styles.background}`}
+      style={style}
+    >
       <Panel
         {...content}
         height={height}

@@ -37,10 +37,10 @@ export default connect(null, {
     color: attrs.color,
     textAlign: attrs.textAlign,
     paddingLeft: attrs.padding,
-    paddingRight: attrs.padding
+    paddingRight: attrs.padding,
+    fontWeight: attrs.fontWeight
   };
 
-  console.log(attrs);
   return (
     <div
       style={{
@@ -72,6 +72,7 @@ export default connect(null, {
             border: 0,
             resize: "none",
             outline: "none",
+            width,
             ...fontStyles
           }}
         />

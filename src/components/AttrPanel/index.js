@@ -53,7 +53,7 @@ export default connect(
   function handleVarDrop(type, id, attr) {
     const mp = {
       color: ["color"],
-      number: ["fontSize"]
+      number: ["fontSize", "padding"]
     };
 
     const arr = mp[type];
@@ -110,7 +110,28 @@ export default connect(
                     style={{ width: 70 }}
                     disabled={isVar}
                   >
-                    {[10, 20, 30, 40, 50, 60, 70, 80, 200].map((size, idx) => (
+                    {[
+                      10,
+                      20,
+                      30,
+                      40,
+                      50,
+                      60,
+                      70,
+                      80,
+                      90,
+                      100,
+                      110,
+                      120,
+                      130,
+                      140,
+                      150,
+                      160,
+                      170,
+                      180,
+                      190,
+                      200
+                    ].map((size, idx) => (
                       <Option value={size} key={idx}>
                         {size}
                       </Option>
@@ -262,6 +283,23 @@ export default connect(
                     </Radio>
                     <Radio value="scaleToFill" key={2}>
                       scaleToFill
+                    </Radio>
+                  </Radio.Group>
+                </div>
+              );
+            } else if (item === "fontWeight") {
+              return (
+                <div key={index}>
+                  粗细
+                  <Radio.Group
+                    onChange={e => handleAttrChange(e.target.value, item)}
+                    value={selectedCmp.attrs[item]}
+                  >
+                    <Radio value="normal" key={1}>
+                      normal
+                    </Radio>
+                    <Radio value="bold" key={2}>
+                      bold
                     </Radio>
                   </Radio.Group>
                 </div>

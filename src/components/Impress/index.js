@@ -32,15 +32,15 @@ export default function({
 
     // 添加所有的监听器
     function goto({ x = 0, y = 0, z = 0, scale = 1, rotate = 0 }) {
+      setStyleOfSlide();
       root.style.transform = `scale(${1 / scale})`;
       root.style.perspective = `${scale * 1000}px`;
       canvas.style.transform = `rotate(${-rotate}deg) translate3d(${-x}px, ${-y}px, ${-z}px)`;
     }
 
     // 切换到第一个
-    const {props} = children[0];
-    props && goto(props)
-    
+    const { props } = children[0];
+    props && goto(props);
 
     function next() {
       activeIndex =
@@ -55,6 +55,26 @@ export default function({
       activeIndex = activeIndex === 0 ? 0 : activeIndex - 1;
       const { props } = children[activeIndex];
       goto(props);
+    }
+
+    function setStyleOfSlide() {
+      const elements = document.getElementsByClassName("step");
+      const slides = [...elements];
+      slides.forEach((item, index) => {
+        if (index === activeIndex) {
+          item.style.opacity = 1;
+        } else {
+          item.style.opacity = 0.3;
+        }
+      });
+    }
+
+    function setOveriew() {
+      const elements = document.getElementsByClassName("step");
+      const slides = [...elements];
+      slides.forEach((item, index) => {
+        item.style.opacity = 1;
+      });
     }
 
     function overview() {
@@ -89,6 +109,7 @@ export default function({
         scale: scale
       };
       goto(props);
+      setOveriew();
     }
 
     // 导航的监听器

@@ -33,7 +33,7 @@ const Panel = connect(
   setSelectedComp,
   variables,
   setValueOfCmp,
-  editable
+  editable,
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -51,7 +51,7 @@ const Panel = connect(
   }
 
   let content;
-  const padding = 10;
+  const padding = newAttrs.padding;
   const outerWidth = width - padding * 2,
     outerHeight = height - padding * 2;
 

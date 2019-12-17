@@ -1,7 +1,6 @@
 import imageURL from "../static/example.jpg";
 import { saveAs } from "file-saver";
-import data from "../data/data.json";
-import dfs from "../utils/dfs";
+import { dfs } from "../utils/tree";
 import {
   createCanvas,
   createImage,
@@ -11,12 +10,22 @@ import {
   createFile
 } from "../utils/create";
 
+function initData() {
+  const data = JSON.parse(localStorage.getItem("uIdea")) || createFile();
+  data.selectedId = 1;
+  return data;
+}
 
 export default {
   namespace: "slides",
-  state: data,
+  state: initData(),
   effects: {},
   reducers: {
+    save(state, action) {
+      localStorage.setItem("uIdea", JSON.stringify(state));
+      alert("保存成功！");
+      return state;
+    },
     setSelectedPanel(state, action) {
       const { type } = action.payload;
       state.selectedPanel = type;
@@ -241,7 +250,7 @@ export default {
         image: createImage(id, imageURL),
         canvas: createCanvas(
           id,
-          `function(ctx, width, height){
+          `function(canvas, ctx, width, height){
           const size = 100,
             x = (width - size) / 2,
             y = (height - size) / 2;

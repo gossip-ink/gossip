@@ -73,8 +73,8 @@ export default connect(
   const boxWidth = windowSize.width / 6,
     boxHeight = 120,
     scale = 0.1;
-  const translateX = boxWidth - windowSize.width * scale,
-    translateY = boxHeight - windowSize.height * scale;
+  const translateX = (boxWidth - windowSize.width) / 2,
+    translateY = (boxHeight - windowSize.height) / 2;
 
   // 按照顺序获得 slides
   const idList = [];
@@ -121,7 +121,7 @@ export default connect(
   return (
     <div
       style={{
-        height,
+        height
         // border: selectedPanel === 1 && "1px solid black"
       }}
       className={styles.container}
@@ -138,25 +138,18 @@ export default connect(
               width: boxWidth
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                zIndex: 2,
-                opacity: 0,
-                height: boxHeight,
-                width: boxWidth
-              }}
-              onClick={() => handleSelect(item.id)}
-            ></div>
-            <Slide
-              height={windowSize.height}
-              width={windowSize.width}
-              translateX={translateX}
-              translateY={translateY}
-              scale={scale}
-              content={item}
-              selected={selectedId === item.id}
-            />
+            <div onClick={() => handleSelect(item.id)}>
+              <Slide
+                height={windowSize.height}
+                width={windowSize.width}
+                translateX={translateX}
+                translateY={translateY}
+                scale={scale}
+                content={item}
+                selected={selectedId === item.id}
+                selectable={true}
+              />
+            </div>
           </div>
         ))}
       </div>

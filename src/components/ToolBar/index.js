@@ -4,8 +4,9 @@ import { connect } from "dva";
 export default connect(null, {
   createNewFile: () => ({ type: "slides/createNewFile" }),
   download: () => ({ type: "slides/download" }),
-  upload: data => ({ type: "slides/upload", payload: { data } })
-})(function({ createNewFile, download, upload }) {
+  upload: data => ({ type: "slides/upload", payload: { data } }),
+  save: ()=>({type: "slides/save"})
+})(function({ createNewFile, download, upload, save }) {
   function handleClickPlay(e) {
     router.push("/present");
   }
@@ -16,6 +17,10 @@ export default connect(null, {
 
   function handleDownload() {
     download();
+  }
+
+  function handleSave(){
+    save();
   }
 
   function handleUploadFile(e) {
@@ -35,6 +40,12 @@ export default connect(null, {
         shape="circle"
         icon="play-circle"
         onClick={handleClickPlay}
+      />
+      <Button
+        type="primary"
+        shape="circle"
+        icon="save"
+        onClick={handleSave}
       />
       <Button
         type="primary"

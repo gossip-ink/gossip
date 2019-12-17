@@ -1,3 +1,4 @@
-.container{
-    background: #efefef;
+.container {
+  background: #efefef;
+  overflow: auto;
 }
