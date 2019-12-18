@@ -24,7 +24,7 @@ function createImage(id, value, attrs) {
     value: value,
     attrs: {
       displayMode: "normal",
-      padding: 50,
+      padding: 10,
       ...attrs
     }
   };
@@ -39,7 +39,7 @@ function createPanel(id, value, attrs, children = []) {
       span: [],
       flex: value,
       backgroundColor: "#fffff",
-      padding: 50,
+      padding: 10,
       ...attrs
     },
     children
@@ -52,7 +52,7 @@ function createCanvas(id, value, attrs) {
     id,
     value,
     attrs: {
-      padding: 50,
+      padding: 10,
       ...attrs
     }
   };
@@ -62,7 +62,7 @@ function createSlide(id, value) {
   return createPanel(id, "column", { span: [1, 2] }, [
     createText("text" + id, value, {
       isTitle: true,
-      fontSize: "$2",
+      fontSize: "80",
       fontWeight: "bold"
     }),
     createPanel("panel" + id, "column", {}, [])
@@ -91,18 +91,6 @@ function createFile() {
     ],
     selectedArributeId: 1,
     attributeVars: [
-      {
-        id: 1,
-        type: "color",
-        value: "#111111",
-        name: "标题颜色"
-      },
-      {
-        id: 2,
-        type: "number",
-        value: 150,
-        name: "一级标题字体"
-      }
     ]
   };
 }
