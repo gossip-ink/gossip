@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 export default function({ attrs, value, width, height, edit, onValueChange }) {
+  // 让 outline 和 maincontent 中的不同
   const canvasId = new Date().getTime() + Math.floor(Math.random() * 1000);
+  
   const [error, setError] = useState(false);
   function handleChange(e) {
     const value = e.target.value;

@@ -152,10 +152,15 @@ export default function({
       id="impress"
       style={{
         position: "absolute",
-        left: "50%",
+        // 让左上角移动到屏幕中心
+        left: "50%", 
         top: "50%",
+
+        // 设置缩放的中心为左上角
         transformOrigin: "left top",
         transitionDuration: "1s",
+
+        // 有 3D 效果
         transformStyle: "preserve-3d"
       }}
     >
@@ -163,6 +168,7 @@ export default function({
         id="canvas"
         style={{
           position: "absolute",
+          // 设置坐标原点为左上角
           transformOrigin: "left top",
           transitionDuration: "1s",
           transformStyle: "preserve-3d"

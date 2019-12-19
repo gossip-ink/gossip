@@ -1,3 +1,4 @@
+// 创建组件
 function createText(id, value, attrs) {
   return {
     id,

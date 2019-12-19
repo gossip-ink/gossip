@@ -21,19 +21,20 @@ export default {
   state: initData(),
   effects: {},
   reducers: {
+    /****** 和文件操作有关 *******/
+
+    // 保存到缓存
     save(state, action) {
       localStorage.setItem("uIdea", JSON.stringify(state));
       alert("保存成功！");
       return state;
     },
-    setSelectedPanel(state, action) {
-      const { type } = action.payload;
-      state.selectedPanel = type;
-      return state;
+    // 上传 json 文件
+    upload(state, action) {
+      const { data } = action.payload;
+      return data;
     },
-    createNewFile(state, action) {
-      return createFile();
-    },
+    // 以 json 格式下载到本地
     download(state, action) {
       const file = new File([JSON.stringify(state)], `${state.filename}.json`, {
         type: "text/plain;charset=utf-8"
@@ -41,6 +42,36 @@ export default {
       saveAs(file);
       return state;
     },
+    // 创建新的 ppt
+    createNewFile(state, action) {
+      return createFile();
+    },
+
+    /******** 和设置当前 active 的东西有关 *********/
+
+    // 设置当前 active 的 panel
+    setSelectedPanel(state, action) {
+      const { type } = action.payload;
+      state.selectedPanel = type;
+      return state;
+    },
+    // 设置当前 active 的 ppt
+    setSelected(state, action) {
+      const { id } = action.payload;
+      state.selectedId = id;
+      return state;
+    },
+    // 设置当前 active 的 cmp
+    setSelectedComp(state, action) {
+      const { id, type = 2 } = action.payload;
+      state.selectedComponentId = id;
+      state.selectedPanel = type;
+      return state;
+    },
+
+    /********* 操作大纲的节点 ********/
+
+    // 更新大纲的 value
     updateNodeValue(state, action) {
       const { id, value } = action.payload;
       dfs(state.structure, node => {
@@ -49,13 +80,14 @@ export default {
         }
       });
 
-      // 看一看对应的 cmp 中有没有 isTitle 的 text 组件
+      // 看一看对应的 cmp 中有没有 isTitle 的 text 组件，如果有就更新相应的组件
       const slide = state.components.find(item => item.id === id);
       dfs(slide, node => {
         node.type === "text" && node.attrs.isTitle && (node.value = value);
       });
       return state;
     },
+    // 删除大纲的节点
     deleteNode(state, action) {
       const { id } = action.payload;
       // 找到 index
@@ -78,6 +110,7 @@ export default {
       state.selectedId = 1;
       return state;
     },
+    // 创建一个新的节点
     createNode(state, action) {
       const { nodeId, value, type } = action.payload;
       if (type !== "children" && nodeId === 1) {
@@ -88,7 +121,6 @@ export default {
       // 添加到组件
       const id = new Date().getTime();
       const cmp = createSlide(id, value);
-
       state.components.push(cmp);
 
       // 添加到树中
@@ -114,6 +146,7 @@ export default {
       state.selectedId = id;
       return state;
     },
+    // 将 node 插入当前节点的 children 的最后一个
     appendNode(state, action) {
       const { id, father } = action.payload;
 
@@ -141,6 +174,7 @@ export default {
       state.selectedId = dragNode.id;
       return state;
     },
+    // 将节点插入当前节点的前面或则后面
     insertNode(state, action) {
       const { id, brother, before } = action.payload;
 
@@ -173,17 +207,10 @@ export default {
       state.selectedId = dragNode.id;
       return state;
     },
-    setSelected(state, action) {
-      const { id } = action.payload;
-      state.selectedId = id;
-      return state;
-    },
-    setSelectedComp(state, action) {
-      const { id, type = 2 } = action.payload;
-      state.selectedComponentId = id;
-      state.selectedPanel = type;
-      return state;
-    },
+
+    /**** 和操作 cmp 有关 ********/
+
+    // 删除 cmp
     deleteCmp(state, action) {
       const { rootId, id } = action.payload;
       const slide = state.components.find(item => item.id === rootId);
@@ -234,10 +261,6 @@ export default {
 
       dragNode && (state.selectedComponentId = dragNode.id);
       return state;
-    },
-    upload(state, action) {
-      const { data } = action.payload;
-      return data;
     },
     createCmp(state, action) {
       const { type, method } = action.payload;
@@ -325,6 +348,25 @@ export default {
       dragNode && (state.selectedComponentId = dragNode.id);
       return state;
     },
+
+    /****** 改变 cmp 的属性 *********/
+    setValueOfCmp(state, action) {
+      const { value, cmpId, rootId } = action.payload;
+      const slide = state.components.find(item => item.id === rootId);
+      dfs(slide, node => {
+        if (node.id === cmpId) {
+          node.value = value;
+
+          // 如果是文字，且还有 isTitle，修改对应的 structure 的 name
+          node.type === "text" &&
+            node.attrs.isTitle === true &&
+            dfs(state.structure, item => {
+              item.id === rootId && (item.name = value);
+            });
+        }
+      });
+      return state;
+    },
     changeAttr(state, action) {
       const {
         value,
@@ -344,6 +386,9 @@ export default {
 
       return state;
     },
+
+    /********* 和操作属性变量有关 ***********/
+
     deleteVar(state, action) {
       const { id } = action.payload;
       const v = state.attributeVars.find(item => item.id === id);
@@ -425,23 +470,6 @@ export default {
         const v = state.attributeVars.find(item => item.id === vid);
         attrs[key] = v.value;
       });
-    },
-    setValueOfCmp(state, action) {
-      const { value, cmpId, rootId } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
-      dfs(slide, node => {
-        if (node.id === cmpId) {
-          node.value = value;
-
-          // 如果是文字，且还有 isTitle，修改对应的 structure 的 name
-          node.type === "text" &&
-            node.attrs.isTitle === true &&
-            dfs(state.structure, item => {
-              item.id === rootId && (item.name = value);
-            });
-        }
-      });
-      return state;
     }
   }
 };

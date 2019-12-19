@@ -1,3 +1,4 @@
+// 这个组件应该不需要，直接用 panel 代替即可
 import styles from "./index.css";
 import Panel from "../Panel/index";
 export default function({
@@ -15,7 +16,6 @@ export default function({
     height,
     width,
     transform: `translate(${translateX}px,${translateY}px) scale(${scale})`,
-    // transformOrigin: "left top",
     border: selected && "10px solid black"
   };
   const { id } = content;

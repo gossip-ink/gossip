@@ -1,3 +1,5 @@
+// 这里可以抽象一个 tree 组件出来，structure 和 outline 的代码可以更加简洁
+
 import styles from "./index.css";
 import { connect } from "dva";
 import TreeNode from "../../components/TreeNode/index";

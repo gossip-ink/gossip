@@ -18,6 +18,7 @@ export default connect(
   const windowSize = useWindowSize();
   const width = (windowSize.width * 2) / 3;
   const scale = 0.6;
+  // 移动到画布中心
   const translateX = (width - windowSize.width) / 2,
     translateY = (height - windowSize.height) / 2;
   const content = components.find(v => v.id === selectedId);

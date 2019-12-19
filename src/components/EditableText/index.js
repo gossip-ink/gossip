@@ -47,13 +47,13 @@ export default connect(null, {
         width,
         height,
         display: "flex",
-        alignItems:
+        alignItems: // 竖直居中
           attrs.verticalAlign === "center"
             ? "center"
             : attrs.verticalAlign === "bottom"
             ? "flex-end"
             : "flex-start",
-        justifyContent:
+        justifyContent: //水平居中
           attrs.textAlign === "center"
             ? "center"
             : attrs.textAlign === "right"
@@ -79,6 +79,7 @@ export default connect(null, {
       ) : (
         <div style={fontStyles}>
           {value.split("\n").map((line, index) => (
+            // 设置 margin 为 0 行
             <p key={index} style={{ margin: "0em" }}>
               {line}
             </p>

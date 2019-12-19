@@ -1,3 +1,6 @@
+// 项目的主页
+
+
 import styles from "./index.css";
 import { Layout, Row, Col, Tabs, Icon } from "antd";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -11,9 +14,11 @@ import MainContent from "../../components/MainContent/index";
 import Structure from "../../components/Structure/index";
 import AttrPanel from "../../components/AttrPanel/index";
 import Variables from "../../components/Variables/index";
-// import
+
 
 export default function() {
+  // 计算每个部分的高度和宽度
+  // 这里的 useWindowSize 需要修改
   const windowSize = useWindowSize();
   const headerHeight = 64,
     contentHeight = windowSize.height - headerHeight,

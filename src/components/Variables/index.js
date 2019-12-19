@@ -1,3 +1,5 @@
+// 拖拽功能可以抽象成一个组件或者高阶组件
+
 import { connect } from "dva";
 import { Select, Button, Icon, Input, Popover } from "antd";
 const { Option } = Select;

@@ -1,3 +1,5 @@
+// 和树操作有关的一些算法
+
 function dfs(node, callback) {
   callback(node);
   node.children && node.children.forEach(item => dfs(item, callback));

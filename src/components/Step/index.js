@@ -13,6 +13,7 @@ export default function({
       className="step"
       style={{
         position: "absolute",
+        // 第一 transform 是用来将当前的中心设置为屏幕中心
         transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotate(${rotate}deg)`
       }}
     >

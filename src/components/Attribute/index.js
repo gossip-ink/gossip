@@ -1,5 +1,7 @@
+// 每一个 cmp 的属性，可以接受拖拽的内容
+
 import { useState } from "react";
-import { Icon, Button } from "antd";
+import { Button } from "antd";
 export default function({
   children,
   onVarDrop,
