@@ -1,8 +1,13 @@
 import React from 'react';
-import { Router as DefaultRouter, Route, Switch } from 'react-router-dom';
+import {
+  Router as DefaultRouter,
+  Route,
+  Switch,
+  StaticRouter,
+} from 'react-router-dom';
 import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/lib/renderRoutes';
-import history from '@tmp/history';
+import history from '@@/history';
 import { routerRedux } from 'dva';
 
 const Router = routerRedux.ConnectedRouter;
@@ -21,7 +26,7 @@ const routes = [
   {
     component: () =>
       React.createElement(
-        require('/usr/local/lib/node_modules/umi/node_modules/_umi-build-dev@1.16.6@umi-build-dev/lib/plugins/404/NotFound.js')
+        require('/usr/local/lib/node_modules/umi/node_modules/_umi-build-dev@1.16.10@umi-build-dev/lib/plugins/404/NotFound.js')
           .default,
         { pagesPath: 'src/pages', hasRoutesInConfig: false },
       ),

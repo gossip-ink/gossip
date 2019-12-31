@@ -3,7 +3,7 @@ import { connect } from "dva";
 import { useEffect } from "react";
 import { dfs, copyTree } from "../../utils/tree";
 import getLayout from "../../utils/overview";
-import styles from "./index.css";
+import "./index.css";
 
 import router from "umi/router";
 import Slide from "../../components/Slide/index";
