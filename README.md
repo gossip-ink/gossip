@@ -1,6 +1,7 @@
 # uIdea
 
 一个快速创建炫酷效果的制作幻灯片的系统。
+
 ![QQ20191231-095430@2x.png](https://i.loli.net/2019/12/31/yOsPigBNSMAu5UY.png)
 
 ## 使用方法和参看介绍的幻灯片
