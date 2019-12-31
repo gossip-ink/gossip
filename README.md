@@ -1,12 +1,27 @@
 # uIdea
 
 一个快速创建炫酷效果的制作幻灯片的系统。
-
-## 使用方法
-
-这里大概介绍一下该系统的使用方法和功能。
-
 ![QQ20191231-095430@2x.png](https://i.loli.net/2019/12/31/yOsPigBNSMAu5UY.png)
+
+## 使用方法和参看介绍的幻灯片
+
+（1）在线使用：https://pearmini.github.io/uIdea/
+
+（2）本地使用：因为在线使用可能获取资源很慢，不能快速加载，这个时候就可以本地使用。步骤如下（需要安装 pyhton3）：
+  
+```bash
+# 下载项目到本地
+git clone https://github.com/pearmini/uIdea.git
+
+# 开启服务器
+cd ./docs && python3 -m http.server 8000
+
+# 在浏览器中输入：http://localhost:8000/
+```
+
+## 功能
+
+这里大概介绍一下 uIdea 的独一无二的功能。
 
 ### ToolBar
 
