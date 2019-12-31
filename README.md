@@ -6,9 +6,12 @@
 
 ## 查看介绍的幻灯片
 
-(1) 将 examples 里面的 introduction.uidea 下载到本地。
+(1) 将 examples 里面的 `introduction.uidea` 下载到本地。
+
 (2) 打开网址：https://pearmini.github.io/uIdea/
-(3) 在工具中点击上传按钮，选择 introduction.uidea 上传。
+
+(3) 在工具中点击上传按钮，选择 `introduction.uidea` 上传。
+
 (4) 点击放映按钮。
 
 ## 功能
