@@ -1,7 +1,6 @@
 import imageURL from "../static/example.jpg";
 import { saveAs } from "file-saver";
 import { dfs } from "../utils/tree";
-import example from "../static/examples/introduction.json";
 import {
   createCanvas,
   createImage,
@@ -12,8 +11,7 @@ import {
 } from "../utils/create";
 
 function initData() {
-  const data =
-    example || JSON.parse(localStorage.getItem("uIdea")) || createFile();
+  const data = JSON.parse(localStorage.getItem("uIdea")) || createFile();
   data.selectedId = 1;
   return data;
 }
@@ -31,7 +29,7 @@ export default {
         localStorage.setItem("uIdea", JSON.stringify(state));
         alert("保存成功！");
       } catch (e) {
-        alert("保存失败！请直接下载到本地！")
+        alert("保存失败！请直接下载到本地！");
       }
       return state;
     },
@@ -42,7 +40,7 @@ export default {
     },
     // 以 json 格式下载到本地
     download(state, action) {
-      const file = new File([JSON.stringify(state)], `${state.filename}.json`, {
+      const file = new File([JSON.stringify(state)], `${state.filename}.uidea`, {
         type: "text/plain;charset=utf-8"
       });
       saveAs(file);

@@ -4,21 +4,12 @@
 
 ![QQ20191231-095430@2x.png](https://i.loli.net/2019/12/31/yOsPigBNSMAu5UY.png)
 
-## 使用方法和参看介绍的幻灯片
+## 查看介绍的幻灯片
 
-（1）在线使用：https://pearmini.github.io/uIdea/
-
-（2）本地使用：因为在线使用可能获取资源很慢，不能快速加载，这个时候就可以本地使用。步骤如下（需要安装 pyhton3）：
-  
-```bash
-# 下载项目到本地
-git clone https://github.com/pearmini/uIdea.git
-
-# 开启服务器
-cd ./docs && python3 -m http.server 8000
-
-# 在浏览器中输入：http://localhost:8000/
-```
+(1) 将 examples 里面的 introduction.uidea 下载到本地。
+(2) 打开网址：https://pearmini.github.io/uIdea/
+(3) 在工具中点击上传按钮，选择 introduction.uidea 上传。
+(4) 点击放映按钮。
 
 ## 功能
 
