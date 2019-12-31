@@ -4,6 +4,8 @@
 
 ![QQ20191231-095430@2x.png](https://i.loli.net/2019/12/31/yOsPigBNSMAu5UY.png)
 
+![QQ20191231-105844@2x.png](https://i.loli.net/2019/12/31/yaRP354xlDvUFCQ.png)
+
 ## 查看介绍的幻灯片
 
 (1) 将 examples 里面的 `introduction.uidea` 下载到本地。
