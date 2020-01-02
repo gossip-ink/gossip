@@ -14,7 +14,14 @@ export default connect(
       payload: { id }
     })
   }
-)(function({ height, selectedId, components, setSelectedComp }) {
+)(function({
+  height,
+  selectedId,
+  components,
+  setSelectedComp,
+  isDrag,
+  setIsDrag
+}) {
   const windowSize = useWindowSize();
   const width = (windowSize.width * 2) / 3;
   const scale = 0.6;
@@ -38,6 +45,8 @@ export default connect(
         scale={scale}
         content={content}
         editable={true}
+        isDrag={isDrag}
+        setIsDrag={setIsDrag}
       />
     </div>
   );

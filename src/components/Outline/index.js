@@ -33,6 +33,10 @@ export default connect(
     setSelectedPanel: type => ({
       type: "slides/setSelectedPanel",
       payload: { type }
+    }),
+    appendIdea: (ideaId, nodeId) => ({
+      type: "slides/appendIdea",
+      payload: { nodeId, ideaId }
     })
   }
 )(function({
@@ -46,13 +50,14 @@ export default connect(
   appendNode,
   insertNode,
   selectedPanel,
-  setSelectedPanel
+  setSelectedPanel,
+  appendIdea
 }) {
   function getNodes() {
     // 布局，并且获得 name
     const nodes = [];
     let index = -1;
-    const indent = 15;
+    const indent = 20;
     function dfs(node) {
       const treeNode = {
         ...node,
@@ -99,13 +104,17 @@ export default connect(
     setSelected(id);
   }
 
-  function handleNodeDrop(sourceNodeId, targetNodeId, type) {
-    if (type === "top") {
-      insertNode(sourceNodeId, targetNodeId, true);
-    } else if (type === "middle") {
-      appendNode(sourceNodeId, targetNodeId);
-    } else if (type === "bottom") {
-      insertNode(sourceNodeId, targetNodeId);
+  function handleNodeDrop(sourceNodeId, targetNodeId, type, dragType) {
+    if (dragType === "node") {
+      if (type === "top") {
+        insertNode(sourceNodeId, targetNodeId, true);
+      } else if (type === "middle") {
+        appendNode(sourceNodeId, targetNodeId);
+      } else if (type === "bottom") {
+        insertNode(sourceNodeId, targetNodeId);
+      }
+    } else if (dragType === "idea") {
+      appendIdea(sourceNodeId, targetNodeId);
     }
   }
 

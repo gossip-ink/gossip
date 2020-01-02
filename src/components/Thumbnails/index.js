@@ -50,7 +50,9 @@ export default connect(
   setSelected,
   selectedPanel,
   setSelectedPanel,
-  deleteNode
+  deleteNode,
+  isDrag,
+  setIsDrag
 }) {
   function dfs(node, callback) {
     callback(node);
@@ -129,7 +131,7 @@ export default connect(
         setSelectedPanel(1);
       }}
     >
-      <div>
+      <div style={{ height: boxHeight * nodes.length, overflow: "hidden" }}>
         {nodes.map(item => (
           <div
             key={item.id}
@@ -148,6 +150,8 @@ export default connect(
                 content={item}
                 selected={selectedId === item.id}
                 selectable={true}
+                isDrag={isDrag}
+                setIsDrag={setIsDrag}
               />
             </div>
           </div>

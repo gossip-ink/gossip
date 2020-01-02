@@ -1,8 +1,7 @@
 // 拖拽功能可以抽象成一个组件或者高阶组件
 
 import { connect } from "dva";
-import { Select, Button, Icon, Input, Popover } from "antd";
-const { Option } = Select;
+import { Button, Icon, Input, Popover } from "antd";
 
 export default connect(
   state => ({
@@ -50,7 +49,6 @@ export default connect(
   }
 
   function handleDragStart(e, item) {
-    console.log(item, "drag");
     e.dataTransfer.setData("type", item.type);
     e.dataTransfer.setData("id", item.id);
   }

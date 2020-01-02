@@ -21,6 +21,39 @@ export default {
   state: initData(),
   effects: {},
   reducers: {
+    /***** 和 Idea 有关  ******/
+    deleteIdea(state, action) {
+      const { id } = action.payload;
+      const idea = state.ideas.find(item => item.id === id);
+      const index = state.ideas.indexOf(idea);
+      state.ideas.splice(index, 1);
+      return state;
+    },
+
+    saveIdea(state, action) {
+      const { id, value } = action.payload;
+      const idea = state.ideas.find(item => item.id === id);
+      idea.value = value;
+      return state;
+    },
+
+    appendIdea(state, action) {
+      const { nodeId, ideaId } = action.payload;
+      const idea = state.ideas.find(item => item.id === ideaId),
+        idx = state.ideas.indexOf(idea);
+      const slide = state.components.find(item => item.id === nodeId);
+
+      // 添加到 slide 到最后
+      slide.children.push(idea);
+      slide.attrs.span.push(1);
+
+      // 从 idea 里面删除
+      state.ideas.splice(idx, 1);
+
+      // 跳转到更新页
+      state.selectedId = nodeId;
+      return state;
+    },
     /****** 和文件操作有关 *******/
 
     // 保存到缓存
@@ -40,9 +73,13 @@ export default {
     },
     // 以 json 格式下载到本地
     download(state, action) {
-      const file = new File([JSON.stringify(state)], `${state.filename}.uidea`, {
-        type: "text/plain;charset=utf-8"
-      });
+      const file = new File(
+        [JSON.stringify(state)],
+        `${state.filename}.uidea`,
+        {
+          type: "text/plain;charset=utf-8"
+        }
+      );
       saveAs(file);
       return state;
     },
@@ -218,18 +255,34 @@ export default {
     deleteCmp(state, action) {
       const { rootId, id } = action.payload;
       const slide = state.components.find(item => item.id === rootId);
+      let deletedIdea;
       dfs(slide, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
               // 删除节点
-              node.children.splice(index, 1);
-
+              const ideas = node.children.splice(index, 1);
+              deletedIdea = ideas[0];
               // 修改 span
               node.attrs.span.splice(index, 1);
             }
           });
       });
+
+      // 添加进 idea
+      state.ideas = state.ideas || [];
+      let ideas = [];
+      if (deletedIdea.type === "panel") {
+        dfs(deletedIdea, node => {
+          if (node.type !== "panel") {
+            ideas.push(node);
+          }
+        });
+      } else {
+        ideas.push(deletedIdea);
+      }
+      state.ideas.push(...ideas);
+
       return state;
     },
     appendCmp(state, action) {
@@ -300,7 +353,7 @@ export default {
           node.children.push(cmp);
           node.attrs.span.push(1);
         });
-      } else {
+      } else if (method === "brother") {
         dfs(slide, node => {
           node.children &&
             node.children.forEach((item, index) => {
@@ -310,6 +363,11 @@ export default {
               }
             });
         });
+      } else {
+        // 放入 ideas 数组里面
+        state.ideas = state.ideas || [];
+        const ideas = [...state.ideas, cmp];
+        state.ideas = ideas;
       }
       return state;
     },

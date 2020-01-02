@@ -1,7 +1,7 @@
- // 用于添加  cmp
+// 用于添加  cmp
 
 import { Button } from "antd";
-export default function({ icon, onSelectValue, title }) {
+export default function({ icon, onSelectValue, title, options }) {
   function handleClick(value) {
     onSelectValue && onSelectValue(value);
   }
@@ -15,18 +15,28 @@ export default function({ icon, onSelectValue, title }) {
     >
       <Button icon={icon} type="primary" />
       <div>{title}</div>
-      <div>
+      {options ? (
+        <>
+          <div>
+            <Button
+              icon="down"
+              type="primary"
+              onClick={() => handleClick("brother")}
+            />
+            <Button
+              icon="right"
+              type="primary"
+              onClick={() => handleClick("children")}
+            />
+          </div>
+        </>
+      ) : (
         <Button
-          icon="down"
+          icon="check"
           type="primary"
-          onClick={() => handleClick("brother")}
+          onClick={() => handleClick("ideas")}
         />
-        <Button
-          icon="right"
-          type="primary"
-          onClick={() => handleClick("children")}
-        />
-      </div>
+      )}
     </div>
   );
 }

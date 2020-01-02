@@ -7,7 +7,8 @@ export default {
           //推荐开启 dva-immer 以简化 reducer 编写
           immer: true
         },
-        antd: true
+        antd: true,
+        dynamicImport: true,
       }
     ]
   ]

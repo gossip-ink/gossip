@@ -6,7 +6,7 @@ export default function({
   children,
   onNodeDrop,
   highlightColor,
-  lineHeight,
+  lineHeight
 }) {
   const [middle, setMiddle] = useState(false);
   const [bottom, setBottom] = useState(false);
@@ -20,19 +20,24 @@ export default function({
     setTop(false);
     setBottom(false);
 
-    // 获得拖拽的节点
-    const data = parseInt(e.dataTransfer.getData("dragNode"));
-    const dragNode = isNaN(data) ? e.dataTransfer.getData("dragNode"): data;
-    if (dragNode === node.id) {
-      return;
-    }
+    // 判断拖拽的类型
+    const dragType = e.dataTransfer.getData("type");
 
-    // 执行相应的数据变化
-    onNodeDrop(dragNode, node.id, type);
+    // 获得拖拽的节点
+    let dragId;
+    if (dragType === "node") {
+      const data = parseInt(e.dataTransfer.getData("dragNode"));
+      dragId = isNaN(data) ? e.dataTransfer.getData("dragNode") : data;
+      if (dragId === node.id) return;
+    } else {
+      dragId = parseInt(e.dataTransfer.getData("id"));
+    }
+    onNodeDrop(dragId, node.id, type, dragType);
   }
 
   function handleDragStart(e) {
     setDragged(true);
+    e.dataTransfer.setData("type", "node");
     e.dataTransfer.setData("dragNode", node.id);
   }
 

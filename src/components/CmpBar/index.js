@@ -7,7 +7,7 @@ export default connect(null, {
     type: "slides/createCmp",
     payload: { type, method }
   })
-})(function({ height, handleAddCmp }) {
+})(function({ options = true, handleAddCmp }) {
   return (
     <div style={{ marginLeft: 75 }}>
       <Popover
@@ -17,22 +17,28 @@ export default connect(null, {
               icon="font-size"
               onSelectValue={method => handleAddCmp("text", method)}
               title={"文字"}
+              options={options}
             />
             <AddButton
               icon="picture"
               onSelectValue={method => handleAddCmp("image", method)}
               title={"图片"}
+              options={options}
             />
             <AddButton
               icon="codepen"
               onSelectValue={method => handleAddCmp("canvas", method)}
               title={"画布"}
+              options={options}
             />
-            <AddButton
-              icon="container"
-              onSelectValue={method => handleAddCmp("panel", method)}
-              title={"容器"}
-            />
+            {options && (
+              <AddButton
+                icon="container"
+                onSelectValue={method => handleAddCmp("panel", method)}
+                options={options}
+                title={"容器"}
+              />
+            )}
           </div>
         }
         title="选择一种类型"

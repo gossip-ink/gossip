@@ -92,7 +92,8 @@ function createFile() {
     ],
     selectedArributeId: 1,
     attributeVars: [
-    ]
+    ],
+    ideas:[]
   };
 }
 

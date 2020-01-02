@@ -76,6 +76,7 @@ const Panel = connect(
       <>
         {children &&
           children.map((item, index) => {
+            // 计算比例
             const { span } = attrs ||
               attrs.span || {
                 span: children.map(() => 1)

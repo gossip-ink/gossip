@@ -138,11 +138,13 @@ export default connect(
               >
                 {contentByType(item)}
               </div>
-              <Button
-                icon="delete"
-                type="danger"
-                onClick={() => handleDeleteCmp(item.id)}
-              />
+              {item.id !== selectedId && (
+                <Button
+                  icon="delete"
+                  type="danger"
+                  onClick={() => handleDeleteCmp(item.id)}
+                />
+              )}
             </div>
           </TreeNode>
         ))}

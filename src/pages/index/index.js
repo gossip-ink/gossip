@@ -1,6 +1,5 @@
 // 项目的主页
 
-
 import styles from "./index.css";
 import { Layout, Row, Col, Tabs, Icon } from "antd";
 import useWindowSize from "../../hooks/useWindowSize";
@@ -14,14 +13,20 @@ import MainContent from "../../components/MainContent/index";
 import Structure from "../../components/Structure/index";
 import AttrPanel from "../../components/AttrPanel/index";
 import Variables from "../../components/Variables/index";
-
+import Ideas from "../../components/IdeasPanel/index";
+import { useState } from "react";
 
 export default function() {
   // 计算每个部分的高度和宽度
   // 这里的 useWindowSize 需要修改
   const windowSize = useWindowSize();
+
+  // 是否拖动 idea
+  const [isDrag, setIsDrag] = useState(false);
   const headerHeight = 64,
     contentHeight = windowSize.height - headerHeight,
+    outlineHeight = contentHeight - 54,
+    leftratio = 0.6,
     ratio = [0.35, 0.25, 0.4],
     slideHeight = windowSize.height,
     structureHeight = contentHeight * ratio[0],
@@ -42,7 +47,10 @@ export default function() {
       <Content style={{ height: contentHeight }}>
         <Row>
           <Col span={4}>
-            <Tabs defaultActiveKey="1">
+            <Tabs
+              defaultActiveKey="1"
+              style={{ height: outlineHeight * leftratio + 54 }}
+            >
               <TabPane
                 tab={
                   <span>
@@ -52,7 +60,7 @@ export default function() {
                 }
                 key="1"
               >
-                <Outline height={contentHeight - 54} />
+                <Outline height={outlineHeight * leftratio} />
               </TabPane>
               <TabPane
                 tab={
@@ -63,12 +71,24 @@ export default function() {
                 }
                 key="2"
               >
-                <Thumbnails height={contentHeight - 54} />
+                <Thumbnails
+                  height={outlineHeight * leftratio}
+                  isDrag={isDrag}
+                  setIsDrag={setIsDrag}
+                />
               </TabPane>
             </Tabs>
+            <Ideas
+              height={outlineHeight * (1 - leftratio)}
+              setIsDrag={setIsDrag}
+            />
           </Col>
           <Col span={16}>
-            <MainContent height={slideHeight} />
+            <MainContent
+              height={slideHeight}
+              isDrag={isDrag}
+              setIsDrag={setIsDrag}
+            />
           </Col>
           <Col span={4}>
             <Structure height={structureHeight} />
