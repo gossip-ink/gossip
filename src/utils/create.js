@@ -92,8 +92,14 @@ function createFile() {
     ],
     selectedArributeId: 1,
     attributeVars: [
+      // 一级标题
+      // 二级标题
+      // 三级标题
+      // 标题颜色
+      // 背景颜色
+      // 字体颜色
     ],
-    ideas:[]
+    ideas: []
   };
 }
 

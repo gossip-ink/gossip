@@ -8,7 +8,7 @@ export default connect(state => ({ ideas: state.slides.ideas }))(function({
   setIsDrag
 }) {
   return (
-    <div style={{ height }}>
+    <div style={{ height, overflow: "auto" }}>
       <div style={{ display: "flex" }}>
         <h1>Ideas</h1>
         <CompBar options={false} />

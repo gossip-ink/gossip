@@ -13,7 +13,7 @@ import MainContent from "../../components/MainContent/index";
 import Structure from "../../components/Structure/index";
 import AttrPanel from "../../components/AttrPanel/index";
 import Variables from "../../components/Variables/index";
-import Ideas from "../../components/IdeasPanel/index";
+import IdeasPanel from "../../components/IdeasPanel/index";
 import { useState } from "react";
 
 export default function() {
@@ -60,7 +60,10 @@ export default function() {
                 }
                 key="1"
               >
-                <Outline height={outlineHeight * leftratio} />
+                <Outline
+                  height={outlineHeight * leftratio}
+                  setIsDrag={setIsDrag}
+                />
               </TabPane>
               <TabPane
                 tab={
@@ -78,7 +81,7 @@ export default function() {
                 />
               </TabPane>
             </Tabs>
-            <Ideas
+            <IdeasPanel
               height={outlineHeight * (1 - leftratio)}
               setIsDrag={setIsDrag}
             />

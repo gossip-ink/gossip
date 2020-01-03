@@ -51,7 +51,8 @@ export default connect(
   insertNode,
   selectedPanel,
   setSelectedPanel,
-  appendIdea
+  appendIdea,
+  setIsDrag
 }) {
   function getNodes() {
     // 布局，并且获得 name
@@ -115,6 +116,7 @@ export default connect(
       }
     } else if (dragType === "idea") {
       appendIdea(sourceNodeId, targetNodeId);
+      setIsDrag(false);
     }
   }
 

@@ -1,6 +1,6 @@
 // 放映页面
 import { connect } from "dva";
-import { useEffect } from "react";
+import { useEffect} from "react";
 import { dfs, copyTree } from "../../utils/tree";
 import getLayout from "../../utils/overview";
 import "./index.css";
@@ -9,7 +9,7 @@ import router from "umi/router";
 import Slide from "../../components/Slide/index";
 import Impress from "../../components/Impress/index";
 import Step from "../../components/Step/index";
-
+import useWindowSize from "../../hooks/useWindowSize";
 
 export default connect(
   state => ({
@@ -20,7 +20,6 @@ export default connect(
     setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
   }
 )(function({ structure, components, setSelectedComp }) {
-
   // 监听事件
   useEffect(() => {
     const back = function(e) {
@@ -35,6 +34,9 @@ export default connect(
     };
   });
 
+
+  const windowSize = useWindowSize();
+
   // 按照顺序获得 slides
   const slides = [];
   dfs(structure, node => {
@@ -46,7 +48,7 @@ export default connect(
   const tree = copyTree(structure);
   dfs(tree, node => {
     Object.assign(node, {
-      data: { width: screen.width * 0.8, height: screen.height * 0.8 }
+      data: { width: windowSize.width, height: windowSize.height}
     });
   });
 
@@ -60,14 +62,9 @@ export default connect(
   return (
     <Impress overviewOpen={true}>
       {slides.map((item, index) => (
-        <Step
-          x={treemap[index].x}
-          y={treemap[index].y}
-          key={index}
-        >
+        <Step x={treemap[index].x} y={treemap[index].y} key={index}>
           <Slide
             scale={0.8}
-            hasBackground={false}
             content={item}
             key={item.id}
           />

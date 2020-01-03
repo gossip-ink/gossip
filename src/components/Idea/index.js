@@ -7,7 +7,7 @@ export default connect(null, {
     type: "slides/saveIdea",
     payload: { id, value }
   })
-})(function({ content, deleteIdea, saveIdea, setIsDrag}) {
+})(function({ content, deleteIdea, saveIdea, setIsDrag }) {
   const { type, id } = content;
   const [edit, setEdit] = useState(false);
   const [value, setValue] = useState(content.value);
@@ -30,7 +30,7 @@ export default connect(null, {
     reader.onload = function() {
       const imageURL = reader.result;
       setValue(imageURL);
-      saveIdea(id, value);
+      saveIdea(id, imageURL);
     };
   }
 
@@ -45,6 +45,7 @@ export default connect(null, {
       style={{ display: "flex", justifyContent: "space-between", width: 250 }}
       draggable
       onDragStart={e => handleDragStart(e, content)}
+      onDragEnd={e => setIsDrag(false)}
     >
       <Button icon="drag" type="primary" />
       {type === "image" ? (

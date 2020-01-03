@@ -70,7 +70,8 @@
 
   },
   "components":[],
-  "attributeVars":[]
+  "attributeVars":[],
+  "ideas":[]
 }
 ```
 
@@ -195,11 +196,9 @@ function(ctx, width, height){
 
 ## TODO
 
-- 界面优化
-- 支持更多的属性变量
-- slide 更多的样式
-- slide 布局优化
-- 更多的组件
-- 操作更加的流畅：快捷键
-- 更多的交互功能
+- 新增一种布局：Grid
+- Slide 的默认值样式
+- 快捷键
+- 选择颜色的组件
+- 界面的样式
   

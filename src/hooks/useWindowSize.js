@@ -1,4 +1,3 @@
-// 学要修改
 import { useState, useEffect } from "react";
 
 export default function() {
@@ -10,13 +9,10 @@ export default function() {
   useEffect(() => {
     window.addEventListener("resize", () => {
       const { innerWidth, innerHeight } = window;
-      // const { width, height } = screen;
-      // if (innerHeight === height && innerWidth === width) {
-        setWindowSize({
-          width: innerWidth,
-          height: innerHeight
-        });
-      // }
+      setWindowSize({
+        width: innerWidth,
+        height: innerHeight
+      });
     });
     return () => {
       window.removeEventListener("resize", this);

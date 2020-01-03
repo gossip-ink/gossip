@@ -54,7 +54,7 @@ export default connect(
   }
 
   return (
-    <div style={{ height, overflow:"auto" }}>
+    <div style={{ height}}>
       <div style={{ display: "flex" }}>
         <h1>Variables</h1>
         <div style={{ marginLeft: 75 }}>
@@ -103,7 +103,7 @@ export default connect(
         <div>未选择</div>
       )}
       <br></br>
-      <div style={{ overflow: "auto" }}>
+      <div style={{ overflow: "auto", height:height * 0.55 }}>
         {variables.map(item => (
           <div
             key={item.id}
