@@ -1,0 +1,31 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.06)
+}
+
+.logo {
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+}
+
+.container {
+  background: white;
+  padding: 0 20px;
+}
+
+.item {
+  margin: 0 0.3em;
+}

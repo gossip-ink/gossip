@@ -1,3 +1,40 @@
-.container{
-    background: #efefef;
+.container {
+  background: #efefef;
+}
+.item {
+  display: flex;
+  width: 140px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.lineIcon {
+  margin-right: 16px;
+}
+
+.list {
+  list-style: none;
+}
+
+.lineWidthButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2em 0;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  padding: 0.2em 0;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.line:hover {
+  border-bottom: 1px solid #4091f7;
 }

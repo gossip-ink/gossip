@@ -1,0 +1,13 @@
+.container {
+  margin-bottom: 0.5em;
+}
+
+.nodeTitle {
+  width: 140px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.image {
+  max-height: 2em;
+}

@@ -1,5 +1,5 @@
-import styles from "./index.css";
-import Panel from "../Panel/index";
+import classNames from "./index.css";
+import Panel from "../Panel";
 import { useState } from "react";
 import { connect } from "dva";
 export default connect(null, {
@@ -10,22 +10,20 @@ export default connect(null, {
 })(function({
   height = screen.height,
   width = screen.width,
-  scale = 1,
-  translateX = 0,
-  translateY = 0,
   content,
   selected,
-  hasBackground = true,
   editable = false,
   isDrag = false,
   setIsDrag,
   appendIdea
 }) {
-  const style = {
-    height,
-    width,
-    transform: `translate(${translateX}px,${translateY}px) scale(${scale})`,
-    border: selected && "10px solid black"
+  const styles = {
+    container: {
+      border: selected && "10px solid #4091f7",
+      height,
+      width,
+      transformOrigin: "left top"
+    }
   };
 
   const [dragged, setDragged] = useState(false);
@@ -40,10 +38,7 @@ export default connect(null, {
   }
 
   return (
-    <div
-      className={`${styles.container} ${hasBackground && styles.background}`}
-      style={style}
-    >
+    <div className={classNames.container} style={styles.container}>
       {/* 拖拽时形成的遮盖层 */}
       {isDrag && (
         <div
@@ -54,13 +49,12 @@ export default connect(null, {
           style={{
             height,
             width,
-            backgroundColor: "red",
+            backgroundColor: "steelblue",
             position: "absolute",
             opacity: dragged ? 0.5 : 0
           }}
         ></div>
       )}
-
       <Panel
         {...content}
         height={height}

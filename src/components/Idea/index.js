@@ -1,4 +1,5 @@
-import { Button, Input, Upload } from "antd";
+import classNames from "./index.css";
+import Node from "../Node";
 import { connect } from "dva";
 import { useState } from "react";
 export default connect(null, {
@@ -8,20 +9,8 @@ export default connect(null, {
     payload: { id, value }
   })
 })(function({ content, deleteIdea, saveIdea, setIsDrag }) {
-  const { type, id } = content;
+  const { type, id, value } = content;
   const [edit, setEdit] = useState(false);
-  const [value, setValue] = useState(content.value);
-
-  function handleEdit() {
-    if (edit === true) {
-      saveIdea(id, value);
-    }
-    setEdit(!edit);
-  }
-
-  function handleDelete() {
-    deleteIdea(id);
-  }
 
   function handleImageChange(data) {
     const file = data.file.originFileObj;
@@ -29,7 +18,6 @@ export default connect(null, {
     reader.readAsDataURL(file);
     reader.onload = function() {
       const imageURL = reader.result;
-      setValue(imageURL);
       saveIdea(id, imageURL);
     };
   }
@@ -42,43 +30,29 @@ export default connect(null, {
 
   return (
     <div
-      style={{ display: "flex", justifyContent: "space-between", width: 250 }}
       draggable
       onDragStart={e => handleDragStart(e, content)}
-      onDragEnd={e => setIsDrag(false)}
+      onDragEnd={() => setIsDrag(false)}
+      className={classNames.container}
     >
-      <Button icon="drag" type="primary" />
-      {type === "image" ? (
-        <img src={value} width={50} />
-      ) : edit ? (
-        <Input
-          type="text"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          style={{ width: 150 }}
-        />
-      ) : (
-        <div>{value.slice(0, 10)}</div>
-      )}
-      <div>
-        {type === "image" ? (
-          <Upload
-            accept="image/*"
-            onChange={handleImageChange}
-            showUploadList={false}
-            customRequest={() => {}}
-          >
-            <Button type="primary" icon="upload"></Button>
-          </Upload>
-        ) : (
-          <Button
-            icon={edit ? "save" : "edit"}
-            type="primary"
-            onClick={handleEdit}
-          />
-        )}
-        <Button icon="delete" type="danger" onClick={handleDelete} />
-      </div>
+      <Node
+        onDelete={() => deleteIdea(id)}
+        onEdit={() => setEdit(!edit)}
+        onImageChange={handleImageChange}
+        type={type}
+        width="100%"
+        height="2em"
+      >
+        <div className={classNames.nodeTitle}>
+          {type === "image" ? (
+            <img src={value} className={classNames.image} />
+          ) : edit ? (
+            <input value={value} onChange={e => saveIdea(id, e.target.value)} />
+          ) : (
+            <div>{value}</div>
+          )}
+        </div>
+      </Node>
     </div>
   );
 });

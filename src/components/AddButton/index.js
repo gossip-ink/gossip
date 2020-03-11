@@ -1,5 +1,3 @@
-// 用于添加  cmp
-
 import { Button } from "antd";
 export default function({ icon, onSelectValue, title, options }) {
   function handleClick(value) {

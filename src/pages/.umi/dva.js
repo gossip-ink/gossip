@@ -19,8 +19,8 @@ export function _onCreate() {
   (runtimeDva.plugins || []).forEach(plugin => {
     app.use(plugin);
   });
-  app.use(require('/Users/slashberry/Documents/project/uIdea/node_modules/_dva-immer@0.4.5@dva-immer/dist/index.js')());
-  app.model({ namespace: 'slides', ...(require('/Users/slashberry/Documents/project/uIdea/src/models/slides.js').default) });
+  app.use(require('/Users/slashberry/Documents/project/uidea/node_modules/_dva-immer@0.4.5@dva-immer/dist/index.js')());
+  app.model({ namespace: 'slides', ...(require('/Users/slashberry/Documents/project/uidea/src/models/slides.js').default) });
   return app;
 }
 

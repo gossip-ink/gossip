@@ -1,10 +1,12 @@
-// 这里可以抽象一个 tree 组件出来，structure 和 outline 的代码可以更加简洁
-
-import styles from "./index.css";
+import classNames from "./index.css";
 import { connect } from "dva";
-import TreeNode from "../../components/TreeNode/index";
-import CmpBar from "../../components/CmpBar/index";
 import { Icon, Button } from "antd";
+import Node from "../Node";
+import TreeNode from "../TreeNode";
+import Box from "../Box";
+
+import tree from "../../utils/tree";
+
 export default connect(
   state => ({
     components: state.slides.components,
@@ -27,6 +29,10 @@ export default connect(
     appendCmp: (id, father, rootId) => ({
       type: "slides/appendCmp",
       payload: { id, father, rootId }
+    }),
+    handleAddCmp: (type, method) => ({
+      type: "slides/createCmp",
+      payload: { type, method }
     })
   }
 )(function({
@@ -37,24 +43,19 @@ export default connect(
   setSelectedComp,
   deleteCmp,
   insertCmp,
-  appendCmp
+  appendCmp,
+  handleAddCmp
 }) {
   // 找到对应的 componnet
   const slide = components.find(item => item.id === selectedId);
-
-  // 布局
-  let index = 0;
-  const nodes = [],
+  const nodes = tree(slide),
     indent = 20;
-  function dfs(node) {
-    nodes.push({
-      ...node,
-      marginLeft: ++index * indent
-    });
-    node.children && node.children.forEach(item => dfs(item));
-    index--;
-  }
-  dfs(slide);
+
+  const styles = {
+    treeNode: node => ({
+      paddingLeft: node.depth * indent
+    })
+  };
 
   const iconByType = {
     image: <Icon type="picture" />,
@@ -63,23 +64,54 @@ export default connect(
     panel: <Icon type="container" />
   };
 
-  const contentByType = function(item) {
-    const mp = {
-      image: <img src={item.value} width={50} />,
+  const items = [
+    { title: "文字", type: "font-size", value: "text" },
+    { title: "图片", type: "picture", value: "image" },
+    { title: "画布", type: "codepen", value: "canvas" },
+    { title: "容器", type: "container", value: "panel" }
+  ];
+
+  const contentByType = item => {
+    const map = {
+      image: <img src={item.value} style={{ maxHeight: "2em" }} />,
       canvas: <div>{item.value.slice(0, 10) + "..."}</div>,
       text: <div>{item.value.slice(0, 10)}</div>,
       panel: <div>{item.value || "row"}</div>
     };
-    return mp[item.type];
+    return map[item.type];
   };
 
-  function handleSelect(id) {
-    setSelectedComp(id);
-  }
+  const content = (
+    <ul className={classNames.list}>
+      {items.map(item => (
+        <li key={item.title} className={classNames.line}>
+          <Icon type={item.type} className={classNames.lineIcon} />
+          <span className={classNames.title}>{item.title}</span>
+        </li>
+      ))}
+    </ul>
+  );
 
-  function handleDeleteCmp(id) {
-    deleteCmp(selectedId, id);
-  }
+  const contentWidthButtons = (
+    <ul className={classNames.list}>
+      {items.map(item => (
+        <li key={item.title} className={classNames.lineWidthButton}>
+          <Icon type={item.type} />
+          <span className={classNames.title}>{item.title}</span>
+          <div>
+            <Button
+              icon="down"
+              onClick={() => handleAddCmp(item.value, "brother")}
+            />
+            <Button
+              icon="right"
+              onClick={() => handleAddCmp(item.value, "children")}
+            />
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 
   function handleNodeDrop(sourceNodeId, targetNodeId, type) {
     if (type === "top") {
@@ -101,54 +133,38 @@ export default connect(
   }
 
   return (
-    <div style={{ height, overflow: "auto" }} className={styles.container}>
-      <div
-        style={{
-          display: "flex"
-        }}
-      >
-        <h1>Structure</h1>
-        <CmpBar />
-      </div>
-      <div>
-        {nodes.map((item, index) => (
-          <TreeNode
-            key={index}
-            marginLeft={item.marginLeft}
-            node={item}
-            onNodeDrop={handleNodeDrop}
-            highlightColor="red"
-            lineHeight={7}
+    <Box height={height} title="结构" iconType="apartment">
+      {nodes.map(item => (
+        <TreeNode
+          key={item.id}
+          node={item}
+          onNodeDrop={handleNodeDrop}
+          highlightColor="#4091f7"
+          style={styles.treeNode(item)}
+        >
+          <Node
+            onDelete={() => deleteCmp(selectedId, item.id)}
+            highlight={selectedComponentId === item.id}
+            height="2em"
+            width="200px"
+            type="add"
+            popover={
+              item.type === "panel" && item.depth
+                ? contentWidthButtons
+                : content
+            }
+            onAdd={() => setSelectedComp(item.id)}
           >
-            <div style={{ display: "flex" }}>
-              <div
-                style={{
-                  paddingRight: 10
-                }}
-              >
-                {iconByType[item.type]}
-              </div>
-              <div
-                style={{
-                  width: 100,
-                  border: selectedComponentId === item.id && "1px solid black",
-                  marginRight: 10
-                }}
-                onClick={() => handleSelect(item.id)}
-              >
-                {contentByType(item)}
-              </div>
-              {item.id !== selectedId && (
-                <Button
-                  icon="delete"
-                  type="danger"
-                  onClick={() => handleDeleteCmp(item.id)}
-                />
-              )}
+            <div
+              className={classNames.item}
+              onClick={() => setSelectedComp(item.id)}
+            >
+              <span className={classNames.icon}>{iconByType[item.type]}</span>
+              {contentByType(item)}
             </div>
-          </TreeNode>
-        ))}
-      </div>
-    </div>
+          </Node>
+        </TreeNode>
+      ))}
+    </Box>
   );
 });

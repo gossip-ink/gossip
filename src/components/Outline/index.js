@@ -1,8 +1,10 @@
-import styles from "./index.css";
+import classNames from "./index.css";
 import { connect } from "dva";
+import { useEffect, useState, useRef } from "react";
 import { Button } from "antd";
-import TreeNode from "../../components/TreeNode/index";
-import { useEffect, useState } from "react";
+import Node from "../Node";
+import TreeNode from "../TreeNode";
+import tree, { dfs } from "../../utils/tree";
 
 export default connect(
   state => ({
@@ -54,36 +56,31 @@ export default connect(
   appendIdea,
   setIsDrag
 }) {
-  function getNodes() {
-    // 布局，并且获得 name
-    const nodes = [];
-    let index = -1;
-    const indent = 20;
-    function dfs(node) {
-      const treeNode = {
-        ...node,
-        marginLeft: ++index * indent
-      };
-      nodes.push(treeNode);
+  const [edit, setEdit] = useState(-1);
+  const inputRef = useRef(null);
+  const indent = 20;
+  const nodes = tree(structure);
 
-      node.children &&
-        node.children.forEach(element => {
-          dfs(element);
-        });
+  const styles = {
+    container: {
+      height
+    },
+    treeNode: node => ({
+      paddingLeft: node.depth * indent
+    })
+  };
 
-      index--;
+  function handleEidtNode(item) {
+    if (edit === item.id) {
+      setEdit(-1);
+    } else {
+      setEdit(item.id);
     }
-    dfs(structure);
-    return nodes;
-  }
-
-  function dfs(node, cb) {
-    cb(node);
-    node.children && node.children.forEach(item => dfs(item, cb));
+    setSelected(item.id);
   }
 
   function handleCreateNode(type) {
-    const input = document.getElementById("node-input");
+    const input = inputRef.current;
     const value = input.value;
     if (type === "brother") {
       createNode(selectedId, value, type);
@@ -95,14 +92,6 @@ export default connect(
   function handleTitleChange(e, id) {
     const value = e.target.value;
     updateNodeValue(id, value);
-  }
-
-  function handleDeleteNode(id) {
-    deleteNode(id);
-  }
-
-  function handleSelectNode(id) {
-    setSelected(id);
   }
 
   function handleNodeDrop(sourceNodeId, targetNodeId, type, dragType) {
@@ -119,8 +108,6 @@ export default connect(
       setIsDrag(false);
     }
   }
-
-  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     function down() {
@@ -192,70 +179,66 @@ export default connect(
     };
   });
 
-  const nodes = getNodes();
-
   return (
     <div
-      style={{
-        height
-        // border: selectedPanel === 0 && "1px solid black"
-      }}
-      className={styles.container}
+      style={styles.container}
+      className={classNames.container}
       onClick={() => setSelectedPanel(0)}
     >
-      <div>
-        <input id="node-input"></input>
+      <div className={classNames.nodeAddInput}>
+        <input ref={inputRef} />
         <Button
           type="primary"
           icon="down"
           shape="circle"
           onClick={() => handleCreateNode("brother")}
           disabled={selectedId === 1}
+          className={classNames.inputBtn}
         />
         <Button
           type="primary"
           icon="right"
           shape="circle"
           onClick={() => handleCreateNode("children")}
+          className={classNames.inputBtn}
         />
       </div>
-      <div>
-        {nodes.map((item, index) => (
+      <div className={classNames.tree}>
+        {nodes.map(item => (
           <TreeNode
-            key={index}
-            marginLeft={item.marginLeft}
+            key={item.id}
             node={item}
             onNodeDrop={handleNodeDrop}
-            highlightColor="red"
-            lineHeight={7}
+            highlightColor="#4091f7"
+            style={styles.treeNode(item)}
+            width="190px"
           >
-            <div style={{ display: "flex" }}>
-              <div>
-                {selectedId !== item.id ? (
-                  <p
-                    style={{ width: 100 }}
-                    onClick={() => handleSelectNode(item.id)}
-                  >
+            <Node
+              height="2em"
+              width="190px"
+              onEdit={e => {
+                handleEidtNode(item);
+                e.stopPropagation();
+              }}
+              onDelete={e => {
+                deleteNode(item.id);
+                e.stopPropagation();
+              }}
+              highlight={item.id === selectedId}
+            >
+              <div className={classNames.nodeTitle}>
+                {edit !== item.id ? (
+                  <div onClick={() => setSelected(item.id)}>
                     {item.name === "" ? "未编辑" : item.name}
-                  </p>
+                  </div>
                 ) : (
                   <input
-                    style={{ width: 100 }}
                     value={item.name}
                     onChange={e => handleTitleChange(e, item.id)}
-                    onClick={e => setEdit(true)}
-                    onBlur={e => setEdit(false)}
                   />
                 )}
               </div>
-              {item.id !== 1 && (
-                <Button
-                  icon="delete"
-                  type="danger"
-                  onClick={() => handleDeleteNode(item.id)}
-                />
-              )}
-            </div>
+            </Node>
           </TreeNode>
         ))}
       </div>

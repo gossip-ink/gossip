@@ -1,10 +1,7 @@
-body{
+body {
   overflow: hidden;
   height: 100%;
-}
-
-.header{
-  color:white
+  background: #fafafa;
 }
 
 * {
@@ -12,5 +9,7 @@ body{
   margin: 0;
 }
 
-
+.container {
+  width: 100%;
+}
 

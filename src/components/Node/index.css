@@ -1,0 +1,27 @@
+.container {
+  background: #fafafa;
+  border-radius: 2px;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2em 0.5em;
+}
+
+.container:hover {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.edit {
+  cursor: pointer;
+  margin-right: 2px;
+}
+
+.add{
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.delete {
+  cursor: pointer;
+}
