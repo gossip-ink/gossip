@@ -38,3 +38,7 @@
 .line:hover {
   border-bottom: 1px solid #4091f7;
 }
+
+.leftBtn {
+  margin-right: 8px;
+}

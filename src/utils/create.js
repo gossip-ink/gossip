@@ -8,7 +8,6 @@ function createText(id, value, attrs) {
       fontSize: 50,
       color: "#000000",
       fontWeight: "normal",
-      fontFamily: "",
       textAlign: "left",
       verticalAlign: "top",
       padding: 50,

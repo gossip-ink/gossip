@@ -1,7 +1,6 @@
 .list {
   list-style: none;
 }
-
 .item {
   cursor: pointer;
   padding: 0.5em;
@@ -14,4 +13,19 @@
 
 .icon {
   margin-right: 8px;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+.name {
+  margin: 0px 3px 0 8px;
+  width: 90px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.node{
+  margin-bottom: 0.5em;
 }

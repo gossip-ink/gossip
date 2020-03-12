@@ -15,6 +15,9 @@ export default function({
     },
     container: {
       height: height - 10
+    },
+    content: {
+      height: height - 10 - 60
     }
   };
   return (
@@ -37,7 +40,9 @@ export default function({
             )}
           </div>
         </div>
-        <div className={classNames.content}>{nodata ? children : children}</div>
+        <div className={classNames.content} style={styles.content}>
+          {nodata ? children : children}
+        </div>
       </div>
     </div>
   );

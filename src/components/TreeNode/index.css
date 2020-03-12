@@ -6,3 +6,17 @@
 .middle {
   position: relative;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  margin-left: 8px;
+  cursor: pointer;
+}
+.bottom {
+  display: flex;
+  justify-content: center;
+}

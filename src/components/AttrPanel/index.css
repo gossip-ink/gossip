@@ -1,0 +1,19 @@
+.name {
+  margin: 0 8px 0px 8px;
+  width: 100px;
+}
+
+.item {
+  display: flex;
+  padding-bottom: 0.3em;
+  align-items: center;
+}
+
+.btns {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: 8px;
+}

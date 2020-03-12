@@ -14,10 +14,10 @@
 
 .edit {
   cursor: pointer;
-  margin-right: 2px;
+  margin-right: 10px;
 }
 
-.add{
+.add {
   cursor: pointer;
   margin-right: 4px;
 }

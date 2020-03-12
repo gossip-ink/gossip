@@ -1,7 +1,6 @@
 import classNames from "./index.css";
 import { connect } from "dva";
-import { useEffect, useState, useRef } from "react";
-import { Button } from "antd";
+import { useEffect, useState } from "react";
 import Node from "../Node";
 import TreeNode from "../TreeNode";
 import tree, { dfs } from "../../utils/tree";
@@ -57,37 +56,25 @@ export default connect(
   setIsDrag
 }) {
   const [edit, setEdit] = useState(-1);
-  const inputRef = useRef(null);
   const indent = 20;
   const nodes = tree(structure);
+  const title = string => string;
 
   const styles = {
     container: {
       height
     },
     treeNode: node => ({
-      paddingLeft: node.depth * indent
+      marginLeft: node.depth * indent
     })
   };
 
   function handleEidtNode(item) {
-    if (edit === item.id) {
-      setEdit(-1);
-    } else {
-      setEdit(item.id);
-    }
+    edit === item.id ? setEdit(-1) : setEdit(item.id);
     setSelected(item.id);
   }
 
-  function handleCreateNode(type) {
-    const input = inputRef.current;
-    const value = input.value;
-    if (type === "brother") {
-      createNode(selectedId, value, type);
-    } else {
-      createNode(selectedId, value, type);
-    }
-  }
+  function handleCreateNode(id, type) {}
 
   function handleTitleChange(e, id) {
     const value = e.target.value;
@@ -179,30 +166,13 @@ export default connect(
     };
   });
 
+
   return (
     <div
       style={styles.container}
       className={classNames.container}
       onClick={() => setSelectedPanel(0)}
     >
-      <div className={classNames.nodeAddInput}>
-        <input ref={inputRef} />
-        <Button
-          type="primary"
-          icon="down"
-          shape="circle"
-          onClick={() => handleCreateNode("brother")}
-          disabled={selectedId === 1}
-          className={classNames.inputBtn}
-        />
-        <Button
-          type="primary"
-          icon="right"
-          shape="circle"
-          onClick={() => handleCreateNode("children")}
-          className={classNames.inputBtn}
-        />
-      </div>
       <div className={classNames.tree}>
         {nodes.map(item => (
           <TreeNode
@@ -212,10 +182,14 @@ export default connect(
             highlightColor="#4091f7"
             style={styles.treeNode(item)}
             width="190px"
+            hasBottom={item.id !== 1}
+            onClickBottom={() => createNode(item.id, "新的想法", "brother")}
+            onClickRight={() => createNode(item.id, "新的想法", "children")}
           >
             <Node
               height="2em"
               width="190px"
+              edit={edit === item.id}
               onEdit={e => {
                 handleEidtNode(item);
                 e.stopPropagation();
@@ -226,10 +200,17 @@ export default connect(
               }}
               highlight={item.id === selectedId}
             >
-              <div className={classNames.nodeTitle}>
+              <div
+                className={classNames.nodeTitle}
+                onClick={() => selectedId !== item.id && setSelected(item.id)}
+              >
                 {edit !== item.id ? (
-                  <div onClick={() => setSelected(item.id)}>
-                    {item.name === "" ? "未编辑" : item.name}
+                  <div
+                    onClick={() =>
+                      selectedId !== item.id && setSelected(item.id)
+                    }
+                  >
+                    {item.name === "" ? "未编辑" : title(item.name)}
                   </div>
                 ) : (
                   <input

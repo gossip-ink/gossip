@@ -1,11 +1,14 @@
 {
   "devDependencies": {
+    "d3": "^5.15.0",
     "react": "^16.12.0",
     "react-impressjs": "^1.1.0",
     "umi-plugin-react": "^1.14.9"
   },
   "dependencies": {
-    "file-saver": "^2.0.2"
+    "coloreact": "^0.3.1",
+    "file-saver": "^2.0.2",
+    "react-input-color": "^2.0.29"
   },
   "scripts": {
     "build": "umi build && mv ./dist ./docs"

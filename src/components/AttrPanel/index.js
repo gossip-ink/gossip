@@ -1,9 +1,10 @@
-import styles from "./index.css";
-import { Select, Radio } from "antd";
+import classNames from "./index.css";
+import { Icon } from "antd";
 import { connect } from "dva";
-import Attribute from "../Attribute/index";
-
-const { Option } = Select;
+import { dfs } from "../../utils/tree";
+import Box from "../Box";
+import Input from "../Input";
+import { useState } from "react";
 
 export default connect(
   state => ({
@@ -33,39 +34,7 @@ export default connect(
   deleteVarForCmp,
   selectVar
 }) {
-  function dfs(node, cb) {
-    cb(node);
-    node.children &&
-      node.children.forEach(item => {
-        dfs(item, cb);
-      });
-  }
-
-  function handleAttrChange(value, key) {
-    changeAttr(value, key, selectedComponentId, selectedId);
-  }
-
-  // 变成普通的变量
-  function handleDeleteVarForCmp(attr) {
-    deleteVarForCmp(attr, selectedComponentId, selectedId);
-  }
-
-  function handleVarDrop(type, id, attr) {
-    const mp = {
-      color: ["color"],
-      number: ["fontSize", "padding"]
-    };
-
-    const arr = mp[type];
-    const index = arr.indexOf(attr);
-    if (index === -1) {
-      alert("类型不匹配");
-      return;
-    }
-
-    changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
-  }
-
+  const [dragover, setDragover] = useState("");
   const slide = components.find(item => item.id === selectedId);
   let selectedCmp;
   selectedComponentId &&
@@ -75,239 +44,195 @@ export default connect(
       }
     });
 
+  const attrs = getAttrs(selectedCmp);
+  const inputByAttr = {
+    fontSize: {
+      type: "number",
+      name: "字体大小",
+      icon: "font-size",
+      range: [0, 500]
+    },
+    color: {
+      type: "color",
+      name: "字体颜色",
+      icon: "font-colors"
+    },
+    backgroundColor: {
+      type: "color",
+      name: "背景颜色",
+      icon: "bg-colors"
+    },
+    flex: {
+      type: "radio",
+      name: "排列方式",
+      icon: "menu",
+      hasIcon: false,
+      list: [
+        {
+          name: "水平",
+          value: "row"
+        },
+        {
+          name: "垂直",
+          value: "column"
+        }
+      ]
+    },
+    fontWeight: {
+      type: "switch",
+      name: "加粗",
+      icon: "bold",
+      yes: "bold"
+    },
+    padding: {
+      type: "number",
+      name: "内边距",
+      icon: "border",
+      range: [0, 100]
+    },
+    textAlign: {
+      type: "radio",
+      name: "水平对齐",
+      icon: "profile",
+      list: [
+        {
+          name: "左边",
+          value: "left",
+          icon: "align-left"
+        },
+        {
+          name: "居中",
+          value: "center",
+          icon: "align-center"
+        },
+        {
+          name: "右边",
+          value: "right",
+          icon: "align-right"
+        }
+      ]
+    },
+    verticalAlign: {
+      type: "radio",
+      name: "垂直对齐",
+      icon: "project",
+      list: [
+        {
+          name: "顶部",
+          value: "top",
+          icon: "vertical-align-top"
+        },
+        {
+          name: "中间",
+          value: "center",
+          icon: "vertical-align-middle"
+        },
+        {
+          name: "底部",
+          value: "bottom",
+          icon: "vertical-align-bottom"
+        }
+      ]
+    },
+    span: {
+      type: "array",
+      name: "比例",
+      icon: "layout"
+    },
+    displayMode: {
+      type: "switch",
+      name: "充满容器",
+      icon: "fullscreen",
+      yes: "scrollToFill"
+    }
+  };
+
+  function getAttrs(selectedCmp) {
+    if (!selectedCmp || !selectedCmp.attrs) return [];
+    return Object.keys(selectedCmp.attrs).reduce((arr, key) => {
+      if (key === "isTitle" || key === "fontFamily") return arr;
+      let isVar = false;
+      let varId = null;
+      let attrValue = selectedCmp.attrs[key];
+      if (typeof attrValue === "string" && attrValue[0] === "$") {
+        isVar = true;
+        varId = parseInt(attrValue.slice(1));
+        const v = variables.find(item => item.id === varId);
+        attrValue = v.value;
+      }
+      const obj = {
+        isVar,
+        attrValue,
+        varId,
+        key
+      };
+      return [...arr, obj];
+    }, []);
+  }
+
+  function handleVarDrop(e, attr) {
+    const type = e.dataTransfer.getData("type"),
+      id = parseInt(e.dataTransfer.getData("id"));
+    const mp = {
+      color: ["color", "backgroundColor"],
+      number: ["fontSize", "padding"]
+    };
+    const arr = mp[type];
+    const index = arr.indexOf(attr);
+    if (index === -1) {
+      alert("类型不匹配");
+      return;
+    }
+    changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
+    setDragover("");
+  }
+
   return (
-    <div style={{ height }} className={styles.container}>
-      <h1>AttrPanel</h1>
-      <div>
-        {selectedCmp &&
-          selectedCmp.attrs &&
-          Object.keys(selectedCmp.attrs).map((item, index) => {
-            let isVar = false;
-            let varId = null;
-            // 对数值进行一下转化，和全局变量联系起来
-            let attrValue = selectedCmp.attrs[item];
-
-            if (typeof attrValue === "string" && attrValue[0] === "$") {
-              isVar = true;
-              varId = parseInt(attrValue.slice(1));
-              const v = variables.find(item => item.id === varId);
-              attrValue = v.value;
-            }
-
-            if (item === "fontSize") {
-              return (
-                <Attribute
-                  key={index}
-                  onVarDrop={(type, id) => handleVarDrop(type, id, item)}
-                  isVar={isVar}
-                  onVarDelete={() => handleDeleteVarForCmp(item)}
-                  onVarSelect={() => selectVar(varId)}
-                >
-                  字体大小
-                  <Select
-                    value={attrValue}
-                    onChange={value => handleAttrChange(value, item)}
-                    style={{ width: 70 }}
-                    disabled={isVar}
-                  >
-                    {[
-                      10,
-                      20,
-                      30,
-                      40,
-                      50,
-                      60,
-                      70,
-                      80,
-                      90,
-                      100,
-                      110,
-                      120,
-                      130,
-                      140,
-                      150,
-                      160,
-                      170,
-                      180,
-                      190,
-                      200
-                    ].map((size, idx) => (
-                      <Option value={size} key={idx}>
-                        {size}
-                      </Option>
-                    ))}
-                  </Select>
-                </Attribute>
-              );
-            } else if (item === "color") {
-              return (
-                <Attribute
-                  key={index}
-                  onVarDrop={(type, id) => handleVarDrop(type, id, item)}
-                  isVar={isVar}
-                  onVarDelete={() => handleDeleteVarForCmp(item)}
-                  onVarSelect={() => selectVar(varId)}
-                >
-                  颜色
-                  <input
-                    value={attrValue}
-                    type="color"
-                    onChange={e => handleAttrChange(e.target.value, item)}
-                    disabled={isVar}
+    <Box title="属性" height={height} iconType="gold">
+      <ul>
+        {attrs.map((item, index) => {
+          const { icon, name, ...rest } = inputByAttr[item.key];
+          return (
+            <li
+              key={index}
+              className={classNames.item}
+              style={{ background: item.key === dragover && "#4091f7" }}
+              onDragEnter={() => setDragover(item.key)}
+              onDragOver={e => {
+                if (item.key !== dragover) setDragover(item.key);
+                e.preventDefault();
+              }}
+              onDragLeave={() => setDragover("")}
+              onDrop={e => handleVarDrop(e, item.key)}
+            >
+              <Icon type={icon} />
+              <span className={classNames.name}>{name}</span>
+              <Input
+                value={item.attrValue}
+                onChange={value =>
+                  changeAttr(value, item.key, selectedComponentId, selectedId)
+                }
+                {...rest}
+              ></Input>
+              {item.isVar && (
+                <div className={classNames.btns}>
+                  <Icon
+                    type="eye"
+                    className={classNames.icon}
+                    onClick={() => selectVar(item.varId)}
                   />
-                </Attribute>
-              );
-            } else if (item === "span") {
-              return (
-                <div key={index} style={{ display: "flex" }}>
-                  <div>比例</div>
-                  <div>
-                    {selectedCmp.attrs[item].length === 0 ? (
-                      <p>100%</p>
-                    ) : (
-                      selectedCmp.attrs[item].map((span, i) => (
-                        <input
-                          type="number"
-                          value={span}
-                          key={i}
-                          style={{ width: 35, marginLeft: 10 }}
-                          onChange={e => {
-                            const value = e.target.value;
-                            const number = parseInt(value);
-                            if (isNaN(number) || number < 1) {
-                              return;
-                            }
-                            const arr = [...selectedCmp.attrs[item]];
-                            arr.splice(i, 1, number);
-                            handleAttrChange(arr, item);
-                          }}
-                        />
-                      ))
-                    )}
-                  </div>
+                  <Icon
+                    type="delete"
+                    onClick={() =>
+                      deleteVarForCmp(item.key, selectedComponentId, selectedId)
+                    }
+                  />
                 </div>
-              );
-            } else if (item === "flex") {
-              return (
-                <div key={index}>
-                  布局
-                  <Radio.Group
-                    onChange={e => handleAttrChange(e.target.value, item)}
-                    value={selectedCmp.attrs[item]}
-                  >
-                    <Radio value="row" key={1}>
-                      row
-                    </Radio>
-                    <Radio value="column" key={2}>
-                      column
-                    </Radio>
-                  </Radio.Group>
-                </div>
-              );
-            } else if (item === "textAlign") {
-              return (
-                <div key={index}>
-                  左右
-                  <Radio.Group
-                    onChange={e => handleAttrChange(e.target.value, item)}
-                    value={selectedCmp.attrs[item]}
-                  >
-                    <Radio value="left" key={1}>
-                      left
-                    </Radio>
-                    <Radio value="center" key={2}>
-                      center
-                    </Radio>
-                    <Radio value="right" key={3}>
-                      right
-                    </Radio>
-                  </Radio.Group>
-                </div>
-              );
-            } else if (item === "verticalAlign") {
-              return (
-                <div key={index}>
-                  上下
-                  <Radio.Group
-                    onChange={e => handleAttrChange(e.target.value, item)}
-                    value={selectedCmp.attrs[item]}
-                  >
-                    <Radio value="top" key={1}>
-                      top
-                    </Radio>
-                    <Radio value="center" key={2}>
-                      center
-                    </Radio>
-                    <Radio value="bottom" key={3}>
-                      bottom
-                    </Radio>
-                  </Radio.Group>
-                </div>
-              );
-            } else if (item === "padding") {
-              return (
-                <Attribute
-                  key={index}
-                  onVarDrop={(type, id) => handleVarDrop(type, id, item)}
-                  isVar={isVar}
-                  onVarDelete={() => handleDeleteVarForCmp(item)}
-                  onVarSelect={() => selectVar(varId)}
-                >
-                  内边距
-                  <Select
-                    value={attrValue}
-                    onChange={value => handleAttrChange(value, item)}
-                    style={{ width: 70 }}
-                    disabled={isVar}
-                  >
-                    {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(
-                      (size, idx) => (
-                        <Option value={size} key={idx}>
-                          {size}
-                        </Option>
-                      )
-                    )}
-                  </Select>
-                </Attribute>
-              );
-            } else if (item === "displayMode") {
-              return (
-                <div key={index}>
-                  模式
-                  <Radio.Group
-                    onChange={e => handleAttrChange(e.target.value, item)}
-                    value={selectedCmp.attrs[item]}
-                  >
-                    <Radio value="normal" key={1}>
-                      normal
-                    </Radio>
-                    <Radio value="scaleToFill" key={2}>
-                      scaleToFill
-                    </Radio>
-                  </Radio.Group>
-                </div>
-              );
-            } else if (item === "fontWeight") {
-              return (
-                <div key={index}>
-                  粗细
-                  <Radio.Group
-                    onChange={e => handleAttrChange(e.target.value, item)}
-                    value={selectedCmp.attrs[item]}
-                  >
-                    <Radio value="normal" key={1}>
-                      normal
-                    </Radio>
-                    <Radio value="bold" key={2}>
-                      bold
-                    </Radio>
-                  </Radio.Group>
-                </div>
-              );
-            }
-          })}
-      </div>
-      <div>{!selectedCmp && <p>没有选中的组件~</p>}</div>
-    </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </Box>
   );
 });

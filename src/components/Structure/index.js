@@ -7,6 +7,49 @@ import Box from "../Box";
 
 import tree from "../../utils/tree";
 
+function Content({ type, handleAddCmp }) {
+  const items = [
+    { title: "文字", type: "font-size", value: "text" },
+    { title: "图片", type: "picture", value: "image" },
+    { title: "画布", type: "codepen", value: "canvas" },
+    { title: "容器", type: "container", value: "panel" }
+  ];
+
+  return (
+    <ul className={classNames.list}>
+      {items.map(item => (
+        <li
+          key={item.title}
+          className={!type ? classNames.lineWidthButton : classNames.line}
+          onClick={() => handleAddCmp(item.value, type)}
+        >
+          <Icon type={item.type} className={type && classNames.lineIcon} />
+          <span className={classNames.title}>{item.title}</span>
+          {!type && (
+            <div>
+              <Button
+                icon="down"
+                onClick={e => {
+                  handleAddCmp(item.value, "brother");
+                  e.stopPropagation();
+                }}
+                className={classNames.leftBtn}
+              />
+              <Button
+                icon="right"
+                onClick={e => {
+                  handleAddCmp(item.value, "children");
+                  e.stopPropagation();
+                }}
+              />
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default connect(
   state => ({
     components: state.slides.components,
@@ -53,7 +96,7 @@ export default connect(
 
   const styles = {
     treeNode: node => ({
-      paddingLeft: node.depth * indent
+      marginLeft: node.depth * indent
     })
   };
 
@@ -64,54 +107,15 @@ export default connect(
     panel: <Icon type="container" />
   };
 
-  const items = [
-    { title: "文字", type: "font-size", value: "text" },
-    { title: "图片", type: "picture", value: "image" },
-    { title: "画布", type: "codepen", value: "canvas" },
-    { title: "容器", type: "container", value: "panel" }
-  ];
-
   const contentByType = item => {
     const map = {
       image: <img src={item.value} style={{ maxHeight: "2em" }} />,
-      canvas: <div>{item.value.slice(0, 10) + "..."}</div>,
-      text: <div>{item.value.slice(0, 10)}</div>,
+      canvas: <div>{item.value.slice(0, 15) + "..."}</div>,
+      text: <div>{item.value}</div>,
       panel: <div>{item.value || "row"}</div>
     };
     return map[item.type];
   };
-
-  const content = (
-    <ul className={classNames.list}>
-      {items.map(item => (
-        <li key={item.title} className={classNames.line}>
-          <Icon type={item.type} className={classNames.lineIcon} />
-          <span className={classNames.title}>{item.title}</span>
-        </li>
-      ))}
-    </ul>
-  );
-
-  const contentWidthButtons = (
-    <ul className={classNames.list}>
-      {items.map(item => (
-        <li key={item.title} className={classNames.lineWidthButton}>
-          <Icon type={item.type} />
-          <span className={classNames.title}>{item.title}</span>
-          <div>
-            <Button
-              icon="down"
-              onClick={() => handleAddCmp(item.value, "brother")}
-            />
-            <Button
-              icon="right"
-              onClick={() => handleAddCmp(item.value, "children")}
-            />
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
 
   function handleNodeDrop(sourceNodeId, targetNodeId, type) {
     if (type === "top") {
@@ -133,7 +137,7 @@ export default connect(
   }
 
   return (
-    <Box height={height} title="结构" iconType="apartment">
+    <Box height={height} title="结构" iconType="cluster">
       {nodes.map(item => (
         <TreeNode
           key={item.id}
@@ -150,9 +154,17 @@ export default connect(
             width="200px"
             type="add"
             popover={
-              item.type === "panel" && item.depth
-                ? contentWidthButtons
-                : content
+              <Content
+                widthButton={item.type === "panel" && item.depth !== 0}
+                handleAddCmp={handleAddCmp}
+                type={
+                  item.depth === 0
+                    ? "children"
+                    : item.type === "panel"
+                    ? undefined
+                    : "brother"
+                }
+              />
             }
             onAdd={() => setSelectedComp(item.id)}
           >

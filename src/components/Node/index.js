@@ -4,6 +4,7 @@ import classNames from "./index.css";
 
 export default function({
   highlight = false,
+  edit,
   children,
   onDelete,
   onEdit,
@@ -16,7 +17,6 @@ export default function({
   ...rest
 }) {
   const [hovered, setHoverd] = useState(false);
-  const [edit, setEdit] = useState(false);
   const styles = {
     container: {
       height,
@@ -66,8 +66,8 @@ export default function({
               <Icon
                 type={edit ? "save" : "edit"}
                 onClick={e => {
-                  setEdit(!edit);
                   onEdit(e);
+                  e.stopPropagation();
                 }}
                 className={classNames.edit}
               />

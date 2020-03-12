@@ -1,7 +1,6 @@
 .container {
   background: #fff;
   border: 1px solid #e8e8e8;
-  overflow: auto;
   border-radius: 3px;
 }
 .box {
@@ -27,5 +26,6 @@
 }
 
 .content {
+  overflow: auto;
   margin: 0.5em 1em 0 1em;
 }

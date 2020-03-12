@@ -2,6 +2,7 @@ import classNames from "./index.css";
 import Node from "../Node";
 import { connect } from "dva";
 import { useState } from "react";
+import { Icon } from "antd";
 export default connect(null, {
   deleteIdea: id => ({ type: "slides/deleteIdea", payload: { id } }),
   saveIdea: (id, value) => ({
@@ -11,6 +12,11 @@ export default connect(null, {
 })(function({ content, deleteIdea, saveIdea, setIsDrag }) {
   const { type, id, value } = content;
   const [edit, setEdit] = useState(false);
+  const iconByType = {
+    text: "font-size",
+    image: "picture",
+    canvas: "codepen"
+  };
 
   function handleImageChange(data) {
     const file = data.file.originFileObj;
@@ -37,6 +43,7 @@ export default connect(null, {
     >
       <Node
         onDelete={() => deleteIdea(id)}
+        edit={edit}
         onEdit={() => setEdit(!edit)}
         onImageChange={handleImageChange}
         type={type}
@@ -44,6 +51,7 @@ export default connect(null, {
         height="2em"
       >
         <div className={classNames.nodeTitle}>
+          <Icon type={iconByType[type]} className={classNames.icon} />
           {type === "image" ? (
             <img src={value} className={classNames.image} />
           ) : edit ? (

@@ -6,8 +6,14 @@
   width: 140px;
   overflow: hidden;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .image {
   max-height: 2em;
+}
+
+.icon {
+  margin-right: 8px;
 }

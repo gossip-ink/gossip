@@ -1,7 +1,10 @@
-// 拖拽功能可以抽象成一个组件或者高阶组件
-
 import { connect } from "dva";
-import { Button, Icon, Input, Popover } from "antd";
+import classNames from "./index.css";
+import { Icon } from "antd";
+import Box from "../Box";
+import Node from "../Node";
+import Input from "../Input";
+import { useState } from "react";
 
 export default connect(
   state => ({
@@ -26,120 +29,85 @@ export default connect(
   selectVar,
   changeVar
 }) {
-  const variable = variables.find(item => item.id === selectedArributeId);
+  const [edit, setEdit] = useState(-1);
   const icon = {
-    color: <Icon type="bg-colors" />,
-    number: <Icon type="calculator" />
+    color: "bg-colors",
+    number: "number"
   };
 
-  function handleDeleteVar(id) {
-    deleteVar(id);
-  }
-
-  function handleAddVar(type) {
-    addVar(type);
-  }
-
-  function handleSelect(id) {
-    selectVar(id);
-  }
-
-  function handleChangeVar(value, type) {
-    changeVar(value, type);
-  }
-
   function handleDragStart(e, item) {
+    selectVar(item.id);
     e.dataTransfer.setData("type", item.type);
     e.dataTransfer.setData("id", item.id);
   }
 
+  const items = [
+    { name: "颜色", value: "color", type: "bg-colors" },
+    { name: "数值", value: "number", type: "number" }
+  ];
+
+  const content = (
+    <ul className={classNames.list}>
+      {items.map((item, index) => (
+        <li
+          key={index}
+          onClick={() => addVar(item.value)}
+          style={{ cursor: "pointer" }}
+          className={classNames.item}
+        >
+          <Icon className={classNames.icon} type={item.type} />
+          <span>{item.name}</span>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
-    <div style={{ height}}>
-      <div style={{ display: "flex" }}>
-        <h1>Variables</h1>
-        <div style={{ marginLeft: 75 }}>
-          <Popover
-            content={[
-              { name: "颜色", value: "color" },
-              { name: "数值", value: "number" }
-            ].map((item, index) => (
-              <div
-                key={index}
-                onClick={() => handleAddVar(item.value)}
-                style={{ cursor: "pointer" }}
-              >
-                {item.name}
-              </div>
-            ))}
-            title="选择一种类型"
-            placement="bottomRight"
-          >
-            <Button icon="plus" type="primary" />
-          </Popover>
-        </div>
-      </div>
-      {variable ? (
-        <div>
-          <div>
-            名字：
-            <Input
-              value={variable.name}
-              style={{ width: 100 }}
-              onChange={e => handleChangeVar(e.target.value, "name")}
-            />
-          </div>
-          <div>
-            值：
-            <Input
-              value={variable.value}
-              style={{ width: 100 }}
-              type={variable.type}
-              onChange={e => handleChangeVar(e.target.value, "value")}
-            />
-          </div>
-          <div>类型：{variable.type}</div>
-        </div>
-      ) : (
-        <div>未选择</div>
-      )}
-      <br></br>
-      <div style={{ overflow: "auto", height:height * 0.55 }}>
-        {variables.map(item => (
-          <div
-            key={item.id}
-            style={{
-              display: "flex",
-              justifyContent: "space-around",
-              lineHeight: 2
+    <Box height={height} title="属性变量" iconType="shop" popover={content}>
+      {variables.map(item => (
+        <div
+          key={item.id}
+          className={classNames.node}
+          onDragStart={e => handleDragStart(e, item)}
+          draggable
+          onClick={() => selectedArributeId !== item.id && selectVar(item.id)}
+        >
+          <Node
+            height="2em"
+            onDelete={() => deleteVar(item.id)}
+            edit={item.id === edit}
+            highlight={selectedArributeId === item.id}
+            onEdit={() => {
+              if (item.id === edit) {
+                setEdit(-1);
+              } else {
+                setEdit(item.id);
+                selectVar(item.id);
+              }
             }}
           >
-            <Button
-              type="primary"
-              icon="drag"
-              draggable
-              onDragStart={e => handleDragStart(e, item)}
-            />
-
-            <div
-              style={{
-                display: "flex",
-                background: "white",
-                width: 120,
-                border: selectedArributeId === item.id && "1px solid black"
-              }}
-              onClick={() => handleSelect(item.id)}
-            >
-              <div>{icon[item.type]}</div>
-              <div style={{ marginLeft: 10 }}>{item.name}</div>
+            <div className={classNames.wrapper}>
+              <Icon type={icon[item.type]}></Icon>
+              <div className={classNames.name}>
+                {edit === item.id ? (
+                  <input
+                    value={item.name}
+                    onChange={e => changeVar(e.target.value, "name")}
+                  />
+                ) : (
+                  <div>{item.name}</div>
+                )}
+              </div>
+              <Input
+                type={item.type}
+                value={item.value}
+                onChange={value => changeVar(value, "value")}
+                range={[0, 500]}
+              />
             </div>
-            <Button
-              type="danger"
-              icon="delete"
-              onClick={() => handleDeleteVar(item.id)}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+          </Node>
+        </div>
+      ))}
+    </Box>
   );
 });

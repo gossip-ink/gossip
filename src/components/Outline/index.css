@@ -15,8 +15,10 @@
 }
 
 .nodeTitle {
-  width: 140px;
+  width: 130px;
   overflow: hidden;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
