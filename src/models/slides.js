@@ -377,6 +377,7 @@ export default {
 
       // 从旧的 father 删除
       let dragNode = null;
+      let deleteSpan = null;
       dfs(slide, node => {
         node.children &&
           node.children.forEach((item, index) => {
@@ -385,7 +386,7 @@ export default {
               node.children.splice(index, 1);
 
               // 修改 span
-              node.attrs.span.splice(index, 1);
+              [deleteSpan] = node.attrs.span.splice(index, 1);
             }
           });
       });
@@ -401,7 +402,8 @@ export default {
                 node.children.splice(idx, 0, dragNode);
 
                 // 修改 span
-                node.attrs.span.splice(idx, 0, 1);
+                const addSpan = deleteSpan ? deleteSpan : 1;
+                node.attrs.span.splice(idx, 0, addSpan);
                 isAdd = true;
               }
             });

@@ -11,7 +11,6 @@ export default function({
   const [middle, setMiddle] = useState(false);
   const [bottom, setBottom] = useState(false);
   const [top, setTop] = useState(false);
-  const [dragged, setDragged] = useState(false);
 
   const styles = {
     container: {
@@ -24,7 +23,6 @@ export default function({
 
   function handleDrop(e, type) {
     // 清除状态
-    setDragged(false);
     setMiddle(false);
     setTop(false);
     setBottom(false);
@@ -45,7 +43,6 @@ export default function({
   }
 
   function handleDragStart(e) {
-    setDragged(true);
     e.dataTransfer.setData("type", "node");
     e.dataTransfer.setData("dragNode", node.id);
   }
@@ -55,9 +52,9 @@ export default function({
       <div
         style={styles.top}
         className={classNames.line}
-        onDragEnter={() => !dragged && setTop(true)}
+        onDragEnter={() => {setTop(true)}}
         onDragLeave={() => setTop(false)}
-        onDragOver={e => e.preventDefault()}
+        onDragOver={e => {e.preventDefault()}}
         onDrop={e => handleDrop(e, "top")}
       ></div>
       <div
@@ -75,7 +72,7 @@ export default function({
       </div>
       <div
         style={styles.bottom}
-        onDragEnter={() => !dragged && setBottom(true)}
+        onDragEnter={() => setBottom(true)}
         onDragLeave={() => setBottom(false)}
         onDragOver={e => e.preventDefault()}
         onDrop={e => handleDrop(e, "bottom")}

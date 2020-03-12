@@ -141,6 +141,7 @@ export default connect(
           onNodeDrop={handleNodeDrop}
           highlightColor="#4091f7"
           style={styles.treeNode(item)}
+          width="200px"
         >
           <Node
             onDelete={() => deleteCmp(selectedId, item.id)}
