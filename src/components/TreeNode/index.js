@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Icon } from "antd";
 import classNames from "./index.css";
+import { Icon, Popover } from "antd";
+import { range } from "d3";
 export default function({
   node,
   children,
@@ -9,13 +10,21 @@ export default function({
   width,
   onClickRight,
   onClickBottom,
-  hasBottom,
+  popoverRight,
+  popoverBottom,
+  hasBottom = true,
+  hasTop = true,
+  hasRight = true,
   style
 }) {
   const [hover, setHover] = useState(false);
   const [middle, setMiddle] = useState(false);
   const [bottom, setBottom] = useState(false);
   const [top, setTop] = useState(false);
+  const [left, setLeft] = useState(range(node.depth).map(() => false));
+  if (node.depth !== left.length) {
+    setLeft(range(node.depth).map(() => false));
+  }
 
   const styles = {
     container: {
@@ -24,14 +33,18 @@ export default function({
     },
     top: { background: top && highlightColor, width },
     middle: { width },
-    bottom: { background: bottom && highlightColor, width }
+    bottom: { background: bottom && highlightColor, width },
+    bottomButton: {
+      width
+    }
   };
 
-  function handleDrop(e, type) {
+  function handleDrop(e, type, index) {
     // 清除状态
     setMiddle(false);
     setTop(false);
     setBottom(false);
+    setLeft([...left.map(() => false)]);
 
     // 判断拖拽的类型
     const dragType = e.dataTransfer.getData("type");
@@ -41,11 +54,12 @@ export default function({
     if (dragType === "node") {
       const data = parseInt(e.dataTransfer.getData("dragNode"));
       dragId = isNaN(data) ? e.dataTransfer.getData("dragNode") : data;
-      if (dragId === node.id) return;
+      if (dragId === node.id && type !== "left") return;
+      if (dragId !== node.id && type == "left") return;
     } else {
       dragId = parseInt(e.dataTransfer.getData("id"));
     }
-    onNodeDrop(dragId, node.id, type, dragType);
+    onNodeDrop(dragId, node.id, type, dragType, index);
   }
 
   function handleDragStart(e) {
@@ -59,19 +73,42 @@ export default function({
       onMouseLeave={() => setHover(false)}
     >
       <div className={classNames.container}>
-        <div style={{ ...style, ...styles.container }}>
-          <div
-            style={styles.top}
-            className={classNames.line}
-            onDragEnter={() => {
-              setTop(true);
-            }}
-            onDragLeave={() => setTop(false)}
-            onDragOver={e => {
-              e.preventDefault();
-            }}
-            onDrop={e => handleDrop(e, "top")}
-          ></div>
+        {left.map((_, index) =>
+          index === 0 ? (
+            <div className={classNames.leftItem}></div>
+          ) : (
+            <div
+              key={index}
+              className={classNames.leftItem}
+              style={{
+                background: left[index] && highlightColor
+              }}
+              onDragEnter={() => {
+                left[index] = true;
+                setLeft([...left]);
+              }}
+              onDragLeave={() => {
+                left[index] = false;
+                setLeft([...left]);
+              }}
+              onDragOver={e => e.preventDefault()}
+              onDrop={e => handleDrop(e, "left", index)}
+            ></div>
+          )
+        )}
+        <div style={styles.container}>
+          {hasTop ? (
+            <div
+              style={styles.top}
+              className={classNames.line}
+              onDragEnter={() => setTop(true)}
+              onDragLeave={() => setTop(false)}
+              onDragOver={e => e.preventDefault()}
+              onDrop={e => handleDrop(e, "top")}
+            ></div>
+          ) : (
+            <div className={classNames.line}></div>
+          )}
           <div
             style={styles.middle}
             onDrop={e => handleDrop(e, "middle")}
@@ -85,37 +122,76 @@ export default function({
           >
             {children}
           </div>
-          <div
-            style={styles.bottom}
-            onDragEnter={() => setBottom(true)}
-            onDragLeave={() => setBottom(false)}
-            onDragOver={e => e.preventDefault()}
-            onDrop={e => handleDrop(e, "bottom")}
-            className={classNames.line}
-          ></div>
+          {hasBottom ? (
+            <div
+              style={styles.bottom}
+              onDragEnter={() => setBottom(true)}
+              onDragLeave={() => setBottom(false)}
+              onDragOver={e => e.preventDefault()}
+              onDrop={e => handleDrop(e, "bottom")}
+              className={classNames.line}
+            ></div>
+          ) : (
+            <div className={classNames.line}></div>
+          )}
         </div>
-        {hover && onClickRight && (
-          <Icon
-            type="plus-circle"
-            className={classNames.right}
-            onClick={() => {
-              onClickRight();
-              setHover(false);
-            }}
-          />
-        )}
+        {hasRight &&
+          hover &&
+          (popoverRight ? (
+            <Popover
+              content={popoverRight}
+              title="选择一种类型"
+              placement="left"
+              trigger="click"
+              arrowPointAtCenter
+            >
+              <Icon
+                type="plus-circle"
+                className={classNames.right}
+                onClick={onClickRight}
+              />
+            </Popover>
+          ) : (
+            <Icon
+              type="plus-circle"
+              className={classNames.right}
+              onClick={() => {
+                onClickRight();
+                setHover(false);
+              }}
+            />
+          ))}
       </div>
-      <div style={{ ...styles.middle, ...style }} className={classNames.bottom}>
-        {hover && onClickBottom && hasBottom && (
-          <Icon
-            type="plus-circle"
-            className={classNames.right}
-            onClick={() => {
-              onClickBottom();
-              setHover(false);
-            }}
-          />
-        )}
+      <div
+        style={{ ...styles.bottomButton, ...style }}
+        className={classNames.bottomButton}
+      >
+        {hover &&
+          hasBottom &&
+          (popoverBottom ? (
+            <Popover
+              content={popoverBottom}
+              title="选择一种类型"
+              placement="left"
+              trigger="click"
+              arrowPointAtCenter
+            >
+              <Icon
+                type="plus-circle"
+                className={classNames.right}
+                onClick={onClickBottom}
+              />
+            </Popover>
+          ) : (
+            <Icon
+              type="plus-circle"
+              className={classNames.right}
+              onClick={() => {
+                onClickBottom();
+                setHover(false);
+              }}
+            />
+          ))}
       </div>
     </div>
   );

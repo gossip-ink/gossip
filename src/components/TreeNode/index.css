@@ -20,3 +20,15 @@
   display: flex;
   justify-content: center;
 }
+
+.leftItem {
+  flex-basis: 15px;
+  width: 15px;
+  margin: 0.2em;
+  height: 2em;
+}
+
+.bottomButton{
+  display: flex;
+  justify-content: center;
+}

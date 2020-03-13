@@ -1,10 +1,11 @@
 import classNames from "./index.css";
 import Outline from "../Outline";
 import Thumbnails from "../Thumbnails";
-import { Tabs, Icon } from "antd";
-const { TabPane } = Tabs;
+import Box from "../Box";
+import { useState } from "react";
 export default function({ height, isDrag, setIsDrag }) {
   const content = height - 10;
+  const [tree, setTree] = useState(true);
   const props = {
     outline: {
       setIsDrag,
@@ -16,41 +17,19 @@ export default function({ height, isDrag, setIsDrag }) {
       setIsDrag
     }
   };
-  const outlineTab = (
-      <span>
-        <Icon type="bars" />
-        大纲
-      </span>
-    ),
-    thumbnailsTab = (
-      <span>
-        <Icon type="layout" />
-        缩略图
-      </span>
-    );
-  const styles = {
-    container: {
-      height
-    },
-    main: {
-      height: content
-    },
-    tabbar: {
-      margin: 0
-    }
-  };
+
   return (
-    <div style={styles.container} className={classNames.container}>
-      <div style={styles.main} className={classNames.main}>
-        <Tabs defaultActiveKey="1" tabBarStyle={styles.tabbar}>
-          <TabPane tab={outlineTab} key="1">
-            <Outline {...props.outline} />
-          </TabPane>
-          <TabPane tab={thumbnailsTab} key="2">
-            <Thumbnails {...props.thumbnails} />
-          </TabPane>
-        </Tabs>
-      </div>
-    </div>
+    <Box
+      height={height}
+      nodata={false}
+      title={tree ? "大纲" : "缩略图"}
+      onSwitch={() => setTree(!tree)}
+    >
+      {tree ? (
+        <Outline {...props.outline} />
+      ) : (
+        <Thumbnails {...props.thumbnails} />
+      )}
+    </Box>
   );
 }

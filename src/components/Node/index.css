@@ -1,7 +1,6 @@
 .container {
   background: #fafafa;
   border-radius: 2px;
-  cursor: move;
   display: flex;
   align-items: center;
   justify-content: space-between;

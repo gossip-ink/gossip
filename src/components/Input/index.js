@@ -2,7 +2,7 @@ import classNames from "./index.css";
 import ColorPicker from "coloreact";
 import { Popover, Slider, Button, Switch } from "antd";
 import { scaleLinear, pairs } from "d3";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 function Number({ value, onChange, range = [0, 100] }) {
   const styles = {
@@ -41,7 +41,6 @@ function MultipleSlider({ value, onChange }) {
     sum += n;
     return sum;
   });
-  // const [move, setMove] = useState(-1);
   const ref = useRef(null);
   const move = useRef(-1);
   const scale = scaleLinear()
@@ -142,6 +141,7 @@ function MyRadio({ value, onChange, list, hasIcon = true }) {
             if (value === item.value) return;
             onChange(item.value);
           }}
+          size="small"
         >
           {!hasIcon && item.name}
         </Button>
@@ -202,6 +202,8 @@ export default function({ type, value, onChange, range, list, yes, hasIcon }) {
     <>
       {type === "switch" ? (
         boxByType[type]
+      ) : type === "radio" ? (
+        contentByType[type]
       ) : (
         <Popover content={contentByType[type]} trigger="click">
           {boxByType[type]}

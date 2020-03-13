@@ -2,6 +2,7 @@ import EditableText from "../EditableText/index";
 import EditableImg from "../EditableImg";
 import EditableCanvas from "../EditableCanvas/index";
 import { connect } from "dva";
+import classNames from "./index.css";
 
 const Panel = connect(
   state => ({
@@ -33,7 +34,7 @@ const Panel = connect(
   setSelectedComp,
   variables,
   setValueOfCmp,
-  editable,
+  editable
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -60,7 +61,7 @@ const Panel = connect(
     width: outerWidth,
     height: outerHeight,
     value: value,
-    edit: id === selectedComponentId,
+    select: id === selectedComponentId,
     onValueChange: handleValueChange,
     editable
   };
@@ -112,18 +113,24 @@ const Panel = connect(
   }
 
   const selected = selectedRootId === rootId && id === selectedComponentId;
-
-  const style = {
-    display: type === "panel" && "flex",
-    flexDirection: type === "panel" && attrs.flex,
-    height: height && height,
-    width: width && width,
-    border: selected && "1px solid black",
-    padding
+  const styles = {
+    container: {
+      display: type === "panel" && "flex",
+      flexDirection: type === "panel" && attrs.flex,
+      height: height && height,
+      width: width && width,
+      outline: selected && "2px solid #4091f7",
+      padding
+    }
   };
 
   return (
-    <div style={style} onClick={handleSelect}>
+    <div
+      style={styles.container}
+      onClick={handleSelect}
+      className={classNames.container}
+      onMouseEnter={handleSelect}
+    >
       {content}
     </div>
   );

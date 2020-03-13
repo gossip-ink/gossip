@@ -188,7 +188,13 @@ export default connect(
   }
 
   return (
-    <Box title="属性" height={height} iconType="gold">
+    <Box
+      title="属性"
+      height={height}
+      iconType="gold"
+      nodataInfo="没有选择任何的组件～"
+      nodata={attrs.length === 0}
+    >
       <ul>
         {attrs.map((item, index) => {
           const { icon, name, ...rest } = inputByAttr[item.key];

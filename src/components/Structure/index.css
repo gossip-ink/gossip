@@ -10,23 +10,15 @@
 
 .icon {
   margin-right: 8px;
-}
-
-.lineIcon {
-  margin-right: 16px;
+  cursor: move;
 }
 
 .list {
   list-style: none;
 }
-
-.lineWidthButton {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.2em 0;
+.title{
+  margin-left: 8px;
 }
-
 .line {
   display: flex;
   align-items: center;

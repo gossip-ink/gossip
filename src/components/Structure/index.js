@@ -1,11 +1,11 @@
 import classNames from "./index.css";
 import { connect } from "dva";
-import { Icon, Button } from "antd";
+import { Icon } from "antd";
 import Node from "../Node";
 import TreeNode from "../TreeNode";
 import Box from "../Box";
-
 import tree from "../../utils/tree";
+import { max } from "d3";
 
 function Content({ type, handleAddCmp }) {
   const items = [
@@ -20,30 +20,11 @@ function Content({ type, handleAddCmp }) {
       {items.map(item => (
         <li
           key={item.title}
-          className={!type ? classNames.lineWidthButton : classNames.line}
+          className={classNames.line}
           onClick={() => handleAddCmp(item.value, type)}
         >
-          <Icon type={item.type} className={type && classNames.lineIcon} />
+          <Icon type={item.type} />
           <span className={classNames.title}>{item.title}</span>
-          {!type && (
-            <div>
-              <Button
-                icon="down"
-                onClick={e => {
-                  handleAddCmp(item.value, "brother");
-                  e.stopPropagation();
-                }}
-                className={classNames.leftBtn}
-              />
-              <Button
-                icon="right"
-                onClick={e => {
-                  handleAddCmp(item.value, "children");
-                  e.stopPropagation();
-                }}
-              />
-            </div>
-          )}
         </li>
       ))}
     </ul>
@@ -89,15 +70,19 @@ export default connect(
   appendCmp,
   handleAddCmp
 }) {
-  // 找到对应的 componnet
+  const nodeWidth = 190;
   const slide = components.find(item => item.id === selectedId);
   const nodes = tree(slide),
     indent = 20;
+  const h = max(nodes, node => node.depth);
 
   const styles = {
     treeNode: node => ({
       marginLeft: node.depth * indent
-    })
+    }),
+    tree: {
+      width: nodeWidth + indent * h + 50
+    }
   };
 
   const iconByType = {
@@ -129,7 +114,7 @@ export default connect(
       appendCmp(sourceNodeId, targetNodeId, selectedId);
     } else if (type === "bottom") {
       if (targetNodeId === selectedId) {
-        alert("跟节点没有兄弟");
+        alert("根节点没有兄弟");
         return;
       }
       insertCmp(sourceNodeId, targetNodeId, selectedId);
@@ -137,47 +122,54 @@ export default connect(
   }
 
   return (
-    <Box height={height} title="结构" iconType="cluster">
-      {nodes.map(item => (
-        <TreeNode
-          key={item.id}
-          node={item}
-          onNodeDrop={handleNodeDrop}
-          highlightColor="#4091f7"
-          style={styles.treeNode(item)}
-          width="200px"
-        >
-          <Node
-            onDelete={() => deleteCmp(selectedId, item.id)}
-            highlight={selectedComponentId === item.id}
-            height="2em"
-            width="200px"
-            type="add"
-            popover={
-              <Content
-                widthButton={item.type === "panel" && item.depth !== 0}
-                handleAddCmp={handleAddCmp}
-                type={
-                  item.depth === 0
-                    ? "children"
-                    : item.type === "panel"
-                    ? undefined
-                    : "brother"
-                }
-              />
+    <Box
+      height={height}
+      title="结构"
+      iconType="cluster"
+      nodata={nodes.length === 0}
+      nodataInfo="没有选择任何幻灯片～"
+    >
+      <div style={styles.tree}>
+        {nodes.map(item => (
+          <TreeNode
+            key={item.id}
+            node={item}
+            onNodeDrop={handleNodeDrop}
+            highlightColor="#4091f7"
+            style={styles.treeNode(item)}
+            width={nodeWidth + "px"}
+            hasTop={item.depth !== 0}
+            hasBottom={item.depth !== 0}
+            hasRight={item.type === "panel"}
+            onClickRight={() => setSelectedComp(item.id)}
+            onClickBottom={() => setSelectedComp(item.id)}
+            popoverRight={
+              <Content handleAddCmp={handleAddCmp} type="children" />
             }
-            onAdd={() => setSelectedComp(item.id)}
+            popoverBottom={
+              <Content handleAddCmp={handleAddCmp} type="brother" />
+            }
           >
-            <div
-              className={classNames.item}
-              onClick={() => setSelectedComp(item.id)}
+            <Node
+              onDelete={() => deleteCmp(selectedId, item.id)}
+              highlight={selectedComponentId === item.id}
+              height="2em"
+              width={nodeWidth + "px"}
+              nomove={true}
+              onAdd={() => setSelectedComp(item.id)}
+              hasDelete={item.depth !== 0}
             >
-              <span className={classNames.icon}>{iconByType[item.type]}</span>
-              {contentByType(item)}
-            </div>
-          </Node>
-        </TreeNode>
-      ))}
+              <div
+                className={classNames.item}
+                onClick={() => setSelectedComp(item.id)}
+              >
+                <span className={classNames.icon}>{iconByType[item.type]}</span>
+                {contentByType(item)}
+              </div>
+            </Node>
+          </TreeNode>
+        ))}
+      </div>
     </Box>
   );
 });

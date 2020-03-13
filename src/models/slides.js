@@ -170,7 +170,7 @@ export default {
         dfs(state.structure, node => {
           if (node.id === nodeId) {
             node.children = node.children || [];
-            node.children.push(slide);
+            node.children.splice(0, 0, slide);
           }
         });
       } else {
@@ -215,7 +215,7 @@ export default {
       state.selectedId = dragNode.id;
       return state;
     },
-    // 将节点插入当前节点的前面或则后面
+    // 将节点插入当前节点的前面或者后面
     insertNode(state, action) {
       const { id, brother, before } = action.payload;
 
@@ -350,8 +350,8 @@ export default {
             alert("只能插入布局节点");
             return;
           }
-          node.children.push(cmp);
-          node.attrs.span.push(1);
+          node.children.splice(0, 0, cmp);
+          node.attrs.span.splice(0, 0, 1);
         });
       } else if (method === "brother") {
         dfs(slide, node => {
@@ -369,6 +369,8 @@ export default {
         const ideas = [...state.ideas, cmp];
         state.ideas = ideas;
       }
+
+      state.selectedComponentId = cmp.id;
       return state;
     },
     insertCmp(state, action) {

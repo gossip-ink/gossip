@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Icon, Upload, Popover } from "antd";
+import { Icon, Upload } from "antd";
 import classNames from "./index.css";
 
 export default function({
@@ -14,6 +14,8 @@ export default function({
   width,
   height,
   popover,
+  nomove = false,
+  hasDelete = true,
   ...rest
 }) {
   const [hovered, setHoverd] = useState(false);
@@ -21,7 +23,8 @@ export default function({
     container: {
       height,
       width,
-      border: highlight ? "1px solid #4091f7" : "1px solid #d9d9d9"
+      border: highlight ? "1px solid #4091f7" : "1px solid #d9d9d9",
+      cursor: nomove ? "pointer" : "move"
     }
   };
   return (
@@ -45,22 +48,6 @@ export default function({
             >
               <Icon type="upload" />
             </Upload>
-          ) : type === "add" ? (
-            popover && (
-              <Popover
-                content={popover}
-                title="选择一种类型"
-                placement="bottomRight"
-                trigger="click"
-                arrowPointAtCenter
-              >
-                <Icon
-                  type="plus"
-                  className={classNames.add}
-                  onClick={e => onAdd && onAdd(e)}
-                />
-              </Popover>
-            )
           ) : (
             onEdit && (
               <Icon
@@ -73,12 +60,13 @@ export default function({
               />
             )
           )}
-
-          <Icon
-            type="delete"
-            onClick={onDelete}
-            className={classNames.delete}
-          />
+          {hasDelete && (
+            <Icon
+              type="delete"
+              onClick={onDelete}
+              className={classNames.delete}
+            />
+          )}
         </div>
       )}
     </div>

@@ -2,19 +2,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,.06)
+  background: #25292e;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
 .logo {
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .btns {
   display: flex;
   align-items: center;
+  color: #fff;
 }
 
 .header {
@@ -22,10 +24,25 @@
 }
 
 .container {
-  background: white;
+  background: #25292e;
   padding: 0 20px;
 }
 
 .item {
-  margin: 0 0.3em;
+  margin: 0 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.title {
+  color: white;
+  padding: 0.5em 0;
+}
+
+.title:hover {
+  border-bottom: 1px solid #fff;
 }

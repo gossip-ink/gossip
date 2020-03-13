@@ -22,3 +22,12 @@
   align-items: center;
 }
 
+.dragIcon {
+  margin-right: 8px;
+  cursor: move;
+}
+
+.main{
+  display: flex;
+  justify-content: center;
+}

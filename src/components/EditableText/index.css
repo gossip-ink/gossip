@@ -1,0 +1,14 @@
+.textInput {
+  background-color: "transparent";
+  border: 0;
+  resize: none;
+  outline: none;
+}
+
+.line {
+  margin: 0px;
+}
+
+.text {
+  cursor: move;
+}

@@ -48,6 +48,8 @@ export default connect(state => ({ ideas: state.slides.ideas }), {
       iconType="bulb"
       popover={content}
       height={height}
+      nodata={ideas.length === 0}
+      nodataInfo="快来添加零散的想法吧～"
     >
       {ideas.map(item => (
         <Idea key={item.id} content={item} setIsDrag={setIsDrag} />

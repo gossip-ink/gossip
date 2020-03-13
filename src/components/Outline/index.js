@@ -1,9 +1,11 @@
 import classNames from "./index.css";
 import { connect } from "dva";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Node from "../Node";
 import TreeNode from "../TreeNode";
 import tree, { dfs } from "../../utils/tree";
+import { Icon } from "antd";
+import { max } from "d3";
 
 export default connect(
   state => ({
@@ -50,7 +52,6 @@ export default connect(
   deleteNode,
   appendNode,
   insertNode,
-  selectedPanel,
   setSelectedPanel,
   appendIdea,
   setIsDrag
@@ -58,11 +59,16 @@ export default connect(
   const [edit, setEdit] = useState(-1);
   const indent = 20;
   const nodes = tree(structure);
+  const nodeWidth = 190;
+  const h = max(nodes, node => node.depth);
   const title = string => string;
 
   const styles = {
     container: {
       height
+    },
+    tree: {
+      width: nodeWidth + indent * h + 50
     },
     treeNode: node => ({
       marginLeft: node.depth * indent
@@ -74,14 +80,12 @@ export default connect(
     setSelected(item.id);
   }
 
-  function handleCreateNode(id, type) {}
-
   function handleTitleChange(e, id) {
     const value = e.target.value;
     updateNodeValue(id, value);
   }
 
-  function handleNodeDrop(sourceNodeId, targetNodeId, type, dragType) {
+  function handleNodeDrop(sourceNodeId, targetNodeId, type, dragType, depth) {
     if (dragType === "node") {
       if (type === "top") {
         insertNode(sourceNodeId, targetNodeId, true);
@@ -89,6 +93,18 @@ export default connect(
         appendNode(sourceNodeId, targetNodeId);
       } else if (type === "bottom") {
         insertNode(sourceNodeId, targetNodeId);
+      } else if (type === "left") {
+        const parents = nodes.filter(n => n.depth === depth);
+        for (let p of parents) {
+          let findId = null;
+          dfs(p, node => {
+            if (node.id !== sourceNodeId) return;
+            findId = p.id;
+          });
+          if (findId) {
+            insertNode(sourceNodeId, findId);
+          }
+        }
       }
     } else if (dragType === "idea") {
       appendIdea(sourceNodeId, targetNodeId);
@@ -96,84 +112,13 @@ export default connect(
     }
   }
 
-  useEffect(() => {
-    function down() {
-      const node = nodes.find(item => item.id === selectedId);
-      const index = nodes.indexOf(node);
-      if (index === nodes.length - 1) return;
-      setSelected(nodes[index + 1].id);
-    }
-    function keydown(e) {
-      const handlers = {
-        13: () => {
-          if (edit) {
-            down();
-            return;
-          }
-          if (selectedId === 1) {
-            alert("根元素没有兄弟");
-          } else {
-            createNode(selectedId, "", "brother");
-          }
-        }, //enter
-        9: () => {
-          createNode(selectedId, "", "children");
-        }, //tab
-        8: () => {
-          if (selectedId === 1) {
-            alert("不能删除根元素");
-          } else {
-            deleteNode(selectedId);
-          }
-        }, // back space
-        38: () => {
-          const node = nodes.find(item => item.id === selectedId);
-          const index = nodes.indexOf(node);
-          if (index === 0) return;
-          setSelected(nodes[index - 1].id);
-        }, // up
-        40: down, //down
-        37: () => {
-          let id;
-          dfs(structure, node => {
-            node.children &&
-              node.children.forEach(item => {
-                if (item.id === selectedId) {
-                  id = node.id;
-                }
-              });
-          });
-          id && setSelected(id);
-        }, //left
-        39: () => {
-          const node = nodes.find(item => item.id === selectedId);
-          const index = nodes.indexOf(node);
-          if (index === nodes.length - 1) return;
-          setSelected(nodes[index + 1].id);
-        } //right
-      };
-
-      const handler = handlers[e.keyCode];
-      !edit && handler && handler();
-      edit && e.keyCode === 13 && handler();
-    }
-    if (selectedPanel === 0) {
-      // window.addEventListener("keydown", keydown);
-    }
-
-    return () => {
-      // window.removeEventListener("keydown", keydown);
-    };
-  });
-
-
   return (
     <div
       style={styles.container}
       className={classNames.container}
       onClick={() => setSelectedPanel(0)}
     >
-      <div className={classNames.tree}>
+      <div className={classNames.tree} style={styles.tree}>
         {nodes.map(item => (
           <TreeNode
             key={item.id}
@@ -181,14 +126,15 @@ export default connect(
             onNodeDrop={handleNodeDrop}
             highlightColor="#4091f7"
             style={styles.treeNode(item)}
-            width="190px"
-            hasBottom={item.id !== 1}
+            width={nodeWidth + "px"}
+            hasBottom={item.depth !== 0}
+            hasTop={item.depth !== 0}
             onClickBottom={() => createNode(item.id, "新的想法", "brother")}
             onClickRight={() => createNode(item.id, "新的想法", "children")}
           >
             <Node
               height="2em"
-              width="190px"
+              width={nodeWidth + "px"}
               edit={edit === item.id}
               onEdit={e => {
                 handleEidtNode(item);
@@ -199,11 +145,14 @@ export default connect(
                 e.stopPropagation();
               }}
               highlight={item.id === selectedId}
+              nomove={true}
+              hasDelete={item.depth !== 0}
             >
               <div
                 className={classNames.nodeTitle}
                 onClick={() => selectedId !== item.id && setSelected(item.id)}
               >
+                <Icon type="drag" className={classNames.dragIcon} />
                 {edit !== item.id ? (
                   <div
                     onClick={() =>

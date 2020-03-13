@@ -63,7 +63,14 @@ export default connect(
   );
 
   return (
-    <Box height={height} title="属性变量" iconType="shop" popover={content}>
+    <Box
+      height={height}
+      title="属性变量"
+      iconType="shop"
+      popover={content}
+      nodata={variables.length === 0}
+      nodataInfo="没有属性变量～"
+    >
       {variables.map(item => (
         <div
           key={item.id}

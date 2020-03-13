@@ -15,7 +15,6 @@ export default function() {
   // 计算每个部分的高度
   const { height } = useWindowSize();
   const [isDrag, setIsDrag] = useState(false);
-  const [showHelp, setShowHelp] = useState(false);
 
   const headerHeight = 60,
     contentHeight = height - headerHeight,
@@ -28,8 +27,7 @@ export default function() {
 
   const props = {
     header: {
-      height: headerHeight,
-      setShowHelp
+      height: headerHeight
     },
     sidebar: {
       height: sidebarHeight,
@@ -73,17 +71,6 @@ export default function() {
           <Variables {...props.variables} />
         </Col>
       </Row>
-      <Drawer
-        title="介绍和帮助"
-        placement="right"
-        closable={true}
-        visible={showHelp}
-        onClose={() => setShowHelp(false)}
-      >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
     </div>
   );
 }

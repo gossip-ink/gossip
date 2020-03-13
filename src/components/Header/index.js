@@ -1,21 +1,67 @@
 import classNames from "./index.css";
-import { Button, Upload } from "antd";
+import { Upload, Icon } from "antd";
 import router from "umi/router";
 import { connect } from "dva";
+
+function Wrapper({ upload, children, onChange }) {
+  return upload ? (
+    <Upload onChange={onChange}>{children}</Upload>
+  ) : (
+    <>{children}</>
+  );
+}
+
 export default connect(null, {
   createNewFile: () => ({ type: "slides/createNewFile" }),
   download: () => ({ type: "slides/download" }),
   upload: data => ({ type: "slides/upload", payload: { data } }),
   save: () => ({ type: "slides/save" })
-})(function({ height, createNewFile, download, upload, save, setShowHelp }) {
-  const url = "https://github.com/pearmini/uidea";
-
+})(function({ height, createNewFile, download, upload, save }) {
   const styles = {
     header: {
       height,
       lineHeight: height + "px"
     }
   };
+
+  const btns = [
+    {
+      icon: "play-circle",
+      onClick: () => router.push("/present"),
+      upload: false,
+      name: "放映"
+    },
+    {
+      icon: "file-add",
+      onClick: createNewFile,
+      upload: false,
+      name: "新建"
+    },
+    {
+      icon: "save",
+      onClick: save,
+      upload: false,
+      name: "保存"
+    },
+    {
+      icon: "download",
+      onClick: download,
+      upload: false,
+      name: "下载到本地"
+    },
+    {
+      icon: "upload",
+      onClick: handleUploadFile,
+      upload: true,
+      name: "上传"
+    },
+    {
+      icon: "github",
+      onClick: gotoGithub,
+      upload: false,
+      name: "github"
+    }
+  ];
 
   function handleUploadFile(e) {
     const { file } = e;
@@ -28,44 +74,31 @@ export default connect(null, {
     reader.readAsText(file.originFileObj, "UTF-8");
   }
 
+  function gotoGithub() {
+    const url = "https://github.com/pearmini/uidea";
+    window.open(url);
+  }
+
   return (
     <div className={classNames.container} style={styles.header}>
       <header className={classNames.header}>
-        <div className={classNames.logo}>uIdea</div>
+        <div className={classNames.logo} onClick={gotoGithub}>
+          uIdea
+        </div>
         <div className={classNames.btns}>
-          <Button
-            icon="play-circle"
-            onClick={() => router.push("/present")}
-            className={classNames.item}
-          />
-          <Button
-            icon="save"
-            onClick={() => save()}
-            className={classNames.item}
-          />
-          <Button
-            icon="file-add"
-            onClick={() => createNewFile()}
-            className={classNames.item}
-          />
-          <Button
-            icon="download"
-            onClick={() => download()}
-            className={classNames.item}
-          />
-          <Upload onChange={handleUploadFile} className={classNames.item}>
-            <Button icon="upload" />
-          </Upload>
-          <Button
-            icon="question-circle"
-            className={classNames.item}
-            onClick={() => setShowHelp(true)}
-          />
-          <Button
-            icon="github"
-            className={classNames.item}
-            onClick={() => window.open(url)}
-          />
+          {btns.map(({ upload, onClick, icon, name }) => (
+            <Wrapper upload={upload} onChange={onClick} key={icon}>
+              <span
+                className={classNames.item}
+                onClick={() => !upload && onClick()}
+              >
+                <span className={classNames.title}>
+                  <Icon type={icon} className={classNames.icon} key={icon} />
+                  {name}
+                </span>
+              </span>
+            </Wrapper>
+          ))}
         </div>
       </header>
     </div>
