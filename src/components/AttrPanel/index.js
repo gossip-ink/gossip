@@ -143,7 +143,7 @@ export default connect(
       type: "switch",
       name: "充满容器",
       icon: "fullscreen",
-      yes: "scrollToFill"
+      yes: "scaleToFill"
     }
   };
 

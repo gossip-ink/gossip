@@ -20,7 +20,8 @@ export function _onCreate() {
     app.use(plugin);
   });
   app.use(require('/Users/slashberry/Documents/project/uidea/node_modules/_dva-immer@0.4.5@dva-immer/dist/index.js')());
-  app.model({ namespace: 'slides', ...(require('/Users/slashberry/Documents/project/uidea/src/models/slides.js').default) });
+  app.model({ namespace: 'global', ...(require('/Users/slashberry/Documents/project/uidea/src/models/global.js').default) });
+app.model({ namespace: 'slides', ...(require('/Users/slashberry/Documents/project/uidea/src/models/slides.js').default) });
   return app;
 }
 

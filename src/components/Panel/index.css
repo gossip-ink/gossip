@@ -1,1 +1,11 @@
+.container {
+  position: relative;
+}
 
+.box {
+  position: absolute;
+  background: #4091f7;
+  transform-origin: left top;
+  transform: scale(0.5);
+  z-index: 10;
+}

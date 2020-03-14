@@ -2,7 +2,7 @@
 import classNames from "./index.css";
 import useWindowSize from "../../hooks/useWindowSize";
 import { useState } from "react";
-import { Row, Col, Drawer } from "antd";
+import { Row, Col } from "antd";
 import Header from "../../components/Header";
 import MainContent from "../../components/MainContent";
 import Structure from "../../components/Structure";
@@ -21,9 +21,9 @@ export default function() {
     sidebarHeight = contentHeight * 0.7,
     ideaHeight = contentHeight * 0.3,
     slideHeight = contentHeight,
-    structureHeight = contentHeight * 0.35,
-    attrPanelHeight = contentHeight * 0.25,
-    varHeight = contentHeight * 0.4;
+    structureHeight = contentHeight * 0.4,
+    attrPanelHeight = contentHeight * 0.3,
+    varHeight = contentHeight * 0.3;
 
   const props = {
     header: {
@@ -59,8 +59,8 @@ export default function() {
       <Header {...props.header} />
       <Row>
         <Col span={4}>
-          <SidebarPanel {...props.sidebar} />
           <IdeasPanel {...props.ideas} />
+          <SidebarPanel {...props.sidebar} />
         </Col>
         <Col span={16}>
           <MainContent {...props.mainContent} />

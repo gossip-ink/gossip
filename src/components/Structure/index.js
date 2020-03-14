@@ -158,11 +158,9 @@ export default connect(
               nomove={true}
               onAdd={() => setSelectedComp(item.id)}
               hasDelete={item.depth !== 0}
+              onClick={() => setSelectedComp(item.id)}
             >
-              <div
-                className={classNames.item}
-                onClick={() => setSelectedComp(item.id)}
-              >
+              <div className={classNames.item}>
                 <span className={classNames.icon}>{iconByType[item.type]}</span>
                 {contentByType(item)}
               </div>

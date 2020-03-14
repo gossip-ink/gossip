@@ -1,8 +1,8 @@
 import classNames from "./index.css";
 import ColorPicker from "coloreact";
-import { Popover, Slider, Button, Switch } from "antd";
+import { Popover, Slider, Button, Switch, Upload, Modal, Input } from "antd";
 import { scaleLinear, pairs } from "d3";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 function Number({ value, onChange, range = [0, 100] }) {
   const styles = {
@@ -150,6 +150,69 @@ function MyRadio({ value, onChange, list, hasIcon = true }) {
   );
 }
 
+function MyImage({ onChange }) {
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState(false);
+  const ref = useRef(null);
+  function handleImageChange(data) {
+    const file = data.file.originFileObj;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function() {
+      const imageURL = reader.result;
+      onChange(imageURL);
+    };
+  }
+
+  function handleOnOk(e) {
+    const input = ref.current;
+    const value = input.state.value;
+    if (value && value !== "") {
+      onChange(value);
+      setShow(false);
+    } else {
+      setError(true);
+    }
+    e.stopPropagation();
+  }
+
+  function handleChange(value) {
+    if (value && value !== "" && error) setError(false);
+  }
+
+  return (
+    <ul className={classNames.list}>
+      <li className={classNames.item}>
+        <Upload
+          accept="image/*"
+          onChange={handleImageChange}
+          showUploadList={false}
+          customRequest={() => {}}
+        >
+          <span className={classNames.fileText}>本地图片</span>
+        </Upload>
+      </li>
+      <li className={classNames.item} onClick={() => setShow(true)}>
+        网络图片
+        <Modal
+          title="请输入图片地址"
+          visible={show}
+          onOk={handleOnOk}
+          onCancel={e => {
+            setShow(false);
+            e.stopPropagation();
+          }}
+          okText="确认"
+          cancelText="取消"
+        >
+          <Input type="text" ref={ref} onChange={handleChange} />
+          {error && <p className={classNames.error}>图片地址不能为空！</p>}
+        </Modal>
+      </li>
+    </ul>
+  );
+}
+
 export default function({ type, value, onChange, range, list, yes, hasIcon }) {
   const styles = {
     color: {
@@ -171,7 +234,8 @@ export default function({ type, value, onChange, range, list, yes, hasIcon }) {
         list={list}
         hasIcon={hasIcon}
       ></MyRadio>
-    )
+    ),
+    image: <MyImage value={value} onChange={onChange} />
   };
   const boxByType = {
     color: <div className={classNames.inputBox} style={styles.color}></div>,
@@ -188,6 +252,7 @@ export default function({ type, value, onChange, range, list, yes, hasIcon }) {
           value.map(d => parseFloat(d.toFixed(2))).join(":")}
       </div>
     ),
+    image: <Button icon="upload" type="primary"></Button>,
     number: (
       <input
         type="number"

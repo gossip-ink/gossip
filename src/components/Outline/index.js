@@ -85,6 +85,10 @@ export default connect(
     updateNodeValue(id, value);
   }
 
+  function handleSelectSlide(id) {
+    selectedId !== id && setSelected(id);
+  }
+
   function handleNodeDrop(sourceNodeId, targetNodeId, type, dragType, depth) {
     if (dragType === "node") {
       if (type === "top") {
@@ -147,18 +151,12 @@ export default connect(
               highlight={item.id === selectedId}
               nomove={true}
               hasDelete={item.depth !== 0}
+              onClick={() => handleSelectSlide(item.id)}
             >
-              <div
-                className={classNames.nodeTitle}
-                onClick={() => selectedId !== item.id && setSelected(item.id)}
-              >
+              <div className={classNames.nodeTitle}>
                 <Icon type="drag" className={classNames.dragIcon} />
                 {edit !== item.id ? (
-                  <div
-                    onClick={() =>
-                      selectedId !== item.id && setSelected(item.id)
-                    }
-                  >
+                  <div onClick={() => handleSelectSlide(item.id)}>
                     {item.name === "" ? "未编辑" : title(item.name)}
                   </div>
                 ) : (

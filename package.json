@@ -3,6 +3,7 @@
     "d3": "^5.15.0",
     "react": "^16.12.0",
     "react-impressjs": "^1.1.0",
+    "react-use": "^13.27.0",
     "umi-plugin-react": "^1.14.9"
   },
   "dependencies": {

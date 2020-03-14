@@ -11,6 +11,7 @@ import {
 } from "../utils/create";
 
 function initData() {
+  // return createFile();
   const data = JSON.parse(localStorage.getItem("uIdea")) || createFile();
   data.selectedId = 1;
   return data;
@@ -100,6 +101,14 @@ export default {
     setSelected(state, action) {
       const { id } = action.payload;
       state.selectedId = id;
+
+      // 将当前的 active 的 cmp 设置为有 isTitle 的节点
+      const content = state.components.find(v => v.id === id);
+      let cmpId = null;
+      dfs(content, node => {
+        if (node.attrs.isTitle) cmpId = node.id;
+      });
+      state.selectedComponentId = cmpId;
       return state;
     },
     // 设置当前 active 的 cmp
@@ -414,6 +423,34 @@ export default {
       dragNode && (state.selectedComponentId = dragNode.id);
       return state;
     },
+    // 交换 cmp 的位置
+    exchangeCmp(state, action) {
+      const { a, b, root } = action.payload;
+      const slide = state.components.find(item => item.id === root);
+      let isChange = false;
+      dfs(slide, node => {
+        if (!node.children || isChange) return;
+        let i1, i2;
+        node.children.forEach((d, i) => {
+          dfs(d, n => {
+            n.id === a && (i1 = i);
+            n.id === b && (i2 = i);
+          });
+        });
+        if (i1 === undefined || i2 === undefined || i1 === i2) return;
+        // 修改 span
+        const t = node.attrs.span[i1];
+        node.attrs.span[i1] = node.attrs.span[i2];
+        node.attrs.span[i2] = t;
+
+        // 交换孩子
+        const tn = node.children[i1];
+        node.children[i1] = node.children[i2];
+        node.children[i2] = tn;
+        isChange = true;
+      });
+      return state;
+    },
 
     /****** 改变 cmp 的属性 *********/
     setValueOfCmp(state, action) {
@@ -446,7 +483,6 @@ export default {
       dfs(slide, node => {
         node.id === cmpId && (cmp = node);
       });
-
       cmp && cmp.attrs && (cmp.attrs[key] = value);
       cmp && cmp.type === "panel" && key === "flex" && (cmp.value = value);
 
