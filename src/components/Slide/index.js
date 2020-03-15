@@ -27,7 +27,8 @@ export default connect(
   const { id } = content;
   const styles = {
     container: {
-      border: selected && "10px solid #4091f7",
+      outline:
+        !editable && (selected ? "10px solid #4091f7" : "10px solid #efefef"),
       height,
       width,
       transformOrigin: "left top"
@@ -35,7 +36,7 @@ export default connect(
     overlayer: {
       height,
       width,
-      backgroundColor: "steelblue",
+      backgroundColor: "#4091f7",
       position: "absolute",
       opacity: dragged ? 0.5 : 0,
       zIndex: 10

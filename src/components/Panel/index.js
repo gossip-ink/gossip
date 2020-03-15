@@ -61,10 +61,6 @@ const Panel = connect(
     }
   });
 
-  function handleValueChange(value) {
-    setValueOfCmp(value, selectedComponentId, selectedRootId);
-  }
-
   let content;
   const padding = newAttrs.padding;
   const outerWidth = width - padding * 2,
@@ -76,7 +72,8 @@ const Panel = connect(
     height: outerHeight,
     value: value,
     select: id === selectedComponentId,
-    onValueChange: handleValueChange,
+    onValueChange: value =>
+      setValueOfCmp(value, selectedComponentId, selectedRootId),
     editable
   };
 
@@ -121,11 +118,6 @@ const Panel = connect(
     );
   }
 
-  function handleSelect(e) {
-    editable && e.stopPropagation();
-    editable && setSelectedComp(id);
-  }
-
   const selected = selectedRootId === rootId && id === selectedComponentId;
   const styles = {
     container: {
@@ -134,36 +126,34 @@ const Panel = connect(
       height: height && height,
       width: width && width,
       outline:
-        (selected && dragId === -1) || (enterId === id && dragId !== id)
+        (selected && dragId === -1 && editable) ||
+        (enterId === id && dragId !== id && editable)
           ? "2px solid #4091f7"
           : "",
       padding
-    },
-    box: {
-      overflow: "hidden",
-      width: 100,
-      height: 100,
-      background: "red"
     }
   };
   const ref = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const mouseupHandler = () => {
-      if (dragId !== -1 && enterId !== -1 && dragId !== enterId) {
-        //交换位置
-        exchangeCmp(dragId, enterId, rootId);
-        setDrag(-1);
-        setEnter(-1);
-        return;
-      }
-      setDrag(-1);
-      setEnter(-1);
-    };
+  function handleSelect(e) {
+    editable && e.stopPropagation();
+    editable && setSelectedComp(id);
+  }
 
+  function handleMouseup(e) {
+    if (dragId !== -1 && enterId !== id && dragId !== enterId)
+      exchangeCmp(dragId, enterId, rootId);
+    setDrag(-1);
+    setEnter(-1);
+    e.stopPropagation();
+  }
+
+  useEffect(() => {
+    // 这个函数尤其要注意，不能所有的 panel 都调用，否者很蛋疼
+    // 这里的定位不准确，暂时不管，不太影响拖动
     const mousemoveHandler = e => {
-      if (dragId === -1) return;
+      if (dragId !== id || !editable) return;
       const { left, top } = ref.current.getBoundingClientRect();
       const { clientX, clientY } = e;
       setPos({
@@ -171,12 +161,9 @@ const Panel = connect(
         y: clientY - top
       });
     };
-    window.addEventListener("mouseup", mouseupHandler);
+
     window.addEventListener("mousemove", mousemoveHandler);
-    return () => {
-      window.removeEventListener("mouseup", mouseupHandler);
-      window.removeEventListener("mousemove", mousemoveHandler);
-    };
+    return () => window.removeEventListener("mousemove", mousemoveHandler);
   });
 
   return (
@@ -185,18 +172,19 @@ const Panel = connect(
       onClick={handleSelect}
       className={classNames.container}
       draggable
+      onMouseUpCapture={handleMouseup}
       onMouseEnter={() => {
         if (dragId === -1) return;
         if (enterId !== id) setEnter(id);
       }}
       onDragStart={e => {
-        setDrag(id);
+        if (editable) setDrag(id);
         e.preventDefault();
         e.stopPropagation();
       }}
       ref={ref}
     >
-      {dragId === id && (
+      {editable && dragId === id && (
         <div className={classNames.box} style={{ left: pos.x, top: pos.y }}>
           {content}
         </div>

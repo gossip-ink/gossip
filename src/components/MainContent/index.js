@@ -41,10 +41,11 @@ export default connect(
     },
     content: {
       transform: `scale(${scale})`,
-      transformOrigin: "left top"
+      transformOrigin: "left top",
+      marginLeft: 2 // 边框
     },
     wrapper: {
-      width: ww * scale,
+      width: ww * scale + 4, // 边框
       height: wh * scale
     }
   };

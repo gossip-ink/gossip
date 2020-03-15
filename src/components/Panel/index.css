@@ -8,4 +8,5 @@
   transform-origin: left top;
   transform: scale(0.5);
   z-index: 10;
+  opacity: 0.7;
 }
