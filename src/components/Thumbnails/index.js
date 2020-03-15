@@ -1,6 +1,6 @@
 import classNames from "./index.css";
 import { connect } from "dva";
-import useWindowSize from "../../hooks/useWindowSize";
+import { useWindowSize } from "react-use";
 import Slide from "../Slide/index";
 import { dfs } from "../../utils/tree";
 
@@ -9,7 +9,8 @@ export default connect(
     components: state.slides.components,
     structure: state.slides.structure,
     selectedId: state.slides.selectedId,
-    selectedPanel: state.slides.selectedPanel
+    selectedPanel: state.slides.selectedPanel,
+    isDrag: state.global.isDragIdea
   }),
   {
     setSelected: id => ({ type: "slides/setSelected", payload: { id } }),
@@ -17,7 +18,8 @@ export default connect(
       type: "slides/setSelectedPanel",
       payload: { type }
     }),
-    deleteNode: id => ({ type: "slides/deleteNode", payload: { id } })
+    deleteNode: id => ({ type: "slides/deleteNode", payload: { id } }),
+    setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } })
   }
 )(function({
   height,
@@ -46,7 +48,7 @@ export default connect(
       transformOrigin: "left top",
       transform: `scale(${scale})`,
       width: windowSize.width * scale,
-      height: windowSize.height * scale,
+      height: windowSize.height * scale
     }
   };
 

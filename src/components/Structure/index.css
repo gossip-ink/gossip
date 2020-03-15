@@ -3,9 +3,10 @@
 }
 .item {
   display: flex;
-  width: 140px;
+  width: 120px;
   overflow: hidden;
   white-space: nowrap;
+  font-size: 12px;
 }
 
 .icon {

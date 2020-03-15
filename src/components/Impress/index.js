@@ -1,18 +1,14 @@
-import { useEffect } from "react";
-export default function({
-  children,
-  backgroundColor = "#efefef",
-  overviewOpen = false
-}) {
+import { useEffect, useRef } from "react";
+import classNames from "./index.css";
+export default function({ children, overviewOpen = false }) {
+  const impressRef = useRef(null);
+  const canvasRef = useRef(null);
   useEffect(() => {
     // 初始化样式
-    const body = document.getElementsByTagName("body")[0];
-    const root = document.getElementById("impress");
-    const canvas = document.getElementById("canvas");
+    const root = impressRef.current;
+    const canvas = canvasRef.current;
     let isOveriew = false;
     let activeIndex = 0;
-    root.style.perspective = "1000px";
-    body.style.backgroundColor = backgroundColor;
 
     // 给每一个 step 添加监听器
     const steps = document.getElementsByClassName("step");
@@ -99,8 +95,8 @@ export default function({
       const boxWidth = maxX - minX,
         boxHeight = maxY - minY;
 
-      const scaleY = (boxHeight + screen.height) / screen.height,
-        scaleX = (boxWidth + screen.width) / screen.width,
+      const scaleY = (boxHeight + window.innerHeight) / window.innerHeight,
+        scaleX = (boxWidth + window.innerWidth) / window.innerWidth,
         scale = Math.max(scaleX, scaleY);
 
       const props = {
@@ -148,32 +144,8 @@ export default function({
   });
 
   return (
-    <div
-      id="impress"
-      style={{
-        position: "absolute",
-        // 让左上角移动到屏幕中心
-        left: "50%", 
-        top: "50%",
-
-        // 设置缩放的中心为左上角
-        transformOrigin: "left top",
-        transitionDuration: "1s",
-
-        // 有 3D 效果
-        transformStyle: "preserve-3d"
-      }}
-    >
-      <div
-        id="canvas"
-        style={{
-          position: "absolute",
-          // 设置坐标原点为左上角
-          transformOrigin: "left top",
-          transitionDuration: "1s",
-          transformStyle: "preserve-3d"
-        }}
-      >
+    <div ref={impressRef} className={classNames.impress}>
+      <div ref={canvasRef} className={classNames.canvas}>
         {children}
       </div>
     </div>

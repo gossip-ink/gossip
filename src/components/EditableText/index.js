@@ -14,7 +14,8 @@ export default connect(null, {
   height,
   select,
   onValueChange,
-  changeAttr
+  changeAttr,
+  editable
 }) {
   const [edit, setEdit] = useState(false);
   const ref = useRef(null);
@@ -44,9 +45,8 @@ export default connect(null, {
       fontSize: attrs.fontSize,
       color: attrs.color,
       textAlign: attrs.textAlign,
-      paddingLeft: attrs.padding,
-      paddingRight: attrs.padding,
-      fontWeight: attrs.fontWeight
+      fontWeight: attrs.fontWeight,
+      cursor: editable && "move"
     },
     line: {
       width
@@ -92,7 +92,7 @@ export default connect(null, {
           wrap="hard"
         />
       ) : (
-        <div style={styles.font} className={classNames.text} ref={ref}>
+        <div style={styles.font} ref={ref}>
           {lines.map((line, index) => (
             <div key={index} className={classNames.line} style={styles.line}>
               {line}

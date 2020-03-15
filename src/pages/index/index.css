@@ -4,6 +4,8 @@ body {
   background: #f7f8fa;
 }
 
+@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
+
 * {
   padding: 0;
   margin: 0;
@@ -13,5 +15,19 @@ body {
   width: 100%;
 }
 
+.content {
+  display: flex;
+  justify-content: space-between;
+}
 
+.left {
+  width: 300px;
+}
 
+.right {
+  width: 300px;
+}
+
+.main {
+  overflow: auto;
+}

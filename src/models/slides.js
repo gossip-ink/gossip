@@ -1,6 +1,7 @@
 import imageURL from "../static/example.jpg";
+import helpFile from "../static/help.json";
 import { saveAs } from "file-saver";
-import { dfs } from "../utils/tree";
+import { dfs, descendant } from "../utils/tree";
 import {
   createCanvas,
   createImage,
@@ -11,7 +12,6 @@ import {
 } from "../utils/create";
 
 function initData() {
-  // return createFile();
   const data = JSON.parse(localStorage.getItem("uIdea")) || createFile();
   data.selectedId = 1;
   return data;
@@ -89,8 +89,11 @@ export default {
       return createFile();
     },
 
-    /******** 和设置当前 active 的东西有关 *********/
+    createHelp() {
+      return helpFile;
+    },
 
+    /******** 和设置当前 active 的东西有关 *********/
     // 设置当前 active 的 panel
     setSelectedPanel(state, action) {
       const { type } = action.payload;
@@ -101,14 +104,6 @@ export default {
     setSelected(state, action) {
       const { id } = action.payload;
       state.selectedId = id;
-
-      // 将当前的 active 的 cmp 设置为有 isTitle 的节点
-      const content = state.components.find(v => v.id === id);
-      let cmpId = null;
-      dfs(content, node => {
-        if (node.attrs.isTitle) cmpId = node.id;
-      });
-      state.selectedComponentId = cmpId;
       return state;
     },
     // 设置当前 active 的 cmp
@@ -117,6 +112,36 @@ export default {
       state.selectedComponentId = id;
       state.selectedPanel = type;
       return state;
+    },
+    gotoPre(state) {
+      const { structure, selectedId } = state;
+      const nodes = descendant(structure);
+      const pre = nodes.find((item, index) => {
+        if (index === nodes.length - 1) return;
+        return nodes[index + 1].id === selectedId;
+      });
+      if (pre) {
+        state.selectedId = pre.id;
+        return state;
+      } else {
+        alert("已经是第一页了！");
+        return state;
+      }
+    },
+    gotoNext(state) {
+      const { structure, selectedId } = state;
+      const nodes = descendant(structure);
+      const next = nodes.find((item, index) => {
+        if (!index) return;
+        return nodes[index - 1].id === selectedId;
+      });
+      if (next) {
+        state.selectedId = next.id;
+        return state;
+      } else {
+        alert("已经是最后一页了！");
+        return state;
+      }
     },
 
     /********* 操作大纲的节点 ********/

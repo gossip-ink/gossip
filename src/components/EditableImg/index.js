@@ -8,26 +8,24 @@ export default function({
   width,
   height,
   select,
-  onValueChange
+  onValueChange,
+  editable
 }) {
   const [edit, setEdit] = useState(false);
-
-  const boxHeight = height - attrs.padding * 2,
-    boxWidth = width - attrs.padding * 2;
 
   const styles = {
     container: {
       width,
       height,
-      cursor: !edit && "move"
+      cursor: !edit && editable && "move"
     },
     normal: {
-      maxHeight: boxHeight,
-      maxWidth: boxWidth
+      maxHeight: height,
+      maxWidth: width
     },
     fill: {
-      height: boxHeight,
-      width: boxWidth
+      height,
+      width
     }
   };
 

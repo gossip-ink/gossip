@@ -3,7 +3,7 @@ import EditableImg from "../EditableImg";
 import EditableCanvas from "../EditableCanvas/index";
 import { connect } from "dva";
 import classNames from "./index.css";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useMouse } from "react-use";
 
 const Panel = connect(

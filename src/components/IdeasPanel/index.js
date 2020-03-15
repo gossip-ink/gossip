@@ -10,7 +10,7 @@ export default connect(state => ({ ideas: state.slides.ideas }), {
     type: "slides/createCmp",
     payload: { type, method }
   })
-})(function({ height, ideas = [], setIsDrag, handleAddCmp }) {
+})(function({ height, ideas = [], handleAddCmp }) {
   const items = [
     { icon: "font-size", value: "文字", type: "text" },
     { icon: "picture", value: "图片", type: "image" },
@@ -49,10 +49,10 @@ export default connect(state => ({ ideas: state.slides.ideas }), {
       popover={content}
       height={height}
       nodata={ideas.length === 0}
-      nodataInfo="快来添加零散的想法吧～"
+      nodataInfo="快来写下第一个独一无二的想法吧～"
     >
       {ideas.map(item => (
-        <Idea key={item.id} content={item} setIsDrag={setIsDrag} />
+        <Idea key={item.id} content={item} />
       ))}
     </Box>
   );

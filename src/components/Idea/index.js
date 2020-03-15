@@ -8,7 +8,8 @@ export default connect(null, {
   saveIdea: (id, value) => ({
     type: "slides/saveIdea",
     payload: { id, value }
-  })
+  }),
+  setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } })
 })(function({ content, deleteIdea, saveIdea, setIsDrag }) {
   const { type, id, value } = content;
   const [edit, setEdit] = useState(false);

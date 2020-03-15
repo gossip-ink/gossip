@@ -2,7 +2,8 @@ export default {
   namespace: "global",
   state: {
     dragId: -1,
-    enterId: -1
+    enterId: -1,
+    isDragIdea: false
   },
   reducers: {
     setDrag(state, action) {
@@ -12,6 +13,10 @@ export default {
     setEnter(state, action) {
       const { id } = action.payload;
       return { ...state, enterId: id };
+    },
+    setDragIdea(state, action) {
+      const { drag } = action.payload;
+      return { ...state, isDragIdea: drag };
     }
   }
 };

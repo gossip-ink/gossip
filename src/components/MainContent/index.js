@@ -1,7 +1,8 @@
 import classNames from "./index.css";
 import Slide from "../Slide/index";
-import useWindowSize from "../../hooks/useWindowSize";
+import { Button } from "antd";
 import { connect } from "dva";
+import { useWindowSize } from "react-use";
 
 export default connect(
   state => ({
@@ -12,19 +13,22 @@ export default connect(
     setSelectedComp: id => ({
       type: "slides/setSelectedComp",
       payload: { id }
-    })
+    }),
+    gotoNext: () => ({ type: "slides/gotoNext" }),
+    gotoPre: () => ({ type: "slides/gotoPre" })
   }
 )(function({
   height,
+  width,
   selectedId,
   components,
   setSelectedComp,
-  isDrag,
-  setIsDrag
+  gotoNext,
+  gotoPre
 }) {
   const { height: wh, width: ww } = useWindowSize();
   const content = components.find(v => v.id === selectedId);
-  const scale = 0.6;
+  const scale = (width * 0.95) / ww;
 
   function handleSelect(e) {
     e.stopPropagation();
@@ -36,7 +40,12 @@ export default connect(
       height
     },
     content: {
-      transform: `scale(${scale})`
+      transform: `scale(${scale})`,
+      transformOrigin: "left top"
+    },
+    wrapper: {
+      width: ww * scale,
+      height: wh * scale
     }
   };
 
@@ -46,15 +55,25 @@ export default connect(
       className={classNames.container}
       onClick={handleSelect}
     >
-      <div style={styles.content}>
-        <Slide
-          height={wh}
-          width={ww}
-          content={content}
-          editable={true}
-          isDrag={isDrag}
-          setIsDrag={setIsDrag}
-        />
+      <div className={classNames.wrapper} style={styles.wrapper}>
+        <div style={styles.content}>
+          <Slide height={wh} width={ww} content={content} editable={true} />
+        </div>
+        <div className={classNames.bar}>
+          <Button
+            icon="left"
+            className={classNames.btnLeft}
+            type="primary"
+            shape="circle"
+            onClick={gotoPre}
+          ></Button>
+          <Button
+            icon="right"
+            type="primary"
+            shape="circle"
+            onClick={gotoNext}
+          ></Button>
+        </div>
       </div>
     </div>
   );

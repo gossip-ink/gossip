@@ -1,20 +1,16 @@
-import classNames from "./index.css";
 import Outline from "../Outline";
 import Thumbnails from "../Thumbnails";
 import Box from "../Box";
 import { useState } from "react";
-export default function({ height, isDrag, setIsDrag }) {
+export default function({ height }) {
   const content = height - 10;
   const [tree, setTree] = useState(true);
   const props = {
     outline: {
-      setIsDrag,
-      height: content - 50
+      height: content - 60
     },
     thumbnails: {
-      height: content - 50,
-      isDrag,
-      setIsDrag
+      height: content - 60
     }
   };
 

@@ -1,8 +1,5 @@
 // 项目的主页
 import classNames from "./index.css";
-import useWindowSize from "../../hooks/useWindowSize";
-import { useState } from "react";
-import { Row, Col } from "antd";
 import Header from "../../components/Header";
 import MainContent from "../../components/MainContent";
 import Structure from "../../components/Structure";
@@ -10,12 +7,11 @@ import AttrPanel from "../../components/AttrPanel";
 import Variables from "../../components/Variables";
 import IdeasPanel from "../../components/IdeasPanel";
 import SidebarPanel from "../../components/SidebarPanel";
+import { useWindowSize } from "react-use";
 
 export default function() {
   // 计算每个部分的高度
-  const { height } = useWindowSize();
-  const [isDrag, setIsDrag] = useState(false);
-
+  const { height, width } = useWindowSize();
   const headerHeight = 60,
     contentHeight = height - headerHeight,
     sidebarHeight = contentHeight * 0.7,
@@ -30,18 +26,14 @@ export default function() {
       height: headerHeight
     },
     sidebar: {
-      height: sidebarHeight,
-      isDrag,
-      setIsDrag
+      height: sidebarHeight
     },
     ideas: {
-      height: ideaHeight,
-      setIsDrag
+      height: ideaHeight
     },
     mainContent: {
       height: slideHeight,
-      isDrag,
-      setIsDrag
+      width: width - 600
     },
     structure: {
       height: structureHeight
@@ -57,20 +49,20 @@ export default function() {
   return (
     <div className={classNames.container}>
       <Header {...props.header} />
-      <Row>
-        <Col span={4}>
+      <div className={classNames.content}>
+        <div className={classNames.left}>
           <IdeasPanel {...props.ideas} />
           <SidebarPanel {...props.sidebar} />
-        </Col>
-        <Col span={16}>
+        </div>
+        <div className={classNames.main}>
           <MainContent {...props.mainContent} />
-        </Col>
-        <Col span={4}>
+        </div>
+        <div className={classNames.right}>
           <Structure {...props.structure} />
           <AttrPanel {...props.attrPanel} />
           <Variables {...props.variables} />
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 }

@@ -15,6 +15,7 @@
 .right {
   margin-left: 8px;
   cursor: pointer;
+  font-size: 12px;
 }
 .bottom {
   display: flex;
@@ -31,4 +32,5 @@
 .bottomButton{
   display: flex;
   justify-content: center;
+  font-size: 12px;
 }

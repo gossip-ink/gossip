@@ -1,15 +1,13 @@
-// 放映页面
 import { connect } from "dva";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { dfs, copyTree } from "../../utils/tree";
 import getLayout from "../../utils/overview";
-import "./index.css";
-
 import router from "umi/router";
-import Slide from "../../components/Slide/index";
-import Impress from "../../components/Impress/index";
-import Step from "../../components/Step/index";
-import useWindowSize from "../../hooks/useWindowSize";
+import Slide from "../../components/Slide";
+import Impress from "../../components/Impress";
+import Step from "../../components/Step";
+import { useWindowSize } from "react-use";
+import classNames from "./index.css";
 
 export default connect(
   state => ({
@@ -20,23 +18,7 @@ export default connect(
     setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
   }
 )(function({ structure, components, setSelectedComp }) {
-  // 监听事件
-  useEffect(() => {
-    const back = function(e) {
-      if (e.keyCode === 27) {
-        router.push("/");
-      }
-      e.preventDefault();
-    };
-    window.addEventListener("keydown", back);
-    return () => {
-      window.removeEventListener("keydown", back);
-    };
-  });
-
-
-  const windowSize = useWindowSize();
-
+  const { width, height } = useWindowSize();
   // 按照顺序获得 slides
   const slides = [];
   dfs(structure, node => {
@@ -48,7 +30,10 @@ export default connect(
   const tree = copyTree(structure);
   dfs(tree, node => {
     Object.assign(node, {
-      data: { width: windowSize.width, height: windowSize.height}
+      data: {
+        width,
+        height
+      }
     });
   });
 
@@ -56,20 +41,36 @@ export default connect(
   const treemap = [];
   const data = getLayout(tree);
   dfs(data, node => treemap.push(node));
-
   setSelectedComp(-1);
 
+  // 监听事件
+  useEffect(() => {
+    const back = e => {
+      if (e.keyCode === 27) router.push("/");
+      e.preventDefault();
+    };
+    window.addEventListener("keydown", back);
+    return () => window.removeEventListener("keydown", back);
+  });
+
   return (
-    <Impress overviewOpen={true}>
-      {slides.map((item, index) => (
-        <Step x={treemap[index].x} y={treemap[index].y} key={index}>
-          <Slide
-            scale={0.8}
-            content={item}
-            key={item.id}
-          />
-        </Step>
-      ))}
-    </Impress>
+    <div
+      className={classNames.container}
+      style={{ height, width, background: "#efefef" }}
+    >
+      <Impress overviewOpen={true}>
+        {slides.map((item, index) => (
+          <Step x={treemap[index].x} y={treemap[index].y} key={index}>
+            <div
+              style={{
+                transform: "scale(0.8)"
+              }}
+            >
+              <Slide content={item} key={item.id} />
+            </div>
+          </Step>
+        ))}
+      </Impress>
+    </div>
   );
 });

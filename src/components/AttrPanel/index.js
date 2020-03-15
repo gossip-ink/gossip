@@ -195,7 +195,7 @@ export default connect(
       nodataInfo="没有选择任何的组件～"
       nodata={attrs.length === 0}
     >
-      <ul>
+      <ul className={classNames.container}>
         {attrs.map((item, index) => {
           const { icon, name, ...rest } = inputByAttr[item.key];
           return (
@@ -218,6 +218,7 @@ export default connect(
                 onChange={value =>
                   changeAttr(value, item.key, selectedComponentId, selectedId)
                 }
+                disabled={item.isVar}
                 {...rest}
               ></Input>
               {item.isVar && (

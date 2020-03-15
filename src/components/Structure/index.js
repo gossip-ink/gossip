@@ -70,7 +70,7 @@ export default connect(
   appendCmp,
   handleAddCmp
 }) {
-  const nodeWidth = 190;
+  const nodeWidth = 170;
   const slide = components.find(item => item.id === selectedId);
   const nodes = tree(slide),
     indent = 20;

@@ -8,6 +8,22 @@
   overflow: auto;
 }
 
+.main {
+  position: relative;
+}
+
+.overlayer {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 3px;
+  cursor: not-allowed;
+}
+
 .slider {
   height: 4px;
   border-radius: 2px;

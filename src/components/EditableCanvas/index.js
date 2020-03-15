@@ -1,67 +1,91 @@
-import { useEffect, useState } from "react";
-
-export default function({ attrs, value, width, height, edit, onValueChange }) {
-  // 让 outline 和 maincontent 中的不同
-  const canvasId = new Date().getTime() + Math.floor(Math.random() * 1000);
-  
+import { useEffect, useState, useRef } from "react";
+import { Button, Result } from "antd";
+import classNames from "./index.css";
+export default function({ value, width, height, select, onValueChange }) {
+  const ref = useRef(null);
+  const [edit, setEdit] = useState(false);
   const [error, setError] = useState(false);
+
+  const styles = {
+    input: {
+      height,
+      width
+    },
+    canvas: {
+      height,
+      width
+    },
+    container: {
+      height,
+      width
+    },
+    error: {
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translate(-50%, -50%)"
+    }
+  };
+
   function handleChange(e) {
     const value = e.target.value;
     onValueChange && onValueChange(value);
     setError(false);
   }
 
-  const boxWidth = width - attrs.padding * 2,
-    boxHeight = height - attrs.padding * 2;
   useEffect(() => {
-    if (error || edit) {
-      // 如果有问题或者在编辑模式就不执行
-      return;
-    }
+    if (error || edit) return;
     try {
-      const canvas = document.getElementById(canvasId);
-      // 设置 canvas
-      canvas.width = boxWidth * 2;
-      canvas.height = boxHeight * 2;
-
-      // 这里必须要加 px
-      canvas.style.width = boxWidth + "px";
-      canvas.style.height = boxHeight + "px";
-
-      // 获得上下文对象
+      const canvas = ref.current;
       const ctx = canvas.getContext("2d");
+      ctx.restore();
+      ctx.save();
       ctx.scale(2, 2);
-
       // 执行代码
-      const code = `(${value})(canvas, ctx, ${boxWidth}, ${boxHeight})`;
-      eval(code);
+      const code = `(${value})(canvas, ctx, ${width}, ${height})`;
+      const timer = eval(code);
+      return () => timer && clearInterval(timer);
     } catch (e) {
       console.error(e);
       setError(true);
     }
-  });
+  }, [value, edit, width, height]);
 
   return (
-    <div>
-      {edit ? (
+    <div
+      className={classNames.container}
+      style={styles.container}
+      onMouseLeave={() => setEdit(false)}
+    >
+      {select && (
+        <Button
+          icon={edit ? "save" : "edit"}
+          className={classNames.btn}
+          type="primary"
+          onClick={() => setEdit(!edit)}
+        />
+      )}
+      {edit && select ? (
         <textarea
           value={value}
           onChange={handleChange}
-          style={{
-            height: height * 0.8,
-            width,
-            backgroundColor: "transparent",
-            border: 0,
-            resize: "none",
-            outline: "none"
-          }}
+          clasName={classNames.input}
+          style={styles.input}
         />
       ) : error ? (
-        <p>出错啦~</p>
+        <Result
+          status="error"
+          title="代码运行出现了问题！"
+          subTitle="可以打开控制台进行调试～"
+          style={styles.error}
+        />
       ) : (
-        <canvas id={canvasId} style={{
-          margin: attrs.padding
-        }} />
+        <canvas
+          ref={ref}
+          style={styles.canvas}
+          width={width * 2}
+          height={height * 2}
+        />
       )}
     </div>
   );

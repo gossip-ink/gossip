@@ -18,6 +18,7 @@
 .wrapper {
   display: flex;
   align-items: center;
+  font-size: 12px;
 }
 .name {
   margin: 0px 3px 0 8px;

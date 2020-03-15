@@ -1,0 +1,18 @@
+.input {
+  background-color: transparent;
+  border: 0;
+  resize: none;
+  outline: none;
+}
+
+.container {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn {
+  top: 30px;
+  right: 30px;
+  position: absolute;
+  transform: scale(1.5);
+}

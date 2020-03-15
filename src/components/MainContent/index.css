@@ -2,4 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.bar {
+  position: absolute;
+  right: 0;
+  bottom: -50px;
+}
+
+.btnLeft{
+  margin-right: 10px;
 }

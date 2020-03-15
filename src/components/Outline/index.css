@@ -1,25 +1,10 @@
-.container {
-  overflow: auto;
-}
-
-.nodeAddInput {
-  margin: 0.5em 1em;
-}
-
-.inputBtn {
-  margin-left: 0.5em;
-}
-
-.tree {
-  margin-left: 1em;
-}
-
 .nodeTitle {
-  width: 130px;
+  width: 115px;
   overflow: hidden;
   white-space: nowrap;
   display: flex;
   align-items: center;
+  font-size: 12px;
 }
 
 .dragIcon {

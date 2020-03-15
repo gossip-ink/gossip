@@ -59,9 +59,8 @@ export default connect(
   const [edit, setEdit] = useState(-1);
   const indent = 20;
   const nodes = tree(structure);
-  const nodeWidth = 190;
+  const nodeWidth = 170;
   const h = max(nodes, node => node.depth);
-  const title = string => string;
 
   const styles = {
     container: {
@@ -117,12 +116,8 @@ export default connect(
   }
 
   return (
-    <div
-      style={styles.container}
-      className={classNames.container}
-      onClick={() => setSelectedPanel(0)}
-    >
-      <div className={classNames.tree} style={styles.tree}>
+    <div style={styles.container} onClick={() => setSelectedPanel(0)}>
+      <div style={styles.tree}>
         {nodes.map(item => (
           <TreeNode
             key={item.id}
@@ -130,15 +125,15 @@ export default connect(
             onNodeDrop={handleNodeDrop}
             highlightColor="#4091f7"
             style={styles.treeNode(item)}
-            width={nodeWidth + "px"}
+            width={nodeWidth}
             hasBottom={item.depth !== 0}
             hasTop={item.depth !== 0}
             onClickBottom={() => createNode(item.id, "新的想法", "brother")}
             onClickRight={() => createNode(item.id, "新的想法", "children")}
           >
             <Node
-              height="2em"
-              width={nodeWidth + "px"}
+              height="1.5em"
+              width={nodeWidth}
               edit={edit === item.id}
               onEdit={e => {
                 handleEidtNode(item);
@@ -157,7 +152,7 @@ export default connect(
                 <Icon type="drag" className={classNames.dragIcon} />
                 {edit !== item.id ? (
                   <div onClick={() => handleSelectSlide(item.id)}>
-                    {item.name === "" ? "未编辑" : title(item.name)}
+                    {item.name === "" ? "未编辑" : item.name}
                   </div>
                 ) : (
                   <input

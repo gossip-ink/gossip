@@ -213,7 +213,16 @@ function MyImage({ onChange }) {
   );
 }
 
-export default function({ type, value, onChange, range, list, yes, hasIcon }) {
+export default function({
+  type,
+  value,
+  onChange,
+  range,
+  list,
+  yes,
+  hasIcon,
+  disabled
+}) {
   const styles = {
     color: {
       background: value
@@ -264,7 +273,7 @@ export default function({ type, value, onChange, range, list, yes, hasIcon }) {
     )
   };
   return (
-    <>
+    <div className={classNames.main}>
       {type === "switch" ? (
         boxByType[type]
       ) : type === "radio" ? (
@@ -274,6 +283,7 @@ export default function({ type, value, onChange, range, list, yes, hasIcon }) {
           {boxByType[type]}
         </Popover>
       )}
-    </>
+      {disabled && <div className={classNames.overlayer}></div>}
+    </div>
   );
 }

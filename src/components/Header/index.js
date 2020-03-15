@@ -15,8 +15,9 @@ export default connect(null, {
   createNewFile: () => ({ type: "slides/createNewFile" }),
   download: () => ({ type: "slides/download" }),
   upload: data => ({ type: "slides/upload", payload: { data } }),
-  save: () => ({ type: "slides/save" })
-})(function({ height, createNewFile, download, upload, save }) {
+  save: () => ({ type: "slides/save" }),
+  help: () => ({ type: "slides/createHelp" })
+})(function({ height, createNewFile, download, upload, save, help }) {
   const styles = {
     header: {
       height,
@@ -47,13 +48,19 @@ export default connect(null, {
       icon: "download",
       onClick: download,
       upload: false,
-      name: "下载到本地"
+      name: "下载"
     },
     {
       icon: "upload",
       onClick: handleUploadFile,
       upload: true,
       name: "上传"
+    },
+    {
+      icon: "read",
+      upload: false,
+      name: "教程",
+      onClick: help
     },
     {
       icon: "github",

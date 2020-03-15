@@ -17,7 +17,14 @@ function copyTree(tree) {
   eachBefore(tree, data);
   return data;
 }
-export { dfs, copyTree };
+
+function descendant(root) {
+  const nodes = [];
+  dfs(root, node => nodes.push(node));
+  return nodes;
+}
+
+export { dfs, copyTree, descendant };
 
 export default function(root) {
   let index = -1;
