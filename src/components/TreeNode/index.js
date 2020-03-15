@@ -15,6 +15,7 @@ export default function({
   hasBottom = true,
   hasTop = true,
   hasRight = true,
+  hasMiddle = true,
   style
 }) {
   const [hover, setHover] = useState(false);
@@ -109,19 +110,26 @@ export default function({
           ) : (
             <div className={classNames.line}></div>
           )}
-          <div
-            style={styles.middle}
-            onDrop={e => handleDrop(e, "middle")}
-            onDragOver={e => {
-              if (!middle) setMiddle(true);
-              e.preventDefault();
-            }}
-            onDragLeave={() => setMiddle(false)}
-            onDragStart={handleDragStart}
-            draggable
-          >
-            {children}
-          </div>
+          {hasMiddle ? (
+            <div
+              style={styles.middle}
+              onDrop={e => handleDrop(e, "middle")}
+              onDragOver={e => {
+                if (!middle) setMiddle(true);
+                e.preventDefault();
+              }}
+              onDragLeave={() => setMiddle(false)}
+              onDragStart={handleDragStart}
+              draggable
+            >
+              {children}
+            </div>
+          ) : (
+            <div style={styles.middle} onDragStart={handleDragStart} draggable>
+              {children}
+            </div>
+          )}
+
           {hasBottom ? (
             <div
               style={styles.bottom}

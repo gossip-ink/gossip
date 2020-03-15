@@ -141,6 +141,7 @@ export default connect(
             hasTop={item.depth !== 0}
             hasBottom={item.depth !== 0}
             hasRight={item.type === "panel"}
+            hasMiddle={item.type === "panel"}
             onClickRight={() => setSelectedComp(item.id)}
             onClickBottom={() => setSelectedComp(item.id)}
             popoverRight={
