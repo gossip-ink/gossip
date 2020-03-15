@@ -3,8 +3,7 @@ import EditableImg from "../EditableImg";
 import EditableCanvas from "../EditableCanvas/index";
 import { connect } from "dva";
 import classNames from "./index.css";
-import { useRef, useEffect } from "react";
-import { useMouse } from "react-use";
+import { useRef, useEffect, useState } from "react";
 
 const Panel = connect(
   state => ({
@@ -148,10 +147,10 @@ const Panel = connect(
     }
   };
   const ref = useRef(null);
-  const { elX, elY } = useMouse(ref);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handler = () => {
+    const mouseupHandler = () => {
       if (dragId !== -1 && enterId !== -1 && dragId !== enterId) {
         //交换位置
         exchangeCmp(dragId, enterId, rootId);
@@ -162,8 +161,22 @@ const Panel = connect(
       setDrag(-1);
       setEnter(-1);
     };
-    window.addEventListener("mouseup", handler);
-    return () => window.removeEventListener("mouseup", handler);
+
+    const mousemoveHandler = e => {
+      if (dragId === -1) return;
+      const { left, top } = ref.current.getBoundingClientRect();
+      const { clientX, clientY } = e;
+      setPos({
+        x: clientX - left,
+        y: clientY - top
+      });
+    };
+    window.addEventListener("mouseup", mouseupHandler);
+    window.addEventListener("mousemove", mousemoveHandler);
+    return () => {
+      window.removeEventListener("mouseup", mouseupHandler);
+      window.removeEventListener("mousemove", mousemoveHandler);
+    };
   });
 
   return (
@@ -184,7 +197,7 @@ const Panel = connect(
       ref={ref}
     >
       {dragId === id && (
-        <div className={classNames.box} style={{ left: elX, top: elY }}>
+        <div className={classNames.box} style={{ left: pos.x, top: pos.y }}>
           {content}
         </div>
       )}
