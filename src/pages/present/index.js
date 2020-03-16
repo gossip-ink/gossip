@@ -37,7 +37,7 @@ export default connect(state => ({
       ...node,
       content: cmp,
       rotate,
-      scale: Math.max(1 - node.depth * 0.15, 0.5),
+      scale: Math.max(1 - node.depth * 0.2, 0.5),
       z: node.depth * -1000,
       data: {
         width: rotate ? h : w,

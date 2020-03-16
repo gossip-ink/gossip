@@ -9,6 +9,7 @@
   "dependencies": {
     "coloreact": "^0.3.1",
     "file-saver": "^2.0.2",
+    "react-color": "^2.18.0",
     "react-input-color": "^2.0.29"
   },
   "scripts": {

@@ -123,6 +123,7 @@ const Panel = connect(
   const selected = selectedRootId === rootId && id === selectedComponentId;
   const styles = {
     container: {
+      background: attrs.backgroundColor,
       display: type === "panel" && "flex",
       flexDirection: type === "panel" && attrs.flex,
       height: height && height,

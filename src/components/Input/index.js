@@ -1,5 +1,5 @@
 import classNames from "./index.css";
-import ColorPicker from "coloreact";
+import { SketchPicker } from "react-color";
 import { Popover, Slider, Button, Switch, Upload, Modal, Input } from "antd";
 import { scaleLinear, pairs } from "d3";
 import { useRef, useEffect, useState } from "react";
@@ -104,20 +104,19 @@ function MultipleSlider({ value, onChange }) {
 function Color({ value, onChange }) {
   const styles = {
     container: {
-      width: 200,
-      height: 200
-    },
-    color: {
-      width: 200,
-      height: 200
+      width: 220,
+      height: 309,
+      left: -110,
+      top: -300,
+      position: "absolute"
     }
   };
   return (
     <div style={styles.container}>
-      <ColorPicker
+      <SketchPicker
         color={value}
-        onChange={color => onChange(color.hexString)}
-        style={styles.color}
+        onChangeComplete={color => onChange(color.hex)}
+        style={{ background: "transparent" }}
       />
     </div>
   );
@@ -226,6 +225,10 @@ export default function({
   const styles = {
     color: {
       background: value
+    },
+    colorContainer: {
+      width: 0,
+      height: 0
     }
   };
 
@@ -279,7 +282,11 @@ export default function({
       ) : type === "radio" ? (
         contentByType[type]
       ) : (
-        <Popover content={contentByType[type]} trigger="click">
+        <Popover
+          content={contentByType[type]}
+          trigger="click"
+          overlayStyle={type === "color" ? styles.colorContainer : {}}
+        >
           {boxByType[type]}
         </Popover>
       )}
