@@ -11,7 +11,8 @@ const Panel = connect(
     selectedComponentId: state.slides.selectedComponentId,
     variables: state.slides.attributeVars,
     dragId: state.global.dragId,
-    enterId: state.global.enterId
+    enterId: state.global.enterId,
+    scale: state.global.scale
   }),
   {
     setSelectedComp: id => ({
@@ -48,7 +49,8 @@ const Panel = connect(
   setDrag,
   exchangeCmp,
   enterId,
-  setEnter
+  setEnter,
+  scale
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -151,14 +153,13 @@ const Panel = connect(
 
   useEffect(() => {
     // 这个函数尤其要注意，不能所有的 panel 都调用，否者很蛋疼
-    // 这里的定位不准确，暂时不管，不太影响拖动
     const mousemoveHandler = e => {
       if (dragId !== id || !editable) return;
       const { left, top } = ref.current.getBoundingClientRect();
       const { clientX, clientY } = e;
       setPos({
-        x: clientX - left,
-        y: clientY - top
+        x: (clientX - left) / scale + 20,
+        y: (clientY - top) / scale + 20
       });
     };
 

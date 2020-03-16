@@ -3,7 +3,8 @@ export default {
   state: {
     dragId: -1,
     enterId: -1,
-    isDragIdea: false
+    isDragIdea: false,
+    scale: 1
   },
   reducers: {
     setDrag(state, action) {
@@ -17,6 +18,10 @@ export default {
     setDragIdea(state, action) {
       const { drag } = action.payload;
       return { ...state, isDragIdea: drag };
+    },
+    setScale(state, action) {
+      const { scale } = action.payload;
+      return { ...state, scale };
     }
   }
 };

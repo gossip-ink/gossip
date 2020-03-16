@@ -7,7 +7,8 @@ import { useWindowSize } from "react-use";
 export default connect(
   state => ({
     components: state.slides.components,
-    selectedId: state.slides.selectedId
+    selectedId: state.slides.selectedId,
+    scale: state.global.scale
   }),
   {
     setSelectedComp: id => ({
@@ -15,7 +16,8 @@ export default connect(
       payload: { id }
     }),
     gotoNext: () => ({ type: "slides/gotoNext" }),
-    gotoPre: () => ({ type: "slides/gotoPre" })
+    gotoPre: () => ({ type: "slides/gotoPre" }),
+    setScale: scale => ({ type: "global/setScale", payload: { scale } })
   }
 )(function({
   height,
@@ -24,11 +26,14 @@ export default connect(
   components,
   setSelectedComp,
   gotoNext,
-  gotoPre
+  gotoPre,
+  scale,
+  setScale
 }) {
   const { height: wh, width: ww } = useWindowSize();
   const content = components.find(v => v.id === selectedId);
-  const scale = (width * 0.95) / ww;
+  const ratio = (width * 0.95) / ww;
+  if (ratio !== scale) setScale(ratio);
 
   function handleSelect(e) {
     e.stopPropagation();
