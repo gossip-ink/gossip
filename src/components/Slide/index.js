@@ -21,14 +21,17 @@ export default connect(
   editable = false,
   isDrag = false,
   setIsDrag,
-  appendIdea
+  appendIdea,
+  hasBorder = true
 }) {
   const [dragged, setDragged] = useState(false);
   const { id } = content;
   const styles = {
     container: {
       outline:
-        !editable && (selected ? "10px solid #4091f7" : "10px solid #efefef"),
+        !editable &&
+        hasBorder &&
+        (selected ? "10px solid #4091f7" : "10px solid #efefef"),
       height,
       width,
       transformOrigin: "left top"

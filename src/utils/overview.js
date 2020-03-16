@@ -1,5 +1,4 @@
 // 用于布局
-
 let words = [];
 const increase = 400; //螺旋线每次向外旋转的距离
 
@@ -65,48 +64,12 @@ function allocate() {
   }
 }
 
-function travel(tree) {
-  // 遍历树,添加到 words 数组
-  if (tree === undefined) return null;
-  words.push(new Word(tree.id, tree.data.width, tree.data.height));
-
-  if (tree.children === undefined) return null;
-  for (let i = 0; i < tree.children.length; i++) {
-    travel(tree.children[i]);
-  }
-}
-
-function output_tree(tree) {
-  let output_tree = JSON.parse(JSON.stringify(tree));
-
-  function travel(tree) {
-    // 遍历输出树, 添加坐标和修改大小
-    if (tree === undefined) return null;
-
-    let id = tree.id;
-    for (let i = 0; i < words.length; i++) {
-      if (id === words[i].id) {
-        tree.x = words[i].x;
-        tree.y = words[i].y;
-        break;
-      }
-    }
-
-    if (tree.children === undefined) return null;
-    for (let i = 0; i < tree.children.length; i++) {
-      travel(tree.children[i]);
-    }
-  }
-
-  travel(output_tree);
-  return output_tree;
-}
-
-export default function(tree) {
-  // 导入创建各个 slides 创建数组
-  travel(tree);
-  // 布局
+export default function(nodes) {
+  words = nodes.map(d => new Word(d.content.id, d.data.width, d.data.height));
   allocate();
-  // 输出
-  return output_tree(tree);
+  return nodes.map((d, index) => ({
+    ...d,
+    x: words[index].x,
+    y: words[index].y
+  }));
 }

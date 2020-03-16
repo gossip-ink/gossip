@@ -16,17 +16,8 @@ export default connect(null, {
   download: () => ({ type: "slides/download" }),
   upload: data => ({ type: "slides/upload", payload: { data } }),
   save: () => ({ type: "slides/save" }),
-  help: () => ({ type: "slides/createHelp" }),
-  setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
-})(function({
-  height,
-  createNewFile,
-  download,
-  upload,
-  save,
-  help,
-  setSelectedComp
-}) {
+  help: () => ({ type: "slides/createHelp" })
+})(function({ height, createNewFile, download, upload, save, help }) {
   const styles = {
     header: {
       height,
@@ -37,10 +28,7 @@ export default connect(null, {
   const btns = [
     {
       icon: "play-circle",
-      onClick: () => {
-        router.push("/present");
-        setSelectedComp(-1);
-      },
+      onClick: () => router.push("/present"),
       upload: false,
       name: "放映"
     },

@@ -13,8 +13,7 @@ export default function({
       className="step"
       style={{
         position: "absolute",
-        transfromOrigin: "left top",
-        transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotate(${rotate}deg)`
+        transform: `translate(-50%, -50%) translate3d(${x}px, ${y}px, ${z}px) scale(${scale}) rotate(${rotate}deg) `
       }}
     >
       {children}
