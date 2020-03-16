@@ -95,8 +95,11 @@ export default function({ children, overviewOpen = false }) {
       const boxWidth = maxX - minX,
         boxHeight = maxY - minY;
 
-      const scaleY = (boxHeight + window.innerHeight) / window.innerHeight,
-        scaleX = (boxWidth + window.innerWidth) / window.innerWidth,
+      const padding = 0;
+
+      const scaleY =
+          (boxHeight + window.innerHeight + padding) / window.innerHeight,
+        scaleX = (boxWidth + window.innerWidth + padding) / window.innerWidth,
         scale = Math.max(scaleX, scaleY);
 
       const props = {

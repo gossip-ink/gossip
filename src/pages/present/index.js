@@ -1,13 +1,15 @@
+import classNames from "./index.css";
 import { connect } from "dva";
 import { useEffect } from "react";
-import { dfs, copyTree } from "../../utils/tree";
-import getLayout from "../../utils/overview";
+import { useWindowSize } from "react-use";
 import router from "umi/router";
+
 import Slide from "../../components/Slide";
 import Impress from "../../components/Impress";
 import Step from "../../components/Step";
-import { useWindowSize } from "react-use";
-import classNames from "./index.css";
+
+import getLayout from "../../utils/overview";
+import tree, { descendant, dfs, copyTree } from "../../utils/tree";
 
 export default connect(
   state => ({
@@ -17,18 +19,11 @@ export default connect(
   {
     setSelectedComp: id => ({ type: "slides/setSelectedComp", payload: { id } })
   }
-)(function({ structure, components, setSelectedComp }) {
+)(function({ structure, components }) {
   const { width, height } = useWindowSize();
-  // 按照顺序获得 slides
-  const slides = [];
-  dfs(structure, node => {
-    const cmp = components.find(item => item.id === node.id);
-    slides.push(cmp);
-  });
-
-  // 拷贝 tree， 并且添加 attr
-  const tree = copyTree(structure);
-  dfs(tree, node => {
+  // 进行布局
+  const newTree = copyTree(structure);
+  dfs(newTree, node => {
     Object.assign(node, {
       data: {
         width,
@@ -37,11 +32,20 @@ export default connect(
     });
   });
 
-  // 进行布局
-  const treemap = [];
-  const data = getLayout(tree);
-  dfs(data, node => treemap.push(node));
-  setSelectedComp(-1);
+  const pos = descendant(getLayout(newTree));
+
+  // 按照顺序获得 slides
+  const slides = tree(structure).map(({ id, depth }) => {
+    const cmp = components.find(item => item.id === id);
+    const { x, y } = pos.find(item => item.id === id);
+    return {
+      content: cmp,
+      x,
+      y,
+      scale: Math.max(1 - depth * 0.15, 0.5),
+      z: depth * -1000
+    };
+  });
 
   // 监听事件
   useEffect(() => {
@@ -59,14 +63,14 @@ export default connect(
       style={{ height, width, background: "#efefef" }}
     >
       <Impress overviewOpen={true}>
-        {slides.map((item, index) => (
-          <Step x={treemap[index].x} y={treemap[index].y} key={index}>
+        {slides.map(({ x, y, z, content, scale }) => (
+          <Step x={x} y={y} z={z} scale={scale} key={content.id}>
             <div
               style={{
-                transform: "scale(0.8)"
+                transform: "scale(0.85)"
               }}
             >
-              <Slide content={item} key={item.id} />
+              <Slide content={content} />
             </div>
           </Step>
         ))}
