@@ -66,7 +66,7 @@ export default connect(null, {
     // 这里必须要将 style 的 height 设置为 0， 否则 offsetHeight 就不会变了
     input.style.height = "";
     while (height < bh && ft > 0) {
-      ft -= 10;
+      ft -= 5;
       input.style.fontSize = `${ft}px`;
       bh = input.offsetHeight;
     }

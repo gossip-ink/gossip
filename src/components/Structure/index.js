@@ -92,12 +92,17 @@ export default connect(
     panel: <Icon type="container" />
   };
 
+  const en2zn = {
+    column: "竖直容器",
+    row: "水平容器"
+  };
+
   const contentByType = item => {
     const map = {
       image: <img src={item.value} style={{ maxHeight: "2em" }} />,
       canvas: <div>{item.value.slice(0, 15) + "..."}</div>,
       text: <div>{item.value}</div>,
-      panel: <div>{item.value || "row"}</div>
+      panel: <div>{en2zn[item.value || "row"]}</div>
     };
     return map[item.type];
   };
@@ -155,7 +160,7 @@ export default connect(
               onDelete={() => deleteCmp(selectedId, item.id)}
               highlight={selectedComponentId === item.id}
               height="2em"
-              width={nodeWidth + "px"}
+              width={nodeWidth}
               nomove={true}
               onAdd={() => setSelectedComp(item.id)}
               hasDelete={item.depth !== 0}

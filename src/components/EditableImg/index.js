@@ -12,12 +12,26 @@ export default function({
   editable
 }) {
   const [edit, setEdit] = useState(false);
-
+  const { textAlign, verticalAlign } = attrs;
   const styles = {
     container: {
       width,
       height,
-      cursor: !edit && editable && "move"
+      paddingLeft: attrs.padding,
+      paddingRight: attrs.padding,
+      cursor: !edit && editable && "move",
+      justifyContent:
+        textAlign === "left"
+          ? "flex-start"
+          : textAlign === "right"
+          ? "flex-end"
+          : "center",
+      alignItems:
+        verticalAlign === "top"
+          ? "flex-start"
+          : verticalAlign === "bottom"
+          ? "flex-end"
+          : "center"
     },
     normal: {
       maxHeight: height,

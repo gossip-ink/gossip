@@ -54,7 +54,7 @@ export default connect(null, {
       icon: "upload",
       onClick: handleUploadFile,
       upload: true,
-      name: "上传"
+      name: "打开"
     },
     {
       icon: "read",

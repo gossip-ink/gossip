@@ -12,9 +12,11 @@ import overview from "../../utils/overview";
 
 export default connect(state => ({
   structure: state.slides.structure,
-  components: state.slides.components
-}))(function({ structure, components }) {
+  components: state.slides.components,
+  variables: state.slides.attributeVars
+}))(function({ structure, components, variables }) {
   const { width, height } = useWindowSize();
+  const { value } = variables.find(item => item.id === 1);
 
   const slideScale = 0.85;
   const angles = [90, 0, -90, 0];
@@ -76,7 +78,7 @@ export default connect(state => ({
   return (
     <div
       className={classNames.container}
-      style={{ height, width, background: "#efefef" }}
+      style={{ height, width, background: value ? value : "white" }}
     >
       <Impress overviewOpen={true}>
         {slides.map(({ x, y, z, rotate, content, scale }) => (

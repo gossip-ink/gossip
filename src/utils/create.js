@@ -1,3 +1,5 @@
+import url from "../static/灯泡.png";
+import exampleURL from "../static/example.jpg";
 // 创建组件
 function createText(id, value, attrs) {
   return {
@@ -5,8 +7,8 @@ function createText(id, value, attrs) {
     value,
     type: "text",
     attrs: {
-      fontSize: 50,
-      color: "#000000",
+      fontSize: "$4",
+      color: "$5",
       fontWeight: "normal",
       textAlign: "left",
       verticalAlign: "top",
@@ -21,10 +23,12 @@ function createImage(id, value, attrs) {
   return {
     type: "image",
     id,
-    value: value,
+    value,
     attrs: {
       displayMode: "normal",
       padding: 10,
+      textAlign: "center",
+      verticalAlign: "center",
       ...attrs
     }
   };
@@ -38,7 +42,6 @@ function createPanel(id, value, attrs, children = []) {
     attrs: {
       span: [],
       flex: value,
-      backgroundColor: "#fffff",
       padding: 10,
       ...attrs
     },
@@ -58,47 +61,113 @@ function createCanvas(id, value, attrs) {
   };
 }
 
-function createSlide(id, value) {
-  return createPanel(id, "column", { span: [1, 2] }, [
+function createSlide(id, value, content="介绍...") {
+  return createPanel(id, "column", { span: [1, 2], backgroundColor: "$1" }, [
     createText("text" + id, value, {
       isTitle: true,
-      fontSize: "80",
-      fontWeight: "bold"
+      fontSize: "$3",
+      fontWeight: "bold",
+      verticalAlign: "center"
     }),
-    createPanel("panel" + id, "column", {}, [])
+    createPanel("panel" + id, "column", { span: [1] }, [
+      createText("text2" + id, content, {
+        isTitle: false
+      })
+    ])
+  ]);
+}
+
+function createBigPoint(id, value) {
+  return createPanel(id, "row", { span: [2, 1], backgroundColor: "$1" }, [
+    createText("text" + id, value, {
+      isTitle: true,
+      fontSize: "$2",
+      fontWeight: "bold",
+      textAlign: "center",
+      verticalAlign: "center"
+    }),
+    createPanel("panel" + id, "column", { span: [1] }, [
+      createText("text2" + id, "这个观点很大...", {
+        isTitle: false,
+        textAlign: "left",
+        verticalAlign: "center"
+      })
+    ])
   ]);
 }
 
 function createFile() {
-  const name = "uIdea";
+  const name = "有趣的东西";
   return {
     filename: "new",
     selectedId: 1,
     selectedComponentId: 1,
     structure: {
       id: 1,
-      name
+      name,
+      children: [
+        {
+          name: "大观点A",
+          id: 2,
+          children: [
+            {
+              name: "小观点A",
+              id: 4
+            },
+            {
+              name: "小观点B",
+              id: 5
+            }
+          ]
+        },
+        {
+          name: "大观点B",
+          id: 3
+        }
+      ]
     },
     components: [
-      createPanel(1, "column", { span: [1] }, [
-        createText(2, name, {
-          fontSize: 200,
-          isTitle: true,
+      createPanel(1, "column", { span: [1.5, 1], backgroundColor: "$1" }, [
+        createPanel(4, "row", { span: [3, 1] }, [
+          createText(2, name, {
+            fontSize: 180,
+            isTitle: true,
+            textAlign: "right",
+            verticalAlign: "bottom",
+            fontWeight: "bold",
+            padding: 0
+          }),
+          createImage(5, url, {
+            verticalAlign: "bottom",
+            textAlign: "left",
+            padding: 40
+          })
+        ]),
+        createText(3, "伟大的创造者", {
           textAlign: "center",
-          verticalAlign: "center"
+          verticalAlign: "top"
         })
-      ])
+      ]),
+      createBigPoint(2, "大观点A"),
+      createBigPoint(3, "大观点B"),
+      createSlide(4, "小观点A", "这个观点很小..."),
+      createSlide(5, "小观点B", "这个观点很小...")
     ],
     selectedArributeId: 1,
     attributeVars: [
-      // 一级标题
-      // 二级标题
-      // 三级标题
-      // 标题颜色
-      // 背景颜色
-      // 字体颜色
+      {
+        id: 1,
+        type: "color",
+        value: "#fff",
+        name: "背景颜色",
+        canDelete: false
+      },
+      { id: 2, type: "number", value: 200, name: "大标题字号" },
+      { id: 3, type: "number", value: 130, name: "小标题字号" },
+      { id: 4, type: "number", value: 40, name: "内容字号" },
+      { id: 5, type: "color", value: "#000", name: "字体颜色" }
     ],
-    ideas: []
+    ideas: [createText(6, "小想法"), createImage(7, exampleURL)]
   };
 }
 

@@ -116,7 +116,13 @@ export default connect(
   }
 
   return (
-    <div style={styles.container} onClick={() => setSelectedPanel(0)}>
+    <div
+      style={styles.container}
+      onClick={() => {
+        setSelectedPanel(0);
+        setEdit(-1);
+      }}
+    >
       <div style={styles.tree}>
         {nodes.map(item => (
           <TreeNode
@@ -128,8 +134,8 @@ export default connect(
             width={nodeWidth}
             hasBottom={item.depth !== 0}
             hasTop={item.depth !== 0}
-            onClickBottom={() => createNode(item.id, "新的想法", "brother")}
-            onClickRight={() => createNode(item.id, "新的想法", "children")}
+            onClickBottom={() => createNode(item.id, "新的观点", "brother")}
+            onClickRight={() => createNode(item.id, "新的观点", "children")}
           >
             <Node
               height="1.5em"
@@ -146,18 +152,22 @@ export default connect(
               highlight={item.id === selectedId}
               nomove={true}
               hasDelete={item.depth !== 0}
-              onClick={() => handleSelectSlide(item.id)}
+              onClick={e => {
+                handleSelectSlide(item.id);
+                e.stopPropagation();
+              }}
             >
               <div className={classNames.nodeTitle}>
                 <Icon type="drag" className={classNames.dragIcon} />
                 {edit !== item.id ? (
                   <div onClick={() => handleSelectSlide(item.id)}>
-                    {item.name === "" ? "未编辑" : item.name}
+                    {item.name === "" ? "没有标题" : item.name}
                   </div>
                 ) : (
                   <input
                     value={item.name}
                     onChange={e => handleTitleChange(e, item.id)}
+                    onClick={e => e.stopPropagation()}
                   />
                 )}
               </div>

@@ -41,6 +41,7 @@ export default connect(null, {
       onDragStart={e => handleDragStart(e, content)}
       onDragEnd={() => setIsDrag(false)}
       className={classNames.container}
+      onMouseLeave={() => setEdit(false)}
     >
       <Node
         onDelete={() => deleteIdea(id)}

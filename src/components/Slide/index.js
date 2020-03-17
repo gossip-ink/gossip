@@ -34,6 +34,8 @@ export default connect(
         (selected ? "10px solid #4091f7" : "10px solid #efefef"),
       height,
       width,
+      backgroundColor: editable && "white",
+      boxShadow: editable && "0 2px 6px rgba(0, 0, 0, 0.1)",
       transformOrigin: "left top"
     },
     overlayer: {
@@ -45,10 +47,12 @@ export default connect(
       zIndex: 10
     }
   };
+
   function handleDrop(e) {
     const dragType = e.dataTransfer.getData("type");
     if (dragType !== "idea") return;
-    const dragId = parseInt(e.dataTransfer.getData("id"));
+    const id = parseInt(e.dataTransfer.getData("id"));
+    const dragId = isNaN(id) ? e.dataTransfer.getData("id") : id;
     appendIdea(dragId, content.id);
     setIsDrag(false);
   }

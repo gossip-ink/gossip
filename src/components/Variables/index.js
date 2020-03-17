@@ -84,6 +84,7 @@ export default connect(
             onDelete={() => deleteVar(item.id)}
             edit={item.id === edit}
             highlight={selectedArributeId === item.id}
+            hasDelete={item.canDelete}
             onEdit={() => {
               if (item.id === edit) {
                 setEdit(-1);
