@@ -1,4 +1,3 @@
-import imageURL from "../static/images/example.jpg";
 import helpFile from "../static/data/help.json";
 import { saveAs } from "file-saver";
 import { dfs, descendant } from "../utils/tree";
@@ -10,6 +9,8 @@ import {
   createText,
   createFile
 } from "../utils/create";
+
+const imageURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg";
 
 function initData() {
   const data = JSON.parse(localStorage.getItem("uIdea")) || helpFile;

@@ -13,6 +13,6 @@
     "react-input-color": "^2.0.29"
   },
   "scripts": {
-    "build": "umi build && mv ./dist ./docs"
+    "build": "umi build && rm -rf ./docs && mv ./dist ./docs"
   }
 }

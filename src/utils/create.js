@@ -1,5 +1,5 @@
 import url from "../static/images/灯泡.png";
-import exampleURL from "../static/images/example.jpg";
+const exampleURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg"
 // 创建组件
 function createText(id, value, attrs) {
   return {
