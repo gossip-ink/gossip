@@ -8,6 +8,7 @@ export default connect(null, {
     payload: { value, key, cmpId, rootId }
   })
 })(function({
+  id,
   attrs,
   value,
   width,
@@ -70,7 +71,7 @@ export default connect(null, {
       input.style.fontSize = `${ft}px`;
       bh = input.offsetHeight;
     }
-    if (ft !== attrs.fontSize) changeAttr(ft, "fontSize");
+    if (ft !== attrs.fontSize) changeAttr(ft, "fontSize", id);
     // textarea 高度自适应
     if (select && edit) input.style.height = input.scrollHeight + "px";
   });

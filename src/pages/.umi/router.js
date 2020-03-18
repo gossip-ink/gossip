@@ -15,21 +15,39 @@ const Router = routerRedux.ConnectedRouter;
 const routes = [
   {
     path: '/',
-    exact: true,
     component: __IS_BROWSER
       ? _dvaDynamic({
-          component: () => import('../index/index.js'),
+          component: () => import('../../layout/index.js'),
         })
-      : require('../index/index.js').default,
-  },
-  {
-    path: '/present',
-    exact: true,
-    component: __IS_BROWSER
-      ? _dvaDynamic({
-          component: () => import('../present/index.js'),
-        })
-      : require('../present/index.js').default,
+      : require('../../layout/index.js').default,
+    routes: [
+      {
+        path: '/',
+        exact: true,
+        component: __IS_BROWSER
+          ? _dvaDynamic({
+              component: () => import('../index/index.js'),
+            })
+          : require('../index/index.js').default,
+      },
+      {
+        path: '/present',
+        exact: true,
+        component: __IS_BROWSER
+          ? _dvaDynamic({
+              component: () => import('../present/index.js'),
+            })
+          : require('../present/index.js').default,
+      },
+      {
+        component: () =>
+          React.createElement(
+            require('/usr/local/lib/node_modules/umi/node_modules/_umi-build-dev@1.16.10@umi-build-dev/lib/plugins/404/NotFound.js')
+              .default,
+            { pagesPath: 'src/pages', hasRoutesInConfig: false },
+          ),
+      },
+    ],
   },
   {
     component: () =>

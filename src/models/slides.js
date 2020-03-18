@@ -1,5 +1,5 @@
-import imageURL from "../static/example.jpg";
-import helpFile from "../static/help.json";
+import imageURL from "../static/images/example.jpg";
+import helpFile from "../static/data/help.json";
 import { saveAs } from "file-saver";
 import { dfs, descendant } from "../utils/tree";
 import {
@@ -12,7 +12,7 @@ import {
 } from "../utils/create";
 
 function initData() {
-  const data = JSON.parse(localStorage.getItem("uIdea")) || createFile();
+  const data = JSON.parse(localStorage.getItem("uIdea")) || helpFile;
   data.selectedId = 1;
   return data;
 }

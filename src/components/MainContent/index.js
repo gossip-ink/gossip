@@ -47,7 +47,8 @@ export default connect(
     content: {
       transform: `scale(${scale})`,
       transformOrigin: "left top",
-      marginLeft: 2 // 边框
+      marginLeft: 2, // 边框
+      // border: "1px solid #e8e8e8"
     },
     wrapper: {
       width: ww * scale + 4, // 边框

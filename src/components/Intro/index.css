@@ -1,0 +1,32 @@
+.container {
+  background: #25292e;
+  color: white;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #25292e;
+  padding: 0 10%;
+}
+
+.logo {
+  line-height: 60px;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: "Luckiest Guy", cursive;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.big {
+  font-weight: bold;
+  font-size: 40px;
+}
+.icon {
+  font-size: 25px;
+}

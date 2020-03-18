@@ -1,5 +1,5 @@
 import classNames from "./index.css";
-import { Icon, Popover, Button, Empty, Drawer, Switch } from "antd";
+import { Icon, Popover, Button, Empty, Switch, Modal } from "antd";
 import { useState } from "react";
 export default function({
   nodata = true,
@@ -11,7 +11,6 @@ export default function({
   onSwitch,
   nodataInfo = "没有数据"
 }) {
-  const [help, setHelp] = useState(false);
   const styles = {
     box: {
       height
@@ -23,6 +22,14 @@ export default function({
       height: height - 10 - 60
     }
   };
+
+  function handleHelp() {
+    Modal.info({
+      title: `使用指南-${title}`,
+      content: intro,
+      okText: "懂了"
+    });
+  }
   return (
     <div className={classNames.box} style={styles.box}>
       <div className={classNames.container} style={styles.container}>
@@ -32,7 +39,7 @@ export default function({
               <Icon
                 type="question-circle"
                 className={classNames.icon}
-                onClick={() => setHelp(!help)}
+                onClick={handleHelp}
               ></Icon>
               <span className={classNames.title}>{title}</span>
             </div>
@@ -64,16 +71,6 @@ export default function({
           ) : (
             children
           )}
-          <Drawer
-            placement="left"
-            closable={true}
-            onClose={() => setHelp(false)}
-            visible={help}
-            getContainer={false}
-            style={{ position: "absolute" }}
-          >
-            {intro}
-          </Drawer>
         </div>
       </div>
     </div>

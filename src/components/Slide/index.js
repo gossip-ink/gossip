@@ -4,7 +4,8 @@ import { useState } from "react";
 import { connect } from "dva";
 export default connect(
   state => ({
-    isDrag: state.global.isDragIdea
+    isDrag: state.global.isDragIdea,
+    variables: state.slides.attributeVars
   }),
   {
     appendIdea: (ideaId, nodeId) => ({
@@ -22,9 +23,11 @@ export default connect(
   isDrag = false,
   setIsDrag,
   appendIdea,
-  hasBorder = true
+  hasBorder = true,
+  variables
 }) {
   const [dragged, setDragged] = useState(false);
+  const { value } = variables.find(item => item.id === 1);
   const { id } = content;
   const styles = {
     container: {
@@ -34,8 +37,8 @@ export default connect(
         (selected ? "10px solid #4091f7" : "10px solid #efefef"),
       height,
       width,
-      backgroundColor: editable && "white",
-      boxShadow: editable && "0 2px 6px rgba(0, 0, 0, 0.1)",
+      backgroundColor: editable && (value ? value : "white"),
+      boxShadow: editable && "0 0px 8px rgba(0, 0, 0, 0.1)",
       transformOrigin: "left top"
     },
     overlayer: {

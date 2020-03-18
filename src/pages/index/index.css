@@ -1,16 +1,3 @@
-body {
-  overflow: hidden;
-  height: 100%;
-  background: #f7f8fa;
-}
-
-@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
-
-* {
-  padding: 0;
-  margin: 0;
-}
-
 .container {
   width: 100%;
 }
