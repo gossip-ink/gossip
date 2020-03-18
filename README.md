@@ -1,204 +1,125 @@
 # uIdea
 
-一个快速创建炫酷效果的制作幻灯片的系统。
+一个想要超越 Powerpoint 和 keynote 的幻灯片系统。
 
-![QQ20191231-095430@2x.png](https://i.loli.net/2019/12/31/yOsPigBNSMAu5UY.png)
+![QQ20191231-095430@2x.png](https://i.loli.net/2020/03/18/ILzP6DTHZvd97gY.png)
 
-![QQ20191231-105844@2x.png](https://i.loli.net/2019/12/31/yaRP354xlDvUFCQ.png)
+![QQ20191231-105844@2x.png](https://i.loli.net/2020/03/18/ORdIg4y2mxPHj1z.png)
 
-## 查看介绍的幻灯片
+[直接体验](https://pearmini.github.io/uIdea/)
 
-(1) 将 examples 里面的 `introduction.uidea` 下载到本地。
+## 缘起
 
-(2) 打开网址：https://pearmini.github.io/uIdea/
+这个项目最初的灵感是来自于 [impress.js](https://github.com/impress/impress.js)，但它使用起来很麻烦（毕竟为了做幻灯片而写代码有点...)，另一方面现有的一些制作幻灯片的软件使用起来不尽人意。
 
-(3) 在工具中点击上传按钮，选择 `introduction.uidea` 上传。
+《人类简史》中有一个观点，人类之所以强于其他动物就是因为人类会讲故事。而幻灯片不失为一种讲故事的好方式，所以如何通过幻灯片更快、更有效地将想讲的故事传达给听众，是一个有意思的文字。
 
-(4) 点击放映按钮。
+于是我将 uIdea 作为了人机交互课程的课设，也就是目前这个版本。但是现在这个版本仍然有很大的改进空间，所以我将它作为我的毕设。希望大家使用后多多提意见，我会在我毕设最后的成果中体现。
 
-## 功能
+## 特色
 
-这里大概介绍一下 uIdea 的独一无二的功能。
-
-### ToolBar
-
-你可以放映、保存当前 slides 到浏览器到缓存、新建幻灯片、下载幻灯片、上传幻灯片。
-
-### Outline
-
-在这里你可以约定式地创建幻灯片，也就是说你只负责写大纲（一棵树的形式），会根据大纲生成相应的 slides。
-
-当你通过拖拽调整大纲的时候，相应的 slide 的顺序也会发生改变。
-
-### Thumbnails
-
-这是所有 slide 的缩略图。
-
-### Structure
-
-这里是每一个 slide 的结构，在这个面板你可以添加新的元素（图片、文字、代码）到你的 slide 里面。
-
-### AttrPanel
-
-在这里可以设置当前选中元素的一些属性。
-
-### Variables
-
-全局的属性变量。在这里你可以创建、删除和编辑属性变量，并且和当前选中元素的某一个属性关联起来，这些都是响应式的。
-
-## JSON 语法
-
-### 大体结构
-
-描述一个 PPT 的 json 的大体结构如下，一共有7个字段。
-
-- filename: 文件名，会显示在标题栏。
-- selectedId: 当前选中的 slide 的 id。
-- selectedPanelId: 当前操作的面板的 id。
-- selectedComponentId: 当前选中的组件的 id。
-- structure: PPT 的大纲。
-- components: 一个数组，每一个元素是一个 slide 的结构。
-- attributeVars: 一个数组，存储着所有的属性变量。
-
-```json
-{
-  "filename": "hello world",
-  "selectedId": 1,
-  "selectedPanelId": 1,
-  "selectedComponentId": 1,
-  "structure":{
-
-  },
-  "components":[],
-  "attributeVars":[],
-  "ideas":[]
-}
-```
-
-### structure
-
-这里是 slides 间的关系，是一棵树。
-
-```json
-{
-    "id": 1,
-    "name": "uIdea",
-    "children": [
-      {
-        "id": 2,
-        "name": "快速构建",
-        "children": [
-          { "id": 3, "name": "思维导图" },
-          { "id": 4, "name": "flex 布局" }
-        ]
-      },
-      { "id": 5, "name": "更有交互性" }
-    ]
-}
-```
-
-### components
-
-每一个 slide 都是一个 component，这是一也是一颗树。
-
-```json
-[
- {
-  "id":1,
-  "type": "panel",
-  "value":"colum",
-  "attrs":{
-    "span":[1, 2],
-    "flex": "colum"
-  },
-  "children":[
-    {
-      "id":2,
-      "type":"text",
-      "value":"hello world",
-      "attrs":{
-        "fontSize":20,
-        "fontColor":"#00000"
-      }
-    }
-  ]
- }
-]
-
-```
-
-目前一个有4种 component。
-
-#### panel
-
-主要用于布局，value 是当前的布局类型。
-
-支持的属性有：
-
-- backgroundColor
-- flex
-- padding
+- 更加符合人们创作流程的使用体验。
+- 更少拖拽和对其操作的布局。
+- 更加自由和方便的修改样式。
+- 拥有有和 impress.js 相似的切换动画和 overview 模式，但是这里的布局和动画都是一键生成，不需要你写代码一张张的调整...
   
-#### text
+## 使用方法
 
-主要用于显示文字，value 是当前显示的文字。
+基本的使用方法请移步[这里](https://pearmini.github.io/uIdea/)，并且点击教程。这里只是对其中一些进行更加详细的说明。
 
-支持的属性有：
+### 想法
 
-- fontSize
-- color
-- textAlign
-- padding
-- verticalAlign
-- isTitle
+“想法面板”中的**想法**不仅可以直接拖进**每一页幻灯片**，还可以拖进**大纲面板**。
 
-#### image
+![Mar-18-2020 17-08-24.gif](https://i.loli.net/2020/03/18/EpX9st8Nz2Hduxl.gif)
 
-主要用于显示图片，value 是当前图片的 url。
+### 大纲
 
-支持的属性有：
+支持多种拖拽方式来改变幻灯片的顺序。
 
-- displayMode
-- padding
+![Mar-18-2020 17-12-08.gif](https://i.loli.net/2020/03/18/FvXnlL7eT438suh.gif)
 
-#### canvas
+### 结构
 
-主要用于制作有交互性的东西，value 是当前的代码。
+每一页幻灯片是由一些视觉元素组成，主要有四种：文字、图片、容器和画布。
 
-支持的属性：
+#### 文字
 
-- padding
+文字会根据容器的大小自动调整大小。
 
-API
+#### 图片
+
+因为没有云存储能力，所以推荐将图片存储到[图床](https://zhuanlan.zhihu.com/p/35270383)上，然后将上传图片链接，用来减少浏览器缓存的压力。
+
+#### 容器
+
+容器主要用来对幻灯片进行布局。它可以包含任意数量的元素（包括容器本身），并且可以指定子元素的排列方式：水平或者竖直。
+
+通过调整容器的 `span` 属性可以调整子元素的大小比例关系。
+
+[![80wKPJ.gif](https://s1.ax1x.com/2020/03/18/80wKPJ.gif)](https://imgchr.com/i/80wKPJ)
+
+可以通过拖拽结构面板中的“树”来修改子元素的顺序，或者直接在幻灯片中拖拽交换两者的位置，如下图。
+
+[![80wmaF.gif](https://s1.ax1x.com/2020/03/18/80wmaF.gif)](https://imgchr.com/i/80wmaF)
+
+#### Canvas API
+
+在使用画布的时候，需要将它的内容设置为一个回调函数，该函数的四个参数分别是：
+
+- canvas 对象
+- context 对象
+- canvas 的 width 属性：会随着容器大小的变化而变化。
+- canvas 的 height 属性：会随着容器的大小的变化而变化。
+
+下面这个例子是在画布中间画一个边长为 100 的正方形。
 
 ```js
-function(ctx, width, height){
-  ctx.fillStyle = "yellow";
-  ctx.fillRect(width / 2, height / 2, 10, 10)
+function(canvas, context, width, height){
+  const size = 100,
+    x = (width - size ) / 2 ,
+    y = (height - size ) / 2;
+  context.fillStyle = "#000000";
+  context.fillRect(x, y, size, size);
 }
 ```
 
-### attributeVars
+目前动画方式只支持 `setInterval`，不支持 `requestAnimationFrame`。同时在回调函数中需要将 `timer` 返回，这样在组件销毁的时候会调用 `clearInterval(timer)` 清除该计时器。
 
-这里是属性变量。
+使用方法如下。
 
-```json
-[
-  { "id": 1, "type": "color", "value":"#bbbbbb", "name": "标题颜色" },
-  {}
-]
+```js
+function(canvas, context, width, height){
+  const animation = () => {
+    // animation code here
+  }
+  const timer = setInterval(animation, 30)
+  return timer;
+}
 ```
 
-目前一种支持两种：
+### 属性和属性变量
 
-- color
-- number
+目前属性变量只有两种类型：color 和 number。创建一个属性变量后，首先可以修改名字（“字体大小”，“字体颜色”），然后可以通过拖动将其和选择的元素（文字、容器...）的属性关联起来。
 
-## TODO
+和属性变量关联的属性后面会有一个**眼睛**和**垃圾桶**。在这个状态下，属性的值是不能直接改变的，需要修改与其关联的属性变量的值。点击**眼睛**会高亮对应的属性变量，点击**垃圾桶**会解除属性变量和该属性的绑定，这时可以直接修改该属性的值，同时修改属性变量的值不会影响该属性的值。
 
-- 新增一种布局：Grid
-- Slide 的默认值样式
-- 快捷键
-- 选择颜色的组件
-- 界面的样式
+下面的动图演示了：新建一个红色的属性变量，并且和两段文字绑定，之后修改该变量的值为蓝色，两段文字的颜色同时发生变化。
+
+![800FFe.gif](https://s1.ax1x.com/2020/03/18/800FFe.gif)
+
+当然已经预设了一些属性变量，大家可以自行修改。
+
+## 技术栈
+
+umi + antd
+
+## Todo
+
+- 更加方便的布局方式。
+- 支持动画。
+- 扩展性更强的大纲。
+- 更加舒服的交互方式。
+- 词云模式的布局调整。
+- ...
   

@@ -179,11 +179,8 @@ export default connect(
     };
     const arr = mp[type];
     const index = arr.indexOf(attr);
-    if (index === -1) {
-      alert("类型不匹配");
-      return;
-    }
-    changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
+    if (index === -1) alert("类型不匹配");
+    else changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
     setDragover("");
   }
 

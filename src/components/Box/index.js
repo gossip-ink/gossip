@@ -1,15 +1,14 @@
 import classNames from "./index.css";
-import { Icon, Popover, Button, Empty, Switch, Modal } from "antd";
-import { useState } from "react";
+import { Icon, Popover, Button, Empty, Switch } from "antd";
 export default function({
   nodata = true,
   title,
   popover,
   children,
   height,
-  intro,
   onSwitch,
-  nodataInfo = "没有数据"
+  nodataInfo = "没有数据",
+  url = "https://github.com/pearmini/uidea"
 }) {
   const styles = {
     box: {
@@ -23,13 +22,6 @@ export default function({
     }
   };
 
-  function handleHelp() {
-    Modal.info({
-      title: `使用指南-${title}`,
-      content: intro,
-      okText: "懂了"
-    });
-  }
   return (
     <div className={classNames.box} style={styles.box}>
       <div className={classNames.container} style={styles.container}>
@@ -39,7 +31,7 @@ export default function({
               <Icon
                 type="question-circle"
                 className={classNames.icon}
-                onClick={handleHelp}
+                onClick={() => window.open(url)}
               ></Icon>
               <span className={classNames.title}>{title}</span>
             </div>

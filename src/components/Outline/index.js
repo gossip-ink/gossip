@@ -40,7 +40,8 @@ export default connect(
     appendIdea: (ideaId, nodeId) => ({
       type: "slides/appendIdea",
       payload: { nodeId, ideaId }
-    })
+    }),
+    setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } })
   }
 )(function({
   height,
