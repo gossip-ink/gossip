@@ -1,4 +1,6 @@
 export default {
+  base: "/uidea",
+  publicPath: "/uidea/",
   plugins: [
     [
       "umi-plugin-react",
@@ -8,7 +10,7 @@ export default {
           immer: true
         },
         antd: true,
-        dynamicImport: true,
+        dynamicImport: true
       }
     ]
   ]
