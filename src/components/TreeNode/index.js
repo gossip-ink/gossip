@@ -76,7 +76,7 @@ export default function({
       <div className={classNames.container}>
         {left.map((_, index) =>
           index === 0 ? (
-            <div className={classNames.leftItem}></div>
+            <div className={classNames.leftItem} key={index}></div>
           ) : (
             <div
               key={index}

@@ -60,7 +60,7 @@ export default function({
       />
       {edit && select && (
         <div className={classNames.btn}>
-          <Input type="image" onChange={onValueChange}></Input>
+          <Input type="image" onChange={onValueChange} value={value}></Input>
         </div>
       )}
     </div>

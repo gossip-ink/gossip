@@ -8,36 +8,24 @@ import {
 import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/lib/renderRoutes';
 import history from '@@/history';
-import { routerRedux, dynamic as _dvaDynamic } from 'dva';
+import { routerRedux } from 'dva';
 
 const Router = routerRedux.ConnectedRouter;
 
 const routes = [
   {
     path: '/',
-    component: __IS_BROWSER
-      ? _dvaDynamic({
-          component: () => import('../../layout/index.js'),
-        })
-      : require('../../layout/index.js').default,
+    component: require('../../layout/index.js').default,
     routes: [
       {
         path: '/',
         exact: true,
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              component: () => import('../index/index.js'),
-            })
-          : require('../index/index.js').default,
+        component: require('../index/index.js').default,
       },
       {
         path: '/present',
         exact: true,
-        component: __IS_BROWSER
-          ? _dvaDynamic({
-              component: () => import('../present/index.js'),
-            })
-          : require('../present/index.js').default,
+        component: require('../present/index.js').default,
       },
       {
         component: () =>

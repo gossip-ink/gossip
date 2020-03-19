@@ -149,7 +149,7 @@ function MyRadio({ value, onChange, list, hasIcon = true }) {
   );
 }
 
-function MyImage({ onChange }) {
+function MyImage({ onChange, value }) {
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const ref = useRef(null);
@@ -204,7 +204,12 @@ function MyImage({ onChange }) {
           okText="确认"
           cancelText="取消"
         >
-          <Input type="text" ref={ref} onChange={handleChange} />
+          <Input
+            type="text"
+            ref={ref}
+            onChange={handleChange}
+            value={value && value.slice(0, 100)}
+          />
           {error && <p className={classNames.error}>图片地址不能为空！</p>}
         </Modal>
       </li>
@@ -247,7 +252,7 @@ export default function({
         hasIcon={hasIcon}
       ></MyRadio>
     ),
-    image: <MyImage value={value} onChange={onChange} />
+    image: <MyImage value={value} onChange={onChange} value={value} />
   };
   const boxByType = {
     color: <div className={classNames.inputBox} style={styles.color}></div>,

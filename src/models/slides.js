@@ -13,9 +13,14 @@ import {
 const imageURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg";
 
 function initData() {
-  const data = JSON.parse(localStorage.getItem("uIdea")) || helpFile;
-  data.selectedId = 1;
-  return data;
+  try{
+    const data = JSON.parse(localStorage.getItem("uIdea")) || helpFile;
+    data.selectedId = 1;
+    return data;
+  }catch(e){
+    alert("读取本地存储失败，请在隐私中将“阻止所有 Cookies”关闭，否者不能使用本地存储！！！")
+    return helpFile;
+  }
 }
 
 export default {
