@@ -13,12 +13,14 @@ import {
 const imageURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg";
 
 function initData() {
-  try{
+  try {
     const data = JSON.parse(localStorage.getItem("uIdea")) || helpFile;
     data.selectedId = 1;
     return data;
-  }catch(e){
-    alert("读取本地存储失败，请在隐私中将“阻止所有 Cookies”关闭，否者不能使用本地存储！！！")
+  } catch (e) {
+    alert(
+      "读取本地存储失败，请在隐私中将“阻止所有 Cookies”关闭，否者不能使用本地存储！！！"
+    );
     return helpFile;
   }
 }
@@ -227,6 +229,26 @@ export default {
       state.selectedId = id;
       return state;
     },
+    hideNodeChildren(state, action) {
+      const { id } = action.payload;
+      dfs(state.structure, node => {
+        if (node.id === id) {
+          node._children = node.children;
+          node.children = null;
+        }
+      });
+      return state;
+    },
+    showNodeChildren(state, action) {
+      const { id } = action.payload;
+      dfs(state.structure, node => {
+        if (node.id === id) {
+          node.children = node._children;
+          node._children = null;
+        }
+      });
+      return state;
+    },
     // 将 node 插入当前节点的 children 的最后一个
     appendNode(state, action) {
       const { id, father } = action.payload;
@@ -258,8 +280,6 @@ export default {
     // 将节点插入当前节点的前面或者后面
     insertNode(state, action) {
       const { id, brother, before } = action.payload;
-
-      // 从旧的 father 删除
       let dragNode = null;
       dfs(state.structure, node => {
         node.children &&
@@ -357,6 +377,28 @@ export default {
         });
 
       dragNode && (state.selectedComponentId = dragNode.id);
+      return state;
+    },
+    hideCmpChildren(state, action) {
+      const { id } = action.payload;
+      const slide = state.components.find(item => item.id === state.selectedId);
+      dfs(slide, node => {
+        if (node.id === id) {
+          node._children = node.children;
+          node.children = null;
+        }
+      });
+      return state;
+    },
+    showCmpChildren(state, action) {
+      const { id } = action.payload;
+      const slide = state.components.find(item => item.id === state.selectedId);
+      dfs(slide, node => {
+        if (node.id === id) {
+          node.children = node._children;
+          node._children = null;
+        }
+      });
       return state;
     },
     createCmp(state, action) {

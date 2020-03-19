@@ -30,6 +30,7 @@
   overflow: auto;
   margin: 0.5em 1em 0 1em;
   position: relative;
+  scroll-behavior: smooth;
 }
 
 .empty {

@@ -30,8 +30,7 @@ export default connect(null, {
   }
 
   function handleDragStart(e, item) {
-    e.dataTransfer.setData("id", item.id);
-    e.dataTransfer.setData("type", "idea");
+    e.dataTransfer.setData("drag", `idea-${item.id}`);
     setIsDrag(true);
   }
 

@@ -5,6 +5,7 @@ import { range } from "d3-array";
 export default function({
   node,
   children,
+  onNodeDrag,
   onNodeDrop,
   highlightColor,
   width,
@@ -16,7 +17,9 @@ export default function({
   hasTop = true,
   hasRight = true,
   hasMiddle = true,
-  style
+  hasLeft = true,
+  style,
+  canDrag = true
 }) {
   const [hover, setHover] = useState(false);
   const [middle, setMiddle] = useState(false);
@@ -48,24 +51,21 @@ export default function({
     setLeft([...left.map(() => false)]);
 
     // 判断拖拽的类型
-    const dragType = e.dataTransfer.getData("type");
-
+    const dragData = e.dataTransfer.getData("drag");
+    const [t, data] = dragData.split("-");
     // 获得拖拽的节点
     let dragId;
-    if (dragType === "node") {
-      const data = parseInt(e.dataTransfer.getData("dragNode"));
-      dragId = isNaN(data) ? e.dataTransfer.getData("dragNode") : data;
-      if (dragId === node.id && type !== "left") return;
-      if (dragId !== node.id && type == "left") return;
+    if (t === "node") {
+      dragId = isNaN(parseInt(data)) ? data : parseInt(data);
     } else {
-      dragId = parseInt(e.dataTransfer.getData("id"));
+      dragId = parseInt(data);
     }
-    onNodeDrop(dragId, node.id, type, dragType, index);
+    onNodeDrop(dragId, node.id, type, t, index);
   }
 
   function handleDragStart(e) {
-    e.dataTransfer.setData("type", "node");
-    e.dataTransfer.setData("dragNode", node.id);
+    onNodeDrag && onNodeDrag();
+    e.dataTransfer.setData("drag", `node-${node.id}`);
   }
 
   return (
@@ -75,7 +75,7 @@ export default function({
     >
       <div className={classNames.container}>
         {left.map((_, index) =>
-          index === 0 ? (
+          index === 0 || !hasLeft ? (
             <div className={classNames.leftItem} key={index}></div>
           ) : (
             <div
@@ -120,12 +120,16 @@ export default function({
               }}
               onDragLeave={() => setMiddle(false)}
               onDragStart={handleDragStart}
-              draggable
+              draggable={canDrag}
             >
               {children}
             </div>
           ) : (
-            <div style={styles.middle} onDragStart={handleDragStart} draggable>
+            <div
+              style={styles.middle}
+              onDragStart={handleDragStart}
+              draggable={canDrag}
+            >
               {children}
             </div>
           )}

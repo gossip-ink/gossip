@@ -8,10 +8,21 @@ import Variables from "../../components/Variables";
 import IdeasPanel from "../../components/IdeasPanel";
 import SidebarPanel from "../../components/SidebarPanel";
 import useWindowSize from "react-use/lib/useWindowSize";
+import { connect } from "dva";
+import { Modal, Button } from "antd";
+import { useState } from "react";
 
-export default function() {
+export default connect(
+  ({ global }) => ({
+    help: global.help
+  }),
+  {
+    setHelp: () => ({ type: "global/setHelp" })
+  }
+)(function({ help, setHelp }) {
   // 计算每个部分的高度
   const { height, width } = useWindowSize();
+  const [show, setShow] = useState(!help);
   const headerHeight = 60,
     contentHeight = height - headerHeight,
     sidebarHeight = contentHeight * 0.7,
@@ -63,7 +74,33 @@ export default function() {
           <Variables {...props.variables} />
         </div>
       </div>
-      
+      <Modal
+        title="提示"
+        visible={show}
+        okText="去学习"
+        cancelText="先随便看看"
+        onOk={() => {
+          window.open("https://github.com/pearmini/uidea");
+          setShow(false);
+        }}
+        onCancel={() => setShow(false)}
+      >
+        <div className={classNames.help}>
+          <p>
+            <b>uIdea</b>&nbsp;制作幻灯片的方法和常规软件方式有所区别，
+          </p>
+          <p>建议用10到20分钟的学习，</p>
+          <p>从此打开制作幻灯片的新方式🚀</p>
+          <Button
+            onClick={() => {
+              setShow(false);
+              setHelp();
+            }}
+          >
+            不再提醒
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
-}
+});

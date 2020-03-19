@@ -4,7 +4,7 @@ import { Icon } from "antd";
 import Box from "../Box";
 import Node from "../Node";
 import Input from "../Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default connect(
   state => ({
@@ -62,6 +62,12 @@ export default connect(
     </ul>
   );
 
+  useEffect(() => {
+    const a = document.createElement("a");
+    a.href = `#${selectedArributeId}`;
+    a.click();
+  });
+
   return (
     <Box
       height={height}
@@ -80,11 +86,13 @@ export default connect(
           onClick={() => selectedArributeId !== item.id && selectVar(item.id)}
         >
           <Node
+            id={item.id}
             height="2em"
             onDelete={() => deleteVar(item.id)}
             edit={item.id === edit}
             highlight={selectedArributeId === item.id}
             hasDelete={item.canDelete}
+            onMouseLeave={() => edit !== -1 && setEdit(-1)}
             onEdit={() => {
               if (item.id === edit) {
                 setEdit(-1);

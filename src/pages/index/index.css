@@ -18,3 +18,9 @@
 .main {
   overflow: auto;
 }
+
+.help {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -38,7 +38,7 @@ export default connect(
       height,
       width,
       backgroundColor: editable && (value ? value : "white"),
-      boxShadow: editable && "0 0px 8px rgba(0, 0, 0, 0.1)",
+      boxShadow: editable && "0 0px 8px rgba(0, 0, 0, 0.2)",
       transformOrigin: "left top"
     },
     overlayer: {
@@ -52,10 +52,11 @@ export default connect(
   };
 
   function handleDrop(e) {
-    const dragType = e.dataTransfer.getData("type");
+    const dragData = e.dataTransfer.getData("drag");
+    const [dragType, data] = dragData && dragData.split("-");
     if (dragType !== "idea") return;
-    const id = parseInt(e.dataTransfer.getData("id"));
-    const dragId = isNaN(id) ? e.dataTransfer.getData("id") : id;
+    const id = parseInt(data);
+    const dragId = isNaN(id) ? data : id;
     appendIdea(dragId, content.id);
     setIsDrag(false);
   }

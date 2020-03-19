@@ -41,7 +41,15 @@ export default connect(
       type: "slides/appendIdea",
       payload: { nodeId, ideaId }
     }),
-    setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } })
+    setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } }),
+    hideNodeChildren: id => ({
+      type: "slides/hideNodeChildren",
+      payload: { id }
+    }),
+    showNodeChildren: id => ({
+      type: "slides/showNodeChildren",
+      payload: { id }
+    })
   }
 )(function({
   height,
@@ -55,7 +63,9 @@ export default connect(
   insertNode,
   setSelectedPanel,
   appendIdea,
-  setIsDrag
+  setIsDrag,
+  hideNodeChildren,
+  showNodeChildren
 }) {
   const [edit, setEdit] = useState(-1);
   const indent = 20;
@@ -90,6 +100,9 @@ export default connect(
   }
 
   function handleNodeDrop(sourceNodeId, targetNodeId, type, dragType, depth) {
+    showNodeChildren(sourceNodeId);
+    if (sourceNodeId === targetNodeId && type !== "left") return;
+    if (sourceNodeId !== targetNodeId && type == "left") return;
     if (dragType === "node") {
       if (type === "top") {
         insertNode(sourceNodeId, targetNodeId, true);
@@ -135,8 +148,10 @@ export default connect(
             width={nodeWidth}
             hasBottom={item.depth !== 0}
             hasTop={item.depth !== 0}
+            canDrag={item.depth !== 0}
             onClickBottom={() => createNode(item.id, "新的观点", "brother")}
             onClickRight={() => createNode(item.id, "新的观点", "children")}
+            onNodeDrag={() => hideNodeChildren(item.id)}
           >
             <Node
               height="1.5em"

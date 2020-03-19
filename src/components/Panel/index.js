@@ -28,6 +28,10 @@ const Panel = connect(
     exchangeCmp: (a, b, root) => ({
       type: "slides/exchangeCmp",
       payload: { a, b, root }
+    }),
+    deleteCmp: (rootId, id) => ({
+      type: "slides/deleteCmp",
+      payload: { rootId, id }
     })
   }
 )(function({
@@ -50,7 +54,8 @@ const Panel = connect(
   exchangeCmp,
   enterId,
   setEnter,
-  scale
+  scale,
+  deleteCmp
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -59,7 +64,7 @@ const Panel = connect(
     if (typeof value === "string" && value[0] === "$") {
       const id = parseInt(value.slice(1));
       const v = variables.find(item => item.id === id);
-      newAttrs[key] = v.value;
+      newAttrs[key] = v ? v.value : "";
     }
   });
 
@@ -109,6 +114,7 @@ const Panel = connect(
             return (
               <Panel
                 {...item}
+                id={item.id}
                 key={item.id}
                 height={pHeight}
                 width={pWidth}
@@ -124,7 +130,6 @@ const Panel = connect(
   const selected = selectedRootId === rootId && id === selectedComponentId;
   const styles = {
     container: {
-      // background: newAttrs.backgroundColor,
       display: type === "panel" && "flex",
       flexDirection: type === "panel" && attrs.flex,
       height: height && height,
@@ -166,6 +171,7 @@ const Panel = connect(
     };
 
     window.addEventListener("mousemove", mousemoveHandler);
+
     return () => window.removeEventListener("mousemove", mousemoveHandler);
   });
 

@@ -1,5 +1,6 @@
 import classNames from "./index.css";
 import { Icon, Popover, Button, Empty, Switch } from "antd";
+import { useState, useEffect } from "react";
 export default function({
   nodata = true,
   title,
@@ -10,6 +11,7 @@ export default function({
   nodataInfo = "没有数据",
   url = "https://github.com/pearmini/uidea"
 }) {
+  const [show, setShow] = useState(false);
   const styles = {
     box: {
       height
@@ -21,6 +23,12 @@ export default function({
       height: height - 10 - 60
     }
   };
+
+  useEffect(() => {
+    const clickHandler = () => show && setShow(false);
+    window.addEventListener("click", clickHandler);
+    return () => window.removeEventListener("click", clickHandler);
+  });
 
   return (
     <div className={classNames.box} style={styles.box}>
@@ -38,15 +46,17 @@ export default function({
             {onSwitch && <Switch defaultChecked onChange={onSwitch} />}
             {popover && (
               <Popover
-                content={popover}
+                content={<div onClick={() => setShow(false)}>{popover}</div>}
                 title="选择一种类型"
                 placement="bottomRight"
+                visible={show}
               >
                 <Button
                   icon="plus"
                   type="primary"
                   shape="circle"
                   size="small"
+                  onClick={() => setShow(true)}
                 />
               </Popover>
             )}

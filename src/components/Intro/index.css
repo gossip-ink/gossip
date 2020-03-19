@@ -20,13 +20,32 @@
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  color: white;
+  padding: 10% 0 20% 0;
 }
 .big {
   font-weight: bold;
   font-size: 40px;
+  color: white;
 }
 .icon {
   font-size: 25px;
+}
+
+.imageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top {
+  margin: 2em 0 1em 0;
 }

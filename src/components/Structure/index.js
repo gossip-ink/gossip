@@ -57,7 +57,12 @@ export default connect(
     handleAddCmp: (type, method) => ({
       type: "slides/createCmp",
       payload: { type, method }
-    })
+    }),
+    showCmpChildren: id => ({
+      type: "slides/showCmpChildren",
+      payload: { id }
+    }),
+    hideCmpChildren: id => ({ type: "slides/hideCmpChildren", payload: { id } })
   }
 )(function({
   height,
@@ -68,7 +73,9 @@ export default connect(
   deleteCmp,
   insertCmp,
   appendCmp,
-  handleAddCmp
+  handleAddCmp,
+  hideCmpChildren,
+  showCmpChildren
 }) {
   const nodeWidth = 170;
   const slide = components.find(item => item.id === selectedId);
@@ -108,6 +115,9 @@ export default connect(
   };
 
   function handleNodeDrop(sourceNodeId, targetNodeId, type) {
+    showCmpChildren(sourceNodeId);
+    if (sourceNodeId === targetNodeId && type !== "left") return;
+    if (sourceNodeId !== targetNodeId && type == "left") return;
     if (type === "top") {
       insertCmp(sourceNodeId, targetNodeId, selectedId, true);
     } else if (type === "middle") {
@@ -129,7 +139,7 @@ export default connect(
   return (
     <Box
       height={height}
-      title="结构"
+      title="元素"
       iconType="cluster"
       nodata={nodes.length === 0}
       nodataInfo="没有选择任何幻灯片～"
@@ -145,8 +155,10 @@ export default connect(
             width={nodeWidth + "px"}
             hasTop={item.depth !== 0}
             hasBottom={item.depth !== 0}
+            canDrag={item.depth !== 0}
             hasRight={item.type === "panel"}
             hasMiddle={item.type === "panel"}
+            hasLeft={false}
             onClickRight={() => setSelectedComp(item.id)}
             onClickBottom={() => setSelectedComp(item.id)}
             popoverRight={
@@ -155,6 +167,7 @@ export default connect(
             popoverBottom={
               <Content handleAddCmp={handleAddCmp} type="brother" />
             }
+            onNodeDrag={() => hideCmpChildren(item.id)}
           >
             <Node
               onDelete={() => deleteCmp(selectedId, item.id)}

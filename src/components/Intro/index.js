@@ -23,16 +23,22 @@ export default function({ height }) {
         />
       </header>
       <div className={classNames.content} style={styles.content}>
-        <div className={classNames.big}>Present Different</div>
-        <img
-          src="https://i.loli.net/2020/03/18/ILzP6DTHZvd97gY.png"
-          width="60%"
-        />
-        <img
-          src="https://i.loli.net/2020/03/18/ORdIg4y2mxPHj1z.png"
-          width="60%"
-        />
-        <Button type="primary">请去大屏设备上使用</Button>
+        <div className={classNames.title}>
+          <h1 className={classNames.big}>Unique Idea</h1>
+          <p>一个快速创建炫酷幻灯片的用户界面🔥</p>
+          <Button type="primary">请去大屏设备上使用</Button>
+        </div>
+        <div className={classNames.imageWrapper}>
+          <img
+            src="https://i.loli.net/2020/03/18/ILzP6DTHZvd97gY.png"
+            width="80%"
+            className={classNames.top}
+          />
+          <img
+            src="https://i.loli.net/2020/03/18/ORdIg4y2mxPHj1z.png"
+            width="80%"
+          />
+        </div>
       </div>
     </div>
   );

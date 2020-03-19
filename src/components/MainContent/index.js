@@ -3,6 +3,7 @@ import Slide from "../Slide/index";
 import { Button } from "antd";
 import { connect } from "dva";
 import useWindowSize from "react-use/lib/useWindowSize";
+import { useEffect } from "react";
 export default connect(
   state => ({
     components: state.slides.components,
@@ -47,13 +48,22 @@ export default connect(
       transform: `scale(${scale})`,
       transformOrigin: "left top",
       marginLeft: 2 // 边框
-      // border: "1px solid #e8e8e8"
     },
     wrapper: {
       width: ww * scale + 4, // 边框
       height: wh * scale
     }
   };
+
+  useEffect(() => {
+    const keydownHandler = e => {
+      const key = e.keyCode;
+      if (key === 33 || key === 38) gotoPre();
+      else if (key === 40 || key === 39) gotoNext();
+    };
+    window.addEventListener("keydown", keydownHandler);
+    return () => window.removeEventListener("keydown", keydownHandler);
+  });
 
   return (
     <div

@@ -16,6 +16,7 @@ export default function({
   popover,
   nomove = false,
   hasDelete = true,
+  onMouseLeave = () => {},
   ...rest
 }) {
   const [hovered, setHoverd] = useState(false);
@@ -34,8 +35,12 @@ export default function({
   return (
     <div
       className={classNames.container}
+      onMouseOver={() => !hovered && setHoverd(true)}
       onMouseEnter={() => setHoverd(true)}
-      onMouseLeave={() => setHoverd(false)}
+      onMouseLeave={() => {
+        setHoverd(false);
+        onMouseLeave();
+      }}
       style={styles.container}
       {...rest}
     >

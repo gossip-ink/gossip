@@ -59,7 +59,7 @@ export default connect(null, {
     {
       icon: "read",
       upload: false,
-      name: "教程",
+      name: "介绍",
       onClick: help
     },
     {
