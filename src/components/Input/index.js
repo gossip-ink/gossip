@@ -206,11 +206,7 @@ function MyImage({ onChange, value }) {
           okText="确认"
           cancelText="取消"
         >
-          <Input
-            type="text"
-            ref={ref}
-            onChange={handleChange}
-          />
+          <Input type="text" ref={ref} onChange={handleChange} />
           {error && <p className={classNames.error}>图片地址不能为空！</p>}
         </Modal>
       </li>

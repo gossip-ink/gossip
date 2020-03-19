@@ -63,6 +63,7 @@ export default function() {
           <Variables {...props.variables} />
         </div>
       </div>
+      
     </div>
   );
 }

@@ -40,6 +40,9 @@ export default function({
     fill: {
       height,
       width
+    },
+    btn: {
+      opacity: select && edit ? 1 : 0
     }
   };
 
@@ -58,11 +61,9 @@ export default function({
           attrs.displayMode === "scaleToFill" ? styles.fill : styles.normal
         }
       />
-      {edit && select && (
-        <div className={classNames.btn}>
-          <Input type="image" onChange={onValueChange} value={value}></Input>
-        </div>
-      )}
+      <div className={classNames.btn} style={styles.btn}>
+        <Input type="image" onChange={onValueChange} value={value}></Input>
+      </div>
     </div>
   );
 }

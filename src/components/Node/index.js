@@ -25,6 +25,10 @@ export default function({
       width,
       border: highlight ? "1px solid #4091f7" : "1px solid #d9d9d9",
       cursor: nomove ? "pointer" : "move"
+    },
+    upload: {
+      opacity: hovered ? 1 : 0,
+      display: "inline"
     }
   };
   return (
@@ -36,9 +40,9 @@ export default function({
       {...rest}
     >
       {children}
-      {hovered && (
-        <div>
-          {type === "image" ? (
+      <div>
+        {type === "image" ? (
+          <div style={styles.upload}>
             <Upload
               accept="image/*"
               onChange={onImageChange}
@@ -48,27 +52,28 @@ export default function({
             >
               <Icon type="upload" />
             </Upload>
-          ) : (
-            onEdit && (
-              <Icon
-                type={edit ? "save" : "edit"}
-                onClick={e => {
-                  onEdit(e);
-                  e.stopPropagation();
-                }}
-                className={classNames.edit}
-              />
-            )
-          )}
-          {hasDelete && (
+          </div>
+        ) : (
+          hovered &&
+          onEdit && (
             <Icon
-              type="delete"
-              onClick={onDelete}
-              className={classNames.delete}
+              type={edit ? "save" : "edit"}
+              onClick={e => {
+                onEdit(e);
+                e.stopPropagation();
+              }}
+              className={classNames.edit}
             />
-          )}
-        </div>
-      )}
+          )
+        )}
+        {hasDelete && hovered && (
+          <Icon
+            type="delete"
+            onClick={onDelete}
+            className={classNames.delete}
+          />
+        )}
+      </div>
     </div>
   );
 }
