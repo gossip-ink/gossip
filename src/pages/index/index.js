@@ -7,7 +7,7 @@ import AttrPanel from "../../components/AttrPanel";
 import Variables from "../../components/Variables";
 import IdeasPanel from "../../components/IdeasPanel";
 import SidebarPanel from "../../components/SidebarPanel";
-import { useWindowSize } from "react-use";
+import useWindowSize from "react-use/lib/useWindowSize";
 
 export default function() {
   // 计算每个部分的高度

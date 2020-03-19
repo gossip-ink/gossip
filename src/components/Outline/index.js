@@ -5,7 +5,7 @@ import Node from "../Node";
 import TreeNode from "../TreeNode";
 import tree, { dfs } from "../../utils/tree";
 import { Icon } from "antd";
-import { max } from "d3";
+import { max } from "d3-array";
 
 export default connect(
   state => ({

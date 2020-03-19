@@ -21,11 +21,15 @@ const routes = [
         path: '/',
         exact: true,
         component: require('../index/index.js').default,
+        _title: 'uIdea',
+        _title_default: 'uIdea',
       },
       {
         path: '/present',
         exact: true,
         component: require('../present/index.js').default,
+        _title: 'uIdea',
+        _title_default: 'uIdea',
       },
       {
         component: () =>
@@ -34,8 +38,12 @@ const routes = [
               .default,
             { pagesPath: 'src/pages', hasRoutesInConfig: false },
           ),
+        _title: 'uIdea',
+        _title_default: 'uIdea',
       },
     ],
+    _title: 'uIdea',
+    _title_default: 'uIdea',
   },
   {
     component: () =>
@@ -44,6 +52,8 @@ const routes = [
           .default,
         { pagesPath: 'src/pages', hasRoutesInConfig: false },
       ),
+    _title: 'uIdea',
+    _title_default: 'uIdea',
   },
 ];
 window.g_routes = routes;

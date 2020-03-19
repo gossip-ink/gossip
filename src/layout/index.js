@@ -1,4 +1,4 @@
-import { useWindowSize } from "react-use";
+import useWindowSize from "react-use/lib/useWindowSize";
 import "./index.css";
 import Intro from "../components/Intro";
 export default function({ children }) {

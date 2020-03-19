@@ -2,8 +2,7 @@ import classNames from "./index.css";
 import Slide from "../Slide/index";
 import { Button } from "antd";
 import { connect } from "dva";
-import { useWindowSize } from "react-use";
-
+import useWindowSize from "react-use/lib/useWindowSize";
 export default connect(
   state => ({
     components: state.slides.components,
@@ -47,7 +46,7 @@ export default connect(
     content: {
       transform: `scale(${scale})`,
       transformOrigin: "left top",
-      marginLeft: 2, // 边框
+      marginLeft: 2 // 边框
       // border: "1px solid #e8e8e8"
     },
     wrapper: {

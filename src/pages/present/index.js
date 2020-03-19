@@ -1,7 +1,7 @@
 import classNames from "./index.css";
 import { connect } from "dva";
 import { useEffect } from "react";
-import { useWindowSize } from "react-use";
+import useWindowSize from "react-use/lib/useWindowSize";
 import router from "umi/router";
 
 import Slide from "../../components/Slide";

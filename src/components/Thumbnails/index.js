@@ -1,9 +1,8 @@
 import classNames from "./index.css";
 import { connect } from "dva";
-import { useWindowSize } from "react-use";
 import Slide from "../Slide/index";
 import { dfs } from "../../utils/tree";
-
+import useWindowSize from "react-use/lib/useWindowSize";
 export default connect(
   state => ({
     components: state.slides.components,

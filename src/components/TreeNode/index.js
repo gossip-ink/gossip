@@ -1,7 +1,7 @@
 import { useState } from "react";
 import classNames from "./index.css";
 import { Icon, Popover } from "antd";
-import { range } from "d3";
+import { range } from "d3-array";
 export default function({
   node,
   children,

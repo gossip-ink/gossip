@@ -1,7 +1,8 @@
 import classNames from "./index.css";
-import { SketchPicker } from "react-color";
+import SketchPicker from "react-color/lib/Sketch";
 import { Popover, Slider, Button, Switch, Upload, Modal, Input } from "antd";
-import { scaleLinear, pairs } from "d3";
+import { scaleLinear } from "d3-scale";
+import { pairs } from "d3-array";
 import { useRef, useEffect, useState } from "react";
 
 function Number({ value, onChange, range = [0, 100] }) {
@@ -153,6 +154,7 @@ function MyImage({ onChange, value }) {
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const ref = useRef(null);
+
   function handleImageChange(data) {
     const file = data.file.originFileObj;
     const reader = new FileReader();
@@ -208,7 +210,6 @@ function MyImage({ onChange, value }) {
             type="text"
             ref={ref}
             onChange={handleChange}
-            value={value && value.slice(0, 100)}
           />
           {error && <p className={classNames.error}>图片地址不能为空！</p>}
         </Modal>

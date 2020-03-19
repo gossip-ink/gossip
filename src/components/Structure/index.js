@@ -5,7 +5,7 @@ import Node from "../Node";
 import TreeNode from "../TreeNode";
 import Box from "../Box";
 import tree from "../../utils/tree";
-import { max } from "d3";
+import { max } from "d3-array";
 
 function Content({ type, handleAddCmp }) {
   const items = [
