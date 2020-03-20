@@ -4,7 +4,7 @@ import { Icon } from "antd";
 import Box from "../Box";
 import Node from "../Node";
 import Input from "../Input";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default connect(
   state => ({
@@ -28,19 +28,12 @@ export default connect(
   addVar,
   selectVar,
   changeVar,
-  name
 }) {
   const [edit, setEdit] = useState(-1);
   const icon = {
     color: "bg-colors",
     number: "number"
   };
-
-  function handleDragStart(e, item) {
-    selectVar(item.id);
-    e.dataTransfer.setData("type", item.type);
-    e.dataTransfer.setData("id", item.id);
-  }
 
   const items = [
     { name: "颜色", value: "color", type: "bg-colors" },
@@ -63,11 +56,11 @@ export default connect(
     </ul>
   );
 
-  useEffect(() => {
-    // const a = document.createElement("a");
-    // a.href = `#${selectedArributeId}`;
-    // a.click();
-  });
+  function handleDragStart(e, item) {
+    selectVar(item.id);
+    e.dataTransfer.setData("type", item.type);
+    e.dataTransfer.setData("id", item.id);
+  }
 
   return (
     <Box
@@ -77,7 +70,7 @@ export default connect(
       popover={content}
       nodata={variables.length === 0}
       nodataInfo="没有属性变量～"
-      name={name}
+      name="vari"
     >
       {variables.map(item => (
         <div

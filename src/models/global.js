@@ -15,9 +15,10 @@ export default {
     scale: 1,
     help: getHelp(),
     show: {
-      idea: 0,
+      idea: 1,
       structure: 1,
-      attr: 1
+      attr: 1,
+      vari: 1
     }
   },
   reducers: {
@@ -44,6 +45,9 @@ export default {
     toggleShow(state, action) {
       const { key } = action.payload;
       state.show[key] = state.show[key] ? 0 : 1;
+      const g = ["vari", "attr", "structure"];
+      if (g.indexOf(key) === -1 || g.some(d => state.show[d])) return state;
+      g.forEach(d => d !== key && (state.show[d] = state.show[d] ? 0 : 1));
       return state;
     }
   }

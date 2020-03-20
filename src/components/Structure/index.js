@@ -76,7 +76,6 @@ export default connect(
   handleAddCmp,
   hideCmpChildren,
   showCmpChildren,
-  name
 }) {
   const nodeWidth = 170;
   const slide = components.find(item => item.id === selectedId);
@@ -144,8 +143,7 @@ export default connect(
       iconType="cluster"
       nodata={nodes.length === 0}
       nodataInfo="没有选择任何幻灯片～"
-      name={name}
-      closable={false}
+      name="structure"
     >
       <div style={styles.tree}>
         {nodes.map(item => (

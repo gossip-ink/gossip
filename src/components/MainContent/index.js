@@ -2,7 +2,7 @@ import classNames from "./index.css";
 import Slide from "../Slide";
 import Idea from "../Idea";
 import Box from "../Box";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { connect } from "dva";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { Icon } from "antd";
@@ -42,7 +42,6 @@ export default connect(
   ideas,
   addIdea
 }) {
-  const [isIdea, setIsIdea] = useState(true);
   const { height: wh, width: ww } = useWindowSize();
   const content = components.find(v => v.id === selectedId);
   const padding = Math.min(20, width * 0.05),
@@ -58,23 +57,20 @@ export default connect(
     { icon: "codepen", value: "画布", type: "canvas" }
   ];
 
-  const pop = {
-    idea: (
-      <ul className={classNames.list}>
-        {items.map(({ icon, value, type }) => (
-          <li
-            className={classNames.item}
-            key={type}
-            onClick={() => addIdea(type)}
-          >
-            <Icon type={icon} className={classNames.icon}></Icon>
-            <span>{value}</span>
-          </li>
-        ))}
-      </ul>
-    ),
-    var: {}
-  };
+  const pop = (
+    <ul className={classNames.list}>
+      {items.map(({ icon, value, type }) => (
+        <li
+          className={classNames.item}
+          key={type}
+          onClick={() => addIdea(type)}
+        >
+          <Icon type={icon} className={classNames.icon}></Icon>
+          <span>{value}</span>
+        </li>
+      ))}
+    </ul>
+  );
 
   const styles = {
     container: {
@@ -108,9 +104,8 @@ export default connect(
     ideas: {
       height: show ? ideaH : 0,
       name: "idea",
-      title: isIdea ? "想法" : "变量",
-      onSwitch: () => setIsIdea(!isIdea),
-      popover: isIdea ? pop.idea : pop.var,
+      title: "想法",
+      popover: pop,
       nodata: ideas.length === 0,
       nodataInfo: "快来写下第一个独一无二的想法吧～"
     }
@@ -146,11 +141,9 @@ export default connect(
       </div>
       <Box {...props.ideas}>
         <div style={styles.bottom} className={classNames.bottom}>
-          {isIdea ? (
-            ideas.map(item => <Idea key={item.id} content={item} />)
-          ) : (
-            <div></div>
-          )}
+          {ideas.map(item => (
+            <Idea key={item.id} content={item} />
+          ))}
         </div>
       </Box>
     </div>

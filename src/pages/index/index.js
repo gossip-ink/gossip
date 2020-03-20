@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import MainContent from "../../components/MainContent";
 import Structure from "../../components/Structure";
 import AttrPanel from "../../components/AttrPanel";
+import Variables from "../../components/Variables";
 import SidebarPanel from "../../components/SidebarPanel";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { connect } from "dva";
@@ -22,38 +23,34 @@ export default connect(
   // 计算每个部分的高度
   const { height, width } = useWindowSize();
   const [pop, setPop] = useState(!help);
-  const { structure, attr } = show;
-
+  const { structure, attr, vari } = show;
   const headerHeight = 60,
     contentHeight = height - headerHeight,
-    structureHeight = Math.min(
-      (contentHeight * structure) / (attr + structure),
-      contentHeight - 45
-    ),
-    attrPanelHeight = Math.min(
-      (contentHeight * attr) / (attr + structure),
-      contentHeight - 45
-    );
+    total = structure + attr + vari,
+    totalHeight = contentHeight - (3 - total) * 45,
+    structureHeight = (totalHeight * structure) / total,
+    attrPanelHeight = (totalHeight * attr) / total,
+    varHeight = (totalHeight * vari) / total;
 
   const props = {
     header: {
       height: headerHeight
     },
     sidebar: {
-      height: contentHeight,
-      name: "outline"
+      height: contentHeight
     },
     mainContent: {
       height: contentHeight,
       width: width - 600
     },
     structure: {
-      height: structureHeight,
-      name: "structure"
+      height: structureHeight
     },
     attrPanel: {
-      height: attrPanelHeight,
-      name: "attr"
+      height: attrPanelHeight
+    },
+    Variables: {
+      height: varHeight
     }
   };
 
@@ -70,6 +67,7 @@ export default connect(
         <div className={classNames.right}>
           <Structure {...props.structure} />
           <AttrPanel {...props.attrPanel} />
+          <Variables {...props.Variables} />
         </div>
       </div>
       <Modal
