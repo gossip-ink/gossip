@@ -82,8 +82,8 @@ export default connect(
       marginBottom: padding - 5
     },
     slide: {
-      width: slideW + 2,
-      height: slideH + 2
+      width: Math.ceil(slideW + 2),
+      height: Math.ceil(slideH + 2)
     },
     wrapper: {
       transform: `scale(${scale})`,
@@ -111,11 +111,6 @@ export default connect(
     }
   };
 
-  function handleSelect(e) {
-    e.stopPropagation();
-    setSelectedComp(null);
-  }
-
   useEffect(() => {
     const keydownHandler = e => {
       const key = e.keyCode;
@@ -130,7 +125,7 @@ export default connect(
     <div
       style={styles.container}
       className={classNames.container}
-      onClick={handleSelect}
+      onClick={() => setSelectedComp(null)}
     >
       <div style={styles.box} className={classNames.box}>
         <div style={styles.slide} className={classNames.slide}>

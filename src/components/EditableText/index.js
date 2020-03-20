@@ -54,6 +54,13 @@ export default connect(null, {
     }
   };
 
+  function whitespace(str) {
+    let cnt = 0;
+    while (cnt < str.length && str[cnt] === " ") cnt++;
+    console.log(str, cnt);
+    return cnt / 4;
+  }
+
   function handleChange(e) {
     const value = e.target.value;
     onValueChange && onValueChange(value);
@@ -94,11 +101,22 @@ export default connect(null, {
         />
       ) : (
         <div style={styles.font} ref={ref}>
-          {lines.map((line, index) => (
-            <div key={index} className={classNames.line} style={styles.line}>
-              {line}
-            </div>
-          ))}
+          {lines.map((line, index) =>
+            line === "" ? (
+              <br key={index} />
+            ) : (
+              <p
+                key={index}
+                className={classNames.line}
+                style={{
+                  width,
+                  textIndent: `${whitespace(line)}em`
+                }}
+              >
+                {line}
+              </p>
+            )
+          )}
         </div>
       )}
     </div>

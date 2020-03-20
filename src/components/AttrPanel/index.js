@@ -32,7 +32,7 @@ export default connect(
   changeAttr,
   variables,
   deleteVarForCmp,
-  selectVar,
+  selectVar
 }) {
   const [dragover, setDragover] = useState("");
   const slide = components.find(item => item.id === selectedId);
@@ -171,8 +171,7 @@ export default connect(
   }
 
   function handleVarDrop(e, attr) {
-    const type = e.dataTransfer.getData("type"),
-      id = parseInt(e.dataTransfer.getData("id"));
+    const [type, id] = e.dataTransfer.getData("attr").split("-");
     const mp = {
       color: ["color", "backgroundColor"],
       number: ["fontSize", "padding"]

@@ -39,5 +39,6 @@ export { default as ClosecirlceOutline } from "@ant-design/icons/lib/outline/Clo
 export { default as CheckcirlceOutline } from "@ant-design/icons/lib/outline/CheckcircleOutline";
 export { default as DeleteFill } from "@ant-design/icons/lib/fill/DeleteFill";
 export { default as EditFill } from "@ant-design/icons/lib/fill/EditFill";
+export { default as SaveFill } from "@ant-design/icons/lib/fill/SaveFill";
 // export what antd other components need
 export { default as CloseOutline } from "@ant-design/icons/lib/outline/CloseOutline";

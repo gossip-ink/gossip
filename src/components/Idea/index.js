@@ -67,10 +67,18 @@ export default connect(
             style={styles.input}
             value={value}
             onChange={e => saveIdea(id, e.target.value)}
-            onMouseLeave={() => setEdit(false)}
           />
         ) : (
           <div className={classNames.text}>{value}</div>
+        )}
+        {edit && (
+          <div className={classNames.save}>
+            <Icon
+              type="save"
+              onClick={() => setEdit(false)}
+              theme="filled"
+            ></Icon>
+          </div>
         )}
         <div className={classNames.tool} style={styles.tool}>
           {type === "image" ? (

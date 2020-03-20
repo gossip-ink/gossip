@@ -27,7 +27,7 @@ export default connect(
   deleteVar,
   addVar,
   selectVar,
-  changeVar,
+  changeVar
 }) {
   const [edit, setEdit] = useState(-1);
   const icon = {
@@ -58,8 +58,7 @@ export default connect(
 
   function handleDragStart(e, item) {
     selectVar(item.id);
-    e.dataTransfer.setData("type", item.type);
-    e.dataTransfer.setData("id", item.id);
+    e.dataTransfer.setData("attr", `${item.type}-${item.id}`);
   }
 
   return (

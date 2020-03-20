@@ -198,7 +198,7 @@ function createFile() {
       },
       { id: 2, type: "number", value: 200, name: "大标题字号" },
       { id: 3, type: "number", value: 130, name: "小标题字号" },
-      { id: 4, type: "number", value: 40, name: "内容字号" },
+      { id: 4, type: "number", value: 35, name: "内容字号" },
       { id: 5, type: "color", value: "#000000", name: "字体颜色" },
       { id: 6, type: "number", value: 60, name: "页面内边距" }
     ],

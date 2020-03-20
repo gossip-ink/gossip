@@ -74,7 +74,23 @@ export default {
       } else if (cmp.type === idea.type) {
         cmp.value = idea.value;
       } else {
-        alert("类型不匹配！！！");
+        dfs(
+          slide,
+          node =>
+            node.children &&
+            node.children.forEach((d, index) => {
+              if (d.id !== cmp.id) return;
+              const id = new Date().getTime();
+              const mp = {
+                text: createText(id, idea.value, { isTitle: false }),
+                image: createImage(id, idea.value),
+                canvas: createCanvas(id, idea.value)
+              };
+              // 插入后面
+              node.children.splice(index + 1, 0, mp[idea.type]);
+              node.attrs.span.splice(index + 1, 0, 1);
+            })
+        );
       }
       return state;
     },

@@ -36,10 +36,13 @@ export default connect(
     }
   };
 
+  function handleClick() {
+    show && setShow(false);
+  }
+
   useEffect(() => {
-    const clickHandler = () => show && setShow(false);
-    window.addEventListener("click", clickHandler);
-    return () => window.removeEventListener("click", clickHandler);
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
   });
 
   return (

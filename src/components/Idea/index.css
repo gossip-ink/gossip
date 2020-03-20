@@ -46,3 +46,8 @@
   align-items: center;
   justify-content: center;
 }
+.save {
+  position: absolute;
+  bottom: 0.6em;
+  right: 0.6em;
+}
