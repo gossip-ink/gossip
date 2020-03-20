@@ -1,7 +1,26 @@
 import url from "../static/images/灯泡.png";
-const exampleURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg"
+const exampleURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg";
+
+const defaultValues = {
+  text: "hello world",
+  image: exampleURL,
+  canvas: `function(canvas, ctx, width, height){
+    const size = 100,
+      x = (width - size) / 2,
+      y = (height - size) / 2;
+    ctx.fillStyle = "black";
+    ctx.fillRect(x, y, size, size);
+  }`
+};
+function createIdea(id, type) {
+  return {
+    id,
+    type,
+    value: defaultValues[type]
+  };
+}
 // 创建组件
-function createText(id, value, attrs) {
+function createText(id, value = defaultValues.text, attrs) {
   return {
     id,
     value,
@@ -19,7 +38,7 @@ function createText(id, value, attrs) {
   };
 }
 
-function createImage(id, value, attrs) {
+function createImage(id, value = defaultValues.image, attrs) {
   return {
     type: "image",
     id,
@@ -49,7 +68,7 @@ function createPanel(id, value, attrs, children = []) {
   };
 }
 
-function createCanvas(id, value, attrs) {
+function createCanvas(id, value = defaultValues.canvas, attrs) {
   return {
     type: "canvas",
     id,
@@ -193,5 +212,6 @@ export {
   createPanel,
   createSlide,
   createText,
-  createFile
+  createFile,
+  createIdea
 };

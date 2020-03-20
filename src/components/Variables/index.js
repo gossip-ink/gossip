@@ -27,7 +27,8 @@ export default connect(
   deleteVar,
   addVar,
   selectVar,
-  changeVar
+  changeVar,
+  name
 }) {
   const [edit, setEdit] = useState(-1);
   const icon = {
@@ -63,19 +64,20 @@ export default connect(
   );
 
   useEffect(() => {
-    const a = document.createElement("a");
-    a.href = `#${selectedArributeId}`;
-    a.click();
+    // const a = document.createElement("a");
+    // a.href = `#${selectedArributeId}`;
+    // a.click();
   });
 
   return (
     <Box
       height={height}
-      title="属性变量"
+      title="变量"
       iconType="shop"
       popover={content}
       nodata={variables.length === 0}
       nodataInfo="没有属性变量～"
+      name={name}
     >
       {variables.map(item => (
         <div

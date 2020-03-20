@@ -4,8 +4,6 @@ import Header from "../../components/Header";
 import MainContent from "../../components/MainContent";
 import Structure from "../../components/Structure";
 import AttrPanel from "../../components/AttrPanel";
-import Variables from "../../components/Variables";
-import IdeasPanel from "../../components/IdeasPanel";
 import SidebarPanel from "../../components/SidebarPanel";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { connect } from "dva";
@@ -14,46 +12,48 @@ import { useState } from "react";
 
 export default connect(
   ({ global }) => ({
-    help: global.help
+    help: global.help,
+    show: global.show
   }),
   {
     setHelp: () => ({ type: "global/setHelp" })
   }
-)(function({ help, setHelp }) {
+)(function({ help, setHelp, show }) {
   // 计算每个部分的高度
   const { height, width } = useWindowSize();
-  const [show, setShow] = useState(!help);
+  const [pop, setPop] = useState(!help);
+  const { structure, attr } = show;
+
   const headerHeight = 60,
     contentHeight = height - headerHeight,
-    sidebarHeight = contentHeight * 0.7,
-    ideaHeight = contentHeight * 0.3,
-    slideHeight = contentHeight,
-    structureHeight = contentHeight * 0.4,
-    attrPanelHeight = contentHeight * 0.3,
-    varHeight = contentHeight * 0.3;
+    structureHeight = Math.min(
+      (contentHeight * structure) / (attr + structure),
+      contentHeight - 45
+    ),
+    attrPanelHeight = Math.min(
+      (contentHeight * attr) / (attr + structure),
+      contentHeight - 45
+    );
 
   const props = {
     header: {
       height: headerHeight
     },
     sidebar: {
-      height: sidebarHeight
-    },
-    ideas: {
-      height: ideaHeight
+      height: contentHeight,
+      name: "outline"
     },
     mainContent: {
-      height: slideHeight,
+      height: contentHeight,
       width: width - 600
     },
     structure: {
-      height: structureHeight
+      height: structureHeight,
+      name: "structure"
     },
     attrPanel: {
-      height: attrPanelHeight
-    },
-    variables: {
-      height: varHeight
+      height: attrPanelHeight,
+      name: "attr"
     }
   };
 
@@ -62,7 +62,6 @@ export default connect(
       <Header {...props.header} />
       <div className={classNames.content}>
         <div className={classNames.left}>
-          <IdeasPanel {...props.ideas} />
           <SidebarPanel {...props.sidebar} />
         </div>
         <div className={classNames.main}>
@@ -71,19 +70,18 @@ export default connect(
         <div className={classNames.right}>
           <Structure {...props.structure} />
           <AttrPanel {...props.attrPanel} />
-          <Variables {...props.variables} />
         </div>
       </div>
       <Modal
         title="提示"
-        visible={show}
+        visible={pop}
         okText="去学习"
         cancelText="先随便看看"
         onOk={() => {
           window.open("https://github.com/pearmini/uidea");
-          setShow(false);
+          setPop(false);
         }}
-        onCancel={() => setShow(false)}
+        onCancel={() => setPop(false)}
       >
         <div className={classNames.help}>
           <p>
@@ -93,7 +91,7 @@ export default connect(
           <p>从此打开制作幻灯片的新方式🚀</p>
           <Button
             onClick={() => {
-              setShow(false);
+              setPop(false);
               setHelp();
             }}
           >

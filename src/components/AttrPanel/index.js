@@ -32,7 +32,8 @@ export default connect(
   changeAttr,
   variables,
   deleteVarForCmp,
-  selectVar
+  selectVar,
+  name
 }) {
   const [dragover, setDragover] = useState("");
   const slide = components.find(item => item.id === selectedId);
@@ -191,6 +192,7 @@ export default connect(
       iconType="gold"
       nodataInfo="没有选择任何的组件～"
       nodata={attrs.length === 0}
+      name={name}
     >
       <ul className={classNames.container}>
         {attrs.map((item, index) => {

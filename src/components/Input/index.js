@@ -150,7 +150,7 @@ function MyRadio({ value, onChange, list, hasIcon = true }) {
   );
 }
 
-function MyImage({ onChange, value }) {
+export function MyImage({ onChange, value }) {
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const ref = useRef(null);

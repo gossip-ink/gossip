@@ -12,9 +12,14 @@ const Panel = connect(
     variables: state.slides.attributeVars,
     dragId: state.global.dragId,
     enterId: state.global.enterId,
+    hoveredId: state.global.hoveredId,
     scale: state.global.scale
   }),
   {
+    injectIdea: (ideaId, id, rootId) => ({
+      type: "slides/injectIdea",
+      payload: { ideaId, id, rootId }
+    }),
     setSelectedComp: id => ({
       type: "slides/setSelectedComp",
       payload: { id }
@@ -25,6 +30,7 @@ const Panel = connect(
     }),
     setDrag: id => ({ type: "global/setDrag", payload: { id } }),
     setEnter: id => ({ type: "global/setEnter", payload: { id } }),
+    setHovered: id => ({ type: "global/setHovered", payload: { id } }),
     exchangeCmp: (a, b, root) => ({
       type: "slides/exchangeCmp",
       payload: { a, b, root }
@@ -55,7 +61,9 @@ const Panel = connect(
   enterId,
   setEnter,
   scale,
-  deleteCmp
+  hoveredId,
+  setHovered,
+  injectIdea
 }) {
   // 处理一下 attribute
   const newAttrs = { ...attrs };
@@ -135,8 +143,9 @@ const Panel = connect(
       height: height && height,
       width: width && width,
       outline:
-        (selected && dragId === -1 && editable) ||
-        (enterId === id && dragId !== id && editable)
+        (selected && dragId === -1 && hoveredId === -1 && editable) ||
+        (enterId === id && dragId !== id && editable) ||
+        (editable && hoveredId === id)
           ? "2px solid #4091f7"
           : "",
       padding
@@ -158,29 +167,45 @@ const Panel = connect(
     e.stopPropagation();
   }
 
-  useEffect(() => {
+  function handleDrop(e) {
+    const dragData = e.dataTransfer.getData("drag");
+    const [dragType, data] = dragData && dragData.split("-");
+    if (dragType === "idea") {
+      const i = parseInt(data);
+      const dragId = isNaN(i) ? data : i;
+      injectIdea(dragId, id, rootId);
+    }
+    setHovered(-1);
+    e.stopPropagation();
+  }
+
+  function handleMousemove(e) {
     // 这个函数尤其要注意，不能所有的 panel 都调用，否者很蛋疼
-    const mousemoveHandler = e => {
-      if (dragId !== id || !editable) return;
-      const { left, top } = ref.current.getBoundingClientRect();
-      const { clientX, clientY } = e;
-      setPos({
-        x: (clientX - left) / scale + 20,
-        y: (clientY - top) / scale + 20
-      });
-    };
+    if (dragId !== id || !editable) return;
+    const { left, top } = ref.current.getBoundingClientRect();
+    const { clientX, clientY } = e;
+    setPos({
+      x: (clientX - left) / scale + 20,
+      y: (clientY - top) / scale + 20
+    });
+  }
 
-    window.addEventListener("mousemove", mousemoveHandler);
-
-    return () => window.removeEventListener("mousemove", mousemoveHandler);
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMousemove);
+    return () => window.removeEventListener("mousemove", handleMousemove);
   });
 
   return (
     <div
       style={styles.container}
       onClick={handleSelect}
+      onDragEnter={e => {
+        setHovered(id);
+        e.stopPropagation();
+      }}
+      onDragOver={e => e.preventDefault()}
+      onDrop={handleDrop}
       className={classNames.container}
-      draggable
       onMouseUpCapture={handleMouseup}
       onMouseEnter={() => {
         if (dragId === -1) return;
@@ -191,6 +216,7 @@ const Panel = connect(
         e.preventDefault();
         e.stopPropagation();
       }}
+      draggable
       ref={ref}
     >
       {editable && dragId === id && (

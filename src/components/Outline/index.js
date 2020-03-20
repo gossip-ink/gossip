@@ -41,7 +41,6 @@ export default connect(
       type: "slides/appendIdea",
       payload: { nodeId, ideaId }
     }),
-    setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } }),
     hideNodeChildren: id => ({
       type: "slides/hideNodeChildren",
       payload: { id }
@@ -63,7 +62,6 @@ export default connect(
   insertNode,
   setSelectedPanel,
   appendIdea,
-  setIsDrag,
   hideNodeChildren,
   showNodeChildren
 }) {
@@ -125,7 +123,6 @@ export default connect(
       }
     } else if (dragType === "idea") {
       appendIdea(sourceNodeId, targetNodeId);
-      setIsDrag(false);
     }
   }
 

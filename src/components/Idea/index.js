@@ -1,67 +1,95 @@
 import classNames from "./index.css";
-import Node from "../Node";
 import { connect } from "dva";
 import { useState } from "react";
-import { Icon } from "antd";
-export default connect(null, {
-  deleteIdea: id => ({ type: "slides/deleteIdea", payload: { id } }),
-  saveIdea: (id, value) => ({
-    type: "slides/saveIdea",
-    payload: { id, value }
+import { Icon, Input, Popover } from "antd";
+import { MyImage } from "../Input";
+const { TextArea } = Input;
+export default connect(
+  ({ slides }) => ({
+    selectedIdea: slides.selectedIdea
   }),
-  setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } })
-})(function({ content, deleteIdea, saveIdea, setIsDrag }) {
+  {
+    deleteIdea: id => ({ type: "slides/deleteIdea", payload: { id } }),
+    saveIdea: (id, value) => ({
+      type: "slides/saveIdea",
+      payload: { id, value }
+    }),
+    setSelectedIdea: id => ({
+      type: "slides/setSelectedIdea",
+      payload: { id }
+    }),
+    setHovered: id => ({ type: "global/setHovered", payload: { id } })
+  }
+)(function({
+  content,
+  deleteIdea,
+  saveIdea,
+  selectedIdea,
+  setSelectedIdea,
+  setHovered
+}) {
   const { type, id, value } = content;
   const [edit, setEdit] = useState(false);
-  const iconByType = {
-    text: "font-size",
-    image: "picture",
-    canvas: "codepen"
+  const [enter, setEnter] = useState(false);
+  const styles = {
+    box: {
+      border: selectedIdea === id ? "1px solid #4091f7" : "1px solid #d9d9d9"
+    },
+    input: { height: "100%", width: "100%", resize: "none" },
+    tool: {
+      opacity: enter && !edit ? 1 : 0
+    }
   };
-
-  function handleImageChange(data) {
-    const file = data.file.originFileObj;
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function() {
-      const imageURL = reader.result;
-      saveIdea(id, imageURL);
-    };
-  }
 
   function handleDragStart(e, item) {
     e.dataTransfer.setData("drag", `idea-${item.id}`);
-    setIsDrag(true);
+    setEnter(false);
   }
 
   return (
     <div
+      onClick={() => setSelectedIdea(id)}
       draggable
       onDragStart={e => handleDragStart(e, content)}
-      onDragEnd={() => setIsDrag(false)}
+      onDragEnd={e => setHovered(-1)}
       className={classNames.container}
-      onMouseLeave={() => setEdit(false)}
+      onMouseLeave={() => setEnter(false)}
+      onMouseEnter={() => setEnter(true)}
+      onMouseLeave={() => setEnter(false)}
+      onMouseOver={() => !enter && setEnter(true)}
     >
-      <Node
-        onDelete={() => deleteIdea(id)}
-        edit={edit}
-        onEdit={() => setEdit(!edit)}
-        onImageChange={handleImageChange}
-        type={type}
-        width="100%"
-        height="2em"
-      >
-        <div className={classNames.nodeTitle}>
-          <Icon type={iconByType[type]} className={classNames.icon} />
+      <div className={classNames.box} style={styles.box}>
+        {type === "image" ? (
+          <img src={value} className={classNames.image} draggable />
+        ) : edit ? (
+          <TextArea
+            type="textarea"
+            style={styles.input}
+            value={value}
+            onChange={e => saveIdea(id, e.target.value)}
+            onMouseLeave={() => setEdit(false)}
+          />
+        ) : (
+          <div className={classNames.text}>{value}</div>
+        )}
+        <div className={classNames.tool} style={styles.tool}>
           {type === "image" ? (
-            <img src={value} className={classNames.image} />
-          ) : edit ? (
-            <input value={value} onChange={e => saveIdea(id, e.target.value)} />
+            <Popover
+              content={<MyImage onChange={value => saveIdea(id, value)} />}
+            >
+              <Icon type="edit" theme="filled" />
+            </Popover>
           ) : (
-            <div>{value}</div>
+            <Icon type="edit" onClick={() => setEdit(!edit)} theme="filled" />
           )}
+          <Icon
+            type="delete"
+            onClick={() => deleteIdea(id)}
+            theme="filled"
+            className={classNames.deleteBtn}
+          />
         </div>
-      </Node>
+      </div>
     </div>
   );
 });

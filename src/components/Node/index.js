@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Icon, Upload } from "antd";
+import { Icon, Popover } from "antd";
+import { MyImage } from "../Input";
 import classNames from "./index.css";
 
 export default function({
@@ -48,15 +49,9 @@ export default function({
       <div>
         {type === "image" ? (
           <div style={styles.upload}>
-            <Upload
-              accept="image/*"
-              onChange={onImageChange}
-              showUploadList={false}
-              customRequest={() => {}}
-              className={classNames.edit}
-            >
-              <Icon type="upload" />
-            </Upload>
+            <Popover content={<MyImage onChange={onImageChange} />}>
+              <Icon type="upload" className={classNames.edit} />
+            </Popover>
           </div>
         ) : (
           hovered &&

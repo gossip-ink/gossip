@@ -1,7 +1,15 @@
 import classNames from "./index.css";
 import { Icon, Popover, Button, Empty, Switch } from "antd";
 import { useState, useEffect } from "react";
-export default function({
+import { connect } from "dva";
+export default connect(
+  ({ global }) => ({
+    vis: global.show
+  }),
+  {
+    toggleShow: key => ({ type: "global/toggleShow", payload: { key } })
+  }
+)(function({
   nodata = true,
   title,
   popover,
@@ -9,18 +17,22 @@ export default function({
   height,
   onSwitch,
   nodataInfo = "没有数据",
-  url = "https://github.com/pearmini/uidea"
+  url = "https://github.com/pearmini/uidea",
+  toggleShow,
+  vis,
+  name,
+  closable = true
 }) {
   const [show, setShow] = useState(false);
   const styles = {
     box: {
-      height
+      height: Math.max(45, height)
     },
     container: {
-      height: height - 10
+      height: Math.max(height - 10, 45)
     },
     content: {
-      height: height - 10 - 60
+      height: Math.max(height - 10 - 60, 0)
     }
   };
 
@@ -36,30 +48,44 @@ export default function({
         <div className={classNames.wrapper}>
           <div className={classNames.header}>
             <div>
+              <span className={classNames.title}>{title}</span>
               <Icon
                 type="question-circle"
-                className={classNames.icon}
+                className={classNames.leftIcon}
                 onClick={() => window.open(url)}
               ></Icon>
-              <span className={classNames.title}>{title}</span>
+              {closable && (
+                <Icon
+                  type={vis[name] ? "close-circle" : "check-circle"}
+                  className={classNames.icon}
+                  onClick={() => toggleShow(name)}
+                ></Icon>
+              )}
             </div>
-            {onSwitch && <Switch defaultChecked onChange={onSwitch} />}
-            {popover && (
-              <Popover
-                content={<div onClick={() => setShow(false)}>{popover}</div>}
-                title="选择一种类型"
-                placement="bottomRight"
-                visible={show}
-              >
-                <Button
-                  icon="plus"
-                  type="primary"
-                  shape="circle"
-                  size="small"
-                  onClick={() => setShow(true)}
-                />
-              </Popover>
-            )}
+            <div>
+              {onSwitch && <Switch defaultChecked onChange={onSwitch} />}
+              {popover && (
+                <Popover
+                  content={popover}
+                  title="选择一种类型"
+                  placement="bottomRight"
+                  visible={show}
+                  arrowPointAtCenter
+                >
+                  <Button
+                    className={classNames.rightBtn}
+                    icon="plus"
+                    type="primary"
+                    shape="circle"
+                    size="small"
+                    onClick={e => {
+                      setShow(!show);
+                      e.stopPropagation();
+                    }}
+                  />
+                </Popover>
+              )}
+            </div>
           </div>
         </div>
         <div className={classNames.content} style={styles.content}>
@@ -77,4 +103,4 @@ export default function({
       </div>
     </div>
   );
-}
+});

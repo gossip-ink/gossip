@@ -1,21 +1,43 @@
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   overflow: hidden;
 }
 
-.wrapper {
-  position: relative;
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: height 0.5s;
 }
 
-.bar {
-  position: absolute;
-  right: 0;
-  bottom: -50px;
+.slide {
+  border: 1px solid #e8e8e8;
+  border-radius: 3px;
 }
 
-.btnLeft{
-  margin-right: 10px;
+.list {
+  list-style: none;
+}
+
+.item {
+  cursor: pointer;
+  padding: 0.5em;
+  border-bottom: 1px solid transparent;
+}
+
+.item:hover {
+  border-bottom: 1px solid #4091f7;
+}
+
+.icon {
+  margin-right: 8px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  height: 100%;
 }

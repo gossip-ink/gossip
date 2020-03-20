@@ -5,6 +5,7 @@
 .content {
   display: flex;
   justify-content: space-between;
+  background: #fafafa;
 }
 
 .left {

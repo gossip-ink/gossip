@@ -2,14 +2,17 @@
   background: #fff;
   border: 1px solid #e8e8e8;
   border-radius: 3px;
+  transition: height 0.5s;
 }
+
 .box {
   padding: 5px;
+  transition: height 0.5s;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
-  background: white;
   height: 45px;
   line-height: 45px;
   align-items: center;
@@ -17,13 +20,13 @@
 }
 
 .title {
-  margin-left: 8px;
   margin-right: 2px;
   font-weight: bold;
 }
 
 .wrapper {
   padding: 0em 1em;
+  background: #fff;
 }
 
 .content {
@@ -31,6 +34,8 @@
   margin: 0.5em 1em 0 1em;
   position: relative;
   scroll-behavior: smooth;
+  background: #fff;
+  transition: height 0.5s;
 }
 
 .empty {
@@ -41,4 +46,11 @@
 
 .icon {
   cursor: pointer;
+}
+.leftIcon {
+  cursor: pointer;
+  margin: 0 5px 0 5px;
+}
+.rightBtn {
+  margin-left: 8px;
 }

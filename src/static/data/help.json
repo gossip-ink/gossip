@@ -1,7 +1,8 @@
 {
   "filename": "new",
-  "selectedId": 1584427592805,
-  "selectedComponentId": "text1584427592805",
+  "selectedId": 1,
+  "selectedComponentId": null,
+  "selectedIdea": 6,
   "structure": {
     "id": 1,
     "name": "Present Different",
@@ -69,7 +70,7 @@
           "value": "Present Different",
           "type": "text",
           "attrs": {
-            "fontSize": 179,
+            "fontSize": 154,
             "color": "$5",
             "fontWeight": "bold",
             "textAlign": "center",
@@ -1487,27 +1488,12 @@
     {
       "id": 6,
       "value": "小想法",
-      "type": "text",
-      "attrs": {
-        "fontSize": "$4",
-        "color": "$5",
-        "fontWeight": "normal",
-        "textAlign": "left",
-        "verticalAlign": "top",
-        "padding": 50,
-        "isTitle": false
-      }
+      "type": "text"
     },
     {
       "type": "image",
       "id": 1584532354959,
-      "value": "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg",
-      "attrs": {
-        "displayMode": "normal",
-        "padding": 10,
-        "textAlign": "center",
-        "verticalAlign": "center"
-      }
+      "value": "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg"
     }
   ],
   "selectedPanel": 2

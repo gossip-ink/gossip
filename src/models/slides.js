@@ -7,7 +7,8 @@ import {
   createPanel,
   createSlide,
   createText,
-  createFile
+  createFile,
+  createIdea
 } from "../utils/create";
 
 const imageURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg";
@@ -39,6 +40,14 @@ export default {
       return state;
     },
 
+    addIdea(state, action) {
+      const id = new Date().getTime();
+      const { type } = action.payload;
+      const idea = createIdea(id, type);
+      state.ideas.push(idea);
+      return state;
+    },
+
     saveIdea(state, action) {
       const { id, value } = action.payload;
       const idea = state.ideas.find(item => item.id === id);
@@ -46,23 +55,48 @@ export default {
       return state;
     },
 
+    injectIdea(state, action) {
+      const { ideaId, id, rootId } = action.payload;
+      const slide = state.components.find(item => item.id === rootId);
+      const idea = state.ideas.find(item => item.id === ideaId);
+      let cmp;
+      dfs(slide, node => node.id === id && (cmp = node));
+      if (cmp.type === "panel") {
+        //创建一个新的组件，并且加到后面去
+        const id = new Date().getTime();
+        const mp = {
+          text: createText(id, idea.value, { isTitle: false }),
+          image: createImage(id, idea.value),
+          canvas: createCanvas(id, idea.value)
+        };
+        cmp.children.push(mp[idea.type]);
+        cmp.attrs.span.push(1);
+      } else if (cmp.type === idea.type) {
+        cmp.value = idea.value;
+      } else {
+        alert("类型不匹配！！！");
+      }
+      return state;
+    },
+
     appendIdea(state, action) {
       const { nodeId, ideaId } = action.payload;
-      const idea = state.ideas.find(item => item.id === ideaId),
-        idx = state.ideas.indexOf(idea);
+      const idea = state.ideas.find(item => item.id === ideaId);
       const slide = state.components.find(item => item.id === nodeId);
-
+      const id = new Date().getTime();
+      const mp = {
+        text: createText(id, idea.value, { isTitle: false }),
+        image: createImage(id, idea.value),
+        canvas: createCanvas(id, idea.value)
+      };
       // 添加到 slide 到最后
-      slide.children.push(idea);
+      slide.children.push(mp[idea.type]);
       slide.attrs.span.push(1);
-
-      // 从 idea 里面删除
-      state.ideas.splice(idx, 1);
-
       // 跳转到更新页
       state.selectedId = nodeId;
       return state;
     },
+
     /****** 和文件操作有关 *******/
 
     // 保存到缓存
@@ -330,19 +364,22 @@ export default {
       });
 
       // 添加进 idea
-      state.ideas = state.ideas || [];
-      let ideas = [];
-      if (deletedIdea.type === "panel") {
-        dfs(deletedIdea, node => {
-          if (node.type !== "panel") {
-            ideas.push(node);
-          }
-        });
-      } else {
-        ideas.push(deletedIdea);
-      }
-      state.ideas.push(...ideas);
-
+      const cmps = [];
+      dfs(deletedIdea, node => {
+        if (node.type !== "panel") {
+          cmps.push(node);
+        }
+      });
+      const newIdeas = cmps
+        .filter(
+          d => !state.ideas.find(i => i.type === d.type && i.value === d.value)
+        )
+        .map(({ id, value, type }) => ({
+          id,
+          value,
+          type
+        }));
+      state.ideas.push(...newIdeas);
       return state;
     },
     appendCmp(state, action) {
@@ -408,20 +445,12 @@ export default {
       // 确定插入的类型
       const id = new Date().getTime();
       const mp = {
-        text: createText(id, "text", { isTitle: false }),
-        image: createImage(id, imageURL),
-        canvas: createCanvas(
-          id,
-          `function(canvas, ctx, width, height){
-          const size = 100,
-            x = (width - size) / 2,
-            y = (height - size) / 2;
-          ctx.fillStyle = "black";
-          ctx.fillRect(x, y, size, size);
-        }`
-        ),
+        text: createText(id, { isTitle: false }),
+        image: createImage(id),
+        canvas: createCanvas(id),
         panel: createPanel(id, "column", {}, [])
       };
+
       const cmp = mp[type];
 
       // 确定插入的位置
@@ -445,16 +474,16 @@ export default {
               }
             });
         });
-      } else {
-        // 放入 ideas 数组里面
-        state.ideas = state.ideas || [];
-        const ideas = [...state.ideas, cmp];
-        state.ideas = ideas;
       }
-
       state.selectedComponentId = cmp.id;
       return state;
     },
+    setSelectedIdea(state, action) {
+      const { id } = action.payload;
+      state.selectedIdea = id;
+      return state;
+    },
+
     insertCmp(state, action) {
       const { id, brother, before, rootId } = action.payload;
       const slide = state.components.find(item => item.id === rootId);
