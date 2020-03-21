@@ -24,7 +24,7 @@ export default function({ height }) {
       </header>
       <div className={classNames.content} style={styles.content}>
         <div className={classNames.title}>
-          <h1 className={classNames.big}>Unique Idea</h1>
+          <h1 className={classNames.big}>Gossip</h1>
           <p>一个快速创建炫酷幻灯片的用户界面🔥</p>
           <Button type="primary">请去大屏设备上使用</Button>
         </div>

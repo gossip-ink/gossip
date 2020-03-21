@@ -185,7 +185,7 @@ export default connect(
 
   return (
     <Box
-      title="属性"
+      title="样式"
       height={height}
       iconType="gold"
       nodataInfo="没有选择任何的组件～"

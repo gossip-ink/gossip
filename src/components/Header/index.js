@@ -90,7 +90,7 @@ export default connect(null, {
     <div className={classNames.container} style={styles.header}>
       <header className={classNames.header}>
         <div className={classNames.logo} onClick={gotoGithub}>
-          uIdea
+          Gossip
         </div>
         <div className={classNames.btns}>
           {btns.map(({ upload, onClick, icon, name }) => (

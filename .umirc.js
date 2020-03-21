@@ -1,7 +1,8 @@
 const path = require("path");
+const name = "gossip";
 export default {
-  base: "/uidea",
-  publicPath: "/uidea/",
+  base: `/${name}`,
+  publicPath: `/${name}/`,
   alias: {
     "@ant-design/icons/lib/dist$": path.resolve(__dirname, "./src/icons.js")
   },
@@ -14,7 +15,7 @@ export default {
         },
         antd: true,
         title: {
-          defaultTitle: "uIdea"
+          defaultTitle: name
         }
       }
     ]

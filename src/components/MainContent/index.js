@@ -104,7 +104,7 @@ export default connect(
     ideas: {
       height: show ? ideaH : 0,
       name: "idea",
-      title: "想法",
+      title: "素材",
       popover: pop,
       nodata: ideas.length === 0,
       nodataInfo: "快来写下第一个独一无二的想法吧～"
