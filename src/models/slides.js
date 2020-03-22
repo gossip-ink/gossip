@@ -1,4 +1,5 @@
 import helpFile from "../static/data/help.json";
+import exampleFile from "../static/data/snake.json";
 import { saveAs } from "file-saver";
 import { dfs, descendant } from "../utils/tree";
 import {
@@ -10,8 +11,6 @@ import {
   createFile,
   createIdea
 } from "../utils/create";
-
-const imageURL = "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg";
 
 function initData() {
   try {
@@ -132,23 +131,23 @@ export default {
     },
     // 以 json 格式下载到本地
     download(state, action) {
-      const file = new File(
-        [JSON.stringify(state)],
-        `${state.filename}.uidea`,
-        {
-          type: "text/plain;charset=utf-8"
-        }
-      );
+      const file = new File([JSON.stringify(state)], `${state.filename}.gsp`, {
+        type: "text/plain;charset=utf-8"
+      });
       saveAs(file);
       return state;
     },
     // 创建新的 ppt
-    createNewFile(state, action) {
+    createNewFile() {
       return createFile();
     },
 
     createHelp() {
       return helpFile;
+    },
+
+    createExample() {
+      return exampleFile;
     },
 
     /******** 和设置当前 active 的东西有关 *********/

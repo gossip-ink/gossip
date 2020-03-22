@@ -6,12 +6,21 @@
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+.intro {
+  color: white;
+  margin-left: 1em;
+}
+
 .logo {
   color: white;
   font-weight: bold;
   font-size: 30px;
   cursor: pointer;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: "Luckiest Guy", cursive;
+}
+
+.left {
+  display: flex;
 }
 
 .btns {
@@ -20,6 +29,23 @@
   color: #fff;
 }
 
+.selectWrapper {
+  position: relative;
+  color: #fff;
+}
+.select {
+  position: absolute;
+  list-style: none;
+  width: 5.5em;
+  top: 56px;
+  left: 0;
+  z-index: 10;
+}
+
+.selectItem {
+  color: #fff;
+  background: #25292e;
+}
 .header {
   display: flex;
 }

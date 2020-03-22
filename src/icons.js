@@ -37,8 +37,12 @@ export { default as GithubOutline } from "@ant-design/icons/lib/outline/GithubOu
 export { default as ReadOutline } from "@ant-design/icons/lib/outline/ReadOutline";
 export { default as ClosecirlceOutline } from "@ant-design/icons/lib/outline/ClosecircleOutline";
 export { default as CheckcirlceOutline } from "@ant-design/icons/lib/outline/CheckcircleOutline";
+export { default as FireOutline } from "@ant-design/icons/lib/outline/FireOutline";
+export { default as ThunderboltOutline } from "@ant-design/icons/lib/outline/ThunderboltOutline";
+
 export { default as DeleteFill } from "@ant-design/icons/lib/fill/DeleteFill";
 export { default as EditFill } from "@ant-design/icons/lib/fill/EditFill";
 export { default as SaveFill } from "@ant-design/icons/lib/fill/SaveFill";
+
 // export what antd other components need
 export { default as CloseOutline } from "@ant-design/icons/lib/outline/CloseOutline";

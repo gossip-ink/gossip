@@ -2,12 +2,16 @@ import classNames from "./index.css";
 import { Upload, Icon } from "antd";
 import router from "umi/router";
 import { connect } from "dva";
+import { useState, useEffect } from "react";
 
-function Wrapper({ upload, children, onChange }) {
-  return upload ? (
-    <Upload onChange={onChange}>{children}</Upload>
-  ) : (
-    <>{children}</>
+function Item({ icon, name, onClick }) {
+  return (
+    <span className={classNames.item} onClick={onClick}>
+      <span className={classNames.title}>
+        <Icon type={icon} className={classNames.icon} key={icon} />
+        {name}
+      </span>
+    </span>
   );
 }
 
@@ -16,8 +20,10 @@ export default connect(null, {
   download: () => ({ type: "slides/download" }),
   upload: data => ({ type: "slides/upload", payload: { data } }),
   save: () => ({ type: "slides/save" }),
-  help: () => ({ type: "slides/createHelp" })
-})(function({ height, createNewFile, download, upload, save, help }) {
+  help: () => ({ type: "slides/createHelp" }),
+  example: () => ({ type: "slides/createExample" })
+})(function({ height, createNewFile, download, upload, save, help, example }) {
+  const [show, setShow] = useState(false);
   const styles = {
     header: {
       height,
@@ -29,43 +35,45 @@ export default connect(null, {
     {
       icon: "play-circle",
       onClick: () => router.push("/present"),
-      upload: false,
       name: "放映"
     },
     {
       icon: "file-add",
       onClick: createNewFile,
-      upload: false,
       name: "新建"
     },
     {
       icon: "save",
       onClick: save,
-      upload: false,
       name: "保存"
     },
     {
       icon: "download",
       onClick: download,
-      upload: false,
       name: "下载"
     },
     {
       icon: "upload",
       onClick: handleUploadFile,
-      upload: true,
+      type: "upload",
       name: "打开"
     },
     {
       icon: "read",
-      upload: false,
-      name: "介绍",
-      onClick: help
+      name: "案例",
+      type: "select",
+      onClick: e => {
+        setShow(!show);
+        e.stopPropagation();
+      },
+      items: [
+        { name: "介绍", onClick: help, icon: "fire" },
+        { name: "教程", onClick: example, icon: "thunderbolt" }
+      ]
     },
     {
       icon: "github",
       onClick: gotoGithub,
-      upload: false,
       name: "github"
     }
   ];
@@ -87,25 +95,47 @@ export default connect(null, {
   }
 
   return (
-    <div className={classNames.container} style={styles.header}>
+    <div
+      className={classNames.container}
+      style={styles.header}
+      onMouseLeave={() => show && setShow(false)}
+    >
       <header className={classNames.header}>
-        <div className={classNames.logo} onClick={gotoGithub}>
-          Gossip
+        <div className={classNames.left}>
+          <div className={classNames.logo} onClick={gotoGithub}>
+            Gossip
+          </div>
+          <div className={classNames.intro}>
+            你的下一份 PPT，未必是一份 PPT🔥
+          </div>
         </div>
         <div className={classNames.btns}>
-          {btns.map(({ upload, onClick, icon, name }) => (
-            <Wrapper upload={upload} onChange={onClick} key={icon}>
-              <span
-                className={classNames.item}
-                onClick={() => !upload && onClick()}
-              >
-                <span className={classNames.title}>
-                  <Icon type={icon} className={classNames.icon} key={icon} />
-                  {name}
-                </span>
-              </span>
-            </Wrapper>
-          ))}
+          {btns.map(({ type, onClick, icon, name, items }) =>
+            type === "upload" ? (
+              <Upload onChange={handleUploadFile} key={name}>
+                <Item icon={icon} name={name}></Item>
+              </Upload>
+            ) : type === "select" ? (
+              <div className={classNames.selectWrapper} key={name}>
+                <Item icon={icon} name={name} onClick={onClick} />
+                {show && (
+                  <ul onClick={onClick} className={classNames.select}>
+                    {items.map(i => (
+                      <li className={classNames.selectItem} key={i.name}>
+                        <Item
+                          icon={i.icon}
+                          onClick={i.onClick}
+                          name={i.name}
+                        ></Item>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Item icon={icon} onClick={onClick} name={name} key={name}></Item>
+            )
+          )}
         </div>
       </header>
     </div>

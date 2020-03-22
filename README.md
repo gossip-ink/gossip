@@ -1,6 +1,6 @@
 # Gossip
 
-一个想要超越 Powerpoint 和 keynote 的幻灯片系统。
+你的下一份 PPT，未必是一份 PPT🔥
 
 ![QQ20191231-095430@2x.png](https://i.loli.net/2020/03/18/ILzP6DTHZvd97gY.png)
 
