@@ -60,61 +60,30 @@ export default connect(null, {
     return cnt / 4;
   }
 
-  function getChar(oldValue, newValue) {
-    const oldLines = oldValue.split("\n");
-    let chi = 0,
-      found = false,
-      index,
-      lindex,
-      preLine,
-      newChar;
-
-    for (let i = 0; i < oldLines.length; i++) {
-      const line = oldLines[i];
-      for (let j = 0; j < line.length; j++) {
-        const ch = line[j];
-        if (!found && ch !== newValue[chi]) {
-          found = true;
-          index = chi;
-          newChar = newValue[chi];
-          lindex = j + 1;
-          preLine = oldLines[i - 1];
-        }
-        chi++;
-      }
-    }
-
-    return [newChar, index, lindex, preLine];
-  }
-
   function handleChange(e) {
     let newValue = e.target.value,
-      newChar,
-      index,
-      lindex,
-      preLine;
-    const dot = "•";
+      i;
+    const dot = "•",
+      enter = "\n",
+      space = " ",
+      l = "-";
+    const chars = newValue.split("");
+    const newChar = chars.find((ch, index) => {
+      if (value[index] === ch) return false;
+      i = index;
+      return true;
+    });
 
-    if (newValue.length > value.length) {
-      [newChar, index, lindex, preLine] = getChar(value, newValue);
-    }
-    if (newChar !== " " || newChar !== "\n") {
-      onValueChange(newValue);
-      return;
-    }
-    // 判断是否是有序列表
-    if (newChar === " " && lindex === 1 && value[index] === "-") {
-      const chars = newValue.split("");
-      chars[index - 1] = dot;
+    // 输入空格
+    if (
+      newChar === space &&
+      ((i - 1 === 0 && chars[i - 1] === l) ||
+        (i - 1 > 0 && chars[i - 1] === l && chars[i - 2] === enter))
+    ) {
+      chars[i - 1] = dot;
       newValue = chars.join("");
     }
-    // 判断是否插入有序列表
-    if (newChar === "\n" && preLine && preLine[0] === dot) {
-      const chars = newValue.split("");
-      chars.splice(index, 0, dot + " ");
-      newValue = chars.join("");
-    }
-    onValueChange(value);
+    onValueChange(newValue);
   }
 
   function autoSize() {
