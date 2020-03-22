@@ -20,7 +20,14 @@ export default connect(null, {
 }) {
   const [edit, setEdit] = useState(false);
   const ref = useRef(null);
-  const lines = value.split("\n");
+  const lines = value.split("\n").map(l => {
+    if (l[0] !== "-") return l;
+    if (l.length >= 2 && l[1] === " ") {
+      const chars = l.split("");
+      chars[0] = "•";
+      return chars.join("");
+    }
+  });
 
   const styles = {
     container: {
@@ -60,32 +67,6 @@ export default connect(null, {
     return cnt / 4;
   }
 
-  function handleChange(e) {
-    let newValue = e.target.value,
-      i;
-    const dot = "•",
-      enter = "\n",
-      space = " ",
-      l = "-";
-    const chars = newValue.split("");
-    const newChar = chars.find((ch, index) => {
-      if (value[index] === ch) return false;
-      i = index;
-      return true;
-    });
-
-    // 输入空格
-    if (
-      newChar === space &&
-      ((i - 1 === 0 && chars[i - 1] === l) ||
-        (i - 1 > 0 && chars[i - 1] === l && chars[i - 2] === enter))
-    ) {
-      chars[i - 1] = dot;
-      newValue = chars.join("");
-    }
-    onValueChange(newValue);
-  }
-
   function autoSize() {
     const input = ref.current;
     let ft = attrs.fontSize;
@@ -117,7 +98,7 @@ export default connect(null, {
         <textarea
           ref={ref}
           value={value}
-          onChange={handleChange}
+          onChange={e => onValueChange(e.target.value)}
           rows={lines.length}
           className={classNames.textInput}
           style={{ width, ...styles.font }}
