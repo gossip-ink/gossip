@@ -30,12 +30,12 @@ export default function({ height }) {
         </div>
         <div className={classNames.imageWrapper}>
           <img
-            src="https://i.loli.net/2020/03/18/ILzP6DTHZvd97gY.png"
+            src="https://cdn.nlark.com/yuque/0/2020/png/418707/1584928091222-0785d2d2-7edf-4faf-96d3-7d47493886f0.png"
             width="80%"
             className={classNames.top}
           />
           <img
-            src="https://i.loli.net/2020/03/18/ORdIg4y2mxPHj1z.png"
+            src="https://cdn.nlark.com/yuque/0/2020/png/418707/1584928230370-8f3a266d-ef9f-49e1-9c46-4d7ad6c86d43.png"
             width="80%"
           />
         </div>

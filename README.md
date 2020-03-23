@@ -2,13 +2,10 @@
 
 你的下一份 PPT，未必是一份 PPT🔥
 
-![QQ20191231-095430@2x.png](https://i.loli.net/2020/03/18/ILzP6DTHZvd97gY.png)
+![1584928091222-0785d2d2-7edf-4faf-96d3-7d47493886f0.png](https://i.loli.net/2020/03/23/iy54U7AKzbx61W8.png)
 
-![QQ20191231-105844@2x.png](https://i.loli.net/2020/03/18/ORdIg4y2mxPHj1z.png)
+![ORdIg4y2mxPHj1z.png](https://i.loli.net/2020/03/23/mG4XWgATJIxOnL1.png)
 
-[想先看效果的同学请狠狠地戳这里！！！](https://pearmini.github.io/uIdea/)
-
-[当前页面图片加载不出来的请狠狠地戳这里！！！](https://pearmini.github.io/uIdea/)
 
 ## 缘起
 

@@ -460,7 +460,7 @@ export default {
       // 确定插入的类型
       const id = new Date().getTime();
       const mp = {
-        text: createText(id, { isTitle: false }),
+        text: createText(id, "说点啥...", { isTitle: false }),
         image: createImage(id),
         canvas: createCanvas(id),
         panel: createPanel(id, "column", {}, [])
