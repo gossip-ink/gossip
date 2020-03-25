@@ -2,7 +2,7 @@ import classNames from "./index.css";
 import { Upload, Icon } from "antd";
 import router from "umi/router";
 import { connect } from "dva";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Item({ icon, name, onClick }) {
   return (
@@ -90,7 +90,7 @@ export default connect(null, {
   }
 
   function gotoGithub() {
-    const url = "https://github.com/pearmini/uidea";
+    const url = "https://github.com/pearmini/gossip";
     window.open(url);
   }
 

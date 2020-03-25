@@ -107,7 +107,9 @@ export default connect(
       title: "想法",
       popover: pop,
       nodata: ideas.length === 0,
-      nodataInfo: "快来写下第一个独一无二的想法吧～"
+      nodataInfo: "快来写下第一个独一无二的想法吧～",
+      url:
+        "https://github.com/pearmini/gossip/blob/master/tutorials.md#%E6%9E%84%E5%BB%BA%E7%BA%A6%E5%AE%9A%E5%BC%8F%E5%A4%A7%E7%BA%B2"
     }
   };
 

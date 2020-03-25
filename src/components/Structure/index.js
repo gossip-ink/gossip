@@ -75,7 +75,7 @@ export default connect(
   appendCmp,
   handleAddCmp,
   hideCmpChildren,
-  showCmpChildren,
+  showCmpChildren
 }) {
   const nodeWidth = 170;
   const slide = components.find(item => item.id === selectedId);
@@ -144,6 +144,7 @@ export default connect(
       nodata={nodes.length === 0}
       nodataInfo="没有选择任何幻灯片～"
       name="structure"
+      url="https://github.com/pearmini/gossip/blob/master/tutorials.md#%E5%88%B6%E4%BD%9C%E6%AF%8F%E4%B8%80%E5%BC%A0%E5%B9%BB%E7%81%AF%E7%89%87"
     >
       <div style={styles.tree}>
         {nodes.map(item => (

@@ -17,7 +17,7 @@ export default connect(
   height,
   onSwitch,
   nodataInfo = "没有数据",
-  url = "https://github.com/pearmini/uidea",
+  url = "https://github.com/pearmini/gossip/",
   toggleShow,
   vis,
   name,

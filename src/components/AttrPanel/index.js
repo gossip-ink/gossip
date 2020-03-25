@@ -191,6 +191,7 @@ export default connect(
       nodataInfo="没有选择任何的组件～"
       nodata={attrs.length === 0}
       name="attr"
+      url="https://github.com/pearmini/gossip/blob/master/tutorials.md#4%E8%8E%B7%E5%BE%97%E7%94%BB%E5%B8%83%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6%E7%A7%BB%E5%8A%A8%E6%95%B0%E7%BB%84"
     >
       <ul className={classNames.container}>
         {attrs.map((item, index) => {
