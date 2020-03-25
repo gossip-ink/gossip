@@ -76,14 +76,14 @@ export default connect(
         okText="去学习"
         cancelText="先随便看看"
         onOk={() => {
-          window.open("https://github.com/pearmini/uidea");
+          window.open("https://github.com/pearmini/gossip/blob/master/tutorials.md");
           setPop(false);
         }}
         onCancel={() => setPop(false)}
       >
         <div className={classNames.help}>
           <p>
-            <b>uIdea</b>&nbsp;制作幻灯片的方法和常规软件方式有所区别，
+            <b>Gossip</b>&nbsp;制作幻灯片的方法和常规软件方式有所区别，
           </p>
           <p>建议用10到20分钟的学习，</p>
           <p>从此打开制作幻灯片的新方式🚀</p>
