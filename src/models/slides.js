@@ -1,7 +1,7 @@
 import helpFile from "../static/data/help.json";
 import exampleFile from "../static/data/snake.json";
 import { saveAs } from "file-saver";
-import { dfs, descendant } from "../utils/tree";
+import { eachBefore, descendant } from "../utils/tree";
 import {
   createCanvas,
   createImage,
@@ -59,7 +59,7 @@ export default {
       const slide = state.components.find(item => item.id === rootId);
       const idea = state.ideas.find(item => item.id === ideaId);
       let cmp;
-      dfs(slide, node => node.id === id && (cmp = node));
+      eachBefore(slide, node => node.id === id && (cmp = node));
       if (cmp.type === "panel") {
         //创建一个新的组件，并且加到后面去
         const id = new Date().getTime();
@@ -73,7 +73,7 @@ export default {
       } else if (cmp.type === idea.type) {
         cmp.value = idea.value;
       } else {
-        dfs(
+        eachBefore(
           slide,
           node =>
             node.children &&
@@ -206,7 +206,7 @@ export default {
     // 更新大纲的 value
     updateNodeValue(state, action) {
       const { id, value } = action.payload;
-      dfs(state.structure, node => {
+      eachBefore(state.structure, node => {
         if (node.id === id) {
           node.name = value;
         }
@@ -214,7 +214,7 @@ export default {
 
       // 看一看对应的 cmp 中有没有 isTitle 的 text 组件，如果有就更新相应的组件
       const slide = state.components.find(item => item.id === id);
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         node.type === "text" && node.attrs.isTitle && (node.value = value);
       });
       return state;
@@ -230,7 +230,7 @@ export default {
       state.components.splice(index, 1);
 
       // 从树中删除
-      dfs(state.structure, node => {
+      eachBefore(state.structure, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -258,14 +258,14 @@ export default {
       // 添加到树中
       const slide = { id, name: value };
       if (type === "children") {
-        dfs(state.structure, node => {
+        eachBefore(state.structure, node => {
           if (node.id === nodeId) {
             node.children = node.children || [];
             node.children.splice(0, 0, slide);
           }
         });
       } else {
-        dfs(state.structure, node => {
+        eachBefore(state.structure, node => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === nodeId) {
@@ -280,7 +280,7 @@ export default {
     },
     hideNodeChildren(state, action) {
       const { id } = action.payload;
-      dfs(state.structure, node => {
+      eachBefore(state.structure, node => {
         if (node.id === id) {
           node._children = node.children;
           node.children = null;
@@ -290,7 +290,7 @@ export default {
     },
     showNodeChildren(state, action) {
       const { id } = action.payload;
-      dfs(state.structure, node => {
+      eachBefore(state.structure, node => {
         if (node.id === id) {
           node.children = node._children;
           node._children = null;
@@ -304,7 +304,7 @@ export default {
 
       // 从旧的 father 删除
       let dragNode = null;
-      dfs(state.structure, node => {
+      eachBefore(state.structure, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -316,7 +316,7 @@ export default {
 
       // 加入新的 father
       dragNode &&
-        dfs(state.structure, node => {
+        eachBefore(state.structure, node => {
           if (node.id === father) {
             node.children = node.children || [];
             node.children.push(dragNode);
@@ -330,7 +330,7 @@ export default {
     insertNode(state, action) {
       const { id, brother, before } = action.payload;
       let dragNode = null;
-      dfs(state.structure, node => {
+      eachBefore(state.structure, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -343,7 +343,7 @@ export default {
       // 添加到新到兄弟节点
       let isAdd = false;
       dragNode &&
-        dfs(state.structure, node => {
+        eachBefore(state.structure, node => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === brother && !isAdd) {
@@ -365,7 +365,7 @@ export default {
       const { rootId, id } = action.payload;
       const slide = state.components.find(item => item.id === rootId);
       let deletedIdea;
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -380,7 +380,7 @@ export default {
 
       // 添加进 idea
       const cmps = [];
-      dfs(deletedIdea, node => {
+      eachBefore(deletedIdea, node => {
         if (node.type !== "panel") {
           cmps.push(node);
         }
@@ -403,7 +403,7 @@ export default {
 
       // 从旧的 father 删除
       let dragNode = null;
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -418,7 +418,7 @@ export default {
 
       // 加入新的 father
       dragNode &&
-        dfs(slide, node => {
+        eachBefore(slide, node => {
           if (node.id === father) {
             node.children = node.children || [];
             node.children.push(dragNode);
@@ -434,7 +434,7 @@ export default {
     hideCmpChildren(state, action) {
       const { id } = action.payload;
       const slide = state.components.find(item => item.id === state.selectedId);
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         if (node.id === id) {
           node._children = node.children;
           node.children = null;
@@ -445,7 +445,7 @@ export default {
     showCmpChildren(state, action) {
       const { id } = action.payload;
       const slide = state.components.find(item => item.id === state.selectedId);
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         if (node.id === id) {
           node.children = node._children;
           node._children = null;
@@ -470,7 +470,7 @@ export default {
 
       // 确定插入的位置
       if (method === "children") {
-        dfs(slide, node => {
+        eachBefore(slide, node => {
           if (node.id !== state.selectedComponentId) return;
           if (node.type !== "panel") {
             alert("只能插入布局节点");
@@ -480,7 +480,7 @@ export default {
           node.attrs.span.splice(0, 0, 1);
         });
       } else if (method === "brother") {
-        dfs(slide, node => {
+        eachBefore(slide, node => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === state.selectedComponentId) {
@@ -506,7 +506,7 @@ export default {
       // 从旧的 father 删除
       let dragNode = null;
       let deleteSpan = null;
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -522,7 +522,7 @@ export default {
       // 添加到新到兄弟节点
       let isAdd = false;
       dragNode &&
-        dfs(slide, node => {
+        eachBefore(slide, node => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === brother && !isAdd) {
@@ -545,11 +545,11 @@ export default {
       const { a, b, root } = action.payload;
       const slide = state.components.find(item => item.id === root);
       let isChange = false;
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         if (!node.children || isChange) return;
         let i1, i2;
         node.children.forEach((d, i) => {
-          dfs(d, n => {
+          eachBefore(d, n => {
             n.id === a && (i1 = i);
             n.id === b && (i2 = i);
           });
@@ -573,14 +573,14 @@ export default {
     setValueOfCmp(state, action) {
       const { value, cmpId, rootId } = action.payload;
       const slide = state.components.find(item => item.id === rootId);
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         if (node.id === cmpId) {
           node.value = value;
 
           // 如果是文字，且还有 isTitle，修改对应的 structure 的 name
           node.type === "text" &&
             node.attrs.isTitle === true &&
-            dfs(state.structure, item => {
+            eachBefore(state.structure, item => {
               item.id === rootId && (item.name = value);
             });
         }
@@ -597,7 +597,7 @@ export default {
 
       const slide = state.components.find(item => item.id === rootId);
       let cmp;
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         node.id === cmpId && (cmp = node);
       });
       cmp && cmp.attrs && (cmp.attrs[key] = value);
@@ -615,7 +615,7 @@ export default {
 
       // 修改使用了这个变量的组件的属性到它的值
       state.components.forEach(item => {
-        dfs(item, node => {
+        eachBefore(item, node => {
           const { attrs } = node;
           attrs &&
             Object.keys(attrs).forEach(key => {
@@ -679,7 +679,7 @@ export default {
       const { key, cmpId, rootId } = action.payload;
       const slide = state.components.find(item => item.id === rootId);
 
-      dfs(slide, node => {
+      eachBefore(slide, node => {
         if (node.id !== cmpId) {
           return;
         }

@@ -3,7 +3,7 @@ import { connect } from "dva";
 import { useState } from "react";
 import Node from "../Node";
 import TreeNode from "../TreeNode";
-import tree, { dfs } from "../../utils/tree";
+import tree, { eachBefore } from "../../utils/tree";
 import { Icon } from "antd";
 import { max } from "d3-array";
 
@@ -112,7 +112,7 @@ export default connect(
         const parents = nodes.filter(n => n.depth === depth);
         for (let p of parents) {
           let findId = null;
-          dfs(p, node => {
+          eachBefore(p, node => {
             if (node.id !== sourceNodeId) return;
             findId = p.id;
           });

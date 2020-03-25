@@ -1,7 +1,7 @@
 // 和树操作有关的一些算法
-function dfs(node, callback) {
+function eachBefore(node, callback) {
   callback(node);
-  node.children && node.children.forEach(item => dfs(item, callback));
+  node.children && node.children.forEach(item => eachBefore(item, callback));
 }
 
 function copyTree(tree) {
@@ -20,11 +20,11 @@ function copyTree(tree) {
 
 function descendant(root) {
   const nodes = [];
-  dfs(root, node => nodes.push(node));
+  eachBefore(root, node => nodes.push(node));
   return nodes;
 }
 
-export { dfs, copyTree, descendant };
+export { eachBefore, copyTree, descendant };
 
 export default function(root) {
   let index = -1;

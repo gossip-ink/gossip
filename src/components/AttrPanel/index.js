@@ -1,7 +1,7 @@
 import classNames from "./index.css";
 import { Icon } from "antd";
 import { connect } from "dva";
-import { dfs } from "../../utils/tree";
+import { eachBefore } from "../../utils/tree";
 import Box from "../Box";
 import Input from "../Input";
 import { useState } from "react";
@@ -38,7 +38,7 @@ export default connect(
   const slide = components.find(item => item.id === selectedId);
   let selectedCmp;
   selectedComponentId &&
-    dfs(slide, node => {
+    eachBefore(slide, node => {
       if (node.id === selectedComponentId) {
         selectedCmp = node;
       }

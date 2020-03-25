@@ -101,30 +101,6 @@ function createSlide(id, value, content = "介绍...") {
   );
 }
 
-function createBigPoint(id, value) {
-  return createPanel(
-    id,
-    "row",
-    { span: [2, 1], backgroundColor: "$1", padding: "$6" },
-    [
-      createText("text" + id, value, {
-        isTitle: true,
-        fontSize: "$2",
-        fontWeight: "bold",
-        textAlign: "center",
-        verticalAlign: "center"
-      }),
-      createPanel("panel" + id, "column", { span: [1] }, [
-        createText("text2" + id, "这个观点很大...", {
-          isTitle: false,
-          textAlign: "left",
-          verticalAlign: "center"
-        })
-      ])
-    ]
-  );
-}
-
 function createFile() {
   const name = "有趣的东西";
   return {
@@ -133,59 +109,27 @@ function createFile() {
     selectedComponentId: 1,
     structure: {
       id: 1,
-      name,
-      children: [
-        {
-          name: "大观点A",
-          id: 2,
-          children: [
-            {
-              name: "小观点A",
-              id: 4
-            },
-            {
-              name: "小观点B",
-              id: 5
-            }
-          ]
-        },
-        {
-          name: "大观点B",
-          id: 3
-        }
-      ]
+      name
     },
     components: [
       createPanel(
         1,
         "column",
-        { span: [1.5, 1], backgroundColor: "$1", padding: "$6" },
+        { span: [2.5, 1], backgroundColor: "$1", padding: "$6" },
         [
-          createPanel(4, "row", { span: [3, 1] }, [
-            createText(2, name, {
-              fontSize: 180,
-              isTitle: true,
-              textAlign: "right",
-              verticalAlign: "bottom",
-              fontWeight: "bold",
-              padding: 0
-            }),
-            createImage(5, url, {
-              verticalAlign: "bottom",
-              textAlign: "left",
-              padding: 40
-            })
-          ]),
+          createText(2, name, {
+            fontSize: 180,
+            isTitle: true,
+            textAlign: "center",
+            verticalAlign: "center",
+            fontWeight: "bold"
+          }),
           createText(3, "伟大的创造者", {
             textAlign: "center",
             verticalAlign: "top"
           })
         ]
-      ),
-      createBigPoint(2, "大观点A"),
-      createBigPoint(3, "大观点B"),
-      createSlide(4, "小观点A", "这个观点很小..."),
-      createSlide(5, "小观点B", "这个观点很小...")
+      )
     ],
     selectedArributeId: 1,
     attributeVars: [
