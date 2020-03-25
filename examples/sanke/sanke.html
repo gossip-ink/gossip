@@ -36,7 +36,6 @@
         }
 
         function update() {
-          // shift array
           for (let i = 0; i < cnt - 1; i++) {
             circleArr[i].x = circleArr[i + 1].x;
             circleArr[i].y = circleArr[i + 1].y;
@@ -45,7 +44,6 @@
           circleArr[cnt - 1].x = mouseX;
           circleArr[cnt - 1].y = mouseY;
 
-          // draw circle
           background("black");
           circleArr.forEach((item, index) => {
             const c = 255 - (cnt - index);
@@ -69,7 +67,8 @@
       const ctx = canvas.getContext("2d");
       const width = window.innerWidth,
         height = window.innerHeight;
-      (canvas.width = width), (canvas.height = height);
+      canvas.width = width;
+      canvas.height = height;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
 

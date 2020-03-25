@@ -72,6 +72,7 @@ export default function({
     <div
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      onMouseOver={() => !hover && setHover(true)}
     >
       <div className={classNames.container}>
         {left.map((_, index) =>
