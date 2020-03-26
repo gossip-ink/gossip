@@ -13,7 +13,8 @@ export default connect(
     selectedId: state.slides.selectedId,
     scale: state.global.scale,
     show: state.global.show.idea,
-    ideas: state.slides.ideas
+    ideas: state.slides.ideas,
+    selectedIdea: state.slides.selectedIdea
   }),
   {
     setSelectedComp: id => ({
@@ -34,6 +35,7 @@ export default connect(
   selectedId,
   components,
   setSelectedComp,
+  selectedIdea,
   gotoNext,
   gotoPre,
   scale,
@@ -113,7 +115,14 @@ export default connect(
     }
   };
 
+  function scrollTo(id) {
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.click();
+  }
+
   useEffect(() => {
+    scrollTo(selectedIdea);
     const keydownHandler = e => {
       const key = e.keyCode;
       if (key === 33 || key === 38) gotoPre();
@@ -139,7 +148,7 @@ export default connect(
       <Box {...props.ideas}>
         <div style={styles.bottom} className={classNames.bottom}>
           {ideas.map(item => (
-            <Idea key={item.id} content={item} />
+            <Idea key={item.id} content={item} id={item.id} />
           ))}
         </div>
       </Box>

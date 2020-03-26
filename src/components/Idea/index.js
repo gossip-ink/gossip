@@ -26,7 +26,8 @@ export default connect(
   saveIdea,
   selectedIdea,
   setSelectedIdea,
-  setHovered
+  setHovered,
+  id: elId
 }) {
   const { type, id, value } = content;
   const [edit, setEdit] = useState(false);
@@ -48,6 +49,7 @@ export default connect(
 
   return (
     <div
+      id={elId}
       onClick={() => setSelectedIdea(id)}
       draggable
       onDragStart={e => handleDragStart(e, content)}

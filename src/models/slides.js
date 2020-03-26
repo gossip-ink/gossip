@@ -44,6 +44,7 @@ export default {
       const { type } = action.payload;
       const idea = createIdea(id, type);
       state.ideas.push(idea);
+      state.selectedIdea = id;
       return state;
     },
 

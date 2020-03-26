@@ -4,7 +4,7 @@ import { Icon } from "antd";
 import Box from "../Box";
 import Node from "../Node";
 import Input from "../Input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default connect(
   state => ({
@@ -60,6 +60,16 @@ export default connect(
     selectVar(item.id);
     e.dataTransfer.setData("attr", `${item.type}-${item.id}`);
   }
+  
+  function scrollTo(id) {
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.click();
+  }
+
+  useEffect(() => {
+    scrollTo(selectedArributeId);
+  });
 
   return (
     <Box

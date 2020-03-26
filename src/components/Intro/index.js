@@ -31,12 +31,12 @@ export default function({ height }) {
         <div className={classNames.imageWrapper}>
           <img
             src="https://i.loli.net/2020/03/23/iy54U7AKzbx61W8.png"
-            width="80%"
+            width="65%"
             className={classNames.top}
           />
           <img
             src="https://i.loli.net/2020/03/23/mG4XWgATJIxOnL1.png"
-            width="80%"
+            width="65%"
           />
         </div>
       </div>

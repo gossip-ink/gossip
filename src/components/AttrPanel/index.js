@@ -183,6 +183,12 @@ export default connect(
     setDragover("");
   }
 
+  function scrollTo(id) {
+    const a = document.createElement("a");
+    a.href = `#${id}`;
+    a.click();
+  }
+
   return (
     <Box
       title="样式"
@@ -224,7 +230,10 @@ export default connect(
                   <Icon
                     type="eye"
                     className={classNames.icon}
-                    onClick={() => selectVar(item.varId)}
+                    onClick={() => {
+                      selectVar(item.varId);
+                      scrollTo(item.varId);
+                    }}
                   />
                   <Icon
                     type="delete"
