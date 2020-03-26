@@ -27,7 +27,7 @@ export default connect(
           cancelText="先随便看看"
           onOk={() => {
             window.open(
-              "https://github.com/pearmini/gossip/blob/master/tutorials.md"
+              "https://www.yuque.com/docs/share/5aef3b0a-28af-4c56-9967-217a7f02c70a?#"
             );
             setPop(false);
           }}
