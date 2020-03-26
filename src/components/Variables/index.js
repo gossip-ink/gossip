@@ -64,6 +64,7 @@ export default connect(
   function scrollTo(id) {
     const a = document.createElement("a");
     a.href = `#${id}`;
+    a.onclick = () => false;
     a.click();
   }
 
