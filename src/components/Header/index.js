@@ -106,13 +106,13 @@ export default connect(null, {
             Gossip
           </div>
           <div className={classNames.intro}>
-            你的下一份 PPT，未必是一份 PPT🔥
+            一个快速和高效创建 PPT 的功能🔥
           </div>
         </div>
         <div className={classNames.btns}>
           {btns.map(({ type, onClick, icon, name, items }) =>
             type === "upload" ? (
-              <Upload onChange={handleUploadFile} key={name}>
+              <Upload onChange={handleUploadFile} key={name} showUploadList={false}>
                 <Item icon={icon} name={name}></Item>
               </Upload>
             ) : type === "select" ? (
