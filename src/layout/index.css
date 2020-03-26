@@ -1,9 +1,14 @@
+.help {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 body {
   overflow: hidden;
   height: 100%;
   background: #f7f8fa;
 }
-
 
 * {
   padding: 0;

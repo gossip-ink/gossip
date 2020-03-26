@@ -11,6 +11,6 @@
     "react-color": "^2.18.0"
   },
   "scripts": {
-    "build": "umi build && rm -rf ./docs && mv ./dist ./docs"
+    "build": "umi build && rm -rf ./docs && mv ./dist ./docs && cp -r  ./docs/*  ./gitee"
   }
 }

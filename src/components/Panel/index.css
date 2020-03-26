@@ -7,6 +7,6 @@
   background: #4091f7;
   transform-origin: left top;
   transform: scale(0.5);
-  z-index: 10;
+  z-index: 999;
   opacity: 0.7;
 }

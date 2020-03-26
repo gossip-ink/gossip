@@ -16,6 +16,7 @@
 .slide {
   border: 1px solid #e8e8e8;
   border-radius: 3px;
+  position: relative;
 }
 
 .list {
@@ -40,4 +41,15 @@
   display: flex;
   align-items: center;
   height: 100%;
+}
+
+.btnGroup {
+  position: absolute;
+  bottom: -30px;
+  right: 0;
+  display: flex;
+}
+
+.rightBtn{
+  margin-left: 8px;
 }

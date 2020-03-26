@@ -60,7 +60,7 @@ export default connect(
     selectVar(item.id);
     e.dataTransfer.setData("attr", `${item.type}-${item.id}`);
   }
-  
+
   function scrollTo(id) {
     const a = document.createElement("a");
     a.href = `#${id}`;
@@ -69,7 +69,7 @@ export default connect(
 
   useEffect(() => {
     scrollTo(selectedArributeId);
-  });
+  }, [selectedArributeId]);
 
   return (
     <Box

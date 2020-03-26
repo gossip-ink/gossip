@@ -9,7 +9,7 @@ export default function({ height }) {
       height: 60
     },
     content: {
-      minHeight: height - 60
+      minHeight: height
     }
   };
   return (

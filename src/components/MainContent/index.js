@@ -5,7 +5,7 @@ import Box from "../Box";
 import { useEffect } from "react";
 import { connect } from "dva";
 import useWindowSize from "react-use/lib/useWindowSize";
-import { Icon } from "antd";
+import { Icon, Button } from "antd";
 
 export default connect(
   state => ({
@@ -123,14 +123,7 @@ export default connect(
 
   useEffect(() => {
     scrollTo(selectedIdea);
-    const keydownHandler = e => {
-      const key = e.keyCode;
-      if (key === 33 || key === 38) gotoPre();
-      else if (key === 40 || key === 39) gotoNext();
-    };
-    window.addEventListener("keydown", keydownHandler);
-    return () => window.removeEventListener("keydown", keydownHandler);
-  });
+  }, [selectedIdea]);
 
   return (
     <div
@@ -142,6 +135,23 @@ export default connect(
         <div style={styles.slide} className={classNames.slide}>
           <div style={styles.wrapper}>
             <Slide {...props.slide} />
+          </div>
+          <div className={classNames.btnGroup}>
+            <Button
+              icon="left"
+              shape="circle"
+              size="small"
+              type="primary"
+              onClick={gotoPre}
+            />
+            <Button
+              className={classNames.rightBtn}
+              icon="right"
+              shape="circle"
+              size="small"
+              type="primary"
+              onClick={gotoNext}
+            />
           </div>
         </div>
       </div>

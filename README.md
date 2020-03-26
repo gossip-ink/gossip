@@ -4,6 +4,9 @@
 
 ![WX20200326-130122@2x.png](https://i.loli.net/2020/03/26/YzhWKcCUMvH8m9D.png)
 
+- [国内访问](https://pearmini.gitee.io/gossip/)
+- [国外访问](https://pearmini.github.io/gossip/)
+  
 ## 缘起
 
 这个项目最初的灵感是来自于 [impress.js](https://github.com/impress/impress.js)，但它使用起来很麻烦（毕竟为了做 PPT 而写代码有点......)，同时现有的一些制作幻灯片的软件使用起来不尽人意。
@@ -13,8 +16,6 @@
 《人类简史》中有一个观点，人类之所以强于其他动物就是因为人类会讲故事：故事让我们能相信陌生人，从而能有效地大规模合作。PPT 不失为一种好的讲故事的方式，而 Gossip（八卦）是一种我们随时随地都在、也是人们最喜欢讲的故事，所以我将该软件取名为 Gossip，旨在打造一个通过 PPT 高效编故事、讲故事的工具。
 
 你的下一份 PPT，未必是一份 PPT。🔥
-
-[直接体验](https://pearmini.github.io/gossip/)
 
 ## 说在前面
 
@@ -55,4 +56,8 @@
 ## 技术栈
 
 umi + antd
+
+## License
+
+MIT
   

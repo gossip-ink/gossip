@@ -191,8 +191,16 @@ const Panel = connect(
   }
 
   useEffect(() => {
+    const remove = () => {
+      dragId !== -1 && setDrag(-1);
+      enterId !== -1 && setEnter(-1);
+    };
     window.addEventListener("mousemove", handleMousemove);
-    return () => window.removeEventListener("mousemove", handleMousemove);
+    window.addEventListener("mouseup", remove);
+    return () => {
+      window.removeEventListener("mousemove", handleMousemove);
+      window.removeEventListener("mouseup", remove);
+    };
   });
 
   return (

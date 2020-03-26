@@ -8,21 +8,12 @@ import Variables from "../../components/Variables";
 import SidebarPanel from "../../components/SidebarPanel";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { connect } from "dva";
-import { Modal, Button } from "antd";
-import { useState } from "react";
 
-export default connect(
-  ({ global }) => ({
-    help: global.help,
-    show: global.show
-  }),
-  {
-    setHelp: () => ({ type: "global/setHelp" })
-  }
-)(function({ help, setHelp, show }) {
+export default connect(({ global }) => ({
+  show: global.show
+}))(function({ show }) {
   // 计算每个部分的高度
   const { height, width } = useWindowSize();
-  const [pop, setPop] = useState(!help);
   const { structure, attr, vari } = show;
   const headerHeight = 60,
     contentHeight = height - headerHeight,
@@ -70,33 +61,6 @@ export default connect(
           <Variables {...props.Variables} />
         </div>
       </div>
-      <Modal
-        title="提示"
-        visible={pop}
-        okText="去学习"
-        cancelText="先随便看看"
-        onOk={() => {
-          window.open("https://github.com/pearmini/gossip/blob/master/tutorials.md");
-          setPop(false);
-        }}
-        onCancel={() => setPop(false)}
-      >
-        <div className={classNames.help}>
-          <p>
-            <b>Gossip</b>&nbsp;制作幻灯片的方法和常规软件方式有所区别，
-          </p>
-          <p>建议用10到20分钟的学习，</p>
-          <p>从此打开制作幻灯片的新方式🚀</p>
-          <Button
-            onClick={() => {
-              setPop(false);
-              setHelp();
-            }}
-          >
-            不再提醒
-          </Button>
-        </div>
-      </Modal>
     </div>
   );
 });
