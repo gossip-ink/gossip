@@ -6,6 +6,8 @@
 
 - [国内访问](https://pearmini.gitee.io/gossip/)
 - [国外访问](https://pearmini.github.io/gossip/)
+
+为保证最佳体验：请使用 Chrome、Firefox 或 Safari 浏览器！
   
 ## 缘起
 
