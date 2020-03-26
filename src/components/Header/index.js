@@ -106,7 +106,7 @@ export default connect(null, {
             Gossip
           </div>
           <div className={classNames.intro}>
-            一个快速和高效创建 PPT 的功能🔥
+            一个快速和高效创建 PPT 的用户界面🔥
           </div>
         </div>
         <div className={classNames.btns}>
