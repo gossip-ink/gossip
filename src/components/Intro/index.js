@@ -9,7 +9,7 @@ export default function({ height }) {
       height: 60
     },
     content: {
-      height: height - 60
+      minHeight: height - 60
     }
   };
   return (
@@ -30,12 +30,12 @@ export default function({ height }) {
         </div>
         <div className={classNames.imageWrapper}>
           <img
-            src="https://i.loli.net/2020/03/23/iy54U7AKzbx61W8.png"
+            src="https://i.loli.net/2020/03/26/uFrys8ReZdghXL3.png"
             width="65%"
             className={classNames.top}
           />
           <img
-            src="https://i.loli.net/2020/03/23/mG4XWgATJIxOnL1.png"
+            src="https://i.loli.net/2020/03/26/YzhWKcCUMvH8m9D.png"
             width="65%"
           />
         </div>
