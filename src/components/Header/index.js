@@ -15,68 +15,84 @@ function Item({ icon, name, onClick }) {
   );
 }
 
-export default connect(null, {
-  createNewFile: () => ({ type: "slides/createNewFile" }),
-  download: () => ({ type: "slides/download" }),
-  upload: data => ({ type: "slides/upload", payload: { data } }),
-  save: () => ({ type: "slides/save" }),
-  help: () => ({ type: "slides/createHelp" }),
-  example: () => ({ type: "slides/createExample" })
-})(function({ height, createNewFile, download, upload, save, help, example }) {
+export default connect(
+  null,
+  {
+    createNewFile: () => ({ type: "slides/createNewFile" }),
+    download: () => ({ type: "slides/download" }),
+    upload: (data) => ({ type: "slides/upload", payload: { data } }),
+    save: () => ({ type: "slides/save" }),
+    help: () => ({ type: "slides/createHelp" }),
+    example: () => ({ type: "slides/createExample" }),
+  }
+)(function({ height, createNewFile, download, upload, save, help, example }) {
   const [show, setShow] = useState(false);
   const styles = {
     header: {
       height,
-      lineHeight: height + "px"
-    }
+      lineHeight: height + "px",
+    },
   };
 
   const btns = [
     {
       icon: "play-circle",
-      onClick: () => router.push("/present"),
-      name: "放映"
+      onClick: () => {
+        fullscreen(document.documentElement);
+        router.push("/present");
+      },
+      name: "放映",
     },
     {
       icon: "file-add",
       onClick: createNewFile,
-      name: "新建"
+      name: "新建",
     },
     {
       icon: "save",
       onClick: save,
-      name: "保存"
+      name: "保存",
     },
     {
       icon: "download",
       onClick: download,
-      name: "下载"
+      name: "下载",
     },
     {
       icon: "upload",
       onClick: handleUploadFile,
       type: "upload",
-      name: "打开"
+      name: "打开",
     },
     {
       icon: "read",
       name: "案例",
       type: "select",
-      onClick: e => {
+      onClick: (e) => {
         setShow(!show);
         e.stopPropagation();
       },
       items: [
         { name: "介绍", onClick: help, icon: "fire" },
-        { name: "教程", onClick: example, icon: "thunderbolt" }
-      ]
+        { name: "教程", onClick: example, icon: "thunderbolt" },
+      ],
     },
     {
       icon: "github",
       onClick: gotoGithub,
-      name: "github"
-    }
+      name: "github",
+    },
   ];
+
+  function fullscreen(element) {
+    if (element.requestFullScreen) {
+      element.requestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    }
+  }
 
   function handleUploadFile(e) {
     const { file } = e;
@@ -112,28 +128,28 @@ export default connect(null, {
         <div className={classNames.btns}>
           {btns.map(({ type, onClick, icon, name, items }) =>
             type === "upload" ? (
-              <Upload onChange={handleUploadFile} key={name} showUploadList={false}>
-                <Item icon={icon} name={name}></Item>
+              <Upload
+                onChange={handleUploadFile}
+                key={name}
+                showUploadList={false}
+              >
+                <Item icon={icon} name={name} />
               </Upload>
             ) : type === "select" ? (
               <div className={classNames.selectWrapper} key={name}>
                 <Item icon={icon} name={name} onClick={onClick} />
                 {show && (
                   <ul onClick={onClick} className={classNames.select}>
-                    {items.map(i => (
+                    {items.map((i) => (
                       <li className={classNames.selectItem} key={i.name}>
-                        <Item
-                          icon={i.icon}
-                          onClick={i.onClick}
-                          name={i.name}
-                        ></Item>
+                        <Item icon={i.icon} onClick={i.onClick} name={i.name} />
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
             ) : (
-              <Item icon={icon} onClick={onClick} name={name} key={name}></Item>
+              <Item icon={icon} onClick={onClick} name={name} key={name} />
             )
           )}
         </div>
