@@ -10,13 +10,13 @@ import Step from "../../components/Step";
 import tree from "../../utils/tree";
 import overview from "../../utils/overview";
 
-export default connect(state => ({
+export default connect((state) => ({
   structure: state.slides.structure,
   components: state.slides.components,
-  variables: state.slides.attributeVars
+  variables: state.slides.attributeVars,
 }))(function({ structure, components, variables }) {
   const { width, height } = useWindowSize();
-  const { value } = variables.find(item => item.id === 1);
+  const { value } = variables.find((item) => item.id === 1);
 
   const slideScale = 0.85;
   const angles = [90, 0, -90, 0];
@@ -25,7 +25,7 @@ export default connect(state => ({
   const nodes = tree(structure);
 
   const nodesWidthData = nodes.map((node, index) => {
-    const cmp = components.find(item => item.id === node.id);
+    const cmp = components.find((item) => item.id === node.id);
     const w = width * (1 + node.depth * 0.1),
       h = height * (1 + node.depth * 0.1);
     let rotate = 0;
@@ -43,8 +43,8 @@ export default connect(state => ({
       z: node.depth * -1000,
       data: {
         width: rotate ? h : w,
-        height: rotate ? w : h
-      }
+        height: rotate ? w : h,
+      },
     };
   });
 
@@ -60,14 +60,14 @@ export default connect(state => ({
         x: actualX,
         y: actualY,
         rotate,
-        ...rest
+        ...rest,
       };
     }
   );
 
   // 监听事件
   useEffect(() => {
-    const back = e => {
+    const back = (e) => {
       if (e.keyCode === 27) router.push("/");
       e.preventDefault();
     };
@@ -80,7 +80,7 @@ export default connect(state => ({
       className={classNames.container}
       style={{ height, width, background: value ? value : "white" }}
     >
-      <Impress overviewOpen={true}>
+      <Impress overviewOpen={true} slides={slides}>
         {slides.map(({ x, y, z, rotate, content, scale }) => (
           <Step
             x={x}
@@ -92,7 +92,7 @@ export default connect(state => ({
           >
             <div
               style={{
-                transform: `scale(${slideScale})`
+                transform: `scale(${slideScale})`,
               }}
             >
               <Slide content={content} hasBorder={false} />

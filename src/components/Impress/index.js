@@ -1,6 +1,9 @@
 import { useEffect, useRef } from "react";
+import { connect } from "dva";
 import classNames from "./index.css";
-export default function({ children, overviewOpen = false }) {
+export default connect((state) => ({
+  selectedId: state.slides.selectedId,
+}))(function({ children, selectedId, slides, overviewOpen = false }) {
   const impressRef = useRef(null);
   const canvasRef = useRef(null);
   useEffect(() => {
@@ -8,7 +11,13 @@ export default function({ children, overviewOpen = false }) {
     const root = impressRef.current;
     const canvas = canvasRef.current;
     let isOveriew = false;
-    let activeIndex = 0;
+
+    // 找到当前选中的幻灯片
+    let activeIndex;
+    slides.forEach(
+      (item, index) => item.id === selectedId && (activeIndex = index)
+    );
+    activeIndex = activeIndex || 0;
 
     // 给每一个 step 添加监听器
     const steps = document.getElementsByClassName("step");
@@ -35,7 +44,7 @@ export default function({ children, overviewOpen = false }) {
     }
 
     // 切换到第一个
-    const { props } = children[0];
+    const { props } = children[activeIndex];
     props && goto(props);
 
     function next() {
@@ -80,7 +89,7 @@ export default function({ children, overviewOpen = false }) {
         minY = Infinity,
         maxX = -Infinity,
         maxY = -Infinity;
-      children.forEach(item => {
+      children.forEach((item) => {
         const { x = 0, y = 0 } = item.props;
         (maxX = Math.max(maxX, x)),
           (maxY = Math.max(maxY, y)),
@@ -105,14 +114,14 @@ export default function({ children, overviewOpen = false }) {
       const props = {
         x,
         y,
-        scale: scale
+        scale: scale,
       };
       goto(props);
       setOveriew();
     }
 
     // 导航的监听器
-    const navigate = event => {
+    const navigate = (event) => {
       if (
         event.keyCode == 8 ||
         event.keyCode == 9 ||
@@ -153,4 +162,4 @@ export default function({ children, overviewOpen = false }) {
       </div>
     </div>
   );
-}
+});

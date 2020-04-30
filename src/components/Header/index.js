@@ -24,8 +24,18 @@ export default connect(
     save: () => ({ type: "slides/save" }),
     help: () => ({ type: "slides/createHelp" }),
     example: () => ({ type: "slides/createExample" }),
+    setSelected: (id) => ({ type: "slides/setSelected", payload: { id } }),
   }
-)(function({ height, createNewFile, download, upload, save, help, example }) {
+)(function({
+  height,
+  createNewFile,
+  download,
+  upload,
+  save,
+  help,
+  example,
+  setSelected,
+}) {
   const [show, setShow] = useState(false);
   const styles = {
     header: {
@@ -39,9 +49,18 @@ export default connect(
       icon: "play-circle",
       onClick: () => {
         fullscreen(document.documentElement);
+        setSelected(1);
         router.push("/present");
       },
-      name: "放映",
+      name: "从头播放",
+    },
+    {
+      icon: "play-square",
+      onClick: () => {
+        fullscreen(document.documentElement);
+        router.push("/present");
+      },
+      name: "从此播放",
     },
     {
       icon: "file-add",

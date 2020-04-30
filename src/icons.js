@@ -30,6 +30,7 @@ export { default as VerticalalignbottomOutline } from "@ant-design/icons/lib/out
 export { default as VerticalalignmiddleOutline } from "@ant-design/icons/lib/outline/VerticalalignmiddleOutline";
 export { default as NumberOutline } from "@ant-design/icons/lib/outline/NumberOutline";
 export { default as PlaycircleOutline } from "@ant-design/icons/lib/outline/PlaycircleOutline";
+export { default as PlaysquareOutline } from "@ant-design/icons/lib/outline/PlaysquareOutline";
 export { default as PluscircleOutline } from "@ant-design/icons/lib/outline/PluscircleOutline";
 export { default as FileaddOutline } from "@ant-design/icons/lib/outline/FileaddOutline";
 export { default as DownloadOutline } from "@ant-design/icons/lib/outline/DownloadOutline";

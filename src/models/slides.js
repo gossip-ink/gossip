@@ -162,6 +162,7 @@ export default {
     setSelected(state, action) {
       const { id } = action.payload;
       state.selectedId = id;
+      // console.log(id);
       return state;
     },
     // 设置当前 active 的 cmp
