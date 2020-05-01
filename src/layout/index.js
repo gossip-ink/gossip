@@ -1,21 +1,50 @@
 import useWindowSize from "react-use/lib/useWindowSize";
 import Intro from "../components/Intro";
 import { Modal, Button } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "dva";
 import "./index.css";
 import classNames from "./index.css";
 
 export default connect(
-  ({ global }) => ({
-    help: global.help
+  ({ global, slides }) => ({
+    help: global.help,
+    slides,
   }),
   {
-    setHelp: () => ({ type: "global/setHelp" })
+    setHelp: () => ({ type: "global/setHelp" }),
   }
-)(function({ children, help, setHelp }) {
+)(function({ children, help, setHelp, slides }) {
   const { width, height } = useWindowSize();
   const [pop, setPop] = useState(!help);
+
+  function hasChange() {
+    const oldSlides = JSON.parse(localStorage.getItem("uIdea"));
+    const content = (data) => ({
+      structure: data.structure,
+      components: data.components,
+      attributeVars: data.attributeVars,
+      ideas: data.ideas,
+    });
+    const oldData = JSON.stringify(content(oldSlides));
+    const newData = JSON.stringify(content(slides));
+    return newData !== oldData;
+  }
+
+  // 在离开或者刷新页面之前提醒用户保存
+  function handleBeforeUnLoad(e) {
+    if (width <= 700) return;
+    if (!hasChange()) return;
+    const confirmationMessage = "o/";
+    (e || window.event).returnValue = confirmationMessage; // Gecko and Trident
+    return confirmationMessage;
+  }
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnLoad);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnLoad);
+  });
+
   if (width > 700)
     return (
       <div>
