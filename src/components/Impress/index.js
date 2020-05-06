@@ -24,7 +24,7 @@ export default connect((state) => ({
 
     [...steps].forEach((item, index) => {
       item.onclick = () => void flipPage(+1);
-      item.onwheel = wheel => {
+      item.onwheel = (wheel) => {
         if (wheel.deltaY >= 0) flipPage(+1);
         else flipPage(-1);
       };
@@ -34,11 +34,11 @@ export default connect((state) => ({
           activeIndex = index;
           isOveriew = false;
         } else {
-          activeIndex = (index + n) % children.length;
+          activeIndex = Math.max((index + n) % children.length, 0);
         }
         const { props } = children[activeIndex];
         goto(props);
-      };
+      }
     });
 
     // 添加所有的监听器
