@@ -23,12 +23,18 @@ export default connect((state) => ({
     const steps = document.getElementsByClassName("step");
 
     [...steps].forEach((item, index) => {
-      item.onclick = function() {
+      item.onclick = () => void flipPage(+1);
+      item.onwheel = wheel => {
+        if (wheel.deltaY >= 0) flipPage(+1);
+        else flipPage(-1);
+      };
+
+      function flipPage(n = 1) {
         if (isOveriew) {
           activeIndex = index;
           isOveriew = false;
         } else {
-          activeIndex = (index + 1) % children.length;
+          activeIndex = (index + n) % children.length;
         }
         const { props } = children[activeIndex];
         goto(props);
