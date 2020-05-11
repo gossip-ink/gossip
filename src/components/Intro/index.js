@@ -25,7 +25,7 @@ export default function({ height }) {
       <div className={classNames.content} style={styles.content}>
         <div className={classNames.title}>
           <h1 className={classNames.big}>Gossip</h1>
-          <p>你的下一份 PPT，未必是一份 PPT🔥</p>
+          <p>一个快速和高效创建 PPT 的用户界面🔥</p>
           <Button type="primary">请去大屏设备上使用</Button>
         </div>
         <div className={classNames.imageWrapper}>

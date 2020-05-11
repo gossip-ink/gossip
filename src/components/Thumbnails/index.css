@@ -9,3 +9,15 @@
 .wrapper {
   margin: 0.5em 0;
 }
+
+.box {
+  position: relative;
+}
+
+.pageNumber {
+  position: absolute;
+  display: block;
+  left: -2em;
+  top: 50%;
+  transform: translate(0, -50%);
+}

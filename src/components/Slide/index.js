@@ -36,15 +36,6 @@ export default connect(
     }
   };
 
-  // function handleDrop(e) {
-  //   const dragData = e.dataTransfer.getData("drag");
-  //   const [dragType, data] = dragData && dragData.split("-");
-  //   if (dragType !== "idea") return;
-  //   const id = parseInt(data);
-  //   const dragId = isNaN(id) ? data : id;
-  //   appendIdea(dragId, content.id);
-  // }
-
   return (
     <div className={classNames.container} style={styles.container}>
       <Panel

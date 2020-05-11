@@ -4,21 +4,21 @@ import Slide from "../Slide/index";
 import { eachBefore } from "../../utils/tree";
 import useWindowSize from "react-use/lib/useWindowSize";
 export default connect(
-  state => ({
+  (state) => ({
     components: state.slides.components,
     structure: state.slides.structure,
     selectedId: state.slides.selectedId,
     selectedPanel: state.slides.selectedPanel,
-    isDrag: state.global.isDragIdea
+    isDrag: state.global.isDragIdea,
   }),
   {
-    setSelected: id => ({ type: "slides/setSelected", payload: { id } }),
-    setSelectedPanel: type => ({
+    setSelected: (id) => ({ type: "slides/setSelected", payload: { id } }),
+    setSelectedPanel: (type) => ({
       type: "slides/setSelectedPanel",
-      payload: { type }
+      payload: { type },
     }),
-    deleteNode: id => ({ type: "slides/deleteNode", payload: { id } }),
-    setIsDrag: drag => ({ type: "global/setDragIdea", payload: { drag } })
+    deleteNode: (id) => ({ type: "slides/deleteNode", payload: { id } }),
+    setIsDrag: (drag) => ({ type: "global/setDragIdea", payload: { drag } }),
   }
 )(function({
   height,
@@ -28,7 +28,7 @@ export default connect(
   setSelected,
   setSelectedPanel,
   isDrag,
-  setIsDrag
+  setIsDrag,
 }) {
   // 布局
   const windowSize = useWindowSize();
@@ -36,19 +36,19 @@ export default connect(
 
   // 按照顺序获得 slides
   const ids = [];
-  eachBefore(structure, node => ids.push(node.id));
-  const nodes = ids.map(id => components.find(d => d.id === id));
+  eachBefore(structure, (node) => ids.push(node.id));
+  const nodes = ids.map((id) => components.find((d) => d.id === id));
 
   const styles = {
     container: {
-      height
+      height,
     },
     wrapper: {
       transformOrigin: "left top",
       transform: `scale(${scale})`,
       width: windowSize.width * scale,
-      height: windowSize.height * scale
-    }
+      height: windowSize.height * scale,
+    },
   };
 
   return (
@@ -59,22 +59,25 @@ export default connect(
         setSelectedPanel(1);
       }}
     >
-      {nodes.map(item => (
-        <div
-          key={item.id}
-          onClick={() => setSelected(item.id)}
-          style={styles.wrapper}
-          className={classNames.wrapper}
-        >
-          <Slide
-            height={windowSize.height}
-            width={windowSize.width}
-            content={item}
-            selected={selectedId === item.id}
-            selectable={true}
-            isDrag={isDrag}
-            setIsDrag={setIsDrag}
-          />
+      {nodes.map((item, index) => (
+        <div className={classNames.box}>
+          <span className={classNames.pageNumber}>{index + 1}</span>
+          <div
+            key={item.id}
+            onClick={() => setSelected(item.id)}
+            style={styles.wrapper}
+            className={classNames.wrapper}
+          >
+            <Slide
+              height={windowSize.height}
+              width={windowSize.width}
+              content={item}
+              selected={selectedId === item.id}
+              selectable={true}
+              isDrag={isDrag}
+              setIsDrag={setIsDrag}
+            />
+          </div>
         </div>
       ))}
     </div>

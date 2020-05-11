@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
-import { connect } from "dva";
 import classNames from "./index.css";
-export default connect((state) => ({
-  selectedId: state.slides.selectedId,
-}))(function({ children, selectedId, slides, overviewOpen = false }) {
+export default function({
+  children,
+  selectedId,
+  slides,
+  overviewOpen = false,
+}) {
   const impressRef = useRef(null);
   const canvasRef = useRef(null);
   useEffect(() => {
@@ -168,4 +170,4 @@ export default connect((state) => ({
       </div>
     </div>
   );
-});
+}

@@ -14,7 +14,8 @@ export default connect((state) => ({
   structure: state.slides.structure,
   components: state.slides.components,
   variables: state.slides.attributeVars,
-}))(function({ structure, components, variables }) {
+  selectedId: state.slides.selectedId,
+}))(function({ structure, components, variables, selectedId }) {
   const { width, height } = useWindowSize();
   const { value } = variables.find((item) => item.id === 1);
 
@@ -24,7 +25,7 @@ export default connect((state) => ({
   let preAngle = 0;
   const nodes = tree(structure);
 
-  const nodesWidthData = nodes.map((node, index) => {
+  const attr = (node, index) => {
     const cmp = components.find((item) => item.id === node.id);
     const w = width * (1 + node.depth * 0.1),
       h = height * (1 + node.depth * 0.1);
@@ -46,24 +47,24 @@ export default connect((state) => ({
         height: rotate ? w : h,
       },
     };
-  });
+  };
 
-  const slides = overview(nodesWidthData).map(
-    ({ x, y, rotate, scale, ...rest }) => {
-      let actualX = x,
-        actualY = y;
-      if (rotate) {
-        actualX -= (height * slideScale * scale) / 2;
-        actualY += (width * slideScale * scale) / 2;
-      }
-      return {
-        x: actualX,
-        y: actualY,
-        rotate,
-        ...rest,
-      };
+  const actual = ({ x, y, rotate, scale, ...rest }) => {
+    let actualX = x,
+      actualY = y;
+    if (rotate) {
+      actualX -= (height * slideScale * scale) / 2;
+      actualY += (width * slideScale * scale) / 2;
     }
-  );
+    return {
+      x: actualX,
+      y: actualY,
+      rotate,
+      ...rest,
+    };
+  };
+
+  const slides = overview(nodes.map(attr).map(actual));
 
   // 监听事件
   useEffect(() => {
@@ -80,7 +81,7 @@ export default connect((state) => ({
       className={classNames.container}
       style={{ height, width, background: value ? value : "white" }}
     >
-      <Impress overviewOpen={true} slides={slides}>
+      <Impress overviewOpen={true} slides={slides} selectedId={selectedId}>
         {slides.map(({ x, y, z, rotate, content, scale }) => (
           <Step
             x={x}
