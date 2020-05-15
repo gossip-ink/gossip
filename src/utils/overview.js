@@ -1,9 +1,9 @@
 function isOverLap(wordA, wordB) {
-  const Ax = wordA.x + wordA.data.width; // right
-  const Ay = wordA.y + wordA.data.height; // bottom
-  const Bx = wordB.x + wordB.data.width;
-  const By = wordB.y + wordB.data.height;
-  return !(Ax < wordB.x || Ay < wordB.y || Bx < wordA.x || By < wordA.y);
+  const xA = wordA.x + wordA.data.width;
+  const yA = wordA.y + wordA.data.height;
+  const xB = wordB.x + wordB.data.width;
+  const yB = wordB.y + wordB.data.height;
+  return !(xA < wordB.x || yA < wordB.y || xB < wordA.x || yB < wordA.y);
 }
 
 function hasOverLap(word, index, array) {
@@ -12,8 +12,8 @@ function hasOverLap(word, index, array) {
 
 function allocate(word, index, array) {
   if (index === 0) {
-    word.x = Math.round(-word.data.width / 2);
-    word.y = Math.round(-word.data.height / 2);
+    word.x = 0;
+    word.y = 0;
     return;
   }
   let r = 10;
