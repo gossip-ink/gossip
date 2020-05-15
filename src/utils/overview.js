@@ -18,18 +18,12 @@ function allocate(word, index, array) {
   }
   let r = 10;
   let degree = 0;
-  let cnt = 0;
   const increase = 400;
   do {
     word.x = Math.round(r * Math.sin((degree * Math.PI) / 180));
     word.y = Math.round(r * Math.cos((degree * Math.PI) / 180));
     degree += 1;
-    cnt += 1;
-
-    if (degree >= 360) {
-      r += increase;
-      degree = 0;
-    }
+    degree >= 360 && ((r += increase), (degree = 0));
   } while (hasOverLap(word, index, array));
 }
 
