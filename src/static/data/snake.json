@@ -11,11 +11,10 @@
         "id": 1585107046489,
         "name": "代码讲解",
         "children": [
-          { "id": 1585107048907, "name": "获得画布", "_children": null },
-          { "id": 1585107175403, "name": "监听事件", "_children": null },
+          { "id": 1585107048907, "name": "获得画布" },
+          { "id": 1585107175403, "name": "监听事件" },
           { "id": 1585107177585, "name": "移动数组" }
-        ],
-        "_children": null
+        ]
       },
       { "id": 1585107300648, "name": "效果演示", "children": [] }
     ]
@@ -44,8 +43,7 @@
             "verticalAlign": "center",
             "padding": 0,
             "isTitle": true
-          },
-          "_children": null
+          }
         },
         {
           "id": 3,
