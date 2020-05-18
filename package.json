@@ -1,14 +1,14 @@
 {
   "devDependencies": {
-    "d3-array": "^2.4.0",
-    "d3-scale": "^3.2.1",
-    "react": "^16.12.0",
-    "react-use": "^13.27.0",
     "umi-plugin-react": "^1.14.9"
   },
   "dependencies": {
     "file-saver": "^2.0.2",
-    "react-color": "^2.18.0"
+    "react-color": "^2.18.0",
+    "d3-array": "^2.4.0",
+    "d3-scale": "^3.2.1",
+    "react": "^16.12.0",
+    "react-use": "^13.27.0"
   },
   "scripts": {
     "build": "umi build && rm -rf ./docs && mv ./dist ./docs && cp -r  ./docs/*  ./gitee"
