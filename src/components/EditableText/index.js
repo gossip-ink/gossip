@@ -2,12 +2,15 @@ import { useEffect, useState, useRef } from "react";
 import { connect } from "dva";
 import classNames from "./index.css";
 
-export default connect(null, {
-  changeAttr: (value, key, cmpId, rootId) => ({
-    type: "slides/changeAttr",
-    payload: { value, key, cmpId, rootId }
-  })
-})(function({
+export default connect(
+  null,
+  {
+    changeAttr: (value, key, cmpId, rootId) => ({
+      type: "slides/changeAttr",
+      payload: { value, key, cmpId, rootId },
+    }),
+  }
+)(function({
   id,
   attrs,
   value,
@@ -16,17 +19,18 @@ export default connect(null, {
   select,
   onValueChange,
   changeAttr,
-  editable
+  editable,
 }) {
   const [edit, setEdit] = useState(false);
   const ref = useRef(null);
-  const lines = value.split("\n").map(l => {
+  const lines = value.split("\n").map((l) => {
     if (l[0] !== "-") return l;
     if (l.length >= 2 && l[1] === " ") {
       const chars = l.split("");
       chars[0] = "•";
       return chars.join("");
     }
+    return l;
   });
 
   const styles = {
@@ -47,18 +51,18 @@ export default connect(null, {
           ? "center"
           : attrs.textAlign === "right"
           ? "flex-end"
-          : "flex-start"
+          : "flex-start",
     },
     font: {
       fontSize: attrs.fontSize,
       color: attrs.color,
       textAlign: attrs.textAlign,
       fontWeight: attrs.fontWeight,
-      cursor: editable && "move"
+      cursor: editable && "move",
     },
     line: {
-      width
-    }
+      width,
+    },
   };
 
   function whitespace(str) {
@@ -98,7 +102,7 @@ export default connect(null, {
         <textarea
           ref={ref}
           value={value}
-          onChange={e => onValueChange(e.target.value)}
+          onChange={(e) => onValueChange(e.target.value)}
           rows={lines.length}
           className={classNames.textInput}
           style={{ width, ...styles.font }}
@@ -115,7 +119,7 @@ export default connect(null, {
                 className={classNames.line}
                 style={{
                   width,
-                  textIndent: `${whitespace(line)}em`
+                  textIndent: `${whitespace(line)}em`,
                 }}
               >
                 {line}

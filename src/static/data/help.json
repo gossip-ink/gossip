@@ -63,7 +63,7 @@
       "attrs": {
         "span": [2.0551049999999997, 1.4578950000000002],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -105,7 +105,7 @@
       "attrs": {
         "span": [2, 1],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -167,7 +167,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -222,7 +222,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -374,7 +374,7 @@
       "attrs": {
         "span": [1.3149499999999998, 0.8950500000000001],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -456,7 +456,7 @@
       "attrs": {
         "span": [1.656, 0.744],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -517,7 +517,7 @@
       "attrs": {
         "span": [0.795, 2.205],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1",
         "fontSize": 40
       },
@@ -629,7 +629,7 @@
       "attrs": {
         "span": [1.2, 1],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -690,7 +690,7 @@
       "attrs": {
         "span": [1.38, 1],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -751,7 +751,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -816,7 +816,7 @@
       "attrs": {
         "span": [2, 1.2598329999999998],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -884,7 +884,7 @@
       "attrs": {
         "span": [1, 0.8648999999999999],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -951,7 +951,7 @@
       "attrs": {
         "span": [1.305541, 1.6282590000000001],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1019,7 +1019,7 @@
       "attrs": {
         "span": [0.562875, 1.35],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1086,7 +1086,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1151,7 +1151,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1223,7 +1223,7 @@
       "attrs": {
         "span": [0.92, 1.08],
         "flex": "row",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1300,7 +1300,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1364,7 +1364,7 @@
       "attrs": {
         "span": [1, 2],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [
@@ -1443,7 +1443,7 @@
       "attrs": {
         "span": [1.41, 1.59],
         "flex": "column",
-        "padding": "$1584502387986",
+        "padding": "$6",
         "backgroundColor": "$1"
       },
       "children": [

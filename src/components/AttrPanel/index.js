@@ -158,7 +158,6 @@ export default connect(
         isVar = true;
         varId = parseInt(attrValue.slice(1));
         const v = variables.find(item => item.id === varId);
-        console.log(variables, varId)
         attrValue = v.value;
       }
       const obj = {
