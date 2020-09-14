@@ -18,6 +18,8 @@ module.exports = {
       { test: /\.css$/, use: ["style-loader", "css-loader"] },
       { test: /\.tsx?$/, loader: "ts-loader" },
       { test: /\.s[ac]ss$/i, use: ["style-loader", "css-loader", "sass-loader"] },
+      { test: /\.(?:gif|jpg|png|svg|webp)$/, use: ["file-loader"] },
+      { test: /\.(?:eot|otf|ttf|woff|woff2)$/, use: ["file-loader"] },
     ],
   },
   plugins: [
