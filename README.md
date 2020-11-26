@@ -1,76 +1,74 @@
 # Gossip 1.0
 
+- [Gossip 1.0](#gossip-10)
+  - [Overview](#overview)
+  - [Why is it](#why-is-it)
+  - [Get Started](#get-started)
+  - [Features](#features)
+  - [Limitations](#limitations)
+  - [Future works](#future-works)
+  - [How To Contribute](#how-to-contribute)
+  - [Technology stack](#technology-stack)
+  
+## Overview
+
+Gossip is an online user interface to create awesome presentation efficiently. If you are in China you can try it [here](https://pearmini.gitee.io/gossip/), otherwise [here](https://pearmini.github.io/gossip/). Please use Chrome, Firefox or Safari for better experience.
+
+There is a view in [**Sapiens: A Brief History of Humankind**](https://en.wikipedia.org/wiki/Sapiens:_A_Brief_History_of_Humankind) that the ability to tell and share stories makes humans far more strong than animals, because stories allow us to trust strangers which led to large-scale cooperation.
+
+Presentation is a good way of telling and sharing stories, and gossip is one the favorite kinds of story which we talk anytime. So I name the software as **Gossip** in order to build a tool that enable users to create and tell stories more efficient and convenient.
+
+**Make you next PPT not a PPT.**
+
 ![WX20200326-130239@2x.png](https://i.loli.net/2020/03/26/uFrys8ReZdghXL3.png)
 
 ![WX20200326-130122@2x.png](https://i.loli.net/2020/03/26/YzhWKcCUMvH8m9D.png)
 
-- [国内访问](https://pearmini.gitee.io/gossip/)
-- [国外访问](https://pearmini.github.io/gossip/)
+## Why is it
 
-为保证最佳体验：请使用 Chrome、Firefox 或 Safari 浏览器！
+Gossip is inspired by [impress.js](https://github.com/impress/impress.js). Although impress.js is impressive, it is also hard to use because you must code... In the meantime, existing tools to author and delivery presentation do have some problems which can't be ignored.
+
+On the one hand, existing tools make the authors pay more attention on graphics design of each slides, rather than the efficiency of transmitting information and the whole structure of the presentation.
+
+On the other hand, it is difficult for them to provide the audience more context during delivering presentation, such as the relationship between previous and current slide, the position of the slide in the all of slides, etc.
+
+## Get Started
+
+There is a [tutorials in Chinese](./tutorials.zn.md) to familiarize you with all the techniques you need know to author and delivery presentation by Gossip. And there is a upcoming tutorials in English.
+
+## Features
+
+- Powerful outline.
+- Only a small amount of drag and alignment is required for the layout of the operation.
+- More free and convenient modification of styles.
+- Automatically generate transition and overview mode in impress.js.
   
-## 缘起
+## Limitations
 
-这个项目最初的灵感是来自于 [impress.js](https://github.com/impress/impress.js)，但它使用起来很麻烦（毕竟为了做 PPT 而写代码有点......)，同时现有的一些制作幻灯片的软件使用起来不尽人意。
+There are some limitations in Gossip now.
 
-一方面，现有的软件让演讲者在制作 PPT 的过程中过多地关注幻灯片的图形化设计，而忽略了每一页幻灯片传递信息的效率和 PPT 整体的逻辑结构。另一方面，在演示 PPT 的过程中不能给听众提供更多的上下文信息：前后两张幻灯片的关系、当前讲到哪一张、还有多少张没有讲......
+- Outline is not flexible enough.
+- Variables are not easy enough to use.
+- Layout method is not convent enough.
+- No support for animation, template, shortcuts, redo, undo, etc.
+- The context provided during delivering is not enough.
+- Word cloud mode have some problems.
 
-《人类简史》中有一个观点，人类之所以强于其他动物就是因为人类会讲故事：故事让我们能相信陌生人，从而能有效地大规模合作。PPT 不失为一种好的讲故事的方式，而 Gossip（八卦）是一种我们随时随地都在、也是人们最喜欢讲的故事，所以我将该软件取名为 Gossip，旨在打造一个通过 PPT 高效编故事、讲故事的工具。
+## Future works
 
-## 说在前面
+- Solve the problems mentioned above.
+- Design a better UI.
 
-当前版本的 Gossip 1.0 是一门课程的课程项目，只实现了一些最初的设想，所以使用起来仍然还不是特别方便。无论是从功能还是代码上讲，都不是特别优雅，还有很大的改进空间。希望大家使用后多多提意见，将不放方便的地方和期望的功能告诉我，最后会在 Gossip 2.0 中体现。
+## How To Contribute
 
-如果你喜欢 Gossip 的话，除了 star 以外，还可以做下面几件事：
+Gossip 1.0 is just a course project, we need you encourage and advice to improve the code and features of it.
 
-- 加入 [Telegram](https://t.me/joinchat/S4-TmBwTcGFnmSYM0gxsdw) 讨论组分享使用心得，以及提出期望的功能。
-- 将你用 Gossip 做的 PPT 给大家分享。如果你正好有一些有趣的想法或者项目想给大家分享，不妨用 Gossip 做一份 PPT。可以提交 issue 或者直接将你的 `xxx.gsp` 通过邮件发给我（subairui@icloud.com)，我会选择其中一部分放在 Gossip 网站导航的案例之中！
-- 填写一个[调查问卷](https://www.wjx.cn/jq/77277467.aspx)，让我能更好地了解在使用 Gossip 的存在的一些问题。
+If you like Gossip, not only can you star it, you can also do the following things.
 
-我们一起让你的下一份 PPT，未必是一份 PPT。🔥
-
-## 特色
-
-- 约定式大纲。
-- 只需要少量拖拽和对齐操作的布局。
-- 更加自由和方便的修改样式。
-- 拥有有和 impress.js 相似的切换动画和 overview 模式，但是这里的布局和动画都是一键生成，不需要你写代码一张张的调整......
+- Join [Telegram](https://t.me/joinchat/S4-TmBwTcGFnmSYM0gxsdw) to discuss.
+- Give us the slides you made by Gossip and we will display some of them.
+- Fill out the [questionnaire](https://www.wjx.cn/jq/77277467.aspx).
   
-## 开始使用
+## Technology stack
 
-下面的教程会花10到20分钟，教大家用 Gossip 从0到1完成一个简单的 PPT 案例。涉及 Gossip 使用技巧的方方面面，让你从此开启制作幻灯片的新方式。
-
-教程制作的 PPT 的主题是如何实现下图效果。
-
-![Mar-25-2020 11-03-29.gif](https://i.loli.net/2020/03/25/MGnariKg3pD5QEL.gif)
-
-[中文教程](./tutorials.md)
-
-## 存在问题
-
-当前版本的 Gossip 还存在下面的一些问题，目前这些问题大多数都有了解决方案。
-
-- 布局方式仍然不方便。
-- 不支持动画。
-- 不支持模版。
-- 没有丰富的快捷键。
-- 没有撤销功能。
-- 词云模式布局存在一些问题。
-- 演示过程中提供的上下文信息还不够。
-- 大纲不够灵活。
-- 变量的绑定不够方便。
-
-## Todo
-
-- 解决上述问题。
-- 重新设计界面。
-- 用 ts + electron 重新开发并且开发桌面版本。
-  
-## 技术栈
-
-umi + antd
-
-## License
-
-MIT
-  
+[umi@2.x](https://v2.umijs.org/) + [antd@3.x](https://3x.ant.design/)
