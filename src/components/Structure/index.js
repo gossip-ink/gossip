@@ -7,17 +7,21 @@ import Box from "../Box";
 import tree from "../../utils/tree";
 import { max } from "d3-array";
 
-function Content({ type, handleAddCmp }) {
+function _Content({ type, handleAddCmp, lang, locales }) {
   const items = [
-    { title: "文字", type: "font-size", value: "text" },
-    { title: "图片", type: "picture", value: "image" },
-    { title: "画布", type: "codepen", value: "canvas" },
-    { title: "容器", type: "container", value: "panel" }
+    { title: locales.THOUGHT_TEXT[lang], type: "font-size", value: "text" },
+    { title: locales.THOUGHT_IMAGE[lang], type: "picture", value: "image" },
+    { title: locales.THOUGHT_CANVAS[lang], type: "codepen", value: "canvas" },
+    {
+      title: locales.THOUGHT_CONTAINER[lang],
+      type: "container",
+      value: "panel",
+    },
   ];
 
   return (
     <ul className={classNames.list}>
-      {items.map(item => (
+      {items.map((item) => (
         <li
           key={item.title}
           className={classNames.line}
@@ -31,38 +35,48 @@ function Content({ type, handleAddCmp }) {
   );
 }
 
+const Content = connect(({ global }) => ({
+  lang: global.lang,
+  locales: global.locales,
+}))(_Content);
+
 export default connect(
-  state => ({
+  (state) => ({
     components: state.slides.components,
     selectedId: state.slides.selectedId,
-    selectedComponentId: state.slides.selectedComponentId
+    selectedComponentId: state.slides.selectedComponentId,
+    locales: state.global.locales,
+    lang: state.global.lang,
   }),
   {
-    setSelectedComp: id => ({
+    setSelectedComp: (id) => ({
       type: "slides/setSelectedComp",
-      payload: { id }
+      payload: { id },
     }),
     deleteCmp: (rootId, id) => ({
       type: "slides/deleteCmp",
-      payload: { rootId, id }
+      payload: { rootId, id },
     }),
     insertCmp: (id, brother, rootId, before = false) => ({
       type: "slides/insertCmp",
-      payload: { id, brother, rootId, before }
+      payload: { id, brother, rootId, before },
     }),
     appendCmp: (id, father, rootId) => ({
       type: "slides/appendCmp",
-      payload: { id, father, rootId }
+      payload: { id, father, rootId },
     }),
     handleAddCmp: (type, method) => ({
       type: "slides/createCmp",
-      payload: { type, method }
+      payload: { type, method },
     }),
-    showCmpChildren: id => ({
+    showCmpChildren: (id) => ({
       type: "slides/showCmpChildren",
-      payload: { id }
+      payload: { id },
     }),
-    hideCmpChildren: id => ({ type: "slides/hideCmpChildren", payload: { id } })
+    hideCmpChildren: (id) => ({
+      type: "slides/hideCmpChildren",
+      payload: { id },
+    }),
   }
 )(function({
   height,
@@ -75,41 +89,43 @@ export default connect(
   appendCmp,
   handleAddCmp,
   hideCmpChildren,
-  showCmpChildren
+  showCmpChildren,
+  locales,
+  lang,
 }) {
   const nodeWidth = 170;
-  const slide = components.find(item => item.id === selectedId);
+  const slide = components.find((item) => item.id === selectedId);
   const nodes = tree(slide),
     indent = 20;
-  const h = max(nodes, node => node.depth);
+  const h = max(nodes, (node) => node.depth);
 
   const styles = {
-    treeNode: node => ({
-      marginLeft: node.depth * indent
+    treeNode: (node) => ({
+      marginLeft: node.depth * indent,
     }),
     tree: {
-      width: nodeWidth + indent * h + 50
-    }
+      width: nodeWidth + indent * h + 50,
+    },
   };
 
   const iconByType = {
     image: <Icon type="picture" />,
     canvas: <Icon type="codepen" />,
     text: <Icon type="font-size" />,
-    panel: <Icon type="container" />
+    panel: <Icon type="container" />,
   };
 
   const en2zn = {
-    column: "竖直容器",
-    row: "水平容器"
+    column: locales.ROW_CONTAINER[lang],
+    row: locales.COL_CONTSINER[lang],
   };
 
-  const contentByType = item => {
+  const contentByType = (item) => {
     const map = {
       image: <img src={item.value} style={{ maxHeight: "2em" }} />,
       canvas: <div>{item.value.slice(0, 15) + "..."}</div>,
       text: <div>{item.value}</div>,
-      panel: <div>{en2zn[item.value || "row"]}</div>
+      panel: <div>{en2zn[item.value || "row"]}</div>,
     };
     return map[item.type];
   };
@@ -121,15 +137,15 @@ export default connect(
     if (type === "top") {
       insertCmp(sourceNodeId, targetNodeId, selectedId, true);
     } else if (type === "middle") {
-      const cmp = nodes.find(item => item.id === targetNodeId);
+      const cmp = nodes.find((item) => item.id === targetNodeId);
       if (cmp.type !== "panel") {
-        alert("只能插入到布局节点到后面～");
+        alert(locales.ONLY_CONTAINER[lang]);
         return;
       }
       appendCmp(sourceNodeId, targetNodeId, selectedId);
     } else if (type === "bottom") {
       if (targetNodeId === selectedId) {
-        alert("根节点没有兄弟");
+        alert(locales.ROOT_NO_BROTHER[lang]);
         return;
       }
       insertCmp(sourceNodeId, targetNodeId, selectedId);
@@ -139,15 +155,15 @@ export default connect(
   return (
     <Box
       height={height}
-      title="元素"
+      title={locales.ELEMENT[lang]}
       iconType="cluster"
       nodata={nodes.length === 0}
-      nodataInfo="没有选择任何幻灯片～"
+      nodataInfo={locales.NO_SELECTED_SLICE[lang]}
       name="structure"
       url="https://github.com/pearmini/gossip/blob/master/tutorials.md#%E5%88%B6%E4%BD%9C%E6%AF%8F%E4%B8%80%E5%BC%A0%E5%B9%BB%E7%81%AF%E7%89%87"
     >
       <div style={styles.tree}>
-        {nodes.map(item => (
+        {nodes.map((item) => (
           <TreeNode
             key={item.id}
             node={item}

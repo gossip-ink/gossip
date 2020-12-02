@@ -7,18 +7,20 @@ import Input from "../Input";
 import { useState, useEffect } from "react";
 
 export default connect(
-  state => ({
+  (state) => ({
     variables: state.slides.attributeVars,
-    selectedArributeId: state.slides.selectedArributeId
+    selectedArributeId: state.slides.selectedArributeId,
+    locales: state.global.locales,
+    lang: state.global.lang,
   }),
   {
-    deleteVar: id => ({ type: "slides/deleteVar", payload: { id } }),
-    addVar: type => ({ type: "slides/addVar", payload: { type } }),
-    selectVar: id => ({ type: "slides/selectVar", payload: { id } }),
+    deleteVar: (id) => ({ type: "slides/deleteVar", payload: { id } }),
+    addVar: (type) => ({ type: "slides/addVar", payload: { type } }),
+    selectVar: (id) => ({ type: "slides/selectVar", payload: { id } }),
     changeVar: (value, type) => ({
       type: "slides/changeVar",
-      payload: { value, type }
-    })
+      payload: { value, type },
+    }),
   }
 )(function({
   height,
@@ -27,17 +29,19 @@ export default connect(
   deleteVar,
   addVar,
   selectVar,
-  changeVar
+  changeVar,
+  locales,
+  lang,
 }) {
   const [edit, setEdit] = useState(-1);
   const icon = {
     color: "bg-colors",
-    number: "number"
+    number: "number",
   };
 
   const items = [
-    { name: "颜色", value: "color", type: "bg-colors" },
-    { name: "数值", value: "number", type: "number" }
+    { name: locales.COLOR[lang], value: "color", type: "bg-colors" },
+    { name: locales.NUMBER[lang], value: "number", type: "number" },
   ];
 
   const content = (
@@ -68,26 +72,29 @@ export default connect(
     a.click();
   }
 
-  useEffect(() => {
-    scrollTo(selectedArributeId);
-  }, [selectedArributeId]);
+  useEffect(
+    () => {
+      scrollTo(selectedArributeId);
+    },
+    [selectedArributeId]
+  );
 
   return (
     <Box
       height={height}
-      title="变量"
+      title={locales.VARIABLE[lang]}
       iconType="shop"
       popover={content}
       nodata={variables.length === 0}
-      nodataInfo="没有属性变量～"
+      nodataInfo={locales.NO_VARIABLE[lang]}
       name="vari"
       url="https://github.com/pearmini/gossip/blob/master/tutorials.md#4%E8%8E%B7%E5%BE%97%E7%94%BB%E5%B8%83%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6%E7%A7%BB%E5%8A%A8%E6%95%B0%E7%BB%84"
     >
-      {variables.map(item => (
+      {variables.map((item) => (
         <div
           key={item.id}
           className={classNames.node}
-          onDragStart={e => handleDragStart(e, item)}
+          onDragStart={(e) => handleDragStart(e, item)}
           draggable
           onClick={() => selectedArributeId !== item.id && selectVar(item.id)}
         >
@@ -109,12 +116,12 @@ export default connect(
             }}
           >
             <div className={classNames.wrapper}>
-              <Icon type={icon[item.type]}></Icon>
+              <Icon type={icon[item.type]} />
               <div className={classNames.name}>
                 {edit === item.id ? (
                   <input
                     value={item.name}
-                    onChange={e => changeVar(e.target.value, "name")}
+                    onChange={(e) => changeVar(e.target.value, "name")}
                   />
                 ) : (
                   <div>{item.name}</div>
@@ -123,7 +130,7 @@ export default connect(
               <Input
                 type={item.type}
                 value={item.value}
-                onChange={value => changeVar(value, "value")}
+                onChange={(value) => changeVar(value, "value")}
                 range={[0, 500]}
               />
             </div>

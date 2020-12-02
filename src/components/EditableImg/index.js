@@ -1,15 +1,21 @@
 import { useState } from "react";
 import classNames from "./index.css";
 import Input from "../Input";
+import { connect } from "dva";
 
-export default function({
+export default connect(({ global }) => ({
+  locales: global.locales,
+  lang: global.lang,
+}))(function({
   attrs,
   value,
   width,
   height,
   select,
   onValueChange,
-  editable
+  editable,
+  locales,
+  lang,
 }) {
   const [edit, setEdit] = useState(false);
   const { textAlign, verticalAlign } = attrs;
@@ -31,19 +37,19 @@ export default function({
           ? "flex-start"
           : verticalAlign === "bottom"
           ? "flex-end"
-          : "center"
+          : "center",
     },
     normal: {
       maxHeight: height,
-      maxWidth: width
+      maxWidth: width,
     },
     fill: {
       height,
-      width
+      width,
     },
     btn: {
-      opacity: select && edit ? 1 : 0
-    }
+      opacity: select && edit ? 1 : 0,
+    },
   };
 
   return (
@@ -55,15 +61,15 @@ export default function({
     >
       <img
         draggable
-        alt="图片被一阵风吹走了..."
+        alt={locales.NO_IMAGE[lang]}
         src={value}
         style={
           attrs.displayMode === "scaleToFill" ? styles.fill : styles.normal
         }
       />
       <div className={classNames.btn} style={styles.btn}>
-        <Input type="image" onChange={onValueChange} value={value}></Input>
+        <Input type="image" onChange={onValueChange} value={value} />
       </div>
     </div>
   );
-}
+});

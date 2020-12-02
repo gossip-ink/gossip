@@ -2,6 +2,7 @@ import helpFile from "../static/data/help.json";
 import exampleFile from "../static/data/snake.json";
 import { saveAs } from "file-saver";
 import { eachBefore, descendant } from "../utils/tree";
+import { getLang } from "../utils/utils";
 import {
   createCanvas,
   createImage,
@@ -9,7 +10,7 @@ import {
   createSlide,
   createText,
   createFile,
-  createIdea
+  createIdea,
 } from "../utils/create";
 
 function initData() {
@@ -18,9 +19,11 @@ function initData() {
     data.selectedId = 1;
     return data;
   } catch (e) {
-    alert(
-      "读取本地存储失败，请在隐私中将“阻止所有 Cookies”关闭，否者不能使用本地存储！！！"
-    );
+    const msg =
+      getLang() === "zh"
+        ? "读取本地存储失败，请在隐私中将“阻止所有 Cookies”关闭，否者不能使用本地存储！！！"
+        : "Failed to load local storage, please close 'block all cookies' in privacy";
+    alert(msg);
     return helpFile;
   }
 }
@@ -30,10 +33,18 @@ export default {
   state: initData(),
   effects: {},
   reducers: {
+    setLang(state, action) {
+      const { lang } = action.payload;
+      return { ...state, lang };
+    },
+    setLocales(state, action) {
+      const { locales, lang } = action.payload;
+      return { ...state, locales, lang };
+    },
     /***** 和 Idea 有关  ******/
     deleteIdea(state, action) {
       const { id } = action.payload;
-      const idea = state.ideas.find(item => item.id === id);
+      const idea = state.ideas.find((item) => item.id === id);
       const index = state.ideas.indexOf(idea);
       state.ideas.splice(index, 1);
       return state;
@@ -50,24 +61,24 @@ export default {
 
     saveIdea(state, action) {
       const { id, value } = action.payload;
-      const idea = state.ideas.find(item => item.id === id);
+      const idea = state.ideas.find((item) => item.id === id);
       idea.value = value;
       return state;
     },
 
     injectIdea(state, action) {
       const { ideaId, id, rootId } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
-      const idea = state.ideas.find(item => item.id === ideaId);
+      const slide = state.components.find((item) => item.id === rootId);
+      const idea = state.ideas.find((item) => item.id === ideaId);
       let cmp;
-      eachBefore(slide, node => node.id === id && (cmp = node));
+      eachBefore(slide, (node) => node.id === id && (cmp = node));
       if (cmp.type === "panel") {
         //创建一个新的组件，并且加到后面去
         const id = new Date().getTime();
         const mp = {
           text: createText(id, idea.value, { isTitle: false }),
           image: createImage(id, idea.value),
-          canvas: createCanvas(id, idea.value)
+          canvas: createCanvas(id, idea.value),
         };
         cmp.children.push(mp[idea.type]);
         cmp.attrs.span.push(1);
@@ -76,7 +87,7 @@ export default {
       } else {
         eachBefore(
           slide,
-          node =>
+          (node) =>
             node.children &&
             node.children.forEach((d, index) => {
               if (d.id !== cmp.id) return;
@@ -84,7 +95,7 @@ export default {
               const mp = {
                 text: createText(id, idea.value, { isTitle: false }),
                 image: createImage(id, idea.value),
-                canvas: createCanvas(id, idea.value)
+                canvas: createCanvas(id, idea.value),
               };
               // 插入后面
               node.children.splice(index + 1, 0, mp[idea.type]);
@@ -97,13 +108,13 @@ export default {
 
     appendIdea(state, action) {
       const { nodeId, ideaId } = action.payload;
-      const idea = state.ideas.find(item => item.id === ideaId);
-      const slide = state.components.find(item => item.id === nodeId);
+      const idea = state.ideas.find((item) => item.id === ideaId);
+      const slide = state.components.find((item) => item.id === nodeId);
       const id = new Date().getTime();
       const mp = {
         text: createText(id, idea.value, { isTitle: false }),
         image: createImage(id, idea.value),
-        canvas: createCanvas(id, idea.value)
+        canvas: createCanvas(id, idea.value),
       };
       // 添加到 slide 到最后
       slide.children.push(mp[idea.type]);
@@ -117,13 +128,15 @@ export default {
 
     // 保存到缓存
     save(state, action) {
+      const { lang, locales, ...file } = state;
       try {
-        localStorage.setItem("uIdea", JSON.stringify(state));
-        alert("保存成功！");
+        localStorage.setItem("uIdea", JSON.stringify(file));
+        alert(locales.SAVE_SUCCESS[lang]);
       } catch (e) {
-        alert("保存失败！请直接下载到本地！");
+        console.error(e);
+        alert(locales.SAVE_FAIL[lang]);
       }
-      return state;
+      return { ...state };
     },
     // 上传 json 文件
     upload(state, action) {
@@ -133,14 +146,15 @@ export default {
     // 以 json 格式下载到本地
     download(state, action) {
       const file = new File([JSON.stringify(state)], `${state.filename}.gsp`, {
-        type: "text/plain;charset=utf-8"
+        type: "text/plain;charset=utf-8",
       });
       saveAs(file);
       return state;
     },
     // 创建新的 ppt
-    createNewFile() {
-      return createFile();
+    createNewFile(state) {
+      const { lang, locales } = state;
+      return createFile(lang, locales);
     },
 
     createHelp() {
@@ -173,7 +187,7 @@ export default {
       return state;
     },
     gotoPre(state) {
-      const { structure, selectedId } = state;
+      const { structure, selectedId, locales, lang } = state;
       const nodes = descendant(structure);
       const pre = nodes.find((item, index) => {
         if (index === nodes.length - 1) return;
@@ -183,12 +197,12 @@ export default {
         state.selectedId = pre.id;
         return state;
       } else {
-        alert("已经是第一页了！");
+        alert(locales.FIRSET_PAGE[lang]);
         return state;
       }
     },
     gotoNext(state) {
-      const { structure, selectedId } = state;
+      const { structure, selectedId, locales, lang } = state;
       const nodes = descendant(structure);
       const next = nodes.find((item, index) => {
         if (!index) return;
@@ -198,7 +212,7 @@ export default {
         state.selectedId = next.id;
         return state;
       } else {
-        alert("已经是最后一页了！");
+        alert(locales.LAST_PAGE[lang]);
         return state;
       }
     },
@@ -208,15 +222,15 @@ export default {
     // 更新大纲的 value
     updateNodeValue(state, action) {
       const { id, value } = action.payload;
-      eachBefore(state.structure, node => {
+      eachBefore(state.structure, (node) => {
         if (node.id === id) {
           node.name = value;
         }
       });
 
       // 看一看对应的 cmp 中有没有 isTitle 的 text 组件，如果有就更新相应的组件
-      const slide = state.components.find(item => item.id === id);
-      eachBefore(slide, node => {
+      const slide = state.components.find((item) => item.id === id);
+      eachBefore(slide, (node) => {
         node.type === "text" && node.attrs.isTitle && (node.value = value);
       });
       return state;
@@ -225,14 +239,14 @@ export default {
     deleteNode(state, action) {
       const { id } = action.payload;
       // 找到 index
-      const cmp = state.components.find(item => item.id === id);
+      const cmp = state.components.find((item) => item.id === id);
       const index = state.components.indexOf(cmp);
 
       // 从数组中删除
       state.components.splice(index, 1);
 
       // 从树中删除
-      eachBefore(state.structure, node => {
+      eachBefore(state.structure, (node) => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -246,9 +260,9 @@ export default {
     },
     // 创建一个新的节点
     createNode(state, action) {
-      const { nodeId, value, type } = action.payload;
+      const { nodeId, value, type, locales, lang } = action.payload;
       if (type !== "children" && nodeId === 1) {
-        alert("不能给根结点插入兄弟");
+        alert(locales.ROOT_NO_BROTHER[lang]);
         return;
       }
 
@@ -260,14 +274,14 @@ export default {
       // 添加到树中
       const slide = { id, name: value };
       if (type === "children") {
-        eachBefore(state.structure, node => {
+        eachBefore(state.structure, (node) => {
           if (node.id === nodeId) {
             node.children = node.children || [];
             node.children.splice(0, 0, slide);
           }
         });
       } else {
-        eachBefore(state.structure, node => {
+        eachBefore(state.structure, (node) => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === nodeId) {
@@ -282,7 +296,7 @@ export default {
     },
     hideNodeChildren(state, action) {
       const { id } = action.payload;
-      eachBefore(state.structure, node => {
+      eachBefore(state.structure, (node) => {
         if (node.id === id) {
           node._children = node.children;
           node.children = null;
@@ -292,7 +306,7 @@ export default {
     },
     showNodeChildren(state, action) {
       const { id } = action.payload;
-      eachBefore(state.structure, node => {
+      eachBefore(state.structure, (node) => {
         if (node.id === id) {
           node.children = node._children;
           node._children = null;
@@ -306,7 +320,7 @@ export default {
 
       // 从旧的 father 删除
       let dragNode = null;
-      eachBefore(state.structure, node => {
+      eachBefore(state.structure, (node) => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -318,7 +332,7 @@ export default {
 
       // 加入新的 father
       dragNode &&
-        eachBefore(state.structure, node => {
+        eachBefore(state.structure, (node) => {
           if (node.id === father) {
             node.children = node.children || [];
             node.children.push(dragNode);
@@ -332,7 +346,7 @@ export default {
     insertNode(state, action) {
       const { id, brother, before } = action.payload;
       let dragNode = null;
-      eachBefore(state.structure, node => {
+      eachBefore(state.structure, (node) => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -345,7 +359,7 @@ export default {
       // 添加到新到兄弟节点
       let isAdd = false;
       dragNode &&
-        eachBefore(state.structure, node => {
+        eachBefore(state.structure, (node) => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === brother && !isAdd) {
@@ -365,9 +379,9 @@ export default {
     // 删除 cmp
     deleteCmp(state, action) {
       const { rootId, id } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
+      const slide = state.components.find((item) => item.id === rootId);
       let deletedIdea;
-      eachBefore(slide, node => {
+      eachBefore(slide, (node) => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -382,30 +396,31 @@ export default {
 
       // 添加进 idea
       const cmps = [];
-      eachBefore(deletedIdea, node => {
+      eachBefore(deletedIdea, (node) => {
         if (node.type !== "panel") {
           cmps.push(node);
         }
       });
       const newIdeas = cmps
         .filter(
-          d => !state.ideas.find(i => i.type === d.type && i.value === d.value)
+          (d) =>
+            !state.ideas.find((i) => i.type === d.type && i.value === d.value)
         )
         .map(({ id, value, type }) => ({
           id,
           value,
-          type
+          type,
         }));
       state.ideas.push(...newIdeas);
       return state;
     },
     appendCmp(state, action) {
       const { id, father, rootId } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
+      const slide = state.components.find((item) => item.id === rootId);
 
       // 从旧的 father 删除
       let dragNode = null;
-      eachBefore(slide, node => {
+      eachBefore(slide, (node) => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -420,7 +435,7 @@ export default {
 
       // 加入新的 father
       dragNode &&
-        eachBefore(slide, node => {
+        eachBefore(slide, (node) => {
           if (node.id === father) {
             node.children = node.children || [];
             node.children.push(dragNode);
@@ -435,8 +450,10 @@ export default {
     },
     hideCmpChildren(state, action) {
       const { id } = action.payload;
-      const slide = state.components.find(item => item.id === state.selectedId);
-      eachBefore(slide, node => {
+      const slide = state.components.find(
+        (item) => item.id === state.selectedId
+      );
+      eachBefore(slide, (node) => {
         if (node.id === id) {
           node._children = node.children;
           node.children = null;
@@ -446,8 +463,10 @@ export default {
     },
     showCmpChildren(state, action) {
       const { id } = action.payload;
-      const slide = state.components.find(item => item.id === state.selectedId);
-      eachBefore(slide, node => {
+      const slide = state.components.find(
+        (item) => item.id === state.selectedId
+      );
+      eachBefore(slide, (node) => {
         if (node.id === id) {
           node.children = node._children;
           node._children = null;
@@ -456,33 +475,35 @@ export default {
       return state;
     },
     createCmp(state, action) {
-      const { type, method } = action.payload;
-      const slide = state.components.find(item => item.id === state.selectedId);
+      const { type, method, locales, lang } = action.payload;
+      const slide = state.components.find(
+        (item) => item.id === state.selectedId
+      );
 
       // 确定插入的类型
       const id = new Date().getTime();
       const mp = {
-        text: createText(id, "说点啥...", { isTitle: false }),
+        text: createText(id, locales.SAY_TEXT[lang], { isTitle: false }),
         image: createImage(id),
         canvas: createCanvas(id),
-        panel: createPanel(id, "column", {}, [])
+        panel: createPanel(id, "column", {}, []),
       };
 
       const cmp = mp[type];
 
       // 确定插入的位置
       if (method === "children") {
-        eachBefore(slide, node => {
+        eachBefore(slide, (node) => {
           if (node.id !== state.selectedComponentId) return;
           if (node.type !== "panel") {
-            alert("只能插入布局节点");
+            alert(locales.ONLY_CONTAINER[lang]);
             return;
           }
           node.children.splice(0, 0, cmp);
           node.attrs.span.splice(0, 0, 1);
         });
       } else if (method === "brother") {
-        eachBefore(slide, node => {
+        eachBefore(slide, (node) => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === state.selectedComponentId) {
@@ -503,12 +524,12 @@ export default {
 
     insertCmp(state, action) {
       const { id, brother, before, rootId } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
+      const slide = state.components.find((item) => item.id === rootId);
 
       // 从旧的 father 删除
       let dragNode = null;
       let deleteSpan = null;
-      eachBefore(slide, node => {
+      eachBefore(slide, (node) => {
         node.children &&
           node.children.forEach((item, index) => {
             if (item.id === id) {
@@ -524,7 +545,7 @@ export default {
       // 添加到新到兄弟节点
       let isAdd = false;
       dragNode &&
-        eachBefore(slide, node => {
+        eachBefore(slide, (node) => {
           node.children &&
             node.children.forEach((item, index) => {
               if (item.id === brother && !isAdd) {
@@ -545,13 +566,13 @@ export default {
     // 交换 cmp 的位置
     exchangeCmp(state, action) {
       const { a, b, root } = action.payload;
-      const slide = state.components.find(item => item.id === root);
+      const slide = state.components.find((item) => item.id === root);
       let isChange = false;
-      eachBefore(slide, node => {
+      eachBefore(slide, (node) => {
         if (!node.children || isChange) return;
         let i1, i2;
         node.children.forEach((d, i) => {
-          eachBefore(d, n => {
+          eachBefore(d, (n) => {
             n.id === a && (i1 = i);
             n.id === b && (i2 = i);
           });
@@ -574,15 +595,15 @@ export default {
     /****** 改变 cmp 的属性 *********/
     setValueOfCmp(state, action) {
       const { value, cmpId, rootId } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
-      eachBefore(slide, node => {
+      const slide = state.components.find((item) => item.id === rootId);
+      eachBefore(slide, (node) => {
         if (node.id === cmpId) {
           node.value = value;
 
           // 如果是文字，且还有 isTitle，修改对应的 structure 的 name
           node.type === "text" &&
             node.attrs.isTitle === true &&
-            eachBefore(state.structure, item => {
+            eachBefore(state.structure, (item) => {
               item.id === rootId && (item.name = value);
             });
         }
@@ -594,12 +615,12 @@ export default {
         value,
         key,
         cmpId = state.selectedComponentId,
-        rootId = state.selectedId
+        rootId = state.selectedId,
       } = action.payload;
 
-      const slide = state.components.find(item => item.id === rootId);
+      const slide = state.components.find((item) => item.id === rootId);
       let cmp;
-      eachBefore(slide, node => {
+      eachBefore(slide, (node) => {
         node.id === cmpId && (cmp = node);
       });
       cmp && cmp.attrs && (cmp.attrs[key] = value);
@@ -612,15 +633,15 @@ export default {
 
     deleteVar(state, action) {
       const { id } = action.payload;
-      const v = state.attributeVars.find(item => item.id === id);
+      const v = state.attributeVars.find((item) => item.id === id);
       const index = state.attributeVars.indexOf(v);
 
       // 修改使用了这个变量的组件的属性到它的值
-      state.components.forEach(item => {
-        eachBefore(item, node => {
+      state.components.forEach((item) => {
+        eachBefore(item, (node) => {
           const { attrs } = node;
           attrs &&
-            Object.keys(attrs).forEach(key => {
+            Object.keys(attrs).forEach((key) => {
               const value = attrs[key];
               if (typeof value === "string" && value[0] === "$") {
                 // 如果是一个变量
@@ -638,7 +659,7 @@ export default {
       return state;
     },
     addVar(state, action) {
-      const { type } = action.payload;
+      const { type, locales, lang } = action.payload;
       const id = new Date().getTime();
 
       let newAttr;
@@ -646,15 +667,15 @@ export default {
         newAttr = {
           id,
           type: "number",
-          name: "未命名",
-          value: 0
+          name: locales.NO_NAME[lang],
+          value: 0,
         };
       } else if (type === "color") {
         newAttr = {
           id,
           type: "color",
-          name: "未命名",
-          value: "#ffffff"
+          name: locales.NO_NAME[lang],
+          value: "#ffffff",
         };
       }
       state.attributeVars.unshift(newAttr);
@@ -669,7 +690,7 @@ export default {
     changeVar(state, action) {
       const { value, type } = action.payload;
       const variable = state.attributeVars.find(
-        item => item.id === state.selectedArributeId
+        (item) => item.id === state.selectedArributeId
       );
 
       // 转换成数值
@@ -679,18 +700,18 @@ export default {
     },
     deleteVarForCmp(state, action) {
       const { key, cmpId, rootId } = action.payload;
-      const slide = state.components.find(item => item.id === rootId);
+      const slide = state.components.find((item) => item.id === rootId);
 
-      eachBefore(slide, node => {
+      eachBefore(slide, (node) => {
         if (node.id !== cmpId) {
           return;
         }
         const { attrs } = node;
         const value = attrs[key];
         const vid = parseInt(value.slice(1));
-        const v = state.attributeVars.find(item => item.id === vid);
+        const v = state.attributeVars.find((item) => item.id === vid);
         attrs[key] = v.value;
       });
-    }
-  }
+    },
+  },
 };

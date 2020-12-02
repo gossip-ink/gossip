@@ -2,7 +2,12 @@ import { useState } from "react";
 import classNames from "./index.css";
 import { Icon, Popover } from "antd";
 import { range } from "d3-array";
-export default function({
+import { connect } from "dva";
+
+export default connect(({ global }) => ({
+  locales: global.locales,
+  lang: global.lang,
+}))(function({
   node,
   children,
   onNodeDrag,
@@ -13,13 +18,15 @@ export default function({
   onClickBottom,
   popoverRight,
   popoverBottom,
+  locales,
+  lang,
   hasBottom = true,
   hasTop = true,
   hasRight = true,
   hasMiddle = true,
   hasLeft = true,
   style,
-  canDrag = true
+  canDrag = true,
 }) {
   const [hover, setHover] = useState(false);
   const [middle, setMiddle] = useState(false);
@@ -33,14 +40,14 @@ export default function({
   const styles = {
     container: {
       background: middle && highlightColor,
-      width
+      width,
     },
     top: { background: top && highlightColor, width },
     middle: { width },
     bottom: { background: bottom && highlightColor, width },
     bottomButton: {
-      width
-    }
+      width,
+    },
   };
 
   function handleDrop(e, type, index) {
@@ -77,13 +84,13 @@ export default function({
       <div className={classNames.container}>
         {left.map((_, index) =>
           index === 0 || !hasLeft ? (
-            <div className={classNames.leftItem} key={index}></div>
+            <div className={classNames.leftItem} key={index} />
           ) : (
             <div
               key={index}
               className={classNames.leftItem}
               style={{
-                background: left[index] && highlightColor
+                background: left[index] && highlightColor,
               }}
               onDragEnter={() => {
                 left[index] = true;
@@ -93,9 +100,9 @@ export default function({
                 left[index] = false;
                 setLeft([...left]);
               }}
-              onDragOver={e => e.preventDefault()}
-              onDrop={e => handleDrop(e, "left", index)}
-            ></div>
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => handleDrop(e, "left", index)}
+            />
           )
         )}
         <div style={styles.container}>
@@ -105,17 +112,17 @@ export default function({
               className={classNames.line}
               onDragEnter={() => setTop(true)}
               onDragLeave={() => setTop(false)}
-              onDragOver={e => e.preventDefault()}
-              onDrop={e => handleDrop(e, "top")}
-            ></div>
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => handleDrop(e, "top")}
+            />
           ) : (
-            <div className={classNames.line}></div>
+            <div className={classNames.line} />
           )}
           {hasMiddle ? (
             <div
               style={styles.middle}
-              onDrop={e => handleDrop(e, "middle")}
-              onDragOver={e => {
+              onDrop={(e) => handleDrop(e, "middle")}
+              onDragOver={(e) => {
                 if (!middle) setMiddle(true);
                 e.preventDefault();
               }}
@@ -140,12 +147,12 @@ export default function({
               style={styles.bottom}
               onDragEnter={() => setBottom(true)}
               onDragLeave={() => setBottom(false)}
-              onDragOver={e => e.preventDefault()}
-              onDrop={e => handleDrop(e, "bottom")}
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={(e) => handleDrop(e, "bottom")}
               className={classNames.line}
-            ></div>
+            />
           ) : (
-            <div className={classNames.line}></div>
+            <div className={classNames.line} />
           )}
         </div>
         {hasRight &&
@@ -153,7 +160,7 @@ export default function({
           (popoverRight ? (
             <Popover
               content={popoverRight}
-              title="选择一种类型"
+              title={locales.CHOOSE_TYPE[lang]}
               placement="left"
               trigger="click"
               arrowPointAtCenter
@@ -184,7 +191,7 @@ export default function({
           (popoverBottom ? (
             <Popover
               content={popoverBottom}
-              title="选择一种类型"
+              title={locales.CHOOSE_TYPE[lang]}
               placement="left"
               trigger="click"
               arrowPointAtCenter
@@ -208,4 +215,4 @@ export default function({
       </div>
     </div>
   );
-}
+});

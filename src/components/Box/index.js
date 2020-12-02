@@ -2,38 +2,45 @@ import classNames from "./index.css";
 import { Icon, Popover, Button, Empty, Switch } from "antd";
 import { useState, useEffect } from "react";
 import { connect } from "dva";
+
 export default connect(
   ({ global }) => ({
-    vis: global.show
+    vis: global.show,
+    locales: global.locales,
+    lang: global.lang,
   }),
   {
-    toggleShow: key => ({ type: "global/toggleShow", payload: { key } })
+    toggleShow: (key) => ({ type: "global/toggleShow", payload: { key } }),
   }
 )(function({
   nodata = true,
+  locales,
+  lang,
   title,
   popover,
   children,
   height,
+  width,
   onSwitch,
-  nodataInfo = "没有数据",
+  nodataInfo = locales.NO_DATA[lang],
   url = "https://github.com/pearmini/gossip/",
   toggleShow,
   vis,
   name,
-  closable = true
+  closable = true,
 }) {
   const [show, setShow] = useState(false);
   const styles = {
     box: {
-      height: Math.max(45, height)
+      height: Math.max(45, height),
+      width: width ? width : "",
     },
     container: {
-      height: Math.max(height - 10, 45)
+      height: Math.max(height - 10, 45),
     },
     content: {
-      height: Math.max(height - 10 - 60, 0)
-    }
+      height: Math.max(height - 10 - 60, 0),
+    },
   };
 
   function handleClick() {
@@ -56,13 +63,13 @@ export default connect(
                 type="question-circle"
                 className={classNames.leftIcon}
                 onClick={() => window.open(url)}
-              ></Icon>
+              />
               {closable && (
                 <Icon
                   type={vis[name] ? "close-circle" : "check-circle"}
                   className={classNames.icon}
                   onClick={() => toggleShow(name)}
-                ></Icon>
+                />
               )}
             </div>
             <div>
@@ -70,7 +77,7 @@ export default connect(
               {popover && (
                 <Popover
                   content={popover}
-                  title="选择一种类型"
+                  title={locales.CHOOSE_TYPE[lang]}
                   placement="bottomRight"
                   visible={show}
                   arrowPointAtCenter
@@ -81,7 +88,7 @@ export default connect(
                     type="primary"
                     shape="circle"
                     size="small"
-                    onClick={e => {
+                    onClick={(e) => {
                       setShow(!show);
                       e.stopPropagation();
                     }}

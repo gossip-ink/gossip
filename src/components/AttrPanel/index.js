@@ -7,22 +7,24 @@ import Input from "../Input";
 import { useState } from "react";
 
 export default connect(
-  state => ({
+  (state) => ({
     components: state.slides.components,
     selectedId: state.slides.selectedId,
     selectedComponentId: state.slides.selectedComponentId,
-    variables: state.slides.attributeVars
+    variables: state.slides.attributeVars,
+    locales: state.global.locales,
+    lang: state.global.lang,
   }),
   {
     changeAttr: (value, key, cmpId, rootId) => ({
       type: "slides/changeAttr",
-      payload: { value, key, cmpId, rootId }
+      payload: { value, key, cmpId, rootId },
     }),
     deleteVarForCmp: (key, cmpId, rootId) => ({
       type: "slides/deleteVarForCmp",
-      payload: { key, cmpId, rootId }
+      payload: { key, cmpId, rootId },
     }),
-    selectVar: id => ({ type: "slides/selectVar", payload: { id } })
+    selectVar: (id) => ({ type: "slides/selectVar", payload: { id } }),
   }
 )(function({
   height,
@@ -32,13 +34,15 @@ export default connect(
   changeAttr,
   variables,
   deleteVarForCmp,
-  selectVar
+  selectVar,
+  locales,
+  lang,
 }) {
   const [dragover, setDragover] = useState("");
-  const slide = components.find(item => item.id === selectedId);
+  const slide = components.find((item) => item.id === selectedId);
   let selectedCmp;
   selectedComponentId &&
-    eachBefore(slide, node => {
+    eachBefore(slide, (node) => {
       if (node.id === selectedComponentId) {
         selectedCmp = node;
       }
@@ -48,103 +52,103 @@ export default connect(
   const inputByAttr = {
     fontSize: {
       type: "number",
-      name: "字体大小",
+      name: locales.FONT_SIZE[lang],
       icon: "font-size",
-      range: [0, 500]
+      range: [0, 500],
     },
     color: {
       type: "color",
-      name: "字体颜色",
-      icon: "font-colors"
+      name: locales.FONT_COLOR[lang],
+      icon: "font-colors",
     },
     backgroundColor: {
       type: "color",
-      name: "背景颜色",
-      icon: "bg-colors"
+      name: locales.BG_COLOR[lang],
+      icon: "bg-colors",
     },
     flex: {
       type: "radio",
-      name: "排列方式",
+      name: locales.DIRECTION[lang],
       icon: "menu",
       hasIcon: false,
       list: [
         {
-          name: "水平",
-          value: "row"
+          name: locales.ROW[lang],
+          value: "row",
         },
         {
-          name: "垂直",
-          value: "column"
-        }
-      ]
+          name: locales.COL[lang],
+          value: "column",
+        },
+      ],
     },
     fontWeight: {
       type: "switch",
-      name: "加粗",
+      name: locales.BOLD[lang],
       icon: "bold",
-      yes: "bold"
+      yes: "bold",
     },
     padding: {
       type: "number",
-      name: "内边距",
+      name: locales.PADDING[lang],
       icon: "border",
-      range: [0, 100]
+      range: [0, 100],
     },
     textAlign: {
       type: "radio",
-      name: "水平对齐",
+      name: locales.H_ALIGNMENT[lang],
       icon: "profile",
       list: [
         {
-          name: "左边",
+          name: locales.LEFT[lang],
           value: "left",
-          icon: "align-left"
+          icon: "align-left",
         },
         {
-          name: "居中",
+          name: locales.CENTER[lang],
           value: "center",
-          icon: "align-center"
+          icon: "align-center",
         },
         {
-          name: "右边",
+          name: locales.RIGHT[lang],
           value: "right",
-          icon: "align-right"
-        }
-      ]
+          icon: "align-right",
+        },
+      ],
     },
     verticalAlign: {
       type: "radio",
-      name: "垂直对齐",
+      name: locales.V_ALIGNMENT[lang],
       icon: "project",
       list: [
         {
-          name: "顶部",
+          name: locales.TOP[lang],
           value: "top",
-          icon: "vertical-align-top"
+          icon: "vertical-align-top",
         },
         {
-          name: "中间",
+          name: locales.MIDDLE[lang],
           value: "center",
-          icon: "vertical-align-middle"
+          icon: "vertical-align-middle",
         },
         {
-          name: "底部",
+          name: locales.BOTTOM[lang],
           value: "bottom",
-          icon: "vertical-align-bottom"
-        }
-      ]
+          icon: "vertical-align-bottom",
+        },
+      ],
     },
     span: {
       type: "array",
-      name: "比例",
-      icon: "layout"
+      name: locales.RATIO[lang],
+      icon: "layout",
     },
     displayMode: {
       type: "switch",
-      name: "充满容器",
+      name: locales.FULL_IMAGE[lang],
       icon: "fullscreen",
-      yes: "scaleToFill"
-    }
+      yes: "scaleToFill",
+    },
   };
 
   function getAttrs(selectedCmp) {
@@ -157,14 +161,14 @@ export default connect(
       if (typeof attrValue === "string" && attrValue[0] === "$") {
         isVar = true;
         varId = parseInt(attrValue.slice(1));
-        const v = variables.find(item => item.id === varId);
+        const v = variables.find((item) => item.id === varId);
         attrValue = v.value;
       }
       const obj = {
         isVar,
         attrValue,
         varId,
-        key
+        key,
       };
       return [...arr, obj];
     }, []);
@@ -174,11 +178,11 @@ export default connect(
     const [type, id] = e.dataTransfer.getData("attr").split("-");
     const mp = {
       color: ["color", "backgroundColor"],
-      number: ["fontSize", "padding"]
+      number: ["fontSize", "padding"],
     };
     const arr = mp[type];
     const index = arr.indexOf(attr);
-    if (index === -1) alert("类型不匹配");
+    if (index === -1) alert(locales.TYPE_MISMATCH[lang]);
     else changeAttr(`$${id}`, attr, selectedComponentId, selectedId);
     setDragover("");
   }
@@ -191,10 +195,10 @@ export default connect(
 
   return (
     <Box
-      title="样式"
+      title={locales.STYLE[lang]}
       height={height}
       iconType="gold"
-      nodataInfo="没有选择任何的组件～"
+      nodataInfo={locales.NO_SELECTED_COMPONENT[lang]}
       nodata={attrs.length === 0}
       name="attr"
       url="https://github.com/pearmini/gossip/blob/master/tutorials.md#4%E8%8E%B7%E5%BE%97%E7%94%BB%E5%B8%83%E7%9B%91%E5%90%AC%E4%BA%8B%E4%BB%B6%E7%A7%BB%E5%8A%A8%E6%95%B0%E7%BB%84"
@@ -208,23 +212,23 @@ export default connect(
               className={classNames.item}
               style={{ background: item.key === dragover && "#4091f7" }}
               onDragEnter={() => setDragover(item.key)}
-              onDragOver={e => {
+              onDragOver={(e) => {
                 if (item.key !== dragover) setDragover(item.key);
                 e.preventDefault();
               }}
               onDragLeave={() => setDragover("")}
-              onDrop={e => handleVarDrop(e, item.key)}
+              onDrop={(e) => handleVarDrop(e, item.key)}
             >
               <Icon type={icon} />
               <span className={classNames.name}>{name}</span>
               <Input
                 value={item.attrValue}
-                onChange={value =>
+                onChange={(value) =>
                   changeAttr(value, item.key, selectedComponentId, selectedId)
                 }
                 disabled={item.isVar}
                 {...rest}
-              ></Input>
+              />
               {item.isVar && (
                 <div className={classNames.btns}>
                   <Icon

@@ -1,16 +1,20 @@
 import { Icon, Button } from "antd";
 import classNames from "./index.css";
-export default function({ height }) {
+import { connect } from "dva";
+export default connect(({ global }) => ({
+  locales: global.locales,
+  lang: global.lang,
+}))(function({ height, locales, lang }) {
   const styles = {
     container: {
-      height
+      height,
     },
     header: {
-      height: 60
+      height: 60,
     },
     content: {
-      minHeight: height
-    }
+      minHeight: height,
+    },
   };
   return (
     <div className={classNames.container} style={styles.container}>
@@ -25,8 +29,8 @@ export default function({ height }) {
       <div className={classNames.content} style={styles.content}>
         <div className={classNames.title}>
           <h1 className={classNames.big}>Gossip</h1>
-          <p>一个快速和高效创建 PPT 的用户界面🔥</p>
-          <Button type="primary">请去大屏设备上使用</Button>
+          <p>{locales.HEADER_INFO[lang]}</p>
+          <Button type="primary">{locales.BIG_SCREEN[info]}</Button>
         </div>
         <div className={classNames.imageWrapper}>
           <img
@@ -42,4 +46,4 @@ export default function({ height }) {
       </div>
     </div>
   );
-}
+});

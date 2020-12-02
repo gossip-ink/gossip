@@ -10,13 +10,13 @@ const defaultValues = {
       y = (height - size) / 2;
     ctx.fillStyle = "black";
     ctx.fillRect(x, y, size, size);
-  }`
+  }`,
 };
 function createIdea(id, type) {
   return {
     id,
     type,
-    value: defaultValues[type]
+    value: defaultValues[type],
   };
 }
 // 创建组件
@@ -33,8 +33,8 @@ function createText(id, value = defaultValues.text, attrs) {
       verticalAlign: "top",
       padding: 0,
       isTitle: false,
-      ...attrs
-    }
+      ...attrs,
+    },
   };
 }
 
@@ -48,8 +48,8 @@ function createImage(id, value = defaultValues.image, attrs) {
       padding: 10,
       textAlign: "center",
       verticalAlign: "center",
-      ...attrs
-    }
+      ...attrs,
+    },
   };
 }
 
@@ -62,9 +62,9 @@ function createPanel(id, value, attrs, children = []) {
       span: [],
       flex: value,
       padding: 10,
-      ...attrs
+      ...attrs,
     },
-    children
+    children,
   };
 }
 
@@ -75,8 +75,8 @@ function createCanvas(id, value = defaultValues.canvas, attrs) {
     value,
     attrs: {
       padding: 10,
-      ...attrs
-    }
+      ...attrs,
+    },
   };
 }
 
@@ -90,26 +90,26 @@ function createSlide(id, value, content = "介绍...") {
         isTitle: true,
         fontSize: "$3",
         fontWeight: "bold",
-        verticalAlign: "center"
+        verticalAlign: "center",
       }),
       createPanel("panel" + id, "column", { span: [1] }, [
         createText("text2" + id, content, {
-          isTitle: false
-        })
-      ])
+          isTitle: false,
+        }),
+      ]),
     ]
   );
 }
 
-function createFile() {
-  const name = "有趣的东西";
+function createFile(lang, locales) {
+  const name = locales.NEW_FILE_NAME[lang];
   return {
     filename: "new",
     selectedId: 1,
     selectedComponentId: 1,
     structure: {
       id: 1,
-      name
+      name,
     },
     components: [
       createPanel(
@@ -122,14 +122,14 @@ function createFile() {
             isTitle: true,
             textAlign: "center",
             verticalAlign: "center",
-            fontWeight: "bold"
+            fontWeight: "bold",
           }),
-          createText(3, "伟大的创造者", {
+          createText(3, locales.NEW_FILE_CREATOR[lang], {
             textAlign: "center",
-            verticalAlign: "top"
-          })
+            verticalAlign: "top",
+          }),
         ]
-      )
+      ),
     ],
     selectedArributeId: 1,
     attributeVars: [
@@ -137,16 +137,34 @@ function createFile() {
         id: 1,
         type: "color",
         value: "#ffffff",
-        name: "背景颜色",
-        canDelete: false
+        name: locales.NEW_FILE_BG_COLOR[lang],
+        canDelete: false,
       },
-      { id: 2, type: "number", value: 160, name: "大标题字号" },
-      { id: 3, type: "number", value: 120, name: "小标题字号" },
-      { id: 4, type: "number", value: 35, name: "内容字号" },
-      { id: 5, type: "color", value: "#000000", name: "字体颜色" },
-      { id: 6, type: "number", value: 60, name: "页面内边距" }
+      { id: 2, type: "number", value: 160, name: locales.NEW_FILE_H1[lang] },
+      { id: 3, type: "number", value: 120, name: locales.NEW_FILE_H2[lang] },
+      {
+        id: 4,
+        type: "number",
+        value: 35,
+        name: locales.NEW_FILE_CONTENT[lang],
+      },
+      {
+        id: 5,
+        type: "color",
+        value: "#000000",
+        name: locales.NEW_FILE_FONT_COLOR[lang],
+      },
+      {
+        id: 6,
+        type: "number",
+        value: 60,
+        name: locales.NEW_FILE_PADDING[lang],
+      },
     ],
-    ideas: [createText(6, "小想法"), createImage(7, exampleURL)]
+    ideas: [
+      createText(6, locales.NEW_FILE_THOUGHT[lang]),
+      createImage(7, exampleURL),
+    ],
   };
 }
 
@@ -157,5 +175,5 @@ export {
   createSlide,
   createText,
   createFile,
-  createIdea
+  createIdea,
 };

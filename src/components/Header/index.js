@@ -16,7 +16,10 @@ function Item({ icon, name, onClick }) {
 }
 
 export default connect(
-  null,
+  ({ global }) => ({
+    lang: global.lang,
+    locales: global.locales,
+  }),
   {
     createNewFile: () => ({ type: "slides/createNewFile" }),
     download: () => ({ type: "slides/download" }),
@@ -25,6 +28,7 @@ export default connect(
     help: () => ({ type: "slides/createHelp" }),
     example: () => ({ type: "slides/createExample" }),
     setSelected: (id) => ({ type: "slides/setSelected", payload: { id } }),
+    setLang: (lang) => ({ type: "global/setLang", payload: { lang } }),
   }
 )(function({
   height,
@@ -35,8 +39,12 @@ export default connect(
   help,
   example,
   setSelected,
+  lang,
+  locales,
+  setLang,
 }) {
   const [show, setShow] = useState(false);
+  const [showLang, setShowLang] = useState(false);
   const styles = {
     header: {
       height,
@@ -52,7 +60,7 @@ export default connect(
         setSelected(1);
         router.push("/present");
       },
-      name: "从头播放",
+      name: locales.PLAY_HEAD[lang],
     },
     {
       icon: "play-square",
@@ -60,46 +68,73 @@ export default connect(
         fullscreen(document.documentElement);
         router.push("/present");
       },
-      name: "从此播放",
+      name: locales.PLAY_CURRENT[lang],
     },
     {
       icon: "file-add",
       onClick: createNewFile,
-      name: "新建",
+      name: locales.NEW_FILE[lang],
     },
     {
       icon: "save",
       onClick: save,
-      name: "保存",
+      name: locales.SAVE_FILE[lang],
     },
     {
       icon: "download",
       onClick: download,
-      name: "下载",
+      name: locales.DOWNLOAD_FILE[lang],
     },
     {
       icon: "upload",
       onClick: handleUploadFile,
       type: "upload",
-      name: "打开",
+      name: locales.UPLOAD_FILE[lang],
     },
     {
       icon: "read",
-      name: "案例",
+      name: locales.EXAMPLE[lang],
       type: "select",
+      value: show,
       onClick: (e) => {
         setShow(!show);
         e.stopPropagation();
       },
       items: [
-        { name: "介绍", onClick: help, icon: "fire" },
-        { name: "教程", onClick: example, icon: "thunderbolt" },
+        { name: locales.DESCRIPTION[lang], onClick: help, icon: "fire" },
+        {
+          name: locales.TUTORIALS[lang],
+          onClick: example,
+          icon: "thunderbolt",
+        },
       ],
     },
     {
       icon: "github",
       onClick: gotoGithub,
       name: "github",
+    },
+    {
+      icon: "setting",
+      name: locales.LANG[lang],
+      onClick: (e) => {
+        setShowLang(!showLang);
+        e.stopPropagation();
+      },
+      type: "select",
+      value: showLang,
+      items: [
+        {
+          name: locales.LANG_EN[lang],
+          onClick: () => setLang("en"),
+          icon: "dollar",
+        },
+        {
+          name: locales.LANG_ZN[lang],
+          onClick: () => setLang("zh"),
+          icon: "transaction",
+        },
+      ],
     },
   ];
 
@@ -140,12 +175,10 @@ export default connect(
           <div className={classNames.logo} onClick={gotoGithub}>
             Gossip
           </div>
-          <div className={classNames.intro}>
-            一个快速和高效创建 PPT 的用户界面🔥
-          </div>
+          <div className={classNames.intro}>{locales.HEADER_INFO[lang]}🔥</div>
         </div>
         <div className={classNames.btns}>
-          {btns.map(({ type, onClick, icon, name, items }) =>
+          {btns.map(({ type, onClick, icon, name, items, value }) =>
             type === "upload" ? (
               <Upload
                 onChange={handleUploadFile}
@@ -157,7 +190,7 @@ export default connect(
             ) : type === "select" ? (
               <div className={classNames.selectWrapper} key={name}>
                 <Item icon={icon} name={name} onClick={onClick} />
-                {show && (
+                {value && (
                   <ul onClick={onClick} className={classNames.select}>
                     {items.map((i) => (
                       <li className={classNames.selectItem} key={i.name}>

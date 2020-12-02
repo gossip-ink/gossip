@@ -8,47 +8,49 @@ import { Icon } from "antd";
 import { max } from "d3-array";
 
 export default connect(
-  state => ({
+  (state) => ({
     structure: state.slides.structure,
     components: state.slides.components,
     selectedId: state.slides.selectedId,
-    selectedPanel: state.slides.selectedPanel
+    selectedPanel: state.slides.selectedPanel,
+    locales: state.global.locales,
+    lang: state.global.lang,
   }),
   {
     createNode: (nodeId, value, type) => ({
       type: "slides/createNode",
-      payload: { nodeId, value, type }
+      payload: { nodeId, value, type },
     }),
     updateNodeValue: (id, value) => ({
       type: "slides/updateNodeValue",
-      payload: { id, value }
+      payload: { id, value },
     }),
-    deleteNode: id => ({ type: "slides/deleteNode", payload: { id } }),
+    deleteNode: (id) => ({ type: "slides/deleteNode", payload: { id } }),
     insertNode: (id, brother, before = false) => ({
       type: "slides/insertNode",
-      payload: { id, brother, before }
+      payload: { id, brother, before },
     }),
     appendNode: (id, father) => ({
       type: "slides/appendNode",
-      payload: { id, father }
+      payload: { id, father },
     }),
-    setSelected: id => ({ type: "slides/setSelected", payload: { id } }),
-    setSelectedPanel: type => ({
+    setSelected: (id) => ({ type: "slides/setSelected", payload: { id } }),
+    setSelectedPanel: (type) => ({
       type: "slides/setSelectedPanel",
-      payload: { type }
+      payload: { type },
     }),
     appendIdea: (ideaId, nodeId) => ({
       type: "slides/appendIdea",
-      payload: { nodeId, ideaId }
+      payload: { nodeId, ideaId },
     }),
-    hideNodeChildren: id => ({
+    hideNodeChildren: (id) => ({
       type: "slides/hideNodeChildren",
-      payload: { id }
+      payload: { id },
     }),
-    showNodeChildren: id => ({
+    showNodeChildren: (id) => ({
       type: "slides/showNodeChildren",
-      payload: { id }
-    })
+      payload: { id },
+    }),
   }
 )(function({
   height,
@@ -63,24 +65,26 @@ export default connect(
   setSelectedPanel,
   appendIdea,
   hideNodeChildren,
-  showNodeChildren
+  showNodeChildren,
+  locales,
+  lang,
 }) {
   const [edit, setEdit] = useState(-1);
   const indent = 20;
   const nodes = tree(structure);
   const nodeWidth = 170;
-  const h = max(nodes, node => node.depth);
+  const h = max(nodes, (node) => node.depth);
 
   const styles = {
     container: {
-      height
+      height,
     },
     tree: {
-      width: nodeWidth + indent * h + 50
+      width: nodeWidth + indent * h + 50,
     },
-    treeNode: node => ({
-      marginLeft: node.depth * indent
-    })
+    treeNode: (node) => ({
+      marginLeft: node.depth * indent,
+    }),
   };
 
   function handleEidtNode(item) {
@@ -109,10 +113,10 @@ export default connect(
       } else if (type === "bottom") {
         insertNode(sourceNodeId, targetNodeId);
       } else if (type === "left") {
-        const parents = nodes.filter(n => n.depth === depth);
+        const parents = nodes.filter((n) => n.depth === depth);
         for (let p of parents) {
           let findId = null;
-          eachBefore(p, node => {
+          eachBefore(p, (node) => {
             if (node.id !== sourceNodeId) return;
             findId = p.id;
           });
@@ -135,7 +139,7 @@ export default connect(
       }}
     >
       <div style={styles.tree}>
-        {nodes.map(item => (
+        {nodes.map((item) => (
           <TreeNode
             key={item.id}
             node={item}
@@ -146,26 +150,30 @@ export default connect(
             hasBottom={item.depth !== 0}
             hasTop={item.depth !== 0}
             canDrag={item.depth !== 0}
-            onClickBottom={() => createNode(item.id, "新的观点", "brother")}
-            onClickRight={() => createNode(item.id, "新的观点", "children")}
+            onClickBottom={() =>
+              createNode(item.id, locales.NEW_POINT[lang], "brother")
+            }
+            onClickRight={() =>
+              createNode(item.id, locales.NEW_POINT[lang], "children")
+            }
             onNodeDrag={() => hideNodeChildren(item.id)}
           >
             <Node
               height="1.5em"
               width={nodeWidth}
               edit={edit === item.id}
-              onEdit={e => {
+              onEdit={(e) => {
                 handleEidtNode(item);
                 e.stopPropagation();
               }}
-              onDelete={e => {
+              onDelete={(e) => {
                 deleteNode(item.id);
                 e.stopPropagation();
               }}
               highlight={item.id === selectedId}
               nomove={true}
               hasDelete={item.depth !== 0}
-              onClick={e => {
+              onClick={(e) => {
                 handleSelectSlide(item.id);
                 e.stopPropagation();
               }}
@@ -174,13 +182,13 @@ export default connect(
                 <Icon type="drag" className={classNames.dragIcon} />
                 {edit !== item.id ? (
                   <div onClick={() => handleSelectSlide(item.id)}>
-                    {item.name === "" ? "没有标题" : item.name}
+                    {item.name === "" ? locales.NO_TITLE[lang] : item.name}
                   </div>
                 ) : (
                   <input
                     value={item.name}
-                    onChange={e => handleTitleChange(e, item.id)}
-                    onClick={e => e.stopPropagation()}
+                    onChange={(e) => handleTitleChange(e, item.id)}
+                    onClick={(e) => e.stopPropagation()}
                   />
                 )}
               </div>

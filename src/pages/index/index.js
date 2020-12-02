@@ -8,10 +8,16 @@ import Variables from "../../components/Variables";
 import SidebarPanel from "../../components/SidebarPanel";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { connect } from "dva";
+import { useEffect } from "react";
 
-export default connect(({ global }) => ({
-  show: global.show
-}))(function({ show }) {
+export default connect(
+  ({ global }) => ({
+    show: global.show,
+  }),
+  {
+    setLocales: () => ({ type: "global/setLocales" }),
+  }
+)(function({ show, setLocales }) {
   // 计算每个部分的高度
   const { height, width } = useWindowSize();
   const { structure, attr, vari } = show;
@@ -25,25 +31,29 @@ export default connect(({ global }) => ({
 
   const props = {
     header: {
-      height: headerHeight
+      height: headerHeight,
     },
     sidebar: {
-      height: contentHeight
+      height: contentHeight,
     },
     mainContent: {
       height: contentHeight,
-      width: width - 600
+      width: width - 600,
     },
     structure: {
-      height: structureHeight
+      height: structureHeight,
     },
     attrPanel: {
-      height: attrPanelHeight
+      height: attrPanelHeight,
     },
     Variables: {
-      height: varHeight
-    }
+      height: varHeight,
+    },
   };
+
+  useEffect(() => {
+    setLocales();
+  }, []);
 
   return (
     <div className={classNames.container}>

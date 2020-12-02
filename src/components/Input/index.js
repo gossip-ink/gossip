@@ -4,12 +4,13 @@ import { Popover, Slider, Button, Switch, Upload, Modal, Input } from "antd";
 import { scaleLinear } from "d3-scale";
 import { pairs } from "d3-array";
 import { useRef, useEffect, useState } from "react";
+import { connect } from "dva";
 
 function Number({ value, onChange, range = [0, 100] }) {
   const styles = {
     container: {
-      width: 200
-    }
+      width: 200,
+    },
   };
 
   const step = ((range[1] - range[0]) / 5) | 0;
@@ -50,11 +51,11 @@ function MultipleSlider({ value, onChange }) {
 
   const styles = {
     slider: {
-      width
+      width,
     },
     container: {
-      width
-    }
+      width,
+    },
   };
 
   function handleMove(e) {
@@ -92,10 +93,10 @@ function MultipleSlider({ value, onChange }) {
             key={index}
             className={classNames.dot}
             style={{
-              left: scale(dot) - 7
+              left: scale(dot) - 7,
             }}
             onMouseDown={() => (move.current = index)}
-          ></div>
+          />
         ))}
       </div>
     </div>
@@ -109,14 +110,14 @@ function Color({ value, onChange }) {
       height: 309,
       left: -110,
       top: -300,
-      position: "absolute"
-    }
+      position: "absolute",
+    },
   };
   return (
     <div style={styles.container}>
       <SketchPicker
         color={value}
-        onChangeComplete={color => onChange(color.hex)}
+        onChangeComplete={(color) => onChange(color.hex)}
         style={{ background: "transparent" }}
       />
     </div>
@@ -126,12 +127,12 @@ function Color({ value, onChange }) {
 function MyRadio({ value, onChange, list, hasIcon = true }) {
   const styles = {
     button: {
-      margin: "0.25em"
-    }
+      margin: "0.25em",
+    },
   };
   return (
     <div>
-      {list.map(item => (
+      {list.map((item) => (
         <Button
           style={styles.button}
           icon={hasIcon ? item.icon : ""}
@@ -150,7 +151,7 @@ function MyRadio({ value, onChange, list, hasIcon = true }) {
   );
 }
 
-export function MyImage({ onChange, value }) {
+function _MyImage({ onChange, value, locales, lang }) {
   const [show, setShow] = useState(false);
   const [error, setError] = useState(false);
   const ref = useRef(null);
@@ -190,29 +191,40 @@ export function MyImage({ onChange, value }) {
           showUploadList={false}
           customRequest={() => {}}
         >
-          <span className={classNames.fileText}>本地图片</span>
+          <span className={classNames.fileText}>
+            {locales.LOCAL_IMAGE[lang]}
+          </span>
         </Upload>
       </li>
       <li className={classNames.item} onClick={() => setShow(true)}>
-        网络图片
+        {locales.NETWORK_IMAGE[lang]}
         <Modal
-          title="请输入图片地址"
+          title={locales.INPUT_IMAGE_URL[lang]}
           visible={show}
           onOk={handleOnOk}
-          onCancel={e => {
+          onCancel={(e) => {
             setShow(false);
             e.stopPropagation();
           }}
-          okText="确认"
-          cancelText="取消"
+          okText={locales.CONFIRM[lang]}
+          cancelText={locales.CANCEL[lang]}
         >
           <Input type="text" ref={ref} onChange={handleChange} />
-          {error && <p className={classNames.error}>图片地址不能为空！</p>}
+          {error && (
+            <p className={classNames.error}>
+              {locales.NO_EMPTY_IMAGE_URL[lang]}
+            </p>
+          )}
         </Modal>
       </li>
     </ul>
   );
 }
+
+export const MyImage = connect(({ global }) => ({
+  locales: global.locales,
+  lang: global.lang,
+}))(_MyImage);
 
 export default function({
   type,
@@ -222,24 +234,24 @@ export default function({
   list,
   yes,
   hasIcon,
-  disabled
+  disabled,
 }) {
   const styles = {
     color: {
-      background: value
+      background: value,
     },
     colorContainer: {
       width: 0,
-      height: 0
-    }
+      height: 0,
+    },
   };
 
-  const nameByValue = value =>
-    list && list.find(item => item.value === value).name;
+  const nameByValue = (value) =>
+    list && list.find((item) => item.value === value).name;
 
   const contentByType = {
-    color: <Color value={value} onChange={onChange}></Color>,
-    number: <Number range={range} value={value} onChange={onChange}></Number>,
+    color: <Color value={value} onChange={onChange} />,
+    number: <Number range={range} value={value} onChange={onChange} />,
     array: <MultipleSlider value={value} onChange={onChange} />,
     radio: (
       <MyRadio
@@ -247,35 +259,36 @@ export default function({
         onChange={onChange}
         list={list}
         hasIcon={hasIcon}
-      ></MyRadio>
+      />
     ),
-    image: <MyImage value={value} onChange={onChange} value={value} />
+    image: <MyImage value={value} onChange={onChange} value={value} />,
   };
+  
   const boxByType = {
-    color: <div className={classNames.inputBox} style={styles.color}></div>,
+    color: <div className={classNames.inputBox} style={styles.color} />,
     radio: <div className={classNames.inputBox}>{nameByValue(value)}</div>,
     switch: (
       <Switch
         checked={value === yes}
-        onChange={v => (value === yes ? onChange("") : onChange(yes))}
-      ></Switch>
+        onChange={(v) => (value === yes ? onChange("") : onChange(yes))}
+      />
     ),
     array: (
       <div className={classNames.inputBox}>
         {value instanceof Array &&
-          value.map(d => parseFloat(d.toFixed(2))).join(":")}
+          value.map((d) => parseFloat(d.toFixed(2))).join(":")}
       </div>
     ),
-    image: <Button icon="upload" type="primary"></Button>,
+    image: <Button icon="upload" type="primary" />,
     number: (
       <input
         type="number"
         className={classNames.inputBox}
         style={styles.number}
         value={value}
-        onChange={e => onChange(e.target.value)}
+        onChange={(e) => onChange(e.target.value)}
       />
-    )
+    ),
   };
   return (
     <div className={classNames.main}>
@@ -292,7 +305,7 @@ export default function({
           {boxByType[type]}
         </Popover>
       )}
-      {disabled && <div className={classNames.overlayer}></div>}
+      {disabled && <div className={classNames.overlayer} />}
     </div>
   );
 }

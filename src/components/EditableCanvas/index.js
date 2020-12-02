@@ -1,7 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { Button, Result } from "antd";
 import classNames from "./index.css";
-export default function({ value, width, height, select, onValueChange }) {
+import { connect } from "dva";
+
+export default connect(({ global }) => ({
+  locales: global.locales,
+  lang: global.lang,
+}))(function({ value, width, height, select, onValueChange, locales, lang }) {
   const ref = useRef(null);
   const [edit, setEdit] = useState(false);
   const [error, setError] = useState(false);
@@ -9,22 +14,22 @@ export default function({ value, width, height, select, onValueChange }) {
   const styles = {
     input: {
       height,
-      width
+      width,
     },
     canvas: {
       height,
-      width
+      width,
     },
     container: {
       height,
-      width
+      width,
     },
     error: {
       position: "absolute",
       left: "50%",
       top: "50%",
-      transform: "translate(-50%, -50%)"
-    }
+      transform: "translate(-50%, -50%)",
+    },
   };
 
   function handleChange(e) {
@@ -33,23 +38,26 @@ export default function({ value, width, height, select, onValueChange }) {
     setError(false);
   }
 
-  useEffect(() => {
-    if (error || edit) return;
-    try {
-      const canvas = ref.current;
-      const ctx = canvas.getContext("2d");
-      ctx.restore();
-      ctx.save();
-      ctx.scale(2, 2);
-      // 执行代码
-      const code = `(${value})(canvas, ctx, ${width}, ${height})`;
-      const timer = eval(code);
-      return () => timer && clearInterval(timer);
-    } catch (e) {
-      console.error(e);
-      setError(true);
-    }
-  }, [value, edit, width, height]);
+  useEffect(
+    () => {
+      if (error || edit) return;
+      try {
+        const canvas = ref.current;
+        const ctx = canvas.getContext("2d");
+        ctx.restore();
+        ctx.save();
+        ctx.scale(2, 2);
+        // 执行代码
+        const code = `(${value})(canvas, ctx, ${width}, ${height})`;
+        const timer = eval(code);
+        return () => timer && clearInterval(timer);
+      } catch (e) {
+        console.error(e);
+        setError(true);
+      }
+    },
+    [value, edit, width, height]
+  );
 
   return (
     <div
@@ -75,8 +83,8 @@ export default function({ value, width, height, select, onValueChange }) {
       ) : error ? (
         <Result
           status="error"
-          title="代码运行出现了问题！"
-          subTitle="可以打开控制台进行调试～"
+          title={locales.RUNTIME_ERROR[lang]}
+          subTitle={locales.TRY_DEBUG[lang]}
           style={styles.error}
         />
       ) : (
@@ -89,4 +97,4 @@ export default function({ value, width, height, select, onValueChange }) {
       )}
     </div>
   );
-}
+});
