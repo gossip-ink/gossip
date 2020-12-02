@@ -10,11 +10,13 @@ export default connect(
   ({ global, slides }) => ({
     help: global.help,
     slides,
+    locales: global.locales,
+    lang: global.lang,
   }),
   {
     setHelp: () => ({ type: "global/setHelp" }),
   }
-)(function({ children, help, setHelp, slides }) {
+)(function({ children, help, setHelp, slides, locales, lang }) {
   const { width, height } = useWindowSize();
   const [pop, setPop] = useState(!help);
 
@@ -50,10 +52,10 @@ export default connect(
       <div>
         {children}
         <Modal
-          title="提示"
+          title={locales.TIP[lang]}
           visible={pop}
-          okText="去学习"
-          cancelText="先随便看看"
+          okText={locales.LEARN[lang]}
+          cancelText={locales.CHECK_AROUND[lang]}
           onOk={() => {
             window.open(
               "https://www.yuque.com/docs/share/5aef3b0a-28af-4c56-9967-217a7f02c70a?#"
@@ -63,19 +65,20 @@ export default connect(
           onCancel={() => setPop(false)}
         >
           <div className={classNames.help}>
-            <p>
-              <b>Gossip</b>&nbsp;制作幻灯片的方法和常规软件方式有所区别，
-            </p>
-            <p>建议用10到20分钟的学习，</p>
-            <p>从此打开制作幻灯片的新方式🚀</p>
-            <p>为保证最佳体验：请使用 Chrome、Firefox 或 Safari 浏览器！</p>
+            <p>{locales.DIRRERENT[lang]}</p>
+            <p>{locales.LEARN_TIME[lang]}</p>
+            <p>{locales.NEW_WAY[lang]}</p>
+            <p>{locales.BEST[lang]}</p>
             <Button
               onClick={() => {
                 setPop(false);
                 setHelp();
               }}
+              style={{
+                width: 200,
+              }}
             >
-              不再提醒
+              {locales.NO_REMINDER[lang]}
             </Button>
           </div>
         </Modal>

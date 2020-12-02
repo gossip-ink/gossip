@@ -350,6 +350,40 @@ export default {
         zh: "小想法",
         en: "little idea",
       },
+      TIP: {
+        zh: "提醒",
+        en: "Tip",
+      },
+      LEARN: {
+        zh: "去学习",
+        en: "Learn",
+      },
+      CHECK_AROUND: {
+        zh: "先随便看看",
+        en: "Check around",
+      },
+      DIRRERENT: {
+        zh: "Gossip 制作幻灯片的方法和常规软件方式有所区别，",
+        en:
+          "The methods of Gossip to make slides is different from conventional software methods.",
+      },
+      LEARN_TIME: {
+        zh: "建议用10到20分钟的学习，",
+        en: "It is recommended to spend 10 to 20 minutes of study.",
+      },
+      NEW_WAY: {
+        zh: "从此打开制作幻灯片的新方式🚀",
+        en: "Open a new way of making presentation🚀",
+      },
+      BEST: {
+        zh: "为保证最佳体验：请使用 Chrome、Firefox 或 Safari 浏览器！",
+        en:
+          "To ensure the best experience: please use Chrome, Firefox or Safari browsers!",
+      },
+      NO_REMINDER: {
+        zh: "不再提醒",
+        en: "No more reminders",
+      },
     },
   },
   effects: {
