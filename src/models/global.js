@@ -384,6 +384,10 @@ export default {
         zh: "不再提醒",
         en: "No more reminders",
       },
+      NEW_POINT_INFO:{
+        zh:"介绍...",
+        en:"Say something..."
+      }
     },
   },
   effects: {

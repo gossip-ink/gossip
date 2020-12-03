@@ -1,4 +1,5 @@
-import helpFile from "../static/data/help.json";
+import introZhFile from "../static/data/intro.zh.json";
+import introEnFile from "../static/data/intro.en.json";
 import exampleFile from "../static/data/snake.json";
 import { saveAs } from "file-saver";
 import { eachBefore, descendant } from "../utils/tree";
@@ -14,13 +15,15 @@ import {
 } from "../utils/create";
 
 function initData() {
+  const lang = getLang();
   try {
-    const data = JSON.parse(localStorage.getItem("uIdea")) || helpFile;
+    const introFile = lang === "zh" ? introZhFile : introEnFile;
+    const data = JSON.parse(localStorage.getItem("uIdea")) || introFile;
     data.selectedId = 1;
     return data;
   } catch (e) {
     const msg =
-      getLang() === "zh"
+      lang === "zh"
         ? "读取本地存储失败，请在隐私中将“阻止所有 Cookies”关闭，否者不能使用本地存储！！！"
         : "Failed to load local storage, please close 'block all cookies' in privacy";
     alert(msg);
@@ -157,8 +160,10 @@ export default {
       return createFile(lang, locales);
     },
 
-    createHelp() {
-      return helpFile;
+    createHelp(state) {
+      const { lang, locales } = state;
+      const introFile = lang == "zh" ? introZhFile : introEnFile;
+      return { ...introFile, lang, locales };
     },
 
     createExample() {
@@ -260,7 +265,8 @@ export default {
     },
     // 创建一个新的节点
     createNode(state, action) {
-      const { nodeId, value, type, locales, lang } = action.payload;
+      const { nodeId, value, type } = action.payload;
+      const { locales, lang } = state;
       if (type !== "children" && nodeId === 1) {
         alert(locales.ROOT_NO_BROTHER[lang]);
         return;
@@ -268,7 +274,7 @@ export default {
 
       // 添加到组件
       const id = new Date().getTime();
-      const cmp = createSlide(id, value);
+      const cmp = createSlide(id, value, lang, locales);
       state.components.push(cmp);
 
       // 添加到树中

@@ -20,9 +20,9 @@ Presentation is a good way of telling and sharing stories, and gossip is one the
 
 **Make you next PPT not a PPT.**
 
-![WX20200326-130239@2x.png](https://i.loli.net/2020/03/26/uFrys8ReZdghXL3.png)
+![WX20200326-130239@2x.png](./screenshots/edit_mode.png)
 
-![WX20200326-130122@2x.png](https://i.loli.net/2020/03/26/YzhWKcCUMvH8m9D.png)
+![WX20200326-130122@2x.png](./screenshots/screening_mode.png)
 
 ## Why is it
 

@@ -80,7 +80,13 @@ function createCanvas(id, value = defaultValues.canvas, attrs) {
   };
 }
 
-function createSlide(id, value, content = "介绍...") {
+function createSlide(
+  id,
+  value,
+  lang,
+  locales,
+  content = locales.NEW_POINT_INFO[lang]
+) {
   return createPanel(
     id,
     "column",
