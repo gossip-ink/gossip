@@ -1,0 +1,498 @@
+{
+  "filename": "new",
+  "selectedId": 1,
+  "selectedComponentId": null,
+  "structure": {
+    "id": 1,
+    "name": "笔走龙蛇",
+    "children": [
+      { "id": 1585107045169, "name": "大体思路" },
+      {
+        "id": 1585107046489,
+        "name": "代码讲解",
+        "children": [
+          { "id": 1585107048907, "name": "获得画布" },
+          { "id": 1585107175403, "name": "监听事件" },
+          { "id": 1585107177585, "name": "移动数组" }
+        ]
+      },
+      { "id": 1585107300648, "name": "效果演示", "children": [] }
+    ]
+  },
+  "components": [
+    {
+      "type": "panel",
+      "id": 1,
+      "value": "column",
+      "attrs": {
+        "span": [3, 1],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": 2,
+          "value": "笔走龙蛇",
+          "type": "text",
+          "attrs": {
+            "fontSize": 180,
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "id": 3,
+          "value": "MiniPear",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$4",
+            "color": "$5",
+            "fontWeight": "normal",
+            "textAlign": "center",
+            "verticalAlign": "top",
+            "padding": 0,
+            "isTitle": false
+          }
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 4,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text4",
+          "value": "小观点A",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "left",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel4",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text24",
+              "value": "这个观点很小...",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "left",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 5,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text5",
+          "value": "小观点B",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "left",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel5",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text25",
+              "value": "这个观点很小...",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "left",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585107045169,
+      "value": "row",
+      "attrs": {
+        "span": [1.545, 1.455],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585107045169",
+          "value": "大体思路",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585107045169",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text21585107045169",
+              "value": "这个作品的核心就是对数组进行移动。",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585107046489,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585107046489",
+          "value": "代码讲解",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585107046489",
+          "value": "row",
+          "attrs": { "span": [1.24, 0.76], "flex": "row", "padding": 10 },
+          "children": [
+            {
+              "type": "image",
+              "id": 1585118725919,
+              "value": "https://i.loli.net/2020/03/25/etBq4Gmg5ikdUsa.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            },
+            {
+              "id": "text21585107046489",
+              "value": "- 获得画布\n- 监听事件\n- 移动数组",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "left",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585107048907,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585107048907",
+          "value": "获得画布",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$1585119302307",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585107048907",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "type": "image",
+              "id": 1585122196968,
+              "value": "https://i.loli.net/2020/03/25/n9bS6mrRslZXfaO.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585107175403,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585107175403",
+          "value": "监听事件",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$1585119302307",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585107175403",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "type": "image",
+              "id": 1585122412019,
+              "value": "https://i.loli.net/2020/03/25/JkL9fUu3d5NHRmA.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585107177585,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585107177585",
+          "value": "移动数组",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$1585119302307",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585107177585",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "type": "image",
+              "id": 1585122424884,
+              "value": "https://i.loli.net/2020/03/25/tO6SfaoYnJdRksq.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585107300648,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585107300648",
+          "value": "效果演示",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585107300648",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "type": "canvas",
+              "id": 1585122803089,
+              "value": "function draw(canvas, ctx, width, height) {\n  function background(color) {\n    ctx.fillStyle = color;\n    ctx.fillRect(0, 0, width, height);\n  }\n\n  let mouseX = width / 2;\n  let mouseY = height / 2;\n  const size = width / 10;\n  const cnt = 50;\n  const circleArr = [];\n  for (let i = 0; i < cnt; i++) {\n    circleArr.push({\n      x: mouseX,\n      y: mouseX\n    });\n  }\n\n  function update() {\n    for (let i = 0; i < cnt - 1; i++) {\n      circleArr[i].x = circleArr[i + 1].x;\n      circleArr[i].y = circleArr[i + 1].y;\n    }\n\n    circleArr[cnt - 1].x = mouseX;\n    circleArr[cnt - 1].y = mouseY;\n\n    background(\"black\");\n    circleArr.forEach((item, index) => {\n      const c = 255 - (cnt - index);\n      ctx.fillStyle = `rgb(${c},${c},${c})`;\n      ctx.beginPath();\n      ctx.arc(item.x, item.y, index, 0, 2 * Math.PI);\n      ctx.fill();\n    });\n  }\n\n  canvas.onmousemove = e => {\n    mouseX = e.offsetX;\n    mouseY = e.offsetY;\n  };\n\n  const timer = setInterval(update, 30);\n  return timer;\n}",
+              "attrs": { "padding": 10 }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "selectedArributeId": 1585119302307,
+  "attributeVars": [
+    {
+      "id": 1585119302307,
+      "type": "color",
+      "name": "代码标题颜色",
+      "value": "#4a90e2"
+    },
+    {
+      "id": 1,
+      "type": "color",
+      "value": "#ffffff",
+      "name": "背景颜色",
+      "canDelete": false
+    },
+    { "id": 2, "type": "number", "value": 200, "name": "大标题字号" },
+    { "id": 3, "type": "number", "value": 130, "name": "小标题字号" },
+    { "id": 4, "type": "number", "value": 35, "name": "内容字号" },
+    { "id": 5, "type": "color", "value": "#000000", "name": "字体颜色" },
+    { "id": 6, "type": "number", "value": 60, "name": "页面内边距" }
+  ],
+  "ideas": [
+    { "id": 1585106671747, "type": "text", "value": "MiniPear" },
+    {
+      "id": 1585106673205,
+      "type": "text",
+      "value": "这个作品的核心就是对数组进行移动。"
+    },
+    {
+      "id": 1585106674753,
+      "type": "image",
+      "value": "https://i.loli.net/2020/03/25/n9bS6mrRslZXfaO.png"
+    },
+    {
+      "id": 1585106676251,
+      "type": "image",
+      "value": "https://i.loli.net/2020/03/25/JkL9fUu3d5NHRmA.png"
+    },
+    {
+      "id": 1585106677847,
+      "type": "image",
+      "value": "https://i.loli.net/2020/03/25/tO6SfaoYnJdRksq.png"
+    },
+    { "id": "text21585107048907", "value": "介绍...", "type": "text" }
+  ],
+  "selectedPanel": 2,
+  "selectedIdea": 6
+}

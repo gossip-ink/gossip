@@ -1,0 +1,1672 @@
+{
+  "filename": "new",
+  "selectedId": 1,
+  "selectedComponentId": null,
+  "selectedIdea": 1584532354959,
+  "structure": {
+    "id": 1,
+    "name": "Present Different",
+    "children": [
+      {
+        "id": 1584425235617,
+        "name": "说在前面",
+        "children": [
+          { "id": 1584425541011, "name": "不是用来" },
+          { "id": 1584427592805, "name": "而是用来" },
+          { "id": 1585192591232, "name": "名字由来" }
+        ]
+      },
+      {
+        "id": 1584425599930,
+        "name": "想要解决",
+        "children": [
+          { "id": 1584428696433, "name": "Point 不 Power" },
+          { "id": 1584428694143, "name": "听众走神" }
+        ]
+      },
+      {
+        "id": 1584425507792,
+        "name": "创建幻灯片",
+        "children": [
+          { "id": 1584426239062, "name": "有一些零散的想法" },
+          { "id": 1584426274509, "name": "想法成了大纲" },
+          { "id": 1584426364804, "name": "制作幻灯片" },
+          { "id": 1584426390597, "name": "调整样式" },
+          { "id": 1584429295481, "name": "保存/下载/打开" }
+        ]
+      },
+      {
+        "name": "放映幻灯片",
+        "id": 2,
+        "children": [
+          { "name": "有意义的切换动画", "id": 5 },
+          { "name": "赋予生命", "id": 4 },
+          { "id": 1584428658202, "name": "词云模式" }
+        ]
+      },
+      {
+        "id": 1584425744663,
+        "name": "展望未来",
+        "children": [
+          { "id": 1584426576731, "name": "存在的问题" },
+          { "id": 1584426591329, "name": "需要帮助" }
+        ]
+      },
+      { "id": 1585130760463, "name": "彩蛋" }
+    ]
+  },
+  "components": [
+    {
+      "type": "panel",
+      "id": 1,
+      "value": "column",
+      "attrs": {
+        "span": [2.0551049999999997, 1.4578950000000002],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": 2,
+          "value": "Present Different",
+          "type": "text",
+          "attrs": {
+            "fontSize": 154,
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "bottom",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "id": 3,
+          "value": "Gossip",
+          "type": "text",
+          "attrs": {
+            "fontSize": 82,
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "top",
+            "padding": 50,
+            "isTitle": false
+          },
+          "_children": null
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 2,
+      "value": "row",
+      "attrs": {
+        "span": [2, 1],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text2",
+          "value": "放映幻灯片",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": 1584708757750,
+          "value": "column",
+          "attrs": { "span": [1, 1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text22",
+              "value": "高效和有逼格的讲故事！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "left",
+                "verticalAlign": "bottom",
+                "padding": 50,
+                "isTitle": false
+              },
+              "_children": null
+            },
+            {
+              "type": "image",
+              "id": 1584708751367,
+              "value": "https://i.loli.net/2020/03/20/Fc75XvbOd4UM2Zz.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top"
+              },
+              "_children": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 4,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text4",
+          "value": "赋予生命",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel4",
+          "value": "column",
+          "attrs": { "span": [0.28, 1.72], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text24",
+              "value": "鼠标在下面画布移动试试！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "canvas",
+              "id": 1584443213114,
+              "value": "      function draw(canvas, ctx, width, height) {\n        // 绘制背景\n        function background(color) {\n          ctx.fillStyle = color;\n          ctx.fillRect(0, 0, width, height);\n        }\n\n        // 全局变量\n        let mouseX = width / 2;\n        let mouseY = height / 2;\n        const size = width / 10;\n        const cnt = 50;\n        const circleArr = [];\n        for (let i = 0; i < cnt; i++) {\n          circleArr.push({\n            x: mouseX,\n            y: mouseX\n          });\n        }\n\n        function update() {\n          // shift array\n          for (let i = 0; i < cnt - 1; i++) {\n            circleArr[i].x = circleArr[i + 1].x;\n            circleArr[i].y = circleArr[i + 1].y;\n          }\n\n          circleArr[cnt - 1].x = mouseX;\n          circleArr[cnt - 1].y = mouseY;\n\n          // draw circle\n          background(\"black\");\n          circleArr.forEach((item, index) => {\n            const c = 255 - (cnt - index);\n            ctx.fillStyle = `rgb(${c},${c},${c})`;\n            ctx.beginPath();\n            ctx.arc(item.x, item.y, index, 0, 2 * Math.PI);\n            ctx.fill();\n          });\n        }\n\n        canvas.onmousemove = e => {\n          mouseX = e.offsetX;\n          mouseY = e.offsetY;\n        };\n\n        const timer = setInterval(update, 10);\n        return timer;\n      }",
+              "attrs": { "padding": 0 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 5,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text5",
+          "value": "有意义的切换动画",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel5",
+          "value": "row",
+          "attrs": { "span": [1, 1, 1], "flex": "row", "padding": 10 },
+          "children": [
+            {
+              "type": "panel",
+              "id": 1585193526942,
+              "value": "column",
+              "attrs": {
+                "span": [0.53, 1.47],
+                "flex": "column",
+                "padding": 10
+              },
+              "children": [
+                {
+                  "id": 1585193591554,
+                  "value": "放大效果：大观点到小观点",
+                  "type": "text",
+                  "attrs": {
+                    "fontSize": "$4",
+                    "color": "$5",
+                    "fontWeight": "normal",
+                    "textAlign": "center",
+                    "verticalAlign": "center",
+                    "padding": 0,
+                    "isTitle": false
+                  }
+                },
+                {
+                  "type": "image",
+                  "id": 1584442424406,
+                  "value": "https://i.loli.net/2020/03/18/5pomxiVu9tE27df.gif",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 10,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  },
+                  "_children": null
+                }
+              ],
+              "_children": null
+            },
+            {
+              "type": "panel",
+              "id": 1585193536883,
+              "value": "column",
+              "attrs": {
+                "span": [0.52, 1.48],
+                "flex": "column",
+                "padding": 10
+              },
+              "children": [
+                {
+                  "id": 1585193645752,
+                  "value": "缩小效果：小观点到大观点",
+                  "type": "text",
+                  "attrs": {
+                    "fontSize": "$4",
+                    "color": "$5",
+                    "fontWeight": "normal",
+                    "textAlign": "center",
+                    "verticalAlign": "center",
+                    "padding": 0,
+                    "isTitle": false
+                  }
+                },
+                {
+                  "type": "image",
+                  "id": 1584442427757,
+                  "value": "https://i.loli.net/2020/03/18/42RYwWu7qiBheOo.gif",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 10,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  },
+                  "_children": null
+                }
+              ],
+              "_children": null
+            },
+            {
+              "type": "panel",
+              "id": 1585193542409,
+              "value": "column",
+              "attrs": {
+                "span": [0.53, 1.47],
+                "flex": "column",
+                "padding": 10
+              },
+              "children": [
+                {
+                  "id": 1585193682083,
+                  "value": "旋转效果：并列观点",
+                  "type": "text",
+                  "attrs": {
+                    "fontSize": "$4",
+                    "color": "$5",
+                    "fontWeight": "normal",
+                    "textAlign": "center",
+                    "verticalAlign": "center",
+                    "padding": 0,
+                    "isTitle": false
+                  }
+                },
+                {
+                  "type": "image",
+                  "id": 1584442433776,
+                  "value": "https://i.loli.net/2020/03/18/XC56gup1aJb9wS3.gif",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 10,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  },
+                  "_children": null
+                }
+              ],
+              "_children": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584425235617,
+      "value": "row",
+      "attrs": {
+        "span": [1.3149499999999998, 0.8950500000000001],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584425235617",
+          "value": "说在前面",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "right",
+            "verticalAlign": "center",
+            "padding": 50,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": 1584427024456,
+          "value": "column",
+          "attrs": {
+            "span": [1.08, 0.9450000000000003, 0.9749999999999996],
+            "flex": "column",
+            "padding": 10,
+            "fontSize": 49
+          },
+          "children": [
+            {
+              "id": "text21584425235617",
+              "value": "在看如何使用之前，你有",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "bottom",
+                "padding": 0,
+                "isTitle": false
+              }
+            },
+            {
+              "id": 1584427029696,
+              "value": "三",
+              "type": "text",
+              "attrs": {
+                "fontSize": 152,
+                "color": "$5",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": false
+              }
+            },
+            {
+              "id": 1584427033644,
+              "value": "点需要知道",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584425507792,
+      "value": "row",
+      "attrs": {
+        "span": [1.656, 0.744],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584425507792",
+          "value": "创建幻灯片",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "right",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": 1584703463666,
+          "value": "column",
+          "attrs": { "span": [1.2, 0.8], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "type": "image",
+              "id": 1584703610848,
+              "value": "https://s1.ax1x.com/2020/03/20/82SaGQ.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "bottom"
+              }
+            },
+            {
+              "id": "text21584425507792",
+              "value": "丝滑和高效地编故事！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 50,
+                "isTitle": false
+              },
+              "_children": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584425541011,
+      "value": "column",
+      "attrs": {
+        "span": [0.795, 2.205],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1",
+        "fontSize": 40
+      },
+      "children": [
+        {
+          "id": "text1584425541011",
+          "value": "不是用来",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584425541011",
+          "value": "row",
+          "attrs": { "span": [1, 1], "flex": "row", "padding": 10 },
+          "children": [
+            {
+              "type": "panel",
+              "id": 1584427474423,
+              "value": "column",
+              "attrs": {
+                "span": [0.61, 1.3900000000000001],
+                "flex": "column",
+                "padding": 10,
+                "fontSize": 40
+              },
+              "children": [
+                {
+                  "id": "text21584425541011",
+                  "value": "沉闷的课件",
+                  "type": "text",
+                  "attrs": {
+                    "fontSize": "$4",
+                    "color": "$5",
+                    "fontWeight": "normal",
+                    "textAlign": "center",
+                    "verticalAlign": "center",
+                    "padding": 0,
+                    "isTitle": false
+                  }
+                },
+                {
+                  "type": "image",
+                  "id": 1584427501228,
+                  "value": "https://i.loli.net/2020/03/18/t4AiCKolTcs6Pyw.jpg",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 20,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "panel",
+              "id": 1584427477478,
+              "value": "column",
+              "attrs": {
+                "span": [0.63, 1.37],
+                "flex": "column",
+                "padding": 10,
+                "fontSize": 40
+              },
+              "children": [
+                {
+                  "id": 1584427483940,
+                  "value": "无聊的报表",
+                  "type": "text",
+                  "attrs": {
+                    "fontSize": "$4",
+                    "color": "$5",
+                    "fontWeight": "normal",
+                    "textAlign": "center",
+                    "verticalAlign": "center",
+                    "padding": 0,
+                    "isTitle": false
+                  }
+                },
+                {
+                  "type": "image",
+                  "id": 1584427508578,
+                  "value": "https://i.loli.net/2020/03/18/bncwEAaoZ4SQT5y.jpg",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 20,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584425599930,
+      "value": "row",
+      "attrs": {
+        "span": [1.2, 1],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584425599930",
+          "value": "想要解决",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "right",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": 1584702840926,
+          "value": "column",
+          "attrs": { "span": [0.92, 1.08], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text21584425599930",
+              "value": "现在制作幻灯片的软件有一些一言难尽的问题.....",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "bottom",
+                "padding": 50,
+                "isTitle": false
+              },
+              "_children": null
+            },
+            {
+              "type": "image",
+              "id": 1584702854466,
+              "value": "https://i.loli.net/2020/03/18/K2zf6tVYerh5Gp8.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584425744663,
+      "value": "row",
+      "attrs": {
+        "span": [1.38, 1],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584425744663",
+          "value": "展望未来",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "right",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": 1585196847803,
+          "value": "column",
+          "attrs": { "span": [1, 1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text21584425744663",
+              "value": "功能和代码还不够优雅！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "bottom",
+                "padding": 50,
+                "isTitle": false
+              },
+              "_children": null
+            },
+            {
+              "type": "image",
+              "id": 1585196851634,
+              "value": "https://i.loli.net/2020/03/26/6VTXJAG3dUFivoj.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "top"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584426239062,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584426239062",
+          "value": "有一些零散的想法",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584426239062",
+          "value": "column",
+          "attrs": {
+            "span": [0.5836835, 1.2991665],
+            "flex": "column",
+            "padding": 0
+          },
+          "children": [
+            {
+              "id": "text21584426239062",
+              "value": "还不清楚要讲啥？没有关系，先将想法集起来！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": false
+              },
+              "_children": null
+            },
+            {
+              "type": "image",
+              "id": 1584436200521,
+              "value": "https://s1.ax1x.com/2020/03/20/829AAK.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 0,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584426274509,
+      "value": "row",
+      "attrs": {
+        "span": [2, 1.2598329999999998],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "type": "panel",
+          "id": "panel1584426274509",
+          "value": "column",
+          "attrs": {
+            "span": [1.17355355, 0.6319134499999999],
+            "flex": "column",
+            "padding": 0
+          },
+          "children": [
+            {
+              "id": "text1584426274509",
+              "value": "想法成了大纲",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$3",
+                "color": "$5",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": true
+              },
+              "_children": null
+            },
+            {
+              "id": "text21584426274509",
+              "value": "知道要讲啥了？那就用大纲梳理一下思路呗。",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              },
+              "_children": null
+            }
+          ],
+          "_children": null
+        },
+        {
+          "type": "image",
+          "id": 1584704437385,
+          "value": "https://i.loli.net/2020/03/18/DUSlW1YQ5hxRZps.png",
+          "attrs": {
+            "displayMode": "normal",
+            "padding": 10,
+            "textAlign": "center",
+            "verticalAlign": "center"
+          },
+          "_children": null
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584426364804,
+      "value": "row",
+      "attrs": {
+        "span": [1, 0.8648999999999999],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "type": "panel",
+          "id": 1585196194087,
+          "value": "column",
+          "attrs": {
+            "span": [1.2170109999999998, 0.778089],
+            "flex": "column",
+            "padding": 10
+          },
+          "children": [
+            {
+              "id": "text1584426364804",
+              "value": "制作幻灯片",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$3",
+                "color": "$5",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": true
+              },
+              "_children": null
+            },
+            {
+              "id": "text21584426364804",
+              "value": "简单拖拖拽拽，一张幻灯片就做好了。",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              },
+              "_children": null
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": 1584437073506,
+          "value": "https://i.loli.net/2020/03/18/sAoUkqYWXZ9Bwvu.png",
+          "attrs": {
+            "displayMode": "normal",
+            "padding": 0,
+            "textAlign": "center",
+            "verticalAlign": "center"
+          },
+          "_children": null
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584426390597,
+      "value": "row",
+      "attrs": {
+        "span": [1.305541, 1.6282590000000001],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "type": "panel",
+          "id": "panel1584426390597",
+          "value": "column",
+          "attrs": {
+            "span": [1.047625, 0.6285750000000001],
+            "flex": "column",
+            "padding": 10
+          },
+          "children": [
+            {
+              "id": "text1584426390597",
+              "value": "调整样式",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$3",
+                "color": "$5",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": true
+              },
+              "_children": null
+            },
+            {
+              "id": "text21584426390597",
+              "value": "一处修改，多处变化，妈妈再也不用担心我一张张幻灯片的调整样式了！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              },
+              "_children": null
+            }
+          ],
+          "_children": null
+        },
+        {
+          "type": "image",
+          "id": 1584439891664,
+          "value": "https://i.loli.net/2020/03/18/Aei1nRBtIVhg2p9.png",
+          "attrs": {
+            "displayMode": "normal",
+            "padding": 0,
+            "textAlign": "center",
+            "verticalAlign": "center"
+          },
+          "_children": null
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584426576731,
+      "value": "column",
+      "attrs": {
+        "span": [0.562875, 1.35],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584426576731",
+          "value": "存在的问题",
+          "type": "text",
+          "attrs": {
+            "fontSize": 120,
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          },
+          "_children": null
+        },
+        {
+          "type": "panel",
+          "id": 1584708304151,
+          "value": "row",
+          "attrs": {
+            "span": [1.33465375, 0.9274712500000002],
+            "flex": "row",
+            "padding": 10
+          },
+          "children": [
+            {
+              "type": "image",
+              "id": 1584708027112,
+              "value": "https://i.loli.net/2020/03/20/XZl3GcEU5ohR6vp.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              },
+              "_children": null
+            },
+            {
+              "id": 1585194397084,
+              "value": "- 使用有学习成本\n- 功能不完善\n- 用户体验不太好",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "left",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ],
+          "_children": null
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584426591329,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584426591329",
+          "value": "需要帮助",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584426591329",
+          "value": "column",
+          "attrs": {
+            "span": [0.46919999999999995, 1.3708],
+            "flex": "column",
+            "padding": 10,
+            "fontSize": 35
+          },
+          "children": [
+            {
+              "id": "text21584426591329",
+              "value": "有遇见的问题、bug 以及想要的功能都可以联系我。\n了解更多：https://github.com/pearmini/gossip",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "image",
+              "id": 1584508042920,
+              "value": "https://i.loli.net/2020/03/18/1hCrUjy5JbaG78x.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584427592805,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584427592805",
+          "value": "而是用来",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "bottom",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584427592805",
+          "value": "row",
+          "attrs": { "span": [1, 1, 1], "flex": "row", "padding": 10 },
+          "children": [
+            {
+              "type": "image",
+              "id": 1584427985363,
+              "value": "https://i.loli.net/2020/03/19/98BpPJuXqfCEiLl.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            },
+            {
+              "id": "text21584427592805",
+              "value": "当你有一些有意思、炫酷的东西或者故事想和大家分享",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 50,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "image",
+              "id": 1584427975787,
+              "value": "https://i.loli.net/2020/03/18/LzxSiW9AywPtVOE.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "fontSize": 80
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584428658202,
+      "value": "row",
+      "attrs": {
+        "span": [0.92, 1.08],
+        "flex": "row",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "type": "panel",
+          "id": 1585193880310,
+          "value": "column",
+          "attrs": {
+            "span": [1, 0.5750000000000002, 1.4249999999999998],
+            "flex": "column",
+            "padding": 10
+          },
+          "children": [
+            {
+              "id": "text1584428658202",
+              "value": "词云模式",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$3",
+                "color": "$5",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": true
+              },
+              "_children": null
+            },
+            {
+              "id": 1585193885409,
+              "value": "一眼看穿所有故事！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "image",
+              "id": 1585194063516,
+              "value": "https://i.loli.net/2020/03/26/r5IBy9eiP1ovpMO.png",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": 1585193859134,
+          "value": "https://i.loli.net/2020/03/26/o2hLWFVmDxSaPiu.png",
+          "attrs": {
+            "displayMode": "normal",
+            "padding": 10,
+            "textAlign": "center",
+            "verticalAlign": "center"
+          },
+          "_children": null
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584428694143,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584428694143",
+          "value": "听众走神",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584428694143",
+          "value": "row",
+          "attrs": {
+            "span": [1.11, 0.8899999999999999],
+            "flex": "row",
+            "padding": 10
+          },
+          "children": [
+            {
+              "id": "text21584428694143",
+              "value": "我不是针对你，但你幻灯片的切换画\n无聊且没有意义......",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 100,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "image",
+              "id": 1584504981263,
+              "value": "https://i.loli.net/2020/03/18/oRylUJxBGgfvYmt.jpg",
+              "attrs": {
+                "displayMode": "normal",
+                "padding": 10,
+                "textAlign": "center",
+                "verticalAlign": "center"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584428696433,
+      "value": "column",
+      "attrs": {
+        "span": [1, 2],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584428696433",
+          "value": "Point 不 Power",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584428696433",
+          "value": "column",
+          "attrs": { "span": [0.51, 1.49], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text21584428696433",
+              "value": "幻灯片是很美，但却前后逻辑不通，意思表达不清晰。",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "panel",
+              "id": 1584446927500,
+              "value": "row",
+              "attrs": { "span": [1, 1], "flex": "row", "padding": 10 },
+              "children": [
+                {
+                  "type": "image",
+                  "id": 1584446938237,
+                  "value": "https://i.loli.net/2020/03/18/735kJTYUtXrCAMp.jpg",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 10,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  }
+                },
+                {
+                  "type": "image",
+                  "id": 1584446931402,
+                  "value": "https://i.loli.net/2020/03/18/B9r2KwdqhD1eOTu.jpg",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 10,
+                    "textAlign": "center",
+                    "verticalAlign": "center"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1584429295481,
+      "value": "column",
+      "attrs": {
+        "span": [1.41, 1.59],
+        "flex": "column",
+        "padding": "$6",
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1584429295481",
+          "value": "保存/下载/打开",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$3",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 21,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1584429295481",
+          "value": "column",
+          "attrs": {
+            "span": [0.67, 1.33],
+            "flex": "column",
+            "padding": 10,
+            "fontSize": 30
+          },
+          "children": [
+            {
+              "id": "text21584429295481",
+              "value": "虽然不能云存储，但是保存、下载、打开功能样样不差。",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 20,
+                "isTitle": false
+              }
+            },
+            {
+              "type": "panel",
+              "id": 1584441812048,
+              "value": "row",
+              "attrs": { "span": [1], "flex": "row", "padding": 10 },
+              "children": [
+                {
+                  "type": "image",
+                  "id": 1585196422958,
+                  "value": "https://i.loli.net/2020/03/26/Wd6ojcJyVlAEM5Z.png",
+                  "attrs": {
+                    "displayMode": "normal",
+                    "padding": 10,
+                    "textAlign": "center",
+                    "verticalAlign": "top"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585130760463,
+      "value": "column",
+      "attrs": {
+        "span": [1.995, 1.005],
+        "flex": "column",
+        "padding": 60,
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "id": "text1585130760463",
+          "value": "彩蛋",
+          "type": "text",
+          "attrs": {
+            "fontSize": "$2",
+            "color": "$5",
+            "fontWeight": "bold",
+            "textAlign": "center",
+            "verticalAlign": "center",
+            "padding": 0,
+            "isTitle": true
+          }
+        },
+        {
+          "type": "panel",
+          "id": "panel1585130760463",
+          "value": "column",
+          "attrs": { "span": [1], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text21585130760463",
+              "value": "如果你现在在放映模式下，请狠狠地点击“backspace”！",
+              "type": "text",
+              "attrs": {
+                "fontSize": 43,
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 0,
+                "isTitle": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "panel",
+      "id": 1585192591232,
+      "value": "row",
+      "attrs": {
+        "span": [1.16, 0.8400000000000001],
+        "flex": "row",
+        "padding": 60,
+        "backgroundColor": "$1"
+      },
+      "children": [
+        {
+          "type": "panel",
+          "id": 1585195897768,
+          "value": "column",
+          "attrs": { "span": [0.87, 1.13], "flex": "column", "padding": 10 },
+          "children": [
+            {
+              "id": "text1585192591232",
+              "value": "名字由来",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$3",
+                "color": "$5",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "verticalAlign": "center",
+                "padding": 0,
+                "isTitle": true
+              },
+              "_children": null
+            },
+            {
+              "id": 1585195902582,
+              "value": "PPT 是用来讲故事的，而 Gossip（八卦）是一种相当常见和高效的讲故事的手段！",
+              "type": "text",
+              "attrs": {
+                "fontSize": "$4",
+                "color": "$5",
+                "fontWeight": "normal",
+                "textAlign": "center",
+                "verticalAlign": "top",
+                "padding": 52,
+                "isTitle": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": 1585192822408,
+          "value": "https://i.loli.net/2020/03/26/dNKnU8caTBl1HgJ.jpg",
+          "attrs": {
+            "displayMode": "normal",
+            "padding": 10,
+            "textAlign": "center",
+            "verticalAlign": "center"
+          },
+          "_children": null
+        }
+      ]
+    }
+  ],
+  "selectedArributeId": 6,
+  "attributeVars": [
+    {
+      "id": 6,
+      "type": "number",
+      "name": "页面内边距",
+      "value": 60
+    },
+    {
+      "id": 1,
+      "type": "color",
+      "value": "#ffffff",
+      "name": "背景颜色",
+      "canDelete": false
+    },
+    { "id": 2, "type": "number", "value": 160, "name": "大标题字号" },
+    { "id": 3, "type": "number", "value": 120, "name": "小标题字号" },
+    { "id": 4, "type": "number", "value": 40, "name": "内容字号" },
+    { "id": 5, "type": "color", "value": "#000000", "name": "字体颜色" }
+  ],
+  "ideas": [
+    {
+      "id": 6,
+      "value": "每一个抖腿的人，心里都有一条缝纫机。\u001f",
+      "type": "text",
+      "attrs": {
+        "fontSize": "$4",
+        "color": "$5",
+        "fontWeight": "normal",
+        "textAlign": "left",
+        "verticalAlign": "top",
+        "padding": 50,
+        "isTitle": false
+      }
+    },
+    {
+      "type": "image",
+      "id": 1584532354959,
+      "value": "https://i.loli.net/2020/03/18/g21ro4tTCAQ3nXO.jpg",
+      "attrs": {
+        "displayMode": "normal",
+        "padding": 10,
+        "textAlign": "center",
+        "verticalAlign": "center"
+      }
+    }
+  ],
+  "selectedPanel": 2
+}
