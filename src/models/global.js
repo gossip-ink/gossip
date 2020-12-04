@@ -83,11 +83,11 @@ export default {
         zh: "大纲",
       },
       THUMBNAILS: {
-        en: "Thumnails",
+        en: "Thumbnail",
         zh: "缩略图",
       },
       THOUGHT: {
-        en: "Thought",
+        en: "Idea",
         zh: "想法",
       },
       THOUGHT_TEXT: {
@@ -163,11 +163,11 @@ export default {
         en: "Direction",
       },
       ROW: {
-        zh: "水平排列",
+        zh: "水平",
         en: "Row",
       },
       COL: {
-        zh: "竖直排列",
+        zh: "竖直",
         en: "Col",
       },
       H_ALIGNMENT: {

@@ -1,5 +1,6 @@
 const path = require("path");
 const name = "gossip";
+
 export default {
   base: `/${name}`,
   publicPath: `/${name}/`,
