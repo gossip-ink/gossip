@@ -111,6 +111,8 @@ The features introduced above already have shown that it is pretty easy to add, 
 
 For those elements which tend to have the same or similar styles, such as the font color of highlight texts or the font size of title, Gossip enables user to create a variable and assign to these elements. **When user change the value of variable, Gossip will change the value of related elements as well!**
 
+![variable](./screenshots/variable.gif)
+
 ## Delivery a presentation
 
 In order to hold audience's interests and help presenter communicate the structure of a presentation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode.
@@ -118,10 +120,13 @@ In order to hold audience's interests and help presenter communicate the structu
 ### Switch animation: Zoom in, Zoom out, Rotate
 
 The *Zoom in animation* will remind the audience of from big point to small point. And *Zoom out* animation is for small point to big point. If the two points are at the same level, it will be the *Rotate* animation.
+<img src="./screenshots/zoom_in.gif" width="200px">&emsp;<img src="./screenshots/zoom_out.gif" width="200px">&emsp;<img src="./screenshots/rotate.gif" width="200px">
 
 ### Overview: Word Cloud mode
 
 *Word Cloud* mode use traditional word cloud algorithm to layout each slides which let the audience quickly familiarize or review the general content of the entire slide. It is also helpful when the audience asks the presenter a question about specific slide, because presenter needn't to scroll the mouse wheel to find the specific slide.
+
+![overview](./screenshots/overview.gif)
 
 ## Limitations
 
