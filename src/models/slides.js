@@ -157,7 +157,8 @@ export default {
     // 创建新的 ppt
     createNewFile(state) {
       const { lang, locales } = state;
-      return createFile(lang, locales);
+      const file = createFile(lang, locales);
+      return { ...file, lang, locales };
     },
 
     createHelp(state) {
@@ -267,6 +268,7 @@ export default {
     createNode(state, action) {
       const { nodeId, value, type } = action.payload;
       const { locales, lang } = state;
+
       if (type !== "children" && nodeId === 1) {
         alert(locales.ROOT_NO_BROTHER[lang]);
         return;
@@ -274,7 +276,14 @@ export default {
 
       // 添加到组件
       const id = new Date().getTime();
-      const cmp = createSlide(id, value, lang, locales);
+      const cmp = createSlide(
+        id,
+        value,
+        lang,
+        locales,
+        locales.NEW_POINT_INFO[lang]
+      );
+
       state.components.push(cmp);
 
       // 添加到树中

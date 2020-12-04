@@ -53,7 +53,7 @@ On the other hand, it is difficult for existing tools to provide the audience mo
 
 As a result, **they are often inadequate in helping presenter communicate the structure of a presentation to the audience.**
 
-Next, there is a introduction to the workflow of Gossip which will show what make Gossip unique.
+Next, there is a introduction to the workflow of Gossip which will show what makes Gossip unique.
 
 ## Author a presentation
 
@@ -68,6 +68,8 @@ When using traditional presentation software, there's no place for presenters to
 ![Idea panel](./screenshots/idea.png)
 
 The idea can be text, image or even code.
+
+![Idea pre](./screenshots/idea.gif)
 
 ### Organizing: Outline and Thumbnails
 
