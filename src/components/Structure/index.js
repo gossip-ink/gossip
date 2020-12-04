@@ -160,7 +160,7 @@ export default connect(
       nodata={nodes.length === 0}
       nodataInfo={locales.NO_SELECTED_SLICE[lang]}
       name="structure"
-      url="https://github.com/pearmini/gossip/blob/master/tutorials.md#%E5%88%B6%E4%BD%9C%E6%AF%8F%E4%B8%80%E5%BC%A0%E5%B9%BB%E7%81%AF%E7%89%87"
+      url="https://github.com/pearmini/gossip#organizing-outline-and-thumnails"
     >
       <div style={styles.tree}>
         {nodes.map((item) => (

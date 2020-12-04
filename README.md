@@ -6,15 +6,14 @@
   - [Why is it](#why-is-it)
     - [Hard to author a presentation](#hard-to-author-a-presentation)
     - [Hard to delivery a presentation](#hard-to-delivery-a-presentation)
-  - [Workflow of Gossip](#workflow-of-gossip)
-    - [Author a presentation](#author-a-presentation)
-      - [Generating: Idea](#generating-idea)
-      - [Organizing: Outline and Thumnails](#organizing-outline-and-thumnails)
-      - [Composning: Main and Element](#composning-main-and-element)
-      - [Revising: Style and Variable](#revising-style-and-variable)
-    - [Delivery a presentation](#delivery-a-presentation)
-      - [Switch animation: Zoom in, Zoom out, Rotate](#switch-animation-zoom-in-zoom-out-rotate)
-      - [Overview: Word Cloud mode](#overview-word-cloud-mode)
+  - [Author a presentation](#author-a-presentation)
+    - [Generating: Idea](#generating-idea)
+    - [Organizing: Outline and Thumnails](#organizing-outline-and-thumnails)
+    - [Composning: Main and Element](#composning-main-and-element)
+    - [Revising: Style and Variable](#revising-style-and-variable)
+  - [Delivery a presentation](#delivery-a-presentation)
+    - [Switch animation: Zoom in, Zoom out, Rotate](#switch-animation-zoom-in-zoom-out-rotate)
+    - [Overview: Word Cloud mode](#overview-word-cloud-mode)
   - [Limitations](#limitations)
   - [Future works](#future-works)
   - [How to contribute](#how-to-contribute)
@@ -54,15 +53,13 @@ On the other hand, it is difficult for existing tools to provide the audience mo
 
 As a result, **they are often inadequate in helping presenter communicate the structure of a presetation to the audience.**
 
-## Workflow of Gossip
-
 Next, there is a introduction to the workflow of Gossip which will show what make Gossip unique.
 
-### Author a presentation
+## Author a presentation
 
 Past research analyzed several models of authoring text and identified four common components in these models includiing: **generating**, **organizing**, **composing**, **revising**. The process of author presentation is very similar to authoring text, only it includes images and other multmedia. So Gossip are designed according to the four components.
 
-#### Generating: Idea
+### Generating: Idea
 
 **The generating component is where ideas are collected and recorded.** These ideas can come from the author's introspection or from external sources.
 
@@ -70,9 +67,9 @@ When using traditional presentation software, there's no place for presenters to
 
 ![Idea panel](./screenshots/idea.png)
 
-The thought can be text, image or even code.
+The idea can be text, image or even code.
 
-#### Organizing: Outline and Thumnails
+### Organizing: Outline and Thumnails
 
 **The organizing component involves making decisions about abstractions and ordering leading to hierarchical and linear structures.**
 
@@ -84,7 +81,7 @@ In Gossip, there is a *Outline* panel to help presenters to make a clear hierarc
 
 In *Outline* panel, when presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
 
-#### Composning: Main and Element
+### Composning: Main and Element
 
 **In the composing stage, the author takes the structure developed in the generating and organization stages and turns it into an actual usable product.**
 
@@ -98,7 +95,7 @@ With the help of **[CSS Flexible Box Layout](https://en.wikipedia.org/wiki/CSS_F
 
 One of the main advantages is that for each elements, Gossip will automatically set the proper position or size of it according to its container's styles(padding, direction, etc.) and the other elements in that container. The other one is that users can operate a group of elements rather than just one each time.
 
-#### Revising: Style and Variable
+### Revising: Style and Variable
 
 **Lastly, the revision stage involves revewing the work, adding new ideas and fixing inconsistencies with the original organization.**
 
@@ -108,15 +105,15 @@ The features introduced above already have shown that it is prettry easy to add,
 
 For those elements which tend to have the same or similar styles, such as the font color of highlight texts or the font size of title, Gossip enables user to create a variable and assign to these elements. **When user change the value of variable, Gossip will change the value of related elements as well!**
 
-### Delivery a presentation
+## Delivery a presentation
 
 In order to hold audience's intersts and help presenter communicate the structure of a presetation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode.
 
-#### Switch animation: Zoom in, Zoom out, Rotate
+### Switch animation: Zoom in, Zoom out, Rotate
 
 The *Zoom in animation* will remind the audience of from big point to small point. And *Zoom out* animation is for small point to big point. If the two points are at the same level, it will be the *Rotate* animation.
 
-#### Overview: Word Cloud mode
+### Overview: Word Cloud mode
 
 *Word Cloud* mode use traditional word cloud algorithm to layout each slides which let the audience quickly familiarize or review the general content of the entire slide. It is also helpful when the audience asks the presenter a question about specific slide, beacuse presenter needn't to scroll the mousewheel to find the specific slide.
 
