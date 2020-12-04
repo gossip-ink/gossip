@@ -8,8 +8,8 @@
     - [Hard to delivery a presentation](#hard-to-delivery-a-presentation)
   - [Author a presentation](#author-a-presentation)
     - [Generating: Idea](#generating-idea)
-    - [Organizing: Outline and Thumnails](#organizing-outline-and-thumnails)
-    - [Composning: Main and Element](#composning-main-and-element)
+    - [Organizing: Outline and Thumbnails](#organizing-outline-and-thumbnails)
+    - [Composing: Main and Element](#composing-main-and-element)
     - [Revising: Style and Variable](#revising-style-and-variable)
   - [Delivery a presentation](#delivery-a-presentation)
     - [Switch animation: Zoom in, Zoom out, Rotate](#switch-animation-zoom-in-zoom-out-rotate)
@@ -45,19 +45,19 @@ Gossip is inspired by [impress.js](https://github.com/impress/impress.js). Altho
 
 On the one hand, existing tools make the authors pay more attention on graphics design of each slide, rather than the efficiency of transmitting information and the whole structure of the presentation.
 
-The presenter ultimately has to decide what information will be included in the presentation, **how that information will be organized, and how to best turn that organization into a story for the targt audience.**
+The presenter ultimately has to decide what information will be included in the presentation, **how that information will be organized, and how to best turn that organization into a story for the target audience.**
 
 ### Hard to delivery a presentation
 
-On the other hand, it is difficult for existing tools to provide the audience more context to hold their interest during delivering presentation, such as the individual slides relate to one another or how they fit into the larger stucture of the presetation.
+On the other hand, it is difficult for existing tools to provide the audience more context to hold their interest during delivering presentation, such as the individual slides relate to one another or how they fit into the larger structure of the presentation.
 
-As a result, **they are often inadequate in helping presenter communicate the structure of a presetation to the audience.**
+As a result, **they are often inadequate in helping presenter communicate the structure of a presentation to the audience.**
 
 Next, there is a introduction to the workflow of Gossip which will show what make Gossip unique.
 
 ## Author a presentation
 
-Past research analyzed several models of authoring text and identified four common components in these models includiing: **generating**, **organizing**, **composing**, **revising**. The process of author presentation is very similar to authoring text, only it includes images and other multmedia. So Gossip are designed according to the four components.
+Past research analyzed several models of authoring text and identified four common components in these models including: **generating**, **organizing**, **composing**, **revising**. The process of author presentation is very similar to authoring text, only it includes images and other multimedia. So Gossip are designed according to the four components.
 
 ### Generating: Idea
 
@@ -69,25 +69,25 @@ When using traditional presentation software, there's no place for presenters to
 
 The idea can be text, image or even code.
 
-### Organizing: Outline and Thumnails
+### Organizing: Outline and Thumbnails
 
 **The organizing component involves making decisions about abstractions and ordering leading to hierarchical and linear structures.**
 
-Most of presentation tools allow presenters to organize slides in linear mode which is hard to understand or change the hierarchical relationship among them. Some tools enables users to order hierarchical structures, such as [Keynode](https://www.apple.com/keynote/) or [Prezi](https://prezi.com/), but they are still good enough.
+Most of presentation tools allow presenters to organize slides in linear mode which is hard to understand or change the hierarchical relationship among them. Some tools enables users to order hierarchical structures, such as [Keynote](https://www.apple.com/keynote/) or [Prezi](https://prezi.com/), but they are still good enough.
 
-In Gossip, there is a *Outline* panel to help presenters to make a clear hierarchical efficiently. Also a *Thumbnail* panel is provided to preivew the whole presentation.
+In Gossip, there is a *Outline* panel to help presenters to make a clear hierarchical efficiently. Also a *Thumbnail* panel is provided to preview the whole presentation.
 
 <img src="./screenshots/outline.png" height="300px">&emsp;<img src="./screenshots/thumbnail.png" height="300px">
 
 In *Outline* panel, when presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
 
-### Composning: Main and Element
+### Composing: Main and Element
 
 **In the composing stage, the author takes the structure developed in the generating and organization stages and turns it into an actual usable product.**
 
-At this stage, it often requires a lot of drag and align operations to set the right position or size of each elements(texts, images, etc.) which is very time-comsuming and annoying. This is because there is no constrains between elements which means users have to layout elements manually.
+At this stage, it often requires a lot of drag and align operations to set the right position or size of each elements(texts, images, etc.) which is very time-consuming and annoying. This is because there is no constrains between elements which means users have to layout elements manually.
 
-But it is possible to add constrains for elements according to logical structure, so Gossip allows user to orgnize elements in hierarchical structure in *Element* panel and changes in *Element* panel will reflect to *Maini* panel.
+But it is possible to add constrains for elements according to logical structure, so Gossip allows user to organize elements in hierarchical structure in *Element* panel and changes in *Element* panel will reflect to *Maini* panel.
 
 <img src="./screenshots/element.png" height="300px">
 
@@ -97,9 +97,9 @@ One of the main advantages is that for each elements, Gossip will automatically 
 
 ### Revising: Style and Variable
 
-**Lastly, the revision stage involves revewing the work, adding new ideas and fixing inconsistencies with the original organization.**
+**Lastly, the revision stage involves reviewing the work, adding new ideas and fixing inconsistencies with the original organization.**
 
-The features introduced above already have shown that it is prettry easy to add, delete, edit each slides and adjust the structure of whole presentation in Gossip.Those are related to the content of presentation, but there is also a need to make change styles easy. To solve this problem, Gossip offer a *Style* and *Variable* panel to presenters.
+The features introduced above already have shown that it is pretty easy to add, delete, edit each slides and adjust the structure of whole presentation in Gossip. Those are related to the content of presentation, but there is also a need to make change styles easy. To solve this problem, Gossip offer a *Style* and *Variable* panel to presenters.
 
 <img src="./screenshots/style.png" height="300px">&emsp;<img src="./screenshots/variable.png" height="300px">
 
@@ -107,7 +107,7 @@ For those elements which tend to have the same or similar styles, such as the fo
 
 ## Delivery a presentation
 
-In order to hold audience's intersts and help presenter communicate the structure of a presetation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode.
+In order to hold audience's interests and help presenter communicate the structure of a presentation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode.
 
 ### Switch animation: Zoom in, Zoom out, Rotate
 
@@ -115,7 +115,7 @@ The *Zoom in animation* will remind the audience of from big point to small poin
 
 ### Overview: Word Cloud mode
 
-*Word Cloud* mode use traditional word cloud algorithm to layout each slides which let the audience quickly familiarize or review the general content of the entire slide. It is also helpful when the audience asks the presenter a question about specific slide, beacuse presenter needn't to scroll the mousewheel to find the specific slide.
+*Word Cloud* mode use traditional word cloud algorithm to layout each slides which let the audience quickly familiarize or review the general content of the entire slide. It is also helpful when the audience asks the presenter a question about specific slide, because presenter needn't to scroll the mouse wheel to find the specific slide.
 
 ## Limitations
 
