@@ -83,6 +83,8 @@ In Gossip, there is a *Outline* panel to help presenters to make a clear hierarc
 
 In *Outline* panel, when presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
 
+![outline](./screenshots/outline.gif)
+
 ### Composing: Main and Element
 
 **In the composing stage, the author takes the structure developed in the generating and organization stages and turns it into an actual usable product.**
@@ -95,7 +97,9 @@ But it is possible to add constrains for elements according to logical structure
 
 With the help of **[CSS Flexible Box Layout](https://en.wikipedia.org/wiki/CSS_Flexible_Box_Layout)**, Gossip provide the *container* element to manage other elements, such as texts, images, container, etc. Users can add elements to container and specify their arrangement(horizontal or vertical) and proportion(1:1 or 1:3).
 
-One of the main advantages is that for each elements, Gossip will automatically set the proper position or size of it according to its container's styles(padding, direction, etc.) and the other elements in that container. The other one is that users can operate a group of elements rather than just one each time.
+One of the main advantages is that for each elements, Gossip will automatically set the proper position or size of it according to its container's styles(padding, direction, etc.) and the other elements in that container. The other one is that users can operate a group of elements rather than just on each time.
+
+![element](./screenshots/element.gif)
 
 ### Revising: Style and Variable
 

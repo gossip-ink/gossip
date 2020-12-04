@@ -490,7 +490,8 @@ export default {
       return state;
     },
     createCmp(state, action) {
-      const { type, method, locales, lang } = action.payload;
+      const { type, method} = action.payload;
+      const { locales, lang } = state;
       const slide = state.components.find(
         (item) => item.id === state.selectedId
       );
@@ -674,7 +675,8 @@ export default {
       return state;
     },
     addVar(state, action) {
-      const { type, locales, lang } = action.payload;
+      const { type } = action.payload;
+      const { locales, lang } = state;
       const id = new Date().getTime();
 
       let newAttr;
