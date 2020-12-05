@@ -21,11 +21,11 @@
   
 ## Overview
 
-Gossip is an online user interface to create awesome presentation efficiently. If you are in China you can try it [here](https://pearmini.gitee.io/gossip/), otherwise [here](https://pearmini.github.io/gossip/). Please use Chrome, Firefox or Safari for better experience.
+Gossip is an online user interface to efficiently author and delivery awesome and informative presentation. If you are in China you can try it [here](https://pearmini.gitee.io/gossip/), otherwise [here](https://pearmini.github.io/gossip/). Please use Chrome, Firefox or Safari for better experience.
 
 There is a view in [**Sapiens: A Brief History of Humankind**](https://en.wikipedia.org/wiki/Sapiens:_A_Brief_History_of_Humankind) that the ability to tell and share stories makes humans far more strong than animals, because stories allow us to trust strangers which led to large-scale cooperation.
 
-Presentation is a good way of telling and sharing stories, and gossip is one the favorite kinds of story which we talk anytime. So I name the software as **Gossip** in order to build a tool that enable users to create and tell stories more efficient and convenient.
+Presentation is a good way of telling and sharing stories, and gossip is one the favorite kinds of story which we talk anytime. So I name the software as **Gossip** in order to build a tool that enable users to create and tell stories more efficienly and conveniently.
 
 **Make you next PPT not a PPT.**
 
@@ -35,7 +35,7 @@ Presentation is a good way of telling and sharing stories, and gossip is one the
 
 ## Get started
 
-There is a [tutorials in Chinese](./tutorials.zh.md) to familiarize you with all the techniques you need know to author and delivery presentation by Gossip. And there is a upcoming tutorials in English.
+There is a [tutorials in Chinese](./tutorials.zh.md) to help you with all the techniques you need to know to author and delivery presentation by Gossip. And there is a upcoming tutorials in English.
 
 ## Why is it
 
@@ -57,17 +57,17 @@ Next, there is a introduction to the workflow of Gossip which will show what mak
 
 ## Author a presentation
 
-Past research analyzed several models of authoring text and identified four common components in these models including: **generating**, **organizing**, **composing**, **revising**. The process of author presentation is very similar to authoring text, only it includes images and other multimedia. So Gossip are designed according to the four components.
+Past research analyzed several models of authoring text and identified four common components in these models including: **generating**, **organizing**, **composing**, **revising**. The process of authoring presentation is very similar to authoring text, only it includes images and other multimedia elements. So Gossip are designed according to the four components.
 
 ### Generating: Idea
 
 **The generating component is where ideas are collected and recorded.** These ideas can come from the author's introspection or from external sources.
 
-When using traditional presentation software, there's no place for presenters to collect and record ideas, they must use other related software to do so. But there is a *Idea* panel in Gossip where users can collect and record scattered thoughts at the first stage of author a presentation.
+When using traditional presentation software, there's no place for presenters to collect and record ideas, they must use other related software to do so. But there is a *Idea panel* in Gossip where users can collect and record scattered ideas at the first stage of author a presentation.
 
 ![Idea panel](./screenshots/idea.png)
 
-The idea can be text, image or even code.
+Idea can be text, image or even code.
 
 ![Idea pre](./screenshots/idea.gif)
 
@@ -75,13 +75,13 @@ The idea can be text, image or even code.
 
 **The organizing component involves making decisions about abstractions and ordering leading to hierarchical and linear structures.**
 
-Most of presentation tools allow presenters to organize slides in linear mode which is hard to understand or change the hierarchical relationship among them. Some tools enables users to order hierarchical structures, such as [Keynote](https://www.apple.com/keynote/) or [Prezi](https://prezi.com/), but they are still good enough.
+Most of presentation tools allow presenters to organize slides in linear mode which is hard to understand or change the hierarchical relationship among them. Some tools enables users to order hierarchical structures, such as [Keynote](https://www.apple.com/keynote/) or [Prezi](https://prezi.com/), but they are still not good enough.
 
-In Gossip, there is a *Outline* panel to help presenters to make a clear hierarchical efficiently. Also a *Thumbnail* panel is provided to preview the whole presentation.
+In Gossip, there is a *Outline panel* to help presenters to make a clear hierarchical efficiently. Also a *Thumbnail panel* is provided to preview the whole presentation.
 
 <img src="./screenshots/outline.png" height="300px">&emsp;<img src="./screenshots/thumbnail.png" height="300px">
 
-In *Outline* panel, when presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
+In *Outline panel*, when presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
 
 ![outline](./screenshots/outline.gif)
 
@@ -89,15 +89,15 @@ In *Outline* panel, when presenter creates a new point node, Gossip will automat
 
 **In the composing stage, the author takes the structure developed in the generating and organization stages and turns it into an actual usable product.**
 
-At this stage, it often requires a lot of drag and align operations to set the right position or size of each elements(texts, images, etc.) which is very time-consuming and annoying. This is because there is no constrains between elements which means users have to layout elements manually.
+At this stage, it often requires a lot of drag and align operations to set the right position or size of each elements(texts, images, etc.) which is very time-consuming and annoying. This is because there is no constrains between elements which means users have to layout every elements manually.
 
-But it is possible to add constrains for elements according to logical structure, so Gossip allows user to organize elements in hierarchical structure in *Element* panel and changes in *Element* panel will reflect to *Maini* panel.
+But it is possible to add constrains for elements according to the logical structure, so Gossip allows user to organize elements in hierarchical structure in *Element panel* and changes in there will reflect to *Maini panel*.
 
 <img src="./screenshots/element.png" height="300px">
 
 With the help of **[CSS Flexible Box Layout](https://en.wikipedia.org/wiki/CSS_Flexible_Box_Layout)**, Gossip provide the *container* element to manage other elements, such as texts, images, container, etc. Users can add elements to container and specify their arrangement(horizontal or vertical) and proportion(1:1 or 1:3).
 
-One of the main advantages is that for each elements, Gossip will automatically set the proper position or size of it according to its container's styles(padding, direction, etc.) and the other elements in that container. The other one is that users can operate a group of elements rather than just on each time.
+One of the main advantages is that for each elements, Gossip will automatically set the proper position or size of it according to its container's styles(padding, direction, etc.) and the other elements in that container. The other one is that users can operate a group of elements rather than just one each time.
 
 ![element](./screenshots/element.gif)
 
@@ -105,22 +105,23 @@ One of the main advantages is that for each elements, Gossip will automatically 
 
 **Lastly, the revision stage involves reviewing the work, adding new ideas and fixing inconsistencies with the original organization.**
 
-The features introduced above already have shown that it is pretty easy to add, delete, edit each slides and adjust the structure of whole presentation in Gossip. Those are related to the content of presentation, but there is also a need to make change styles easy. To solve this problem, Gossip offer a *Style* and *Variable* panel to presenters.
+The features introduced above already have shown that it is pretty easy to add, delete, edit each slide and adjust the structure of whole presentation in Gossip. Those are related to the content of presentation, but there is also a need to make change styles easy. To solve this problem, Gossip offer a *Style* and *Variable panel* to presenters.
 
 <img src="./screenshots/style.png" height="300px">&emsp;<img src="./screenshots/variable.png" height="300px">
 
-For those elements which tend to have the same or similar styles, such as the font color of highlight texts or the font size of title, Gossip enables user to create a variable and assign to these elements. **When user change the value of variable, Gossip will change the value of related elements as well!**
+For those elements which tend to have the same or similar styles, such as the font color of highlight texts or the font size of title, Gossip enables user to create a variable and assign to these elements. **When user change the value of that variable, Gossip will change the value of those related elements as well!**
 
 ![variable](./screenshots/variable.gif)
 
 ## Delivery a presentation
 
-In order to hold audience's interests and help presenter communicate the structure of a presentation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode.
+In order to hold audience's interests and help presenter communicate the structure of a presentation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode for overview.
 
 ### Switch animation: Zoom in, Zoom out, Rotate
 
-The *Zoom in animation* will remind the audience of from big point to small point. And *Zoom out* animation is for small point to big point. If the two points are at the same level, it will be the *Rotate* animation.
-<img src="./screenshots/zoom_in.gif" width="200px">&emsp;<img src="./screenshots/zoom_out.gif" width="200px">&emsp;<img src="./screenshots/rotate.gif" width="200px">
+The *Zoom in animation* will remind the audience of from a big point to a small point. And *Zoom out animation* is for a small point to a big point. If the two points are at the same level, it will be the *Rotate animation*.
+
+<img src="./screenshots/zoom_in.gif" width="220px">&emsp;<img src="./screenshots/zoom_out.gif" width="220px">&emsp;<img src="./screenshots/rotate.gif" width="220px">
 
 ### Overview: Word Cloud mode
 
@@ -146,7 +147,7 @@ There are some limitations in Gossip now.
 
 ## How to contribute
 
-Gossip 1.0 is just a course project, we need you encourage and advice to improve the code and features of it.
+Gossip 1.0 is just a course project at the beginning, we need you encourage and advice to improve the code and features of it.
 
 If you like Gossip, not only can you star it, you can also do the following things.
 
