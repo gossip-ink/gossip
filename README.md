@@ -2,10 +2,10 @@
 
 - [Gossip 1.0](#gossip-10)
   - [Overview](#overview)
-  - [Get started](#get-started)
-  - [Why is it](#why-is-it)
+  - [Getting started](#getting-started)
+  - [Why bother?](#why-bother)
     - [Hard to author a presentation](#hard-to-author-a-presentation)
-    - [Hard to delivery a presentation](#hard-to-delivery-a-presentation)
+    - [Hard to deliver a presentation](#hard-to-deliver-a-presentation)
   - [Author a presentation](#author-a-presentation)
     - [Generating: Idea](#generating-idea)
     - [Organizing: Outline and Thumbnails](#organizing-outline-and-thumbnails)
@@ -16,8 +16,8 @@
     - [Overview: Word Cloud mode](#overview-word-cloud-mode)
   - [Limitations](#limitations)
   - [Future works](#future-works)
-  - [How to contribute](#how-to-contribute)
-  - [Technology stack](#technology-stack)
+  - [Contributing](#contributing)
+  - [Tech stack](#tech-stack)
   
 ## Overview
 
