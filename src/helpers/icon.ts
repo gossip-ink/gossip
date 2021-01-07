@@ -2,6 +2,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBell,
   faBuilding,
+  faCalendar,
+  faEllipsisH,
   faFolder,
   faInbox,
   faSearch,
@@ -20,5 +22,7 @@ library.add(
   faUsers,
   faStar,
   faTrashAlt,
-  faBuilding
+  faBuilding,
+  faEllipsisH,
+  faCalendar
 );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import FileCard from "../components/FileCard";
 import Header from "../components/Header";
 import Navigation from "../components/Navigation";
 // import PropTypes from "prop-types";
@@ -12,14 +12,12 @@ const BrowserPage: React.FC<BrowserPageProps> = () => {
       <Header />
       <div className="flex">
         <Navigation width={navigationWidth} />
-        <main className="p-6">
-          <p>
-            Hi, welcome to Gossip — the best presentation authoring tool. Please head to the editor:{" "}
-            <Link className="text-red-500" to="/editor">
-              click me
-            </Link>
-            .
-          </p>
+        <main className="h-full flex-1 overflow-y-auto">
+          <div className="p-6 grid grid-cols-files grid-rows-files gap-4">
+            <FileCard />
+            <FileCard />
+            <FileCard />
+          </div>
         </main>
       </div>
     </Container>
