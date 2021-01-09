@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react";
 import styled from "styled-components";
 
 import { tuple } from "../utils/type";
-import TabPane, { TabPaneProps } from "./TabPane";
+import TabPanel, { TabPanelProps } from "./TabPanel";
 
 const TabTypes = tuple("line", "card", "editable-card");
 type TabType = typeof TabTypes[number];
@@ -15,15 +15,11 @@ export interface TabProps {
   children?: React.ReactNode;
 }
 
-export interface ITab extends React.FC<TabProps> {
-  Pane: typeof TabPane;
-}
-
-export interface ITabContext {
+export interface TabContext {
   activeIndex?: string;
 }
 
-export const TabContext = createContext<ITabContext>({ activeIndex: "0" });
+export const TabContext = createContext<TabContext>({ activeIndex: "0" });
 
 const Container = styled.div``;
 
@@ -43,7 +39,7 @@ const InternalTab: React.FC<TabProps> = ({
   ...restProps
 }) => {
   const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
-  const tabContextValue: ITabContext = {
+  const tabContextValue: TabContext = {
     activeIndex,
   };
 
@@ -53,9 +49,9 @@ const InternalTab: React.FC<TabProps> = ({
   }
 
   function toItem(child: React.ReactNode, childIndex: number) {
-    const childElement = child as React.FunctionComponentElement<TabPaneProps>;
+    const childElement = child as React.FunctionComponentElement<TabPanelProps>;
     const { displayName } = childElement.type;
-    if (displayName === "TabPane") {
+    if (displayName === "TabPanel") {
       const { text, index } = childElement.props;
       const key = index ? index : childIndex.toString();
       return (
@@ -74,9 +70,9 @@ const InternalTab: React.FC<TabProps> = ({
   }
 
   function toPane(child: React.ReactNode, childIndex: number) {
-    const childElement = child as React.FunctionComponentElement<TabPaneProps>;
+    const childElement = child as React.FunctionComponentElement<TabPanelProps>;
     const { displayName } = childElement.type;
-    if (displayName === "TabPane") {
+    if (displayName === "TabPanel") {
       const { index } = childElement.props;
       return React.cloneElement(childElement, {
         index: index ? index : childIndex.toString(),
@@ -97,9 +93,13 @@ const InternalTab: React.FC<TabProps> = ({
   );
 };
 
-const Tab = InternalTab as ITab;
+export interface OuternalTab extends React.FC<TabProps> {
+  TabPanel: typeof TabPanel;
+}
 
-Tab.Pane = TabPane;
+const Tab = InternalTab as OuternalTab;
+
+Tab.TabPanel = TabPanel;
 Tab.displayName = "Tab";
 Tab.defaultProps = {
   type: "line",

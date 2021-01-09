@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import BrowserPage from "./pages/BrowserPage";
-import EditorPage from "./pages/EditorPage";
+import BrowserPage from "./pages/browser";
+import EditorPage from "./pages/editor";
 
 export type AppProps = {};
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Container from "../components/Container";
-import FileCard from "../components/FileCard";
-import Header from "../components/Header";
-import Navigation from "../components/Navigation";
+import Container from "../../components/Container";
+import FileCard from "./components/FileCard";
+import Header from "./components/Header";
+import Navigation from "./components/Navigation";
 // import PropTypes from "prop-types";
 
 const BrowserPage: React.FC<BrowserPageProps> = () => {

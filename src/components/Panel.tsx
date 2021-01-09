@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import styled from "styled-components";
 
-interface PanelProps {
+export interface PanelProps {
   style?: React.CSSProperties;
   className?: string;
   width?: number;
