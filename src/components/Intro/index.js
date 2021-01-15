@@ -30,7 +30,7 @@ export default connect(({ global }) => ({
         <div className={classNames.title}>
           <h1 className={classNames.big}>Gossip</h1>
           <p>{locales.HEADER_INFO[lang]}</p>
-          <Button type="primary">{locales.BIG_SCREEN[info]}</Button>
+          <Button type="primary">{locales.BIG_SCREEN[lang]}</Button>
         </div>
         <div className={classNames.imageWrapper}>
           <img
