@@ -19,31 +19,31 @@ const Body = styled.div`
 `;
 
 const LeftPanel = styled(Panel)`
-  width: 240px;
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 10;
 `;
 
-const MainPanel = styled(Panel)`
+const MainPanel = styled.div`
   width: calc(100% - 480px);
   margin-left: 240px;
   margin-right: 240px;
 `;
 
 const RightPanel = styled(Panel)`
-  width: 240px;
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 10;
 `;
 
 const EditorPage: React.FC<EditorPageProps> = () => {
   return (
     <Container>
       <Toolbar />
-      <Body className="w-full h-full">
-        <LeftPanel>
+      <Body className="w-full h-full bg-gray-200">
+        <LeftPanel resizable>
           <Tab>
             <TabPanel text="Outline">
               <OutlinePanel />
@@ -53,7 +53,7 @@ const EditorPage: React.FC<EditorPageProps> = () => {
             </TabPanel>
           </Tab>
         </LeftPanel>
-        <MainPanel>
+        <MainPanel className="h-full">
           <PreviewPanel />
         </MainPanel>
         <RightPanel>
