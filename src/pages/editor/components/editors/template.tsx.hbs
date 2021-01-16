@@ -1,0 +1,17 @@
+import React from "react";
+import PropTypes from "prop-types";
+import * as N from "../../../../models/node";
+
+const {{typeName}}Editor: React.FC<{{typeName}}EditorProps> = ({ node }) => {
+  return <div>This is the an editor for {{typeName}}.</div>;
+};
+
+{{typeName}}Editor.displayName = "{{typeName}}Editor";
+
+{{typeName}}Editor.propTypes = {
+  node: PropTypes.object.isRequired as PropTypes.Validator<N.{{typeName}}>,
+};
+
+export default {{typeName}}Editor;
+
+export type {{typeName}}EditorProps = { node: N.{{typeName}} };
