@@ -13,6 +13,6 @@
   "scripts": {
     "start": "umi dev",
     "buld": "umi build",
-    "depoly": "umi build && git subtree push --prefix=dist origin gh-pages"
+    "depoly": "umi build && git subtree push --prefix=dist origin gh-pages && git subtree push --prefix=dist gitee master"
   }
 }
