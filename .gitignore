@@ -1,7 +1,5 @@
 .DS_Store
 .vscode
-sketch
-vue
-node_modules
-gitee
 .umi
+dist
+node_modules

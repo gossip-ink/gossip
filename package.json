@@ -11,6 +11,8 @@
     "react-use": "^13.27.0"
   },
   "scripts": {
-    "build": "umi build && rm -rf ./docs && mv ./dist ./docs && cp -r  ./docs/*  ./gitee"
+    "start": "umi dev",
+    "buld": "umi build",
+    "depoly": "umi build && git subtree push --prefix=dist origin gh-pages"
   }
 }
