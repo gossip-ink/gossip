@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "gh-pages": "^3.1.0",
     "umi-plugin-react": "^1.14.9"
   },
   "dependencies": {
@@ -13,6 +14,6 @@
   "scripts": {
     "start": "umi dev",
     "buld": "umi build",
-    "depoly": "umi build && git subtree push --prefix=dist origin gh-pages && git subtree push --prefix=dist gitee master"
+    "depoly": "umi build && gh-pages -d dist && gh-pages -d dist -b master -o gitee"
   }
 }
