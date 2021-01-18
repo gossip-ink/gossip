@@ -26,7 +26,6 @@ const ResizeHandle = styled.div`
   right: 0;
   top: 0;
   width: 10px;
-  background: red;
   transform: translate(50%, 0);
   cursor: ew-resize;
 `;
@@ -34,23 +33,23 @@ const ResizeHandle = styled.div`
 const Panel: React.FC<PanelProps> = ({
   className,
   children,
-  resizable,
-  initialWidth,
+  resizable = false,
+  initialWidth = 240,
   minWidth = 240,
   maxWidth = 240 * 3,
   ...restProps
 }) => {
   const classes = classNames(className, "h-full bg-gray-50 border-r border-gray-200 shadow-sm");
-  const [width, setWidth] = useState<number>(initialWidth as number);
+  const [width, setWidth] = useState<number>(initialWidth);
   const [isDragging, setIsDragging] = useState<boolean>(false);
 
   useEffect(() => {
     const mousemoveHandler = (e: MouseEvent) => {
-      const { movementX } = e;
       if (!isDragging) return;
-      if (width < minWidth && movementX < 0) return;
-      if (width > maxWidth && movementX > 0) return;
-      setWidth(width + movementX);
+      const { pageX } = e;
+      if (width <= minWidth && pageX < minWidth) return;
+      if (width >= maxWidth && pageX > maxWidth) return;
+      setWidth(pageX + 1);
     };
     const mouseupHandler = () => {
       if (isDragging) setIsDragging(false);
@@ -66,19 +65,9 @@ const Panel: React.FC<PanelProps> = ({
   return (
     <Container {...restProps} className={classes} width={width} drag={isDragging}>
       {children}
-      {resizable && (
-        <ResizeHandle
-          onMouseDown={() => setIsDragging(true)}
-          onMouseUp={() => setIsDragging(false)}
-        />
-      )}
+      {resizable && <ResizeHandle onMouseDown={() => setIsDragging(true)} />}
     </Container>
   );
-};
-
-Panel.defaultProps = {
-  initialWidth: 240,
-  resizable: false,
 };
 
 export default Panel;
