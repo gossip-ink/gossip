@@ -1,22 +1,32 @@
 import React, { createContext, useState } from "react";
 import styled from "styled-components";
+import classNames from "classnames";
 
 import { tuple } from "../utils/type";
 import TabPanel, { TabPanelProps } from "./TabPanel";
+import Icon from "./Icon";
 
 const TabTypes = tuple("line", "card", "editable-card");
 type TabType = typeof TabTypes[number];
+
+const TabModes = tuple("single", "multiple");
+type TabMode = typeof TabModes[number];
 
 export interface TabProps {
   type?: TabType;
   defaultActiveIndex?: string;
   onEdit?: (tartgetKey: string, action: string) => void;
   onChange?: (activeKey: string) => void;
+  onExapnd?: () => void;
   children?: React.ReactNode;
+  expandable?: boolean;
+  defaultMode?: TabMode;
+  className?: string;
 }
 
 export interface TabContext {
   activeIndex?: string;
+  mode?: TabMode;
 }
 
 export const TabContext = createContext<TabContext>({ activeIndex: "0" });
@@ -25,42 +35,66 @@ const Container = styled.div``;
 
 const Header = styled.ul`
   display: flex;
+  position: relative;
 `;
 
 const Item = styled.li<{ type?: TabType }>``;
 
 const Body = styled.div``;
 
+const ActionIcon = styled(Icon)`
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translate(0, -50%);
+`;
+
 const InternalTab: React.FC<TabProps> = ({
   children,
-  type,
-  defaultActiveIndex,
+  type = "line",
+  defaultActiveIndex = "0",
   onChange,
+  expandable = false,
+  defaultMode = "single",
+  className,
+  onExapnd,
   ...restProps
 }) => {
-  const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
+  const [activeIndex, setActiveIndex] = useState<string>(defaultActiveIndex);
+  const [mode, setMode] = useState<TabMode>(defaultMode);
   const tabContextValue: TabContext = {
     activeIndex,
+    mode,
   };
+  const classes = classNames(className, "h-full");
 
   function handleClickItem(index: string) {
     setActiveIndex(index);
     onChange && onChange(index);
   }
 
+  function handleClickActionIcon() {
+    mode === "single" ? setMode("multiple") : setMode("single");
+    onExapnd && onExapnd();
+  }
+
   function toItem(child: React.ReactNode, childIndex: number) {
     const childElement = child as React.FunctionComponentElement<TabPanelProps>;
     const { displayName } = childElement.type;
     if (displayName === "TabPanel") {
-      const { text, index } = childElement.props;
+      const { label, index } = childElement.props;
       const key = index ? index : childIndex.toString();
+      const classes = classNames(
+        {
+          "text-gray-400": key !== activeIndex,
+          "hover:text-gray-600": key !== activeIndex,
+          "flex-1": mode === "multiple",
+        },
+        "p-2 cursor-pointer transition-all duration-150 text-sm"
+      );
       return (
-        <Item
-          type={type}
-          onClick={() => handleClickItem(key)}
-          className="p-1 cursor-pointer transition duration-150 hover:bg-white hover:shadow-sm"
-        >
-          {text}
+        <Item type={type} onClick={() => handleClickItem(key)} className={classes}>
+          {label}
         </Item>
       );
     } else {
@@ -84,10 +118,19 @@ const InternalTab: React.FC<TabProps> = ({
   }
 
   return (
-    <Container {...restProps}>
+    <Container {...restProps} className={classes}>
       <TabContext.Provider value={tabContextValue}>
-        <Header className="bg-gray-50">{React.Children.map(children, toItem)}</Header>
-        <Body>{React.Children.map(children, toPane)}</Body>
+        <Header className="bg-gray-50 border-b border-gray-200">
+          {React.Children.map(children, toItem)}
+          {expandable && (
+            <ActionIcon
+              icon={mode === "single" ? "expand" : "compress"}
+              className="text-gray-600 cursor-pointer"
+              onClick={handleClickActionIcon}
+            />
+          )}
+        </Header>
+        <Body className="flex h-full">{React.Children.map(children, toPane)}</Body>
       </TabContext.Provider>
     </Container>
   );
@@ -101,9 +144,5 @@ const Tab = InternalTab as OuternalTab;
 
 Tab.TabPanel = TabPanel;
 Tab.displayName = "Tab";
-Tab.defaultProps = {
-  type: "line",
-  defaultActiveIndex: "0",
-};
 
 export default Tab;

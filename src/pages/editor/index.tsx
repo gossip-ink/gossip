@@ -44,11 +44,11 @@ const EditorPage: React.FC<EditorPageProps> = () => {
       <Toolbar />
       <Body className="w-full h-full bg-gray-200">
         <LeftPanel resizable>
-          <Tab>
-            <TabPanel text="Outline">
+          <Tab expandable>
+            <TabPanel label="Outline">
               <OutlinePanel />
             </TabPanel>
-            <TabPanel text="Assets">
+            <TabPanel label="Assets">
               <AssetsPanel />
             </TabPanel>
           </Tab>
@@ -58,10 +58,10 @@ const EditorPage: React.FC<EditorPageProps> = () => {
         </MainPanel>
         <RightPanel>
           <Tab>
-            <TabPanel text="Style">
+            <TabPanel label="Style">
               <StylePanel />
             </TabPanel>
-            <TabPanel text="Effects">
+            <TabPanel label="Effects">
               <EffectsPanel />
             </TabPanel>
           </Tab>

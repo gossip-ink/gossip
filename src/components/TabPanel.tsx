@@ -1,30 +1,33 @@
 import React, { useContext } from "react";
 import { TabContext } from "./Tab";
 import styled from "styled-components";
+import classNames from "classnames";
 
 export interface TabPanelProps {
-  text?: string;
+  label?: string;
   index?: string;
   children?: React.ReactNode;
 }
 
-const Container = styled.div<{ active?: boolean }>`
-  display: ${(props) => (props.active ? "block" : "none")};
-`;
+const Container = styled.div``;
 
 const TabPanel: React.FC<TabPanelProps> = ({ children, index }) => {
-  const { activeIndex } = useContext(TabContext);
-  return (
-    <Container active={activeIndex === index} className="h-full">
-      {children}
-    </Container>
+  const { activeIndex, mode } = useContext(TabContext);
+  const classes = classNames(
+    {
+      hidden: activeIndex !== index && mode === "single",
+      "flex-1": mode === "multiple",
+      "border-l border-gray-200": mode === "multiple",
+    },
+    "h-full transition-all duration-150"
   );
+  return <Container className={classes}>{children}</Container>;
 };
 
 TabPanel.displayName = "TabPanel";
 
 TabPanel.defaultProps = {
-  text: "Tab",
+  label: "Tab",
 };
 
 export default TabPanel;

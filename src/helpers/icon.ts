@@ -11,6 +11,8 @@ import {
   faTrashAlt,
   faUserCircle,
   faUsers,
+  faExpand,
+  faCompress,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -24,5 +26,7 @@ library.add(
   faTrashAlt,
   faBuilding,
   faEllipsisH,
-  faCalendar
+  faCalendar,
+  faExpand,
+  faCompress,
 );
