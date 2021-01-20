@@ -17,7 +17,7 @@ export interface TabProps {
   defaultActiveIndex?: string;
   onEdit?: (tartgetKey: string, action: string) => void;
   onChange?: (activeKey: string) => void;
-  onExapnd?: () => void;
+  onExpand?: (isSingle: boolean) => void;
   children?: React.ReactNode;
   expandable?: boolean;
   defaultMode?: TabMode;
@@ -57,7 +57,7 @@ const InternalTab: React.FC<TabProps> = ({
   expandable = false,
   defaultMode = "single",
   className,
-  onExapnd,
+  onExpand,
   ...restProps
 }) => {
   const [activeIndex, setActiveIndex] = useState<string>(defaultActiveIndex);
@@ -75,7 +75,7 @@ const InternalTab: React.FC<TabProps> = ({
 
   function handleClickActionIcon() {
     mode === "single" ? setMode("multiple") : setMode("single");
-    onExapnd && onExapnd();
+    onExpand && onExpand(mode === "single");
   }
 
   function toItem(child: React.ReactNode, childIndex: number) {
@@ -124,8 +124,8 @@ const InternalTab: React.FC<TabProps> = ({
           {React.Children.map(children, toItem)}
           {expandable && (
             <ActionIcon
-              icon={mode === "single" ? "expand" : "compress"}
-              className="text-gray-600 cursor-pointer"
+              icon={mode === "single" ? "arrow-right" : "arrow-left"}
+              className="cursor-pointer"
               onClick={handleClickActionIcon}
             />
           )}

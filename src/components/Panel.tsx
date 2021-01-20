@@ -11,6 +11,8 @@ export interface PanelProps {
   minWidth?: number;
   maxWidth?: number;
   initialWidth?: number;
+  controlWidth?: number;
+  setControlWidth?: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const Container = styled.div<{ width?: number; drag: boolean }>`
@@ -37,11 +39,20 @@ const Panel: React.FC<PanelProps> = ({
   initialWidth = 240,
   minWidth = 240,
   maxWidth = 240 * 3,
+  controlWidth,
+  setControlWidth,
   ...restProps
 }) => {
-  const classes = classNames(className, "h-full bg-gray-50 border-r border-gray-200 shadow-sm");
-  const [width, setWidth] = useState<number>(initialWidth);
+  const [innerWidth, setInnerWidth] = useState<number>(initialWidth);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const control: boolean = controlWidth !== undefined && setControlWidth !== undefined;
+  const width = control ? (controlWidth as number) : innerWidth;
+  const setWidth = control
+    ? (setControlWidth as React.Dispatch<React.SetStateAction<number>>)
+    : setInnerWidth;
+  const classes = classNames(className, "h-full bg-gray-50 border-r border-gray-200 shadow-sm", {
+    "transition-all duration-150": !isDragging,
+  });
 
   useEffect(() => {
     const mousemoveHandler = (e: MouseEvent) => {

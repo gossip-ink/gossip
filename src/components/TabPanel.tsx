@@ -19,7 +19,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, index }) => {
       "flex-1": mode === "multiple",
       "border-l border-gray-200": mode === "multiple",
     },
-    "h-full transition-all duration-150"
+    "h-full transition-all duration-150 w-full"
   );
   return <Container className={classes}>{children}</Container>;
 };

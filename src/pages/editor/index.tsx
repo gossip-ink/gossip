@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import Container from "../../components/Container";
@@ -25,10 +25,10 @@ const LeftPanel = styled(Panel)`
   z-index: 10;
 `;
 
-const MainPanel = styled.div`
-  width: calc(100% - 480px);
-  margin-left: 240px;
-  margin-right: 240px;
+const MainPanel = styled.div<{ left: number; right: number }>`
+  width: calc(100% - ${(props) => props.left + props.right}px);
+  margin-left: ${(props) => props.left}px;
+  margin-right: ${(props) => props.right}px;
 `;
 
 const RightPanel = styled(Panel)`
@@ -39,12 +39,30 @@ const RightPanel = styled(Panel)`
 `;
 
 const EditorPage: React.FC<EditorPageProps> = () => {
+  const LEFT_MIN_WIDTH = 320;
+  const LEFT_MAX_WIDTH = LEFT_MIN_WIDTH * 2;
+  const RIGHT_WIDTH = 240;
+  const [leftSideWidth, setLeftSideWidth] = useState<number>(LEFT_MIN_WIDTH);
+
+  function handleExpand(isSingle: boolean) {
+    if (isSingle && leftSideWidth < LEFT_MAX_WIDTH) {
+      setLeftSideWidth(LEFT_MAX_WIDTH);
+    } else if (!isSingle && leftSideWidth > LEFT_MIN_WIDTH) {
+      setLeftSideWidth(LEFT_MIN_WIDTH);
+    }
+  }
+
   return (
     <Container>
       <Toolbar />
       <Body className="w-full h-full bg-gray-200">
-        <LeftPanel resizable>
-          <Tab expandable>
+        <LeftPanel
+          resizable
+          controlWidth={leftSideWidth}
+          setControlWidth={setLeftSideWidth}
+          minWidth={320}
+        >
+          <Tab expandable defaultActiveIndex="1" onExpand={handleExpand}>
             <TabPanel label="Outline">
               <OutlinePanel />
             </TabPanel>
@@ -53,10 +71,10 @@ const EditorPage: React.FC<EditorPageProps> = () => {
             </TabPanel>
           </Tab>
         </LeftPanel>
-        <MainPanel className="h-full">
+        <MainPanel className="h-full" left={leftSideWidth} right={RIGHT_WIDTH}>
           <PreviewPanel />
         </MainPanel>
-        <RightPanel>
+        <RightPanel initialWidth={RIGHT_WIDTH}>
           <Tab>
             <TabPanel label="Style">
               <StylePanel />

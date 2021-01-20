@@ -11,8 +11,10 @@ import {
   faTrashAlt,
   faUserCircle,
   faUsers,
-  faExpand,
-  faCompress,
+  faFilter,
+  faPlus,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -27,6 +29,8 @@ library.add(
   faBuilding,
   faEllipsisH,
   faCalendar,
-  faExpand,
-  faCompress,
+  faFilter,
+  faPlus,
+  faArrowLeft,
+  faArrowRight
 );
