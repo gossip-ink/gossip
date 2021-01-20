@@ -15,6 +15,7 @@ import {
   faPlus,
   faArrowLeft,
   faArrowRight,
+  faArrowsAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -32,5 +33,6 @@ library.add(
   faFilter,
   faPlus,
   faArrowLeft,
-  faArrowRight
+  faArrowRight,
+  faArrowsAlt
 );

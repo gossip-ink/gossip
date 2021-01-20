@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import Icon from "../../../components/Icon";
 import { Node, NodeType } from "../../../models/node";
 import AdptiveHeightTextarea from "../components/AdptiveHeightTextarea";
+import Block from "../components/Block";
 
 export interface AssetsPanelProps {}
 
@@ -22,14 +23,26 @@ const Search = styled.div`
 
 const Body = styled.div``;
 
-const sampleData: Node[] = [
-  { id: nanoid(), type: NodeType.Text, text: "" },
-  { id: nanoid(), type: NodeType.Text, text: "" },
-  { id: nanoid(), type: NodeType.Text, text: "" },
-];
+function createAsset(): Node {
+  const id = nanoid();
+  return {
+    id,
+    type: NodeType.Text,
+    text: `thought ${id.slice(0, 5)}`,
+  };
+}
 
 const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
+  const sampleData: Node[] = [createAsset(), createAsset(), createAsset()];
   const [value, setValue] = useState<string>("");
+  const [assets, setAssets] = useState<Node[]>(sampleData);
+
+  function handleAdd(index: number) {
+    const newAsset = createAsset();
+    assets.splice(index, 0, newAsset);
+    setAssets([...assets]);
+  }
+
   return (
     <Container className="w-full">
       <Search className="p-2">
@@ -46,6 +59,13 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
         value={value}
         onChange={setValue}
       />
+      <Body className="p-2">
+        {assets.map((d, index) => (
+          <Block key={d.id} onAdd={() => handleAdd(index)}>
+            {d.type === NodeType.Text && d.text}
+          </Block>
+        ))}
+      </Body>
     </Container>
   );
 };
