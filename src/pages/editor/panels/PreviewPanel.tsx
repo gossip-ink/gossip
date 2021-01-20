@@ -1,6 +1,6 @@
 import React from "react";
 import { NodeType, PageNode } from "../../../models/node";
-import { PageNodeEditor } from "./editors";
+import { PageNodeEditor } from "../components/editors";
 import { nanoid } from "nanoid";
 import sampleImageUrl from "../../../images/sample.png";
 

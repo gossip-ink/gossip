@@ -5,12 +5,12 @@ import Container from "../../components/Container";
 import Tab from "../../components/Tab";
 import Panel from "../../components/Panel";
 
-import Toolbar from "./components/Toolbar";
-import PreviewPanel from "./components/PreviewPanel";
-import OutlinePanel from "./components/OutlinePanel";
-import StylePanel from "./components/StylePanel";
-import AssetsPanel from "./components/AssetsPanel";
-import EffectsPanel from "./components/EffectsPanel";
+import Toolbar from "./panels/ToolbarPanel";
+import PreviewPanel from "./panels/PreviewPanel";
+import OutlinePanel from "./panels/OutlinePanel";
+import StylePanel from "./panels/StylePanel";
+import AssetsPanel from "./panels/AssetsPanel";
+import EffectsPanel from "./panels/EffectsPanel";
 
 const { TabPanel } = Tab;
 
