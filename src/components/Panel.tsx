@@ -11,8 +11,7 @@ export interface PanelProps {
   minWidth?: number;
   maxWidth?: number;
   initialWidth?: number;
-  controlWidth?: number;
-  setControlWidth?: React.Dispatch<React.SetStateAction<number>>;
+  onResize?: (width: number) => void;
 }
 
 const Container = styled.div<{ width?: number; drag: boolean }>`
@@ -37,22 +36,26 @@ const Panel: React.FC<PanelProps> = ({
   children,
   resizable = false,
   initialWidth = 240,
+  width: controlWidth,
   minWidth = 240,
   maxWidth = 240 * 3,
-  controlWidth,
-  setControlWidth,
+  onResize,
   ...restProps
 }) => {
   const [innerWidth, setInnerWidth] = useState<number>(initialWidth);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const control: boolean = controlWidth !== undefined && setControlWidth !== undefined;
-  const width = control ? (controlWidth as number) : innerWidth;
-  const setWidth = control
-    ? (setControlWidth as React.Dispatch<React.SetStateAction<number>>)
-    : setInnerWidth;
+  const width = controlWidth !== undefined ? controlWidth : innerWidth;
   const classes = classNames(className, "h-full bg-gray-50 border-r border-gray-200 shadow-sm", {
     "transition-all duration-150": !isDragging,
   });
+
+  function handleResize(width: number) {
+    if (controlWidth === undefined) {
+      setInnerWidth(width);
+    } else {
+      onResize && onResize(width);
+    }
+  }
 
   useEffect(() => {
     const mousemoveHandler = (e: MouseEvent) => {
@@ -60,7 +63,7 @@ const Panel: React.FC<PanelProps> = ({
       const { pageX } = e;
       if (width <= minWidth && pageX < minWidth) return;
       if (width >= maxWidth && pageX > maxWidth) return;
-      setWidth(pageX + 1);
+      handleResize(pageX + 1);
     };
     const mouseupHandler = () => {
       if (isDragging) setIsDragging(false);

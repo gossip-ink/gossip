@@ -58,9 +58,10 @@ const EditorPage: React.FC<EditorPageProps> = () => {
       <Body className="w-full h-full bg-gray-200">
         <LeftPanel
           resizable
-          controlWidth={leftSideWidth}
-          setControlWidth={setLeftSideWidth}
-          minWidth={320}
+          width={leftSideWidth}
+          onResize={setLeftSideWidth}
+          minWidth={LEFT_MIN_WIDTH}
+          maxWidth={LEFT_MAX_WIDTH}
         >
           <Tab expandable defaultActiveIndex="1" onExpand={handleExpand}>
             <TabPanel label="Outline">

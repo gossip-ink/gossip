@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { nanoid } from "nanoid";
 import Icon from "../../../components/Icon";
 import { Node, NodeType } from "../../../models/node";
-import { nanoid } from "nanoid";
+import AdptiveHeightTextarea from "../components/AdptiveHeightTextarea";
 
 export interface AssetsPanelProps {}
 
@@ -21,26 +22,14 @@ const Search = styled.div`
 
 const Body = styled.div``;
 
-const AutoTextarea = styled.div`
-  outline: 0;
-  word-wrap: break-word;
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-user-modify: read-write-plaintext-only;
-
-  &:empty::before {
-    content: attr(placeholder);
-  }
-`;
-
 const sampleData: Node[] = [
-  { id: nanoid(), type: NodeType.Text, text: "" },
   { id: nanoid(), type: NodeType.Text, text: "" },
   { id: nanoid(), type: NodeType.Text, text: "" },
   { id: nanoid(), type: NodeType.Text, text: "" },
 ];
 
 const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
+  const [value, setValue] = useState<string>("");
   return (
     <Container className="w-full">
       <Search className="p-2">
@@ -51,7 +40,12 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
         ></input>
         <Icon icon="filter" className="m-1" />
       </Search>
-      <AutoTextarea className="pl-2 pr-2 w-full" placeholder="Type '/' for commands" />
+      <AdptiveHeightTextarea
+        className="pl-2 pr-2 w-full placeholder-gray-400"
+        placeholder="Type '/' for commands"
+        value={value}
+        onChange={setValue}
+      />
     </Container>
   );
 };
