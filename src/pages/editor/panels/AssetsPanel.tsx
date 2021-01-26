@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
 import Icon from "../../../components/Icon";
 import { Node, NodeType } from "../../../models/node";
-import AdptiveHeightTextarea from "../components/AdptiveHeightTextarea";
-import Block from "../components/Block";
 
 export interface AssetsPanelProps {}
 
@@ -21,27 +19,16 @@ const Search = styled.div`
   }
 `;
 
-const Body = styled.div``;
-
 function createAsset(): Node {
-  const id = nanoid();
   return {
-    id,
+    id: nanoid(),
     type: NodeType.Text,
-    text: `thought ${id.slice(0, 5)}`,
+    text: "",
   };
 }
 
 const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
   const sampleData: Node[] = [createAsset(), createAsset(), createAsset()];
-  const [value, setValue] = useState<string>("");
-  const [assets, setAssets] = useState<Node[]>(sampleData);
-
-  function handleAdd(index: number) {
-    const newAsset = createAsset();
-    assets.splice(index, 0, newAsset);
-    setAssets([...assets]);
-  }
 
   return (
     <Container className="w-full">
@@ -53,19 +40,6 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
         ></input>
         <Icon icon="filter" className="m-1" />
       </Search>
-      <AdptiveHeightTextarea
-        className="pl-2 pr-2 w-full placeholder-gray-400"
-        placeholder="Type '/' for commands"
-        value={value}
-        onChange={setValue}
-      />
-      <Body className="p-2">
-        {assets.map((d, index) => (
-          <Block key={d.id} onAdd={() => handleAdd(index)}>
-            {d.type === NodeType.Text && d.text}
-          </Block>
-        ))}
-      </Body>
     </Container>
   );
 };
