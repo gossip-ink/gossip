@@ -24,12 +24,12 @@ export interface TabProps {
   className?: string;
 }
 
-export interface TabContext {
+export interface TabConsumerProps {
   activeIndex?: string;
   mode?: TabMode;
 }
 
-export const TabContext = createContext<TabContext>({ activeIndex: "0" });
+export const TabContext = createContext<TabConsumerProps>({ activeIndex: "0" });
 
 const Container = styled.div``;
 
@@ -62,7 +62,7 @@ const InternalTab: React.FC<TabProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState<string>(defaultActiveIndex);
   const [mode, setMode] = useState<TabMode>(defaultMode);
-  const tabContextValue: TabContext = {
+  const tabContextValue: TabConsumerProps = {
     activeIndex,
     mode,
   };
