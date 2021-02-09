@@ -78,7 +78,7 @@ const InternalTab: React.FC<TabProps> = ({
     onExpand && onExpand(mode === "single");
   }
 
-  function toItem(child: React.ReactNode, childIndex: number) {
+  function renderTabItem(child: React.ReactNode, childIndex: number) {
     const childElement = child as React.FunctionComponentElement<TabPanelProps>;
     const { displayName } = childElement.type;
     if (displayName === "TabPanel") {
@@ -103,7 +103,7 @@ const InternalTab: React.FC<TabProps> = ({
     }
   }
 
-  function toPane(child: React.ReactNode, childIndex: number) {
+  function renderTabPane(child: React.ReactNode, childIndex: number) {
     const childElement = child as React.FunctionComponentElement<TabPanelProps>;
     const { displayName } = childElement.type;
     if (displayName === "TabPanel") {
@@ -121,7 +121,7 @@ const InternalTab: React.FC<TabProps> = ({
     <Container {...restProps} className={classes}>
       <TabContext.Provider value={tabContextValue}>
         <Header className="bg-gray-50 border-b border-gray-200">
-          {React.Children.map(children, toItem)}
+          {React.Children.map(children, renderTabItem)}
           {expandable && (
             <ActionIcon
               icon={mode === "single" ? "arrow-right" : "arrow-left"}
@@ -130,7 +130,7 @@ const InternalTab: React.FC<TabProps> = ({
             />
           )}
         </Header>
-        <Body className="flex h-full">{React.Children.map(children, toPane)}</Body>
+        <Body className="flex h-full">{React.Children.map(children, renderTabPane)}</Body>
       </TabContext.Provider>
     </Container>
   );
