@@ -35,7 +35,7 @@ Presentation is an excellent way of telling and sharing stories, and gossip is o
 
 ## Getting started
 
-There is a [tutorial in Chinese](./tutorials.zh.md) to help you with all the techniques you need to know to create and deliver presentations by Gossip. And there is an upcoming tutorial in English.
+There is a [tutorial in Chinese](./docs/tutorials.zh.md) to help you with all the techniques you need to know to create and deliver presentations by Gossip. And there is an upcoming tutorial in English.
 
 ## Why bother?
 
