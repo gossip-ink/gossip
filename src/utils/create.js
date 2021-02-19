@@ -137,7 +137,7 @@ function createFile(lang, locales) {
         ]
       ),
     ],
-    selectedArributeId: 1,
+    selectedAttributeId: 1,
     attributeVars: [
       {
         id: 1,

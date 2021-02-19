@@ -117,7 +117,7 @@ export default connect(
 
   const en2zn = {
     column: locales.ROW_CONTAINER[lang],
-    row: locales.COL_CONTSINER[lang],
+    row: locales.COL_CONTAINER[lang],
   };
 
   const contentByType = (item) => {
@@ -192,7 +192,7 @@ export default connect(
               highlight={selectedComponentId === item.id}
               height="2em"
               width={nodeWidth}
-              nomove={true}
+              noMove={true}
               onAdd={() => setSelectedComp(item.id)}
               hasDelete={item.depth !== 0}
               onClick={() => setSelectedComp(item.id)}

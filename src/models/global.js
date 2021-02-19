@@ -55,7 +55,7 @@ export default {
         zh: "上传",
       },
       DESCRIPTION: {
-        en: "Breif",
+        en: "Brief",
         zh: "介绍",
       },
       TUTORIALS: {
@@ -72,10 +72,10 @@ export default {
       },
       LANG_EN: {
         en: "English",
-        zh: "英文",
+        zh: "English",
       },
       LANG_ZN: {
-        en: "Chinese",
+        en: "中文",
         zh: "中文",
       },
       OUTLINE: {
@@ -148,7 +148,7 @@ export default {
       },
       PADDING: {
         zh: "内边距",
-        en: "Paddnig",
+        en: "Padding",
       },
       FULL_IMAGE: {
         zh: "充满容器",
@@ -274,7 +274,7 @@ export default {
         zh: "水平容器",
         en: "Row Container",
       },
-      COL_CONTSINER: {
+      COL_CONTAINER: {
         zh: "竖直容器",
         en: "Col Container",
       },
@@ -298,7 +298,7 @@ export default {
         zh: "保存失败，请下载到本地",
         en: "Saved fail, please download",
       },
-      FIRSET_PAGE: {
+      FIRST_PAGE: {
         zh: "已经是第一页了",
         en: "Already at first page",
       },
@@ -362,7 +362,7 @@ export default {
         zh: "先随便看看",
         en: "Check around",
       },
-      DIRRERENT: {
+      DIFFERENT: {
         zh: "Gossip 制作幻灯片的方法和常规软件方式有所区别，",
         en:
           "The methods of Gossip to make slides is different from conventional software methods.",
@@ -384,10 +384,10 @@ export default {
         zh: "不再提醒",
         en: "No more reminders",
       },
-      NEW_POINT_INFO:{
-        zh:"介绍...",
-        en:"Say something..."
-      }
+      NEW_POINT_INFO: {
+        zh: "介绍...",
+        en: "Say something...",
+      },
     },
   },
   effects: {
