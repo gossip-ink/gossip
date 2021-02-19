@@ -203,7 +203,7 @@ export default {
         state.selectedId = pre.id;
         return state;
       } else {
-        alert(locales.FIRSET_PAGE[lang]);
+        alert(locales.FIRST_PAGE[lang]);
         return state;
       }
     },
@@ -490,7 +490,7 @@ export default {
       return state;
     },
     createCmp(state, action) {
-      const { type, method} = action.payload;
+      const { type, method } = action.payload;
       const { locales, lang } = state;
       const slide = state.components.find(
         (item) => item.id === state.selectedId
@@ -696,18 +696,18 @@ export default {
         };
       }
       state.attributeVars.unshift(newAttr);
-      state.selectedArributeId = id;
+      state.selectedAttributeId = id;
       return state;
     },
     selectVar(state, action) {
       const { id } = action.payload;
-      state.selectedArributeId = id;
+      state.selectedAttributeId = id;
       return state;
     },
     changeVar(state, action) {
       const { value, type } = action.payload;
       const variable = state.attributeVars.find(
-        (item) => item.id === state.selectedArributeId
+        (item) => item.id === state.selectedAttributeId
       );
 
       // 转换成数值

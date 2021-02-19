@@ -15,31 +15,31 @@ export default function({
   width,
   height,
   popover,
-  nomove = false,
+  noMove = false,
   hasDelete = true,
   onMouseLeave = () => {},
   ...rest
 }) {
-  const [hovered, setHoverd] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const styles = {
     container: {
       height,
       width,
       border: highlight ? "1px solid #4091f7" : "1px solid #d9d9d9",
-      cursor: nomove ? "pointer" : "move"
+      cursor: noMove ? "pointer" : "move",
     },
     upload: {
       opacity: hovered ? 1 : 0,
-      display: "inline"
-    }
+      display: "inline",
+    },
   };
   return (
     <div
       className={classNames.container}
-      onMouseOver={() => !hovered && setHoverd(true)}
-      onMouseEnter={() => setHoverd(true)}
+      onMouseOver={() => !hovered && setHovered(true)}
+      onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => {
-        setHoverd(false);
+        setHovered(false);
         onMouseLeave();
       }}
       style={styles.container}
@@ -58,7 +58,7 @@ export default function({
           onEdit && (
             <Icon
               type={edit ? "save" : "edit"}
-              onClick={e => {
+              onClick={(e) => {
                 onEdit(e);
                 e.stopPropagation();
               }}

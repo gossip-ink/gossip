@@ -65,7 +65,7 @@ export default connect(
           onCancel={() => setPop(false)}
         >
           <div className={classNames.help}>
-            <p>{locales.DIRRERENT[lang]}</p>
+            <p>{locales.DIFFERENT[lang]}</p>
             <p>{locales.LEARN_TIME[lang]}</p>
             <p>{locales.NEW_WAY[lang]}</p>
             <p>{locales.BEST[lang]}</p>

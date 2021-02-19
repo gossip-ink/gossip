@@ -12,7 +12,7 @@ export default function({
     // 初始化样式
     const root = impressRef.current;
     const canvas = canvasRef.current;
-    let isOveriew = false;
+    let isOverview = false;
 
     // 找到当前选中的幻灯片
     let activeIndex;
@@ -32,9 +32,9 @@ export default function({
       };
 
       function flipPage(n = 1) {
-        if (isOveriew) {
+        if (isOverview) {
           activeIndex = index;
-          isOveriew = false;
+          isOverview = false;
         } else {
           activeIndex = Math.max((index + n) % children.length, 0);
         }
@@ -82,7 +82,7 @@ export default function({
       });
     }
 
-    function setOveriew() {
+    function setOverview() {
       const elements = document.getElementsByClassName("step");
       const slides = [...elements];
       slides.forEach((item, index) => {
@@ -92,7 +92,7 @@ export default function({
 
     function overview() {
       if (!overviewOpen) return;
-      isOveriew = true;
+      isOverview = true;
       let minX = Infinity,
         minY = Infinity,
         maxX = -Infinity,
@@ -125,7 +125,7 @@ export default function({
         scale: scale,
       };
       goto(props);
-      setOveriew();
+      setOverview();
     }
 
     // 导航的监听器

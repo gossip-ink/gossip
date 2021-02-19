@@ -87,7 +87,7 @@ export default connect(
     }),
   };
 
-  function handleEidtNode(item) {
+  function handleEditNode(item) {
     edit === item.id ? setEdit(-1) : setEdit(item.id);
     setSelected(item.id);
   }
@@ -163,7 +163,7 @@ export default connect(
               width={nodeWidth}
               edit={edit === item.id}
               onEdit={(e) => {
-                handleEidtNode(item);
+                handleEditNode(item);
                 e.stopPropagation();
               }}
               onDelete={(e) => {
@@ -171,7 +171,7 @@ export default connect(
                 e.stopPropagation();
               }}
               highlight={item.id === selectedId}
-              nomove={true}
+              noMove={true}
               hasDelete={item.depth !== 0}
               onClick={(e) => {
                 handleSelectSlide(item.id);

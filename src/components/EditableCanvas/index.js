@@ -77,7 +77,7 @@ export default connect(({ global }) => ({
         <textarea
           value={value}
           onChange={handleChange}
-          clasName={classNames.input}
+          className={classNames.input}
           style={styles.input}
         />
       ) : error ? (

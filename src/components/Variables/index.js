@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 export default connect(
   (state) => ({
     variables: state.slides.attributeVars,
-    selectedArributeId: state.slides.selectedArributeId,
+    selectedAttributeId: state.slides.selectedAttributeId,
     locales: state.global.locales,
     lang: state.global.lang,
   }),
@@ -25,7 +25,7 @@ export default connect(
 )(function({
   height,
   variables,
-  selectedArributeId,
+  selectedAttributeId,
   deleteVar,
   addVar,
   selectVar,
@@ -74,9 +74,9 @@ export default connect(
 
   useEffect(
     () => {
-      scrollTo(selectedArributeId);
+      scrollTo(selectedAttributeId);
     },
-    [selectedArributeId]
+    [selectedAttributeId]
   );
 
   return (
@@ -96,14 +96,14 @@ export default connect(
           className={classNames.node}
           onDragStart={(e) => handleDragStart(e, item)}
           draggable
-          onClick={() => selectedArributeId !== item.id && selectVar(item.id)}
+          onClick={() => selectedAttributeId !== item.id && selectVar(item.id)}
         >
           <Node
             id={item.id}
             height="2em"
             onDelete={() => deleteVar(item.id)}
             edit={item.id === edit}
-            highlight={selectedArributeId === item.id}
+            highlight={selectedAttributeId === item.id}
             hasDelete={item.canDelete}
             onMouseLeave={() => edit !== -1 && setEdit(-1)}
             onEdit={() => {
