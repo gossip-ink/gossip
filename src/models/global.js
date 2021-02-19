@@ -72,10 +72,10 @@ export default {
       },
       LANG_EN: {
         en: "English",
-        zh: "英文",
+        zh: "English",
       },
       LANG_ZN: {
-        en: "Chinese",
+        en: "中文",
         zh: "中文",
       },
       OUTLINE: {
