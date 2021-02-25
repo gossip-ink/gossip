@@ -17,7 +17,9 @@ import {
   faArrowRight,
   faArrowsAlt,
   faListUl,
-  faTree
+  faTree,
+  faIndent,
+  faFilm,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -38,5 +40,7 @@ library.add(
   faArrowRight,
   faArrowsAlt,
   faListUl,
-  faTree
+  faTree,
+  faIndent,
+  faFilm
 );
