@@ -63,7 +63,7 @@ const EditorPage: React.FC<EditorPageProps> = () => {
           minWidth={LEFT_MIN_WIDTH}
           maxWidth={LEFT_MAX_WIDTH}
         >
-          <Tab expandable defaultActiveIndex="1" onExpand={handleExpand}>
+          <Tab expandable defaultActiveIndex="0" onExpand={handleExpand}>
             <TabPanel label="Outline">
               <OutlinePanel />
             </TabPanel>
