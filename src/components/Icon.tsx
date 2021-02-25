@@ -3,7 +3,7 @@ import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontaw
 import classNames from "classnames";
 
 const Icon: React.FC<IconProps> = ({ className, ...restProps }) => {
-  const classes = classNames("text-gray-600", className);
+  const classes = classNames(className);
   return <FontAwesomeIcon className={classes} size="sm" {...restProps} />;
 };
 
