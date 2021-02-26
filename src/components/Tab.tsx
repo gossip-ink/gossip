@@ -84,16 +84,17 @@ const InternalTab: React.FC<TabProps> = ({
     if (displayName === "TabPanel") {
       const { label, index } = childElement.props;
       const key = index ? index : childIndex.toString();
+      const isMultiple = mode === "multiple";
       const classes = classNames(
         {
-          "text-gray-400": key !== activeIndex,
-          "hover:text-gray-600": key !== activeIndex,
-          "flex-1": mode === "multiple",
+          "text-gray-400": key !== activeIndex && !isMultiple,
+          "hover:text-gray-600": key !== activeIndex && !isMultiple,
+          "flex-1": isMultiple,
         },
         "p-2 cursor-pointer transition-all duration-150 text-sm"
       );
       return (
-        <Item type={type} onClick={() => handleClickItem(key)} className={classes}>
+        <Item type={type} onClick={() => !isMultiple && handleClickItem(key)} className={classes}>
           {label}
         </Item>
       );
