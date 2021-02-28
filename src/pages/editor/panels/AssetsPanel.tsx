@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import { TextNode, NodeType } from "../../../models/node";
 import Icon from "../../../components/Icon";
 import List from "../../../components/List";
+import AssetBlock from "../components/AssetBlock";
 
 const { ListItem } = List;
 
@@ -36,6 +37,7 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
     createAsset("component3"),
   ];
   const [components, setCmponents] = useState(sampleData);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   function onMove(dragIndex: number, hoverIndex: number) {
     const dragComponent = components[dragIndex];
@@ -55,9 +57,11 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
         <Icon icon="filter" className="m-1" />
       </Search>
       <List draggable={true} onMove={onMove}>
-        {components.map((d) => (
+        {components.map((d, index) => (
           <ListItem key={d.id} className="p-2">
-            {d.text}
+            <AssetBlock selected={selectedIndex === index} onClick={() => setSelectedIndex(index)}>
+              {d.text}
+            </AssetBlock>
           </ListItem>
         ))}
       </List>
