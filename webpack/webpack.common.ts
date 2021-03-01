@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import { root, src } from "./path";
+import * as swc from "./swc";
 
 export type Plugin =
   | webpack.WebpackPluginInstance
@@ -26,7 +27,22 @@ const config: webpack.Configuration = {
   module: {
     rules: [
       { test: /\.css$/, use: [styleLoader, "css-loader"] },
-      { test: /\.tsx?$/, loader: "ts-loader" },
+      {
+        test: /\.m?jsx?$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: "swc-loader",
+          options: swc.ecmascript,
+        },
+      },
+      {
+        test: /\.tsx?$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: "swc-loader",
+          options: swc.typescript,
+        },
+      },
       { test: /\.pcss?$/, use: [styleLoader, "css-loader", "postcss-loader"] },
       { test: /\.s[ac]ss$/i, use: [styleLoader, "css-loader", "sass-loader"] },
       { test: /\.(?:gif|jpg|png|svg|webp)$/, use: ["file-loader"] },
