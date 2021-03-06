@@ -13,9 +13,10 @@ const ThumbnailBlock: React.FC<ThumbnailBlockProps> = ({
   data,
   width = 80,
   ratio = 0.6,
+  className,
   ...restProps
 }) => {
-  const classes = classNames(classNames, "bg-gray-200");
+  const classes = classNames(className, "bg-gray-200");
   return (
     <Container {...restProps} className={classes} width={width} ratio={ratio}>
       {}
