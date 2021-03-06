@@ -37,7 +37,7 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
     createAsset("component3"),
   ];
   const [components, setCmponents] = useState(sampleData);
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedId, setSelectedId] = useState("");
 
   function onMove(dragIndex: number, hoverIndex: number) {
     const dragComponent = components[dragIndex];
@@ -58,8 +58,8 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
       </Search>
       <List draggable={true} onMove={onMove}>
         {components.map((d, index) => (
-          <ListItem key={d.id} className="p-2">
-            <AssetBlock selected={selectedIndex === index} onClick={() => setSelectedIndex(index)}>
+          <ListItem key={d.id}>
+            <AssetBlock selected={selectedId === d.id} onClick={() => setSelectedId(d.id)}>
               {d.text}
             </AssetBlock>
           </ListItem>
