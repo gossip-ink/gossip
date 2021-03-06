@@ -1,10 +1,5 @@
 import { PageNode } from "./node";
-
-export type TreeNode<T> = {
-  readonly id: string;
-  children: TreeNode<T>[];
-  data: T;
-}
+import { TreeNode } from "../utils/tree";
 
 export type OutlineNode = TreeNode<{
   title: string,
