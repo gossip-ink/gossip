@@ -127,9 +127,10 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
 
   const [isOutlineMode, setIsOutlineMode] = useState<boolean>(true);
   const [isTreeThumbnail, setIsTreeThumbnail] = useState<boolean>(true);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
-    <Container className="w-full">
+    <Container className="w-full h-full">
       <div className="flex flex-row justify-end p-2 cursor-pointer">
         <SwitchIcon
           icon="tree"
@@ -158,7 +159,12 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
           </>
         )}
       </div>
-      <div>
+      <div
+        style={{
+          height: `calc(100% - 37px - 30px)`,
+        }}
+        className="p-2"
+      >
         {isOutlineMode || isTreeThumbnail ? (
           <Tree
             nested={!isOutlineMode && isTreeThumbnail}
@@ -167,9 +173,13 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
           />
         ) : (
           <List>
-            {simpleNodes.map((d) => (
-              <ListItem key={d.id}>
-                <ThumbnailBlock data={d} />
+            {simpleNodes.map((d, index) => (
+              <ListItem key={d.id} className="flex justify-center items-center p-2">
+                <ThumbnailBlock
+                  data={d}
+                  selected={selectedIndex === index}
+                  onClick={() => setSelectedIndex(index)}
+                />
               </ListItem>
             ))}
           </List>
