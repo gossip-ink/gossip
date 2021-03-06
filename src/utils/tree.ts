@@ -25,7 +25,7 @@ export function nodes<T>(root: TreeNode<T>): TreeNode<T>[] {
   return nodes;
 }
 
-export function treeLayout<T>(root: TreeNode<T>, nested: boolean): TreeLayoutNode<T>[] {
+export function treeLayout<T>(root: TreeNode<T>): TreeLayoutNode<T>[] {
   const nodes: TreeLayoutNode<T>[] = [];
   let height = -1;
 

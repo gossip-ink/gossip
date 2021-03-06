@@ -12,8 +12,8 @@ function renderNode(child: React.ReactNode, data: any) {
   });
 }
 
-const Tree: React.FC<TreeProps<any>> = ({ data, nested = false, node, ...restProps }) => {
-  const nodes = treeLayout(data, nested);
+const Tree: React.FC<TreeProps<any>> = ({ data, node, ...restProps }) => {
+  const nodes = treeLayout(data);
   return (
     <Container {...restProps}>
       {nodes.map((d) => (
@@ -26,7 +26,6 @@ const Tree: React.FC<TreeProps<any>> = ({ data, nested = false, node, ...restPro
 };
 
 export interface TreeProps<T> {
-  nested?: boolean;
   node?: React.ReactNode;
   data: TreeNode<T>;
 }

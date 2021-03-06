@@ -126,7 +126,6 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
   );
 
   const [isOutlineMode, setIsOutlineMode] = useState<boolean>(true);
-  const [isTreeThumbnail, setIsTreeThumbnail] = useState<boolean>(true);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
@@ -137,27 +136,11 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
           onClick={() => setIsOutlineMode(true)}
           selected={isOutlineMode}
         ></SwitchIcon>
-        {isOutlineMode && (
-          <SwitchIcon
-            icon="film"
-            onClick={() => setIsOutlineMode(false)}
-            selected={!isOutlineMode}
-          ></SwitchIcon>
-        )}
-        {!isOutlineMode && (
-          <>
-            <SwitchIcon
-              icon="indent"
-              selected={isTreeThumbnail}
-              onClick={() => setIsTreeThumbnail(true)}
-            />
-            <SwitchIcon
-              icon="list-ul"
-              selected={!isTreeThumbnail}
-              onClick={() => setIsTreeThumbnail(false)}
-            />
-          </>
-        )}
+        <SwitchIcon
+          icon="list-ul"
+          selected={!isOutlineMode}
+          onClick={() => setIsOutlineMode(false)}
+        />
       </div>
       <div
         style={{
@@ -165,12 +148,8 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
         }}
         className="p-2"
       >
-        {isOutlineMode || isTreeThumbnail ? (
-          <Tree
-            nested={!isOutlineMode && isTreeThumbnail}
-            data={simpleTreeData}
-            node={isOutlineMode ? <OutlineBlock /> : <ThumbnailBlock />}
-          />
+        {isOutlineMode ? (
+          <Tree data={simpleTreeData} node={<OutlineBlock />} />
         ) : (
           <List>
             {simpleNodes.map((d, index) => (
