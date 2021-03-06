@@ -130,7 +130,7 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
 
   return (
     <Container className="w-full h-full">
-      <div className="flex flex-row justify-end p-2 cursor-pointer">
+      <div className="flex flex-row justify-start p-2 cursor-pointer">
         <SwitchIcon
           icon="tree"
           onClick={() => setIsOutlineMode(true)}
@@ -146,7 +146,7 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
         style={{
           height: `calc(100% - 37px - 30px)`,
         }}
-        className="p-2"
+        className="px-4"
       >
         {isOutlineMode ? (
           <Tree data={simpleTreeData} node={<OutlineBlock />} />
