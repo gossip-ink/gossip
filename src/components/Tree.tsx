@@ -1,28 +1,34 @@
 import React from "react";
-import { TreeNode } from "../models/file";
+import { TreeNode, treeLayout } from "../utils/tree";
+import Node from "./TreeNode";
+import styled from "styled-components";
 
-const Tree: React.FC<TreeProps<any>> = (props) => {
-  return <h1></h1>;
+const Container = styled.div``;
+
+function renderNode(child: React.ReactNode, data: any) {
+  const childElement = child as React.FunctionComponentElement<any>;
+  return React.cloneElement(childElement, {
+    data: data.data,
+  });
+}
+
+const Tree: React.FC<TreeProps<any>> = ({ data, nested = false, node, ...restProps }) => {
+  const nodes = treeLayout(data, nested);
+  return (
+    <Container {...restProps}>
+      {nodes.map((d) => (
+        <Node key={d.id} paddingLeft={`${d.height}em`}>
+          {renderNode(node, d)}
+        </Node>
+      ))}
+    </Container>
+  );
 };
 
 export interface TreeProps<T> {
   nested?: boolean;
   node?: React.ReactNode;
-  data?: TreeNode<T>;
-}
-
-export function dfs<T>(root: TreeNode<T>, callback: (node: TreeNode<T>) => void): void {
-  callback(root);
-  if (!root.children) return;
-  for (const node of root.children) {
-    dfs(node, callback);
-  }
-}
-
-export function nodes<T>(root: TreeNode<T>): TreeNode<T>[] {
-  const nodes: TreeNode<T>[] = [];
-  dfs(root, (node) => nodes.push(node));
-  return nodes;
+  data: TreeNode<T>;
 }
 
 export default Tree;
