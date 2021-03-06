@@ -11,7 +11,7 @@ const Container = styled.div``;
 export const ListContext = createContext<ListComsumerProps>({ draggable: false });
 
 const InternalList: React.FC<ListProps> = ({ children, className, draggable = false, onMove }) => {
-  const classes = classNames(className);
+  const classes = classNames(className, "h-full overflow-auto");
   const type = `list-${nanoid()}`;
   const listContextValue: ListComsumerProps = {
     draggable,
