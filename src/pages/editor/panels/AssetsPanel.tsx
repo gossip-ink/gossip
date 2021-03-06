@@ -54,7 +54,6 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
           className="bg-transparent ml-2 placeholder-gray-400 w-full"
           placeholder="Search"
         ></input>
-        <Icon icon="filter" className="m-1" />
       </Search>
       <List draggable={true} onMove={onMove}>
         {components.map((d, index) => (
