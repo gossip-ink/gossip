@@ -1,9 +1,9 @@
 import React, { useContext, useRef } from "react";
-import { ListContext } from "./List";
 import styled from "styled-components";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 import classname from "classnames";
 import { XYCoord } from "dnd-core";
+import { ListContext } from "./List";
 
 const Container = styled.div<{ visible: boolean }>`
   opacity: ${(props) => (props.visible ? 1 : 0)};

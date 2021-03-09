@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
+
 import { TextNode, NodeType } from "../../../models/node";
+
 import Icon from "../../../components/Icon";
 import List from "../../../components/List";
 import AssetBlock from "../components/AssetBlock";

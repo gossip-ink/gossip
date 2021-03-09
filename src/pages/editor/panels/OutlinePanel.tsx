@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Icon from "../../../components/Icon";
-import Tree from "../../../components/Tree";
+import { nanoid } from "nanoid";
+
 import { NodeType, PageNode } from "../../../models/node";
 import { OutlineNode } from "../../../models/file";
+
+import { nodes } from "../../../utils/tree";
+
+import Icon from "../../../components/Icon";
+import Tree from "../../../components/Tree";
 import List from "../../../components/List";
-import { nanoid } from "nanoid";
 import OutlineBlock from "../components/OutlineBlock";
 import ThumbnailBlock from "../components/ThumbnailBlock";
-import { nodes } from "../../../utils/tree";
 
 const { ListItem } = List;
 

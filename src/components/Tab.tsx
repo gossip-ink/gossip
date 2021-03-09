@@ -2,9 +2,10 @@ import React, { createContext, useState } from "react";
 import styled from "styled-components";
 import classNames from "classnames";
 
-import { tuple } from "../utils/type";
 import TabPanel, { TabPanelProps } from "./TabPanel";
 import Icon from "./Icon";
+
+import { tuple } from "../utils/type";
 
 const TabTypes = tuple("line", "card", "editable-card");
 type TabType = typeof TabTypes[number];

@@ -1,7 +1,9 @@
 import React from "react";
-import { TreeNode, treeLayout } from "../utils/tree";
-import Node from "./TreeNode";
 import styled from "styled-components";
+
+import Node from "./TreeNode";
+
+import { TreeNode, treeLayout } from "../utils/tree";
 
 const Container = styled.div``;
 

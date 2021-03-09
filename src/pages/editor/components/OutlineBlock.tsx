@@ -1,9 +1,11 @@
 import React from "react";
-import Block, { BlockProps } from "./Block";
+import styled from "styled-components";
+
+import { OutlineData } from "../../../models/file";
+
+import Block, { BlockProps } from "../../../components/Block";
 import ThumbnailBlock from "./ThumbnailBlock";
 import { tuple } from "../../../utils/type";
-import { OutlineData } from "../../../models/file";
-import styled from "styled-components";
 
 const OutlineModes = tuple("collopsed", "normal", "expand");
 type OutlineMode = typeof OutlineModes[number];

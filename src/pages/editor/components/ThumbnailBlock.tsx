@@ -1,7 +1,8 @@
 import React from "react";
-import Block, { BlockProps } from "./Block";
 import styled from "styled-components";
 import classNames from "classnames";
+
+import Block, { BlockProps } from "../../../components/Block";
 
 const Container = styled(Block)<{ width: number; ratio: number }>`
   width: ${(props) => props.width}%;

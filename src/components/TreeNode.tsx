@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import Block from "../pages/editor/components/Block";
+import Block from "./Block";
 
 const TreeNode: React.FC<TreeNodeProps> = ({ paddingLeft, children, className, ...restProps }) => {
   const classes = classNames(className, "mb-2");
