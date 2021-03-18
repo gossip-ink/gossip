@@ -224,6 +224,21 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@react-dnd/asap@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/@react-dnd/asap/download/@react-dnd/asap-4.0.0.tgz#b300eeed83e9801f51bd66b0337c9a6f04548651"
+  integrity sha1-swDu7YPpgB9RvWawM3yabwRUhlE=
+
+"@react-dnd/invariant@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/@react-dnd/invariant/download/@react-dnd/invariant-2.0.0.tgz#09d2e81cd39e0e767d7da62df9325860f24e517e"
+  integrity sha1-CdLoHNOeDnZ9faYt+TJYYPJOUX4=
+
+"@react-dnd/shallowequal@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/@react-dnd/shallowequal/download/@react-dnd/shallowequal-2.0.0.tgz#a3031eb54129f2c66b2753f8404266ec7bf67f0a"
+  integrity sha1-owMetUEp8sZrJ1P4QEJm7Hv2fwo=
+
 "@swc/core-android-arm64@^1.2.49":
   version "1.2.49"
   resolved "https://registry.yarnpkg.com/@swc/core-android-arm64/-/core-android-arm64-1.2.49.tgz#2c6bdf0ff2ead107224c1ef3447661566e61ddeb"
@@ -285,21 +300,6 @@
     "@swc/core-linux-x64-musl" "^1.2.49"
     "@swc/core-win32-ia32-msvc" "^1.2.49"
     "@swc/core-win32-x64-msvc" "^1.2.49"
-
-"@react-dnd/asap@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/@react-dnd/asap/download/@react-dnd/asap-4.0.0.tgz#b300eeed83e9801f51bd66b0337c9a6f04548651"
-  integrity sha1-swDu7YPpgB9RvWawM3yabwRUhlE=
-
-"@react-dnd/invariant@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/@react-dnd/invariant/download/@react-dnd/invariant-2.0.0.tgz#09d2e81cd39e0e767d7da62df9325860f24e517e"
-  integrity sha1-CdLoHNOeDnZ9faYt+TJYYPJOUX4=
-
-"@react-dnd/shallowequal@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/@react-dnd/shallowequal/download/@react-dnd/shallowequal-2.0.0.tgz#a3031eb54129f2c66b2753f8404266ec7bf67f0a"
-  integrity sha1-owMetUEp8sZrJ1P4QEJm7Hv2fwo=
 
 "@tailwindcss/forms@^0.2.1":
   version "0.2.1"
@@ -6195,6 +6195,11 @@ swc-loader@^0.1.12:
   dependencies:
     "@swc/core" "^1.1.48"
     loader-utils "^2.0.0"
+
+symbol-observable@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
+  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 tailwindcss@^2.0.2:
   version "2.0.3"
