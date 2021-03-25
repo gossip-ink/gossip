@@ -579,6 +579,11 @@
     "@types/react" "*"
     csstype "^3.0.2"
 
+"@types/tailwindcss@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/tailwindcss/-/tailwindcss-2.0.2.tgz#7757f3821507c149e6bb09a45f1ac99502e77d49"
+  integrity sha512-C6gthGtfP/rDf0GhN6HhgdSGDbpvs0R8LElnSm3jnTPjYt1sCw9ZJ9cR841AsU8cQYiCqB5rzaRAUW6tF19X8Q==
+
 "@types/tapable@*":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.6.tgz#a9ca4b70a18b270ccb2bc0aaafefd1d486b7ea74"

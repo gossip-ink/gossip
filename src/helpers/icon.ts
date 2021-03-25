@@ -20,6 +20,7 @@ import {
   faTree,
   faIndent,
   faFilm,
+  faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -42,5 +43,6 @@ library.add(
   faListUl,
   faTree,
   faIndent,
-  faFilm
+  faFilm,
+  faExclamationCircle
 );

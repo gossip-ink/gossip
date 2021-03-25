@@ -1,5 +1,6 @@
 const colors = require("tailwindcss/colors");
 
+/** @type {import("tailwindcss").TailwindConfig} */
 module.exports = {
   purge: ["./src/**/*.html", "./src/**/*.tsx"],
   darkMode: "media",
@@ -22,7 +23,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["active"],
+      borderColor: ["active"],
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };
