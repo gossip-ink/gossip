@@ -6,7 +6,7 @@ import { query } from "../registry";
 
 const modalRoot = document.getElementById("modal-root");
 
-const ModalContainer: React.FC<ModalContainerProps> = () => {
+const ModalPresenter: React.FC<ModalPresenterProps> = () => {
   const [modalState, setModalState] = useModalState();
   const closeModal = () => setModalState({ identifier: null });
   const containerElement = useMemo(() => document.createElement("div"), []);
@@ -31,8 +31,8 @@ const ModalContainer: React.FC<ModalContainerProps> = () => {
     : null;
 };
 
-ModalContainer.displayName = "ModalContainer";
+ModalPresenter.displayName = "ModalPresenter";
 
-export default ModalContainer;
+export default ModalPresenter;
 
-export type ModalContainerProps = {};
+export type ModalPresenterProps = {};

@@ -3,12 +3,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.pcss";
-import { ModalContainer, ModalStateProvider } from "./modals";
+import { ModalPresenter, ModalStateProvider } from "./modals";
 
 ReactDOM.render(
   <ModalStateProvider>
     <App />
-    <ModalContainer />
+    <ModalPresenter />
   </ModalStateProvider>,
   document.getElementById("app-root")
 );
