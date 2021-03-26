@@ -4,11 +4,13 @@ import { ModalComponent, register } from "../modals";
 import Modal from "../modals/components/Modal";
 import ModalFooter from "../modals/components/ModalFooter";
 import ModalTitle from "../modals/components/ModalTitle";
+import { useAlert } from "../modals/hooks/useAlert";
 import Button from "./Button";
 
 const UserSettingsModal: ModalComponent = ({ closeModal }) => {
+  const showAlert = useAlert();
   return (
-    <Modal className="w-96 h-72 flex flex-col overflow-hidden">
+    <Modal className="w-4/5 h-72 flex flex-col md:w-3/4 lg:w-1/2">
       <ModalTitle className="px-4 pt-4 pb-3">
         <FontAwesomeIcon className="mr-1" icon="user-circle" fixedWidth />
         User Settings
@@ -20,7 +22,16 @@ const UserSettingsModal: ModalComponent = ({ closeModal }) => {
         <Button type="approve" onClick={closeModal}>
           Save
         </Button>
-        <Button className="mr-2" onClick={closeModal}>
+        <Button
+          className="mr-2"
+          onClick={() =>
+            showAlert("Are you sure to save?", (confirmed) => {
+              if (confirmed) {
+                closeModal();
+              }
+            })
+          }
+        >
           Cancel
         </Button>
       </ModalFooter>

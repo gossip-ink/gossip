@@ -1,38 +1,46 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
 
-type ModalState = {
-  identifier: number | string | null;
+export type ModalState = {
+  identifier: number | string;
   props?: Record<string, unknown>;
 };
 
 type ModalContextValue = {
-  state: ModalState;
-  mutate: (state: ModalState) => void;
+  stack: ModalState[];
+  mutate: (stack: ModalState[]) => void;
 };
 
 const ModalStateContext = createContext<ModalContextValue>({} as ModalContextValue);
 
-const defaultModalState: ModalState = { identifier: null };
-
 export const ModalStateProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [state, mutate] = useState(defaultModalState);
+  const [stack, mutate] = useState<ModalState[]>([]);
   return (
-    <ModalStateContext.Provider value={{ state, mutate }}>{children}</ModalStateContext.Provider>
+    <ModalStateContext.Provider value={{ stack, mutate }}>{children}</ModalStateContext.Provider>
   );
 };
 
 ModalStateProvider.displayName = "ModalStateProvider";
 
-export function useModalState(): [state: ModalState, mutate: (state: ModalState) => void] {
-  const { state, mutate } = useContext(ModalStateContext);
-  return [state, mutate];
+export function useModalStack(): [stack: ModalState[], mutate: (stack: ModalState[]) => void] {
+  const { stack, mutate } = useContext(ModalStateContext);
+  return [stack, mutate];
 }
 
 export function useToggleModal(
   identifier: string | number
 ): (props?: Record<string, unknown>) => void {
-  const { state, mutate } = useContext(ModalStateContext);
-  return (props?: Record<string, unknown>) =>
-    // Close the modal if same identifier, otherwise show the different modal.
-    mutate(state.identifier === identifier ? { identifier: null } : { identifier, props });
+  const { stack, mutate } = useContext(ModalStateContext);
+  const modalStateRef = useRef<ModalState | null>(null);
+  return (props?: Record<string, unknown>) => {
+    if (modalStateRef.current === null) {
+      const modalState: ModalState = { identifier, props };
+      modalStateRef.current = modalState;
+      mutate(stack.concat([modalState]));
+    } else {
+      if (stack.includes(modalStateRef.current)) {
+        mutate(stack.filter((x) => x !== modalStateRef.current));
+      }
+      modalStateRef.current = null;
+    }
+  };
 }
