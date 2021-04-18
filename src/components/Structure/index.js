@@ -116,8 +116,8 @@ export default connect(
   };
 
   const en2zn = {
-    column: locales.ROW_CONTAINER[lang],
-    row: locales.COL_CONTAINER[lang],
+    column: locales.COL_CONTAINER[lang],
+    row: locales.ROW_CONTAINER[lang],
   };
 
   const contentByType = (item) => {
