@@ -1,26 +1,5 @@
 # Gossip 1.0
 
-- [Gossip 1.0](#gossip-10)
-  - [Overview](#overview)
-  - [Getting started](#getting-started)
-  - [Why bother?](#why-bother)
-    - [Hard to author a presentation](#hard-to-author-a-presentation)
-    - [Hard to deliver a presentation](#hard-to-deliver-a-presentation)
-  - [Author a presentation](#author-a-presentation)
-    - [Generating: Idea](#generating-idea)
-    - [Organizing: Outline and Thumbnails](#organizing-outline-and-thumbnails)
-    - [Composing: Main and Element](#composing-main-and-element)
-    - [Revising: Style and Variable](#revising-style-and-variable)
-  - [Delivery a presentation](#delivery-a-presentation)
-    - [Switch animation: Zoom in, Zoom out, Rotate](#switch-animation-zoom-in-zoom-out-rotate)
-    - [Overview: Word Cloud mode](#overview-word-cloud-mode)
-  - [Limitations](#limitations)
-  - [Future works](#future-works)
-  - [Contributing](#contributing)
-  - [Tech stack](#tech-stack)
-  
-## Overview
-
 Gossip is an online user interface to efficiently author and delivery beautiful and enlightening presentations. If you are in China, you can try it [here](https://pearmini.gitee.io/gossip/), otherwise [here](https://pearmini.github.io/gossip/). Please use Chrome, Firefox, or Safari for a better experience.
 
 There is a view in [**Sapiens: A Brief History of Humankind**](https://en.wikipedia.org/wiki/Sapiens:_A_Brief_History_of_Humankind) that the ability to tell and share stories makes humans far more strong than animals because stories allow us to trust strangers which led to large-scale cooperation.
