@@ -1,1 +1,3 @@
-# Genji
+# Gossip 2.0 🚀
+
+Coming soon...
