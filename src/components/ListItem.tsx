@@ -20,6 +20,7 @@ const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...
   const [, drop] = useDrop({
     accept: type,
     hover(item: DragItem, monitor: DropTargetMonitor) {
+      console.log(item, monitor);
       if (!ref.current) {
         return;
       }
@@ -48,12 +49,16 @@ const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
-    item: { type, index },
-    collect: (monitor: any) => ({
-      isDragging: monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type,
+      item: { type, index },
+      collect: (monitor: any) => ({
+        isDragging: monitor.isDragging(),
+      }),
     }),
-  });
+    []
+  );
 
   const classes = classname(className);
   draggable && drag(drop(ref));
