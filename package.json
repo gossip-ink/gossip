@@ -1,15 +1,17 @@
 {
   "devDependencies": {
     "gh-pages": "^3.1.0",
-    "umi-plugin-react": "^1.14.9",
-    "umi": "^2.12.7"
+    "umi": "^2.12.7",
+    "umi-plugin-react": "^1.14.9"
   },
   "dependencies": {
-    "file-saver": "^2.0.2",
-    "react-color": "^2.18.0",
+    "antd": "^4.15.4",
     "d3-array": "^2.4.0",
     "d3-scale": "^3.2.1",
+    "dva": "^2.4.1",
+    "file-saver": "^2.0.2",
     "react": "^16.12.0",
+    "react-color": "^2.18.0",
     "react-use": "^13.27.0"
   },
   "scripts": {
