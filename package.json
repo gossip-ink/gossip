@@ -5,7 +5,8 @@
     "umi-plugin-react": "^1.14.9"
   },
   "dependencies": {
-    "antd": "^4.15.4",
+    "@ant-design/icons": "^2.1.1",
+    "antd": "^3",
     "d3-array": "^2.4.0",
     "d3-scale": "^3.2.1",
     "dva": "^2.4.1",
