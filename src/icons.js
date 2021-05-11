@@ -43,10 +43,10 @@ export {
 } from "@ant-design/icons/lib/outline/ContainerOutline";
 export {
   default as FontcolorsOutline,
-} from "@ant-design/icons/lib/outline/FontcolorsOutline";
+} from "@ant-design/icons/lib/outline/FontColorsOutline";
 export {
   default as BgcolorsOutline,
-} from "@ant-design/icons/lib/outline/BgcolorsOutline";
+} from "@ant-design/icons/lib/outline/BgColorsOutline";
 export {
   default as MenuOutline,
 } from "@ant-design/icons/lib/outline/MenuOutline";
@@ -70,37 +70,37 @@ export {
 } from "@ant-design/icons/lib/outline/FullscreenOutline";
 export {
   default as AlignleftOutline,
-} from "@ant-design/icons/lib/outline/AlignleftOutline";
+} from "@ant-design/icons/lib/outline/AlignLeftOutline";
 export {
   default as AlignrightOutline,
-} from "@ant-design/icons/lib/outline/AlignrightOutline";
+} from "@ant-design/icons/lib/outline/AlignRightOutline";
 export {
   default as AligncenterOutline,
-} from "@ant-design/icons/lib/outline/AligncenterOutline";
+} from "@ant-design/icons/lib/outline/AlignCenterOutline";
 export {
   default as VerticalaligntopOutline,
-} from "@ant-design/icons/lib/outline/VerticalaligntopOutline";
+} from "@ant-design/icons/lib/outline/VerticalAlignTopOutline";
 export {
   default as VerticalalignbottomOutline,
-} from "@ant-design/icons/lib/outline/VerticalalignbottomOutline";
+} from "@ant-design/icons/lib/outline/VerticalAlignBottomOutline";
 export {
   default as VerticalalignmiddleOutline,
-} from "@ant-design/icons/lib/outline/VerticalalignmiddleOutline";
+} from "@ant-design/icons/lib/outline/VerticalAlignMiddleOutline";
 export {
   default as NumberOutline,
 } from "@ant-design/icons/lib/outline/NumberOutline";
 export {
   default as PlaycircleOutline,
-} from "@ant-design/icons/lib/outline/PlaycircleOutline";
+} from "@ant-design/icons/lib/outline/PlayCircleOutline";
 export {
   default as PlaysquareOutline,
-} from "@ant-design/icons/lib/outline/PlaysquareOutline";
+} from "@ant-design/icons/lib/outline/PlaySquareOutline";
 export {
   default as PluscircleOutline,
-} from "@ant-design/icons/lib/outline/PluscircleOutline";
+} from "@ant-design/icons/lib/outline/PlusCircleOutline";
 export {
   default as FileaddOutline,
-} from "@ant-design/icons/lib/outline/FileaddOutline";
+} from "@ant-design/icons/lib/outline/FileAddOutline";
 export {
   default as DownloadOutline,
 } from "@ant-design/icons/lib/outline/DownloadOutline";
@@ -112,10 +112,10 @@ export {
 } from "@ant-design/icons/lib/outline/ReadOutline";
 export {
   default as ClosecirlceOutline,
-} from "@ant-design/icons/lib/outline/ClosecircleOutline";
+} from "@ant-design/icons/lib/outline/CloseCircleOutline";
 export {
   default as CheckcirlceOutline,
-} from "@ant-design/icons/lib/outline/CheckcircleOutline";
+} from "@ant-design/icons/lib/outline/CheckCircleOutline";
 export {
   default as FireOutline,
 } from "@ant-design/icons/lib/outline/FireOutline";
