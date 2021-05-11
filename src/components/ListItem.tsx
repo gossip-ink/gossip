@@ -49,7 +49,8 @@ const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type, index },
+    type,
+    item: { index },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
