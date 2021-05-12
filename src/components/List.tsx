@@ -8,14 +8,12 @@ import { nanoid } from "nanoid";
 
 const Container = styled.div``;
 
-export const ListContext = createContext<ListComsumerProps>({ draggable: false });
+export const ListContext = createContext<ListConsumerProps>({ draggable: false });
 
 const InternalList: React.FC<ListProps> = ({ children, className, draggable = false, onMove }) => {
   const classes = classNames(className, "h-full overflow-auto");
-  const type = `list-${nanoid()}`;
-  const listContextValue: ListComsumerProps = {
+  const listContextValue: ListConsumerProps = {
     draggable,
-    type,
     onMove,
   };
 
@@ -26,6 +24,7 @@ const InternalList: React.FC<ListProps> = ({ children, className, draggable = fa
       const { index } = childElement.props;
       return React.cloneElement(childElement, {
         index: index ? index : childIndex,
+        id: nanoid(),
       });
     } else {
       console.error("[Warning] List has a child which is not a ListItem.");
@@ -44,15 +43,15 @@ const InternalList: React.FC<ListProps> = ({ children, className, draggable = fa
   );
 };
 
-const List = InternalList as OuternalList;
+const List = InternalList as ExternalList;
 List.displayName = "List";
 List.ListItem = ListItem;
 
-export interface OuternalList extends React.FC<ListProps> {
+export interface ExternalList extends React.FC<ListProps> {
   ListItem: typeof ListItem;
 }
 
-export interface ListComsumerProps {
+export interface ListConsumerProps {
   draggable?: boolean;
   type?: string;
   onMove?: (dragIndex: number, hoverIndex: number) => void;

@@ -14,11 +14,31 @@ interface DragItem {
   type: string;
 }
 
-const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...restProps }) => {
+export interface ListItemProps {
+  index?: number;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
+  id?: string;
+}
+
+const ListItem: React.FC<ListItemProps> = ({
+  children,
+  className,
+  id,
+  index = 0,
+  ...restProps
+}) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { draggable, type = "list", onMove } = useContext(ListContext);
-  const [, drop] = useDrop({
+  const type = "list";
+  const { draggable, onMove } = useContext(ListContext);
+  const [{ handlerId }, drop] = useDrop({
     accept: type,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
     hover(item: DragItem, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
@@ -50,7 +70,7 @@ const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...
 
   const [{ isDragging }, drag] = useDrag({
     type,
-    item: { index },
+    item: () => ({ index, id }),
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -60,19 +80,18 @@ const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...
   draggable && drag(drop(ref));
 
   return (
-    <Container {...restProps} className={classes} ref={ref} visible={!isDragging}>
+    <Container
+      {...restProps}
+      className={classes}
+      ref={ref}
+      visible={!isDragging}
+      data-handler-id={handlerId}
+    >
       {children}
     </Container>
   );
 };
 
 ListItem.displayName = "ListItem";
-
-export interface ListItemProps {
-  index?: number;
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
-  className?: string;
-}
 
 export default ListItem;

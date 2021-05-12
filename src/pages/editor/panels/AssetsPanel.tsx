@@ -38,14 +38,14 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
     createAsset("component2"),
     createAsset("component3"),
   ];
-  const [components, setCmponents] = useState(sampleData);
+  const [components, setComponents] = useState(sampleData);
   const [selectedId, setSelectedId] = useState("");
 
   function onMove(dragIndex: number, hoverIndex: number) {
     const dragComponent = components[dragIndex];
     components.splice(dragIndex, 1);
     components.splice(hoverIndex, 0, dragComponent);
-    setCmponents([...components]);
+    setComponents([...components]);
   }
 
   return (
