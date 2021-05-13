@@ -1,9 +1,9 @@
-import * as webpack from "webpack";
 import { CleanWebpackPlugin } from "clean-webpack-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
-import { root, src } from "./path";
+import * as webpack from "webpack";
+import { dist, src } from "./path";
 import * as swc from "./swc";
 
 export type Plugin =
@@ -18,7 +18,7 @@ const config: webpack.Configuration = {
   output: {
     chunkFilename: "[name].[fullhash].js",
     filename: "[name].[fullhash].js",
-    path: root("build"),
+    path: dist(),
     publicPath: "/",
   },
   resolve: {
