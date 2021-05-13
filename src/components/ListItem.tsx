@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from "react";
 import styled from "styled-components";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
-import classname from "classnames";
+import classNames from "classnames";
 import { XYCoord } from "dnd-core";
 import { ListContext } from "./List";
 
@@ -14,11 +14,31 @@ interface DragItem {
   type: string;
 }
 
-const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...restProps }) => {
+export interface ListItemProps {
+  index?: number;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  className?: string;
+  id?: string;
+}
+
+const ListItem: React.FC<ListItemProps> = ({
+  children,
+  className,
+  id,
+  index = 0,
+  ...restProps
+}) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { draggable, type = "list", onMove } = useContext(ListContext);
-  const [, drop] = useDrop({
+  const type = "list";
+  const { draggable, onMove } = useContext(ListContext);
+  const [{ handlerId }, drop] = useDrop({
     accept: type,
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
     hover(item: DragItem, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
@@ -49,29 +69,29 @@ const ListItem: React.FC<ListItemProps> = ({ children, className, index = 0, ...
   });
 
   const [{ isDragging }, drag] = useDrag({
-    item: { type, index },
+    type,
+    item: () => ({ index, id }),
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
-  const classes = classname(className);
+  const classes = classNames(className);
   draggable && drag(drop(ref));
 
   return (
-    <Container {...restProps} className={classes} ref={ref} visible={!isDragging}>
+    <Container
+      {...restProps}
+      className={classes}
+      ref={ref}
+      visible={!isDragging}
+      data-handler-id={handlerId}
+    >
       {children}
     </Container>
   );
 };
 
 ListItem.displayName = "ListItem";
-
-export interface ListItemProps {
-  index?: number;
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
-  className?: string;
-}
 
 export default ListItem;

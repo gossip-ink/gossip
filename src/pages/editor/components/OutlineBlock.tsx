@@ -7,7 +7,7 @@ import Block, { BlockProps } from "../../../components/Block";
 import ThumbnailBlock from "./ThumbnailBlock";
 import { tuple } from "../../../utils/type";
 
-const OutlineModes = tuple("collopsed", "normal", "expand");
+const OutlineModes = tuple("collapsed", "normal", "expand");
 type OutlineMode = typeof OutlineModes[number];
 
 const Header = styled.div``;
@@ -30,7 +30,7 @@ const OutlineBlock: React.FC<OutlineBlockProps> = ({
   return (
     <Block {...restProps} className="bg-gray-100">
       <Header>{outlineData.title}</Header>
-      {mode !== "collopsed" && (
+      {mode !== "collapsed" && (
         <Body>
           {outlineData.pageNodes.map((d) => (
             <ThumbnailBlock key={d.id} data={d} width={40} className="float-left mr-2" />
