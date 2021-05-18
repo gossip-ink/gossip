@@ -5,7 +5,9 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development TS_NODE_PROJECT=webpack/tsconfig.json webpack serve --config webpack/webpack.dev.ts",
     "build": "cross-env NODE_ENV=production TS_NODE_PROJECT=webpack/tsconfig.json webpack --config webpack/webpack.prod.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "devDependencies": {
     "@swc/core": "^1.2.55",
@@ -28,6 +30,8 @@
     "css-minimizer-webpack-plugin": "^2.0.0",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "mini-css-extract-plugin": "^1.6.0",
     "plop": "^2.7.4",
     "postcss": "^8.2.14",
@@ -46,6 +50,8 @@
     "webpack-merge": "^5.7.3"
   },
   "dependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -60,5 +66,11 @@
     "react-router-dom": "^5.2.0",
     "react-use": "^17.2.4",
     "styled-components": "^5.3.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
