@@ -70,6 +70,6 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
   );
 };
 
-export interface AssetsPanelProps {}
+export type AssetsPanelProps = {};
 
 export default AssetsPanel;

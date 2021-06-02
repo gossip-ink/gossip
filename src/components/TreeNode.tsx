@@ -11,9 +11,9 @@ const TreeNode: React.FC<TreeNodeProps> = ({ paddingLeft, children, className, .
   );
 };
 
-export interface TreeNodeProps {
+export type TreeNodeProps = {
   paddingLeft?: number | string;
   className?: string;
-}
+};
 
 export default TreeNode;

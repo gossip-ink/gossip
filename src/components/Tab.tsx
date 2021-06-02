@@ -13,7 +13,7 @@ type TabType = typeof TabTypes[number];
 const TabModes = tuple("single", "multiple");
 type TabMode = typeof TabModes[number];
 
-export interface TabProps {
+export type TabProps = {
   type?: TabType;
   defaultActiveIndex?: string;
   onEdit?: (targetKey: string, action: string) => void;
@@ -23,12 +23,12 @@ export interface TabProps {
   expandable?: boolean;
   defaultMode?: TabMode;
   className?: string;
-}
+};
 
-export interface TabConsumerProps {
+export type TabConsumerProps = {
   activeIndex?: string;
   mode?: TabMode;
-}
+};
 
 export const TabContext = createContext<TabConsumerProps>({ activeIndex: "0" });
 
@@ -138,9 +138,9 @@ const InternalTab: React.FC<TabProps> = ({
   );
 };
 
-export interface ExternalTab extends React.FC<TabProps> {
+export type ExternalTab = React.FC<TabProps> & {
   TabPanel: typeof TabPanel;
-}
+};
 
 const Tab = InternalTab as ExternalTab;
 

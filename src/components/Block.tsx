@@ -14,12 +14,12 @@ const Block: React.FC<BlockProps> = ({ selected = false, className, children, ..
   );
 };
 
-export interface BlockProps {
+export type BlockProps = {
   selected?: boolean;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
   onClick?: () => void;
-}
+};
 
 export default Block;

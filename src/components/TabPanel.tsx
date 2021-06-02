@@ -3,11 +3,11 @@ import { TabContext } from "./Tab";
 import styled from "styled-components";
 import classNames from "classnames";
 
-export interface TabPanelProps {
+export type TabPanelProps = {
   label?: string;
   index?: string;
   children?: React.ReactNode;
-}
+};
 
 const Container = styled.div``;
 

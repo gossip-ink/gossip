@@ -41,9 +41,9 @@ const OutlineBlock: React.FC<OutlineBlockProps> = ({
   );
 };
 
-export interface OutlineBlockProps extends BlockProps {
+export type OutlineBlockProps = BlockProps & {
   data?: any;
   mode?: OutlineMode;
-}
+};
 
 export default OutlineBlock;

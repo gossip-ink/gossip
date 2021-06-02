@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export interface ToolbarPanelProps {}
+export type ToolbarPanelProps = {};
 
 const ToolbarPanel: React.FC<ToolbarPanelProps> = (props) => {
   return (
