@@ -25,10 +25,10 @@ const ThumbnailBlock: React.FC<ThumbnailBlockProps> = ({
   );
 };
 
-export interface ThumbnailBlockProps extends BlockProps {
+export type ThumbnailBlockProps = BlockProps & {
   data?: any;
   width?: number;
   ratio?: number;
-}
+};
 
 export default ThumbnailBlock;

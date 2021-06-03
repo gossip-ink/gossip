@@ -12,7 +12,8 @@ const Icon: React.FC<IconProps> = ({ className, selected = true, ...restProps })
 
 Icon.displayName = "Icon";
 
-export interface IconProps extends FontAwesomeIconProps {
+export type IconProps = FontAwesomeIconProps & {
   selected?: boolean;
-}
+};
+
 export default Icon;

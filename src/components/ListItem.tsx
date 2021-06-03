@@ -9,18 +9,18 @@ const Container = styled.div<{ visible: boolean }>`
   opacity: ${(props) => (props.visible ? 1 : 0)};
 `;
 
-interface DragItem {
+type DragItem = {
   index: number;
   type: string;
-}
+};
 
-export interface ListItemProps {
+export type ListItemProps = {
   index?: number;
   children?: React.ReactNode;
   style?: React.CSSProperties;
   className?: string;
   id?: string;
-}
+};
 
 const ListItem: React.FC<ListItemProps> = ({
   children,

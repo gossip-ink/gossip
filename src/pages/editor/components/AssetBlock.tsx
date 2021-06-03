@@ -5,6 +5,6 @@ const AssetBlock: React.FC<AssetBlockProps> = ({ children, ...restProps }) => {
   return <Block {...restProps}>{children}</Block>;
 };
 
-export interface AssetBlockProps extends BlockProps {}
+export type AssetBlockProps = BlockProps & {};
 
 export default AssetBlock;

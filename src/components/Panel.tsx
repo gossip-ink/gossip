@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import styled from "styled-components";
 
-export interface PanelProps {
+export type PanelProps = {
   style?: React.CSSProperties;
   className?: string;
   width?: number;
@@ -12,7 +12,7 @@ export interface PanelProps {
   maxWidth?: number;
   initialWidth?: number;
   onResize?: (width: number) => void;
-}
+};
 
 const Container = styled.div<{ width?: number; drag: boolean }>`
   position: relative;

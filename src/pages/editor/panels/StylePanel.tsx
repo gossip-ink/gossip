@@ -1,6 +1,6 @@
 import React from "react";
 
-export interface StylePanelProps {}
+export type StylePanelProps = {};
 
 const StylePanel: React.FC<StylePanelProps> = (props) => {
   return <h1>StylePanel</h1>;

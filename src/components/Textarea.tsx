@@ -58,9 +58,9 @@ const Textarea: React.FC<TextareaProps> = ({
   );
 };
 
-export interface TextareaProps extends Omit<React.TextareaHTMLAttributes<HTMLElement>, "onChange"> {
+export type TextareaProps = Omit<React.TextareaHTMLAttributes<HTMLElement>, "onChange"> & {
   onChange?: (value: string) => void;
   adaptiveHeight?: boolean;
-}
+};
 
 export default Textarea;

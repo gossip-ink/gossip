@@ -176,5 +176,5 @@ const OutlinePanel: React.FC<OutlinePanelProps> = (props) => {
   );
 };
 
-export interface OutlinePanelProps {}
+export type OutlinePanelProps = {};
 export default OutlinePanel;

@@ -27,9 +27,9 @@ const Tree: React.FC<TreeProps<any>> = ({ data, node, ...restProps }) => {
   );
 };
 
-export interface TreeProps<T> {
+export type TreeProps<T> = {
   node?: React.ReactNode;
   data: TreeNode<T>;
-}
+};
 
 export default Tree;

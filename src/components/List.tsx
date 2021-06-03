@@ -47,22 +47,22 @@ const List = InternalList as ExternalList;
 List.displayName = "List";
 List.ListItem = ListItem;
 
-export interface ExternalList extends React.FC<ListProps> {
+export type ExternalList = React.FC<ListProps> & {
   ListItem: typeof ListItem;
-}
+};
 
-export interface ListConsumerProps {
+export type ListConsumerProps = {
   draggable?: boolean;
   type?: string;
   onMove?: (dragIndex: number, hoverIndex: number) => void;
-}
+};
 
-export interface ListProps {
+export type ListProps = {
   draggable?: boolean;
   className?: string;
   style?: React.CSSProperties;
   children?: React.ReactNode;
   onMove?: (dragIndex: number, hoverIndex: number) => void;
-}
+};
 
 export default List;
