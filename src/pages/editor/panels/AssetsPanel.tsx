@@ -53,9 +53,8 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
     <Container className="w-full">
       <Popover triggerAction="click" content={<div>hello popover</div>} full>
         <Search className="p-2">
-          <Icon icon="search" />
           <input
-            className="bg-transparent ml-2 placeholder-gray-400 w-full"
+            className="bg-transparent placeholder-gray-400 w-full"
             placeholder="Search"
           ></input>
         </Search>

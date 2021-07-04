@@ -63,6 +63,10 @@ const Popover: React.FC<PopoverProps> = ({
     return () => window.removeEventListener("click", onclick);
   });
 
+  useEffect(() => {
+    setPoint(calculatePoint());
+  }, [rect.clientLeft, rect.clientTop, rect.clientWidth, rect.clientHeight]);
+
   function shouldShowWhen(action: TriggerAction) {
     if (visible !== undefined) return false;
     if (typeof triggerAction === "string" && triggerAction === action) return true;
