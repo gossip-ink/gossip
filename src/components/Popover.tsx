@@ -183,7 +183,8 @@ const Popover: React.FC<PopoverProps> = ({
         y={point.pageY}
         width={full ? clientWidth : undefined}
         onMouseEnter={() => setPopupVisible(true)}
-        onMouseLeave={() => triggerAction === "hover" && setPopupVisible(false)}
+        onMouseLeave={() => shouldShowWhen("hover") && setPopupVisible(false)}
+        onClick={(e) => shouldShowWhen("click") && e.stopPropagation()}
       >
         {content}
       </Popup>
