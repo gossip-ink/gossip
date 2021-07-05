@@ -1,7 +1,7 @@
-import { useMeasure } from "react-use";
-import React, { useState, useEffect, useRef } from "react";
+import { useMeasure as useContentMeasure } from "react-use";
+import { useState, useEffect, useRef } from "react";
 
-type ClientRect = {
+export type ClientRect = {
   clientLeft: number;
   clientRight: number;
   clientTop: number;
@@ -10,8 +10,17 @@ type ClientRect = {
   clientHeight: number;
 };
 
-export default function () {
-  const [ref, rect] = useMeasure();
+export type ContentRect = Pick<
+  DOMRectReadOnly,
+  "x" | "y" | "top" | "left" | "right" | "bottom" | "height" | "width"
+>;
+
+export type UseMeasureRect = ClientRect & ContentRect;
+
+export type UseMeasureRef = (element: Element) => void;
+
+export default function useMeasure(): [UseMeasureRef, UseMeasureRect] {
+  const [ref, rect] = useContentMeasure();
   const elementRef = useRef<Element>();
   const [clientRect, setClientRect] = useState<ClientRect>({
     clientBottom: 0,
@@ -43,5 +52,5 @@ export default function () {
     });
   }, [rect]);
 
-  return { ref: newRef, rect: { ...rect, ...clientRect } };
+  return [newRef, { ...rect, ...clientRect }];
 }
