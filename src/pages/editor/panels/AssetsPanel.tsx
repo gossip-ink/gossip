@@ -7,6 +7,7 @@ import { TextNode, NodeType } from "../../../models/node";
 import Icon from "../../../components/Icon";
 import List from "../../../components/List";
 import AssetBlock from "../components/AssetBlock";
+import Popover from "../../../components/Popover";
 
 const { ListItem } = List;
 
@@ -16,8 +17,8 @@ const Search = styled.div`
   display: flex;
   align-items: center;
 
-  & > input:focus,
-  & > input {
+  & input:focus,
+  & input {
     border-width: 0;
     outline: none;
   }
@@ -50,13 +51,14 @@ const AssetsPanel: React.FC<AssetsPanelProps> = (props) => {
 
   return (
     <Container className="w-full">
-      <Search className="p-2">
-        <Icon icon="search" />
-        <input
-          className="bg-transparent ml-2 placeholder-gray-400 w-full"
-          placeholder="Search"
-        ></input>
-      </Search>
+      <Popover triggerAction="click" content={<div>hello popover</div>} full>
+        <Search className="p-2">
+          <input
+            className="bg-transparent placeholder-gray-400 w-full"
+            placeholder="Search"
+          ></input>
+        </Search>
+      </Popover>
       <List draggable={true} onMove={onMove}>
         {components.map((d, index) => (
           <ListItem key={d.id}>
