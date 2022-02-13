@@ -134,6 +134,11 @@ export default connect(
           onClick: () => setLang("zh"),
           icon: "transaction",
         },
+        {
+          name: locales.LANG_ESP[lang],
+          onClick: () => setLang("esp"),
+          icon: "dollar",
+        },
       ],
     },
   ];
