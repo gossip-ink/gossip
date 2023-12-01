@@ -1,4 +1,4 @@
-# Gossip 1.0
+# Gossip
 
 Gossip is an online user interface to efficiently author and delivery beautiful and enlightening presentations. If you are in China, you can try it [here](https://pearmini.gitee.io/gossip/), otherwise [here](https://pearmini.github.io/gossip/). Please use Chrome, Firefox, or Safari for a better experience.
 
