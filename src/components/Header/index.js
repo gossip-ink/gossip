@@ -160,7 +160,7 @@ export default connect(
   }
 
   function gotoGithub() {
-    const url = "https://github.com/pearmini/gossip";
+    const url = "https://github.com/gossip-ink/gossip";
     window.open(url);
   }
 

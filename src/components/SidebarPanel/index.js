@@ -27,7 +27,7 @@ export default connect(({ global }) => ({
       onSwitch={() => setTree(!tree)}
       name={name}
       closable={false}
-      url="https://github.com/pearmini/gossip#organizing-outline-and-thumbnails"
+      url="https://github.com/gossip-ink/gossip#organizing-outline-and-thumbnails"
     >
       {tree ? (
         <Outline {...props.outline} />

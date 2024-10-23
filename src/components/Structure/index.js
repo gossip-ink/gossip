@@ -160,7 +160,7 @@ export default connect(
       nodata={nodes.length === 0}
       nodataInfo={locales.NO_SELECTED_SLICE[lang]}
       name="structure"
-      url="https://github.com/pearmini/gossip#composning-main-and-element"
+      url="https://github.com/gossip-ink/gossip#composning-main-and-element"
     >
       <div style={styles.tree}>
         {nodes.map((item) => (

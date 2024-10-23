@@ -116,7 +116,7 @@ export default connect(
       nodata: ideas.length === 0,
       nodataInfo: locales.NO_IDEA[lang],
       url:
-        "https://github.com/pearmini/gossip#generating-idea",
+        "https://github.com/gossip-ink/gossip#generating-idea",
     },
   };
 
