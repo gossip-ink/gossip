@@ -88,7 +88,7 @@ export default connect(
       nodata={variables.length === 0}
       nodataInfo={locales.NO_VARIABLE[lang]}
       name="vari"
-      url="https://github.com/pearmini/gossip#revising-style-and-variable"
+      url="https://github.com/gossip-ink/gossip#revising-style-and-variable"
     >
       {variables.map((item) => (
         <div

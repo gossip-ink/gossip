@@ -201,7 +201,7 @@ export default connect(
       nodataInfo={locales.NO_SELECTED_COMPONENT[lang]}
       nodata={attrs.length === 0}
       name="attr"
-      url="https://github.com/pearmini/gossip#revising-style-and-variable"
+      url="https://github.com/gossip-ink/gossip#revising-style-and-variable"
     >
       <ul className={classNames.container}>
         {attrs.map((item, index) => {

@@ -23,7 +23,7 @@ export default connect(
   width,
   onSwitch,
   nodataInfo = locales.NO_DATA[lang],
-  url = "https://github.com/pearmini/gossip/",
+  url = "https://github.com/gossip-ink/gossip/",
   toggleShow,
   vis,
   name,

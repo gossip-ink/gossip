@@ -23,7 +23,7 @@ export default connect(({ global }) => ({
         <Icon
           className={classNames.icon}
           type="github"
-          onClick={() => window.open("https://github.com/pearmini/gossip")}
+          onClick={() => window.open("https://github.com/gossip-ink/gossip")}
         />
       </header>
       <div className={classNames.content} style={styles.content}>

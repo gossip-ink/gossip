@@ -1117,7 +1117,7 @@
           "children": [
             {
               "id": "text21584426591329",
-              "value": "有遇见的问题、bug 以及想要的功能都可以联系我。\n了解更多：https://github.com/pearmini/gossip",
+              "value": "有遇见的问题、bug 以及想要的功能都可以联系我。\n了解更多：https://github.com/gossip-ink/gossip",
               "type": "text",
               "attrs": {
                 "fontSize": "$4",
