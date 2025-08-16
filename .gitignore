@@ -3,3 +3,4 @@
 .umi
 dist
 node_modules
+.yarn
