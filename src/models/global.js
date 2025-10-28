@@ -388,6 +388,10 @@ export default {
         zh: "介绍...",
         en: "Say something...",
       },
+      AI_ASSISTANT: {
+        zh: "AI助手",
+        en: "AI Assistant",
+      },
     },
   },
   effects: {

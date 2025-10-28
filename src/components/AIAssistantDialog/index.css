@@ -1,0 +1,35 @@
+.ai-response-content {
+  background: #f5f5f5;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 16px;
+  max-height: 300px;
+  overflow-y: auto;
+  line-height: 1.8;
+}
+
+.ai-response-content pre {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.ai-response-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.ai-response-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.ai-response-content::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 4px;
+}
+
+.ai-response-content::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
