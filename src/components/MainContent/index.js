@@ -2,7 +2,8 @@ import classNames from "./index.css";
 import Slide from "../Slide";
 import Idea from "../Idea";
 import Box from "../Box";
-import { useEffect } from "react";
+import AIAssistantDialog from "../AIAssistantDialog";
+import { useEffect, useState } from "react";
 import { connect } from "dva";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { Icon, Button } from "antd";
@@ -30,6 +31,10 @@ export default connect(
       type: "slides/addIdea",
       payload: { type },
     }),
+    addIdeaWithValue: (payload) => ({
+      type: "slides/addIdeaWithValue",
+      payload,
+    }),
   }
 )(function({
   lang,
@@ -47,6 +52,7 @@ export default connect(
   show,
   ideas,
   addIdea,
+  addIdeaWithValue,
 }) {
   const { height: wh, width: ww } = useWindowSize();
   const content = components.find((v) => v.id === selectedId);
@@ -56,6 +62,8 @@ export default connect(
     slideH = wh * scale,
     ideaH = 180;
   if (ratio !== scale) setScale(ratio);
+
+  const [aiDialogVisible, setAiDialogVisible] = useState(false);
 
   const items = [
     { icon: "font-size", value: locales.THOUGHT_TEXT[lang], type: "text" },
@@ -117,6 +125,8 @@ export default connect(
       nodataInfo: locales.NO_IDEA[lang],
       url:
         "https://github.com/gossip-ink/gossip#generating-idea",
+      aiAssistant: true,
+      onAiClick: () => setAiDialogVisible(true),
     },
   };
 
@@ -126,6 +136,28 @@ export default connect(
     a.onclick = () => false;
     a.click();
   }
+
+  const handleAiInsert = (content) => {
+    // 将AI返回的内容按行分割，每条作为独立的想法插入
+    const lines = content
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line && !line.startsWith('#') && line.length > 0);
+
+    if (lines.length === 0) return;
+
+    // 为每一行创建一个文本类型的想法
+    lines.forEach(line => {
+      const id = Date.now() + Math.random();
+      addIdeaWithValue({
+        id,
+        type: 'text',
+        value: line,
+      });
+    });
+
+    setAiDialogVisible(false);
+  };
 
   useEffect(
     () => {
@@ -171,6 +203,11 @@ export default connect(
           ))}
         </div>
       </Box>
+      <AIAssistantDialog
+        visible={aiDialogVisible}
+        onCancel={() => setAiDialogVisible(false)}
+        onInsert={handleAiInsert}
+      />
     </div>
   );
 });

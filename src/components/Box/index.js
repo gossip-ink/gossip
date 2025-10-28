@@ -28,6 +28,7 @@ export default connect(
   vis,
   name,
   closable = true,
+  ...props
 }) {
   const [show, setShow] = useState(false);
   const styles = {
@@ -74,6 +75,21 @@ export default connect(
             </div>
             <div>
               {onSwitch && <Switch defaultChecked onChange={onSwitch} />}
+              {props.aiAssistant && (
+                <Button
+                  className={classNames.rightBtn}
+                  icon="thunderbolt"
+                  type="default"
+                  shape="circle"
+                  size="small"
+                  onClick={(e) => {
+                    props.onAiClick && props.onAiClick();
+                    e.stopPropagation();
+                  }}
+                  title={locales.AI_ASSISTANT?.[lang] || "AI助手"}
+                  style={{ marginRight: name === 'idea' ? 8 : 0 }}
+                />
+              )}
               {popover && (
                 <Popover
                   content={popover}

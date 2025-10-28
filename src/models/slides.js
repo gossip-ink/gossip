@@ -62,6 +62,18 @@ export default {
       return state;
     },
 
+    addIdeaWithValue(state, action) {
+      const { id, type, value } = action.payload;
+      const idea = {
+        id,
+        type,
+        value,
+      };
+      state.ideas.push(idea);
+      state.selectedIdea = id;
+      return state;
+    },
+
     saveIdea(state, action) {
       const { id, value } = action.payload;
       const idea = state.ideas.find((item) => item.id === id);
