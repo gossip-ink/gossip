@@ -42,7 +42,7 @@ Past research analyzed several models of authoring text and identified four comm
 
 **The generating component is where ideas are collected and recorded.** These ideas can come from the author's introspection or external sources.
 
-When using traditional presentation software, there's no place for presenters to collect and record ideas, they must use other related software to do so. But there is an *Idea panel* in Gossip where users can collect and record scattered ideas at the first stage of creating a presentation.
+When using traditional presentation software, there's no place for presenters to collect and record ideas, they must use other related software to do so. But there is an _Idea panel_ in Gossip where users can collect and record scattered ideas at the first stage of creating a presentation.
 
 ![Idea panel](./screenshots/idea.png)
 
@@ -56,11 +56,11 @@ Ideas can be text, image, or even code.
 
 Most tools allow presenters to organize slides in a linear fashion, which is hard to understand or change the latent hierarchical relations among them. Some tools enable users to order hierarchical structures, such as [Keynote](https://www.apple.com/keynote/) or [Prezi](https://prezi.com/), but they are still not good enough.
 
-In Gossip, there is an *Outline panel* to help presenters to make a clear hierarchy efficiently. Also a *Thumbnail panel* is provided to preview the whole presentation.
+In Gossip, there is an _Outline panel_ to help presenters to make a clear hierarchy efficiently. Also a _Thumbnail panel_ is provided to preview the whole presentation.
 
 <img src="./screenshots/outline.png" height="300px">&emsp;<img src="./screenshots/thumbnail.png" height="300px">
 
-In the *Outline panel*, when the presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
+In the _Outline panel_, when the presenter creates a new point node, Gossip will automatically create a slide for it. And users can simply drag a node to modify the linear order or hierarchical structure of the presentation rather than dragging many nodes for a slight change.
 
 ![outline](./screenshots/outline.gif)
 
@@ -70,11 +70,11 @@ In the *Outline panel*, when the presenter creates a new point node, Gossip will
 
 At this stage, it often requires a lot of drag and aligns operations to set the right position or size of each element (text, image, etc.) which is very time-consuming and annoying. This is because there are no constraints between elements which means users have to layout every element manually.
 
-But it is possible to add constraints for elements according to the logical structure, so Gossip allows the user to organize elements in a hierarchical structure in the *Element panel* and changes there will be reflected in the *Maini panel*.
+But it is possible to add constraints for elements according to the logical structure, so Gossip allows the user to organize elements in a hierarchical structure in the _Element panel_ and changes there will be reflected in the _Maini panel_.
 
 <img src="./screenshots/element.png" height="300px">
 
-With the help of **[CSS Flexible Box Layout](https://en.wikipedia.org/wiki/CSS_Flexible_Box_Layout)**, Gossip provides the *container* element to manage other elements, such as texts, images, container, etc. Users can add elements to the container and specify their arrangement(horizontal or vertical) and proportion(1:1 or 1:3).
+With the help of **[CSS Flexible Box Layout](https://en.wikipedia.org/wiki/CSS_Flexible_Box_Layout)**, Gossip provides the _container_ element to manage other elements, such as texts, images, container, etc. Users can add elements to the container and specify their arrangement(horizontal or vertical) and proportion(1:1 or 1:3).
 
 One of the main advantages is that for each element, Gossip will automatically set the proper position or size of it according to its container's styles(padding, direction, etc.) and the other elements in that container. The other one is that users can operate a group of elements rather than just one each time.
 
@@ -84,7 +84,7 @@ One of the main advantages is that for each element, Gossip will automatically s
 
 **Lastly, the revision stage involves reviewing the work, adding new ideas, and fixing inconsistencies with the original organization.**
 
-The features introduced above already have shown that it is pretty easy to add, delete, edit each slide, and adjust the structure of the whole presentation in Gossip. Those are related to the content of the presentation, but there is also a need to make change styles easy. To solve this problem, Gossip offers a *Style* and *Variable panel* to presenters.
+The features introduced above already have shown that it is pretty easy to add, delete, edit each slide, and adjust the structure of the whole presentation in Gossip. Those are related to the content of the presentation, but there is also a need to make change styles easy. To solve this problem, Gossip offers a _Style_ and _Variable panel_ to presenters.
 
 <img src="./screenshots/style.png" height="300px">&emsp;<img src="./screenshots/variable.png" height="300px">
 
@@ -94,17 +94,17 @@ For those elements which tend to have the same or similar styles, such as the fo
 
 ## Delivery a presentation
 
-To hold the audience's interests and help the presenter communicate the structure of a presentation to the audience, Gossip uses some cool but meaningful switch animation and a *Word Cloud* mode for the overview.
+To hold the audience's interests and help the presenter communicate the structure of a presentation to the audience, Gossip uses some cool but meaningful switch animation and a _Word Cloud_ mode for the overview.
 
 ### Switch animation: Zoom in, Zoom out, Rotate
 
-The *Zoom in animation* will remind the audience of a big point to a small point. And *Zoom out animation* is for a small point to a big point. If the two points are at the same level, it will be the *Rotate animation*.
+The _Zoom in animation_ will remind the audience of a big point to a small point. And _Zoom out animation_ is for a small point to a big point. If the two points are at the same level, it will be the _Rotate animation_.
 
 <img src="./screenshots/zoom_in.gif" width="220px">&emsp;<img src="./screenshots/zoom_out.gif" width="220px">&emsp;<img src="./screenshots/rotate.gif" width="220px">
 
 ### Overview: Word Cloud mode
 
-*Word Cloud* mode uses a traditional word cloud algorithm to layout each slide. As a result, the audience can quickly familiarize or review the general content of the entire presentation. It is also helpful when the audience asks the presenter a question about a specific slide because the presenter needn't scroll the mouse wheel to find the specific slide.
+_Word Cloud_ mode uses a traditional word cloud algorithm to layout each slide. As a result, the audience can quickly familiarize or review the general content of the entire presentation. It is also helpful when the audience asks the presenter a question about a specific slide because the presenter needn't scroll the mouse wheel to find the specific slide.
 
 ![overview](./screenshots/overview.gif)
 
@@ -133,7 +133,7 @@ If you like Gossip, not only can you give it a star, you can also do the followi
 - Join [Telegram](https://t.me/joinchat/S4-TmBwTcGFnmSYM0gxsdw) to discuss.
 - Give us the slides you made by Gossip and we will display some of them.
 - Fill out the [questionnaire](https://www.wjx.cn/jq/77277467.aspx).
-  
+
 ## Tech stack
 
 - [React](https://reactjs.org/)
