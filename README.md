@@ -26,15 +26,23 @@ pnpm build
 
 ### Cloudflare Pages
 
-pnpm installs dependencies automatically (`pnpm-lock.yaml`). You **must** change the Pages **Build command** in the dashboard — `yarn build` will not work with this repo.
+pnpm installs dependencies automatically (`pnpm-lock.yaml`). The dashboard **cannot** keep `yarn build` — Corepack blocks it when this repo uses pnpm.
 
-1. Open **Workers & Pages** → **gossip** → **Settings** → **Build**
-2. Set **Build command** to one of:
-   - `pnpm run build` (recommended)
-   - `npm run build`
-   - `npx umi build` (Umi [framework preset](https://developers.cloudflare.com/pages/configuration/build-configuration/))
-3. Set **Build output directory** to `dist` (also in `wrangler.toml`)
-4. Save and redeploy
+**One-time fix** in the Cloudflare dashboard:
+
+1. **Workers & Pages** → **gossip** → **Settings** → **Build** → **Build configuration** → **Edit**
+2. Replace **Build command** `yarn build` with exactly:
+
+   ```bash
+   bash build.sh
+   ```
+
+   (Or use `pnpm run build` — same effect.)
+
+3. **Build output directory**: `dist`
+4. **Save** and redeploy
+
+`build.sh` runs `pnpm run build` after Cloudflare’s `pnpm install` step.
 
 ## Why bother?
 
