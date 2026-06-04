@@ -16,6 +16,18 @@ Presentation is an excellent way of telling and sharing stories, and gossip is o
 
 There is a [tutorial in Chinese](./docs/tutorials.zh-CN.md) to help you with all the techniques you need to know to create and deliver presentations by Gossip. And there is an upcoming tutorial in English.
 
+### Local development
+
+```bash
+pnpm install
+pnpm start
+pnpm build
+```
+
+### Cloudflare Pages
+
+After migrating to pnpm, update the Pages project **Build command** from `yarn build` to **`pnpm build`** (or `npm run build`). Set **Build output directory** to `dist`. See `wrangler.toml` for the output path.
+
 ## Why bother?
 
 Gossip is inspired by [impress.js](https://github.com/impress/impress.js). Although impress.js is impressive, it is also hard to use because you must code... In the meantime, existing tools to author and delivery presentation do have some problems which can't be ignored.
