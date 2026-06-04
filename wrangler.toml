@@ -1,5 +1,5 @@
-# Cloudflare Pages — set build command in the dashboard to: pnpm build
-# (or: npm run build). Do not use "yarn build" after migrating to pnpm.
+# Cloudflare Pages — dashboard build command: yarn build (Yarn 1.22)
+# Dependencies install via pnpm (pnpm-lock.yaml).
 name = "gossip"
 compatibility_date = "2024-06-01"
 pages_build_output_dir = "./dist"

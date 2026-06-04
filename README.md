@@ -18,15 +18,21 @@ There is a [tutorial in Chinese](./docs/tutorials.zh-CN.md) to help you with all
 
 ### Local development
 
+Dependencies are installed with **pnpm** (`pnpm-lock.yaml`). The `packageManager` field is set to Yarn 1.22 so Cloudflare Pages can keep using `yarn build` in the dashboard.
+
 ```bash
-pnpm install
+COREPACK_ENABLE_STRICT=0 pnpm install
 pnpm start
 pnpm build
 ```
 
+(`COREPACK_ENABLE_STRICT=0` is only needed because Corepack otherwise insists on Yarn for installs.)
+
 ### Cloudflare Pages
 
-After migrating to pnpm, update the Pages project **Build command** from `yarn build` to **`pnpm build`** (or `npm run build`). Set **Build output directory** to `dist`. See `wrangler.toml` for the output path.
+- **Install**: pnpm (auto-detected from `pnpm-lock.yaml`)
+- **Build command** (dashboard): `yarn build` (uses Yarn 1.22 via Corepack / `.yarnrc`)
+- **Build output directory**: `dist` (also set in `wrangler.toml`)
 
 ## Why bother?
 
