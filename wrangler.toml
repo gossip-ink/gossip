@@ -1,5 +1,4 @@
-# Cloudflare Pages — dashboard build command: yarn build (Yarn 1.22)
-# Dependencies install via pnpm (pnpm-lock.yaml).
+# Cloudflare Pages (see README for build command — must not be "yarn build")
 name = "gossip"
 compatibility_date = "2024-06-01"
 pages_build_output_dir = "./dist"

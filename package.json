@@ -1,7 +1,7 @@
 {
   "name": "gossip",
   "private": true,
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "pnpm@9.10.0",
   "engines": {
     "node": ">=16"
   },
