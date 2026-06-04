@@ -3,3 +3,6 @@
 .umi
 dist
 node_modules
+pnpm-debug.log*
+.yarn
+.yarnrc.yml

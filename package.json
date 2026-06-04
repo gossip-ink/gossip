@@ -1,24 +1,29 @@
 {
   "name": "gossip",
+  "private": true,
+  "packageManager": "pnpm@9.10.0",
+  "engines": {
+    "node": ">=16"
+  },
   "devDependencies": {
-    "gh-pages": "^3.1.0",
-    "umi": "^2.12.7",
-    "umi-plugin-react": "^1.14.9"
+    "gh-pages": "^6.2.0",
+    "umi": "^2.13.18",
+    "umi-plugin-react": "^1.15.9"
   },
   "dependencies": {
     "@ant-design/icons": "^2.1.1",
-    "antd": "^3",
-    "d3-array": "^2.4.0",
-    "d3-scale": "^3.2.1",
+    "antd": "^3.26.20",
+    "d3-array": "^2.12.1",
+    "d3-scale": "^3.3.0",
     "dva": "^2.4.1",
-    "file-saver": "^2.0.2",
-    "react": "^16.12.0",
-    "react-color": "^2.18.0",
-    "react-use": "^13.27.0"
+    "file-saver": "^2.0.5",
+    "react": "^16.14.0",
+    "react-color": "^2.19.3",
+    "react-use": "^15.3.8"
   },
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
-    "deploy": "umi build && gh-pages -d dist && gh-pages -d dist -b master -o gitee"
+    "start": "NODE_OPTIONS=--openssl-legacy-provider umi dev",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider umi build",
+    "deploy": "pnpm run build && gh-pages -d dist && gh-pages -d dist -b master -o gitee"
   }
 }
