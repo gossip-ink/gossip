@@ -24,26 +24,6 @@ pnpm start
 pnpm build
 ```
 
-### Cloudflare Pages
-
-pnpm installs dependencies automatically (`pnpm-lock.yaml`). The dashboard **cannot** keep `yarn build` — Corepack blocks it when this repo uses pnpm.
-
-**One-time fix** in the Cloudflare dashboard:
-
-1. **Workers & Pages** → **gossip** → **Settings** → **Build** → **Build configuration** → **Edit**
-2. Replace **Build command** `yarn build` with exactly:
-
-   ```bash
-   bash build.sh
-   ```
-
-   (Or use `pnpm run build` — same effect.)
-
-3. **Build output directory**: `dist`
-4. **Save** and redeploy
-
-`build.sh` runs `pnpm run build` after Cloudflare’s `pnpm install` step.
-
 ## Why bother?
 
 Gossip is inspired by [impress.js](https://github.com/impress/impress.js). Although impress.js is impressive, it is also hard to use because you must code... In the meantime, existing tools to author and delivery presentation do have some problems which can't be ignored.
